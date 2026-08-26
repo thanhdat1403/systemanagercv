@@ -4,8 +4,8 @@ package systemanagercv.example.systemanagercv.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import systemanagercv.example.systemanagercv.entity.User;
-import systemanagercv.example.systemanagercv.entity.UserRole;
+import systemanagercv.example.systemanagercv.user.entity.User;
+import systemanagercv.example.systemanagercv.role.entity.UserRole;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

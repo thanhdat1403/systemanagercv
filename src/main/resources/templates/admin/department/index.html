@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/fragments/head :: head"></head>
+
+<body>
+
+<section id="container">
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <header th:replace="admin/fragments/header :: header"></header>
+
+    <!-- ===================================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================================== -->
+
+    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
+    <!-- ===================================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================================== -->
+
+    <section id="main-content">
+
+        <section class="wrapper category-page">
+
+            <!-- ================================================= -->
+            <!-- DEPARTMENT CONTAINER -->
+            <!-- ================================================= -->
+
+            <div class="category-container">
+
+                <!-- ================================================= -->
+                <!-- PAGE HEADER -->
+                <!-- ================================================= -->
+
+                <div class="category-page-header">
+
+                    <div class="category-page-title">
+
+                        <div class="category-title-icon">
+                            <i class="fa fa-building"></i>
+                        </div>
+
+                        <div class="category-title-content">
+
+                            <h3>
+                                Danh sách phòng ban
+                            </h3>
+
+                            <p>
+                                Quản lý các phòng ban
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Tổng số department -->
+
+                    <div class="category-total-box">
+
+                        <div class="category-total-icon">
+                            <i class="fa fa-building"></i>
+                        </div>
+
+                        <div class="category-total-content">
+
+                            <span>Tổng số: </span>
+
+                            <strong
+                                    th:text="${totalItems != null ? totalItems : 0}">
+                                0
+                            </strong>
+
+                            <small>phòng ban</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- CONTENT -->
+                <!-- ================================================= -->
+
+                <div class="category-content">
+
+
+                    <!-- ================================================= -->
+                    <!-- SEARCH AREA -->
+                    <!-- ================================================= -->
+
+                    <div class="category-search">
+
+                        <form th:action="@{/admin/department}"
+                              method="get"
+                              class="category-search-form">
+
+                            <!-- Ô tìm kiếm -->
+
+                            <div class="category-search-input">
+
+                                <i class="fa fa-search"></i>
+
+                                <input type="text"
+                                       name="keyword"
+                                       class="form-control"
+                                       placeholder="Nhập mã hoặc tên phòng ban cần tìm..."
+                                       th:value="${keyword}">
+
+                            </div>
+
+
+                            <!-- Nút tìm kiếm -->
+
+                            <button type="submit"
+                                    class="category-btn category-btn-search">
+
+                                <i class="fa fa-search"></i>
+
+                                Tìm kiếm
+
+                            </button>
+
+
+                            <!-- Nút làm mới -->
+
+                            <a th:href="@{/admin/department}"
+                               class="category-btn category-btn-refresh">
+
+                                <i class="fa fa-refresh"></i>
+
+                                Làm mới
+
+                            </a>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- TABLE -->
+                    <!-- ================================================= -->
+
+                    <div class="category-table-wrapper">
+
+                        <table class="category-table">
+
+                            <!-- ================================================= -->
+                            <!-- TABLE HEADER -->
+                            <!-- ================================================= -->
+
+                            <thead>
+
+                            <tr>
+
+                                <!-- STT -->
+
+                                <th class="category-col-stt">
+                                    STT
+                                </th>
+
+
+                                <!-- MÃ PHÒNG BAN -->
+
+                                <th class="category-col-code">
+                                    Mã phòng ban
+                                </th>
+
+
+                                <!-- TÊN PHÒNG BAN -->
+
+                                <th class="category-col-name">
+                                    Tên phòng ban
+                                </th>
+
+
+                                <!-- MÔ TẢ -->
+
+                                <th class="category-col-description">
+                                    Mô tả
+                                </th>
+
+
+                                <!-- TRẠNG THÁI -->
+
+                                <th class="category-col-status">
+                                    Trạng thái
+                                </th>
+
+
+                                <!-- NGÀY TẠO -->
+
+                                <th class="category-col-created">
+                                    Ngày tạo
+                                </th>
+
+
+                                <!-- THAO TÁC -->
+
+                                <th class="category-col-action">
+                                    Thao tác
+                                </th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <!-- ================================================= -->
+                            <!-- TABLE BODY -->
+                            <!-- ================================================= -->
+
+                            <tbody>
+
+
+                            <!-- ================================================= -->
+                            <!-- CÓ DỮ LIỆU -->
+                            <!-- ================================================= -->
+
+                            <tr th:each="department, stat : ${list}">
+
+
+                                <!-- STT -->
+
+                                <td class="category-col-stt">
+                                    <span class="category-stt"
+                                          th:text="${(currentPage - 1) * pageSize + stat.index + 1}">
+                                        1
+                                    </span>
+                                </td>
+
+
+                                <!-- MÃ PHÒNG BAN -->
+
+                                <td class="category-col-code">
+
+                                    <span class="category-code"
+                                          th:text="${department.code}">
+
+                                        PB001
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- TÊN PHÒNG BAN -->
+
+                                <td class="category-col-name">
+
+                                    <div class="category-name">
+
+                                        <span class="category-name-icon">
+
+                                            <i class="fa fa-building"></i>
+
+                                        </span>
+
+                                        <span class="category-name-text"
+                                              th:text="${department.name}">
+
+                                            Phòng Nhân sự
+
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- MÔ TẢ -->
+
+                                <td class="category-col-description">
+
+                                    <span class="category-description"
+                                          th:text="${department.description != null and !#strings.isEmpty(department.description)
+                                          ? department.description
+                                          : 'Chưa có mô tả'}">
+
+                                        Chưa có mô tả
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- TRẠNG THÁI -->
+
+                                <td class="category-col-status">
+
+
+                                    <!-- ĐANG HOẠT ĐỘNG -->
+
+                                    <span th:if="${department.status == 'ACTIVE'}"
+                                          class="category-status category-status-active">
+
+                                        <i class="fa fa-check-circle"></i>
+
+                                        Hoạt động
+
+                                    </span>
+
+
+                                    <!-- KHÔNG HOẠT ĐỘNG -->
+
+                                    <span th:unless="${department.status == 'ACTIVE'}"
+                                          class="category-status category-status-inactive">
+
+                                        <i class="fa fa-times-circle"></i>
+
+                                        Không hoạt động
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- NGÀY TẠO -->
+
+                                <td class="category-col-created">
+
+                                    <span class="category-created"
+                                          th:text="${department.createdAt != null
+                                          ? #temporals.format(department.createdAt, 'dd/MM/yyyy HH:mm')
+                                          : '---'}">
+
+                                        24/08/2026 10:30
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- THAO TÁC -->
+
+                                <td class="category-col-action">
+
+                                    <div class="category-action-buttons">
+
+
+                                        <!-- SỬA -->
+
+                                        <a th:href="@{/admin/department/edit/{id}(id=${department.id})}"
+                                           class="category-action category-action-edit"
+                                           title="Sửa phòng ban">
+
+                                            <i class="fa fa-pencil"></i>
+
+                                            <span>Sửa</span>
+
+                                        </a>
+
+
+                                        <!-- XÓA -->
+
+                                        <a th:href="@{/admin/department/delete/{id}(id=${department.id})}"
+                                           class="category-action category-action-delete"
+                                           title="Xóa phòng ban"
+                                           onclick="return confirm('Bạn có chắc chắn muốn xóa phòng ban này không?');">
+
+                                            <i class="fa fa-trash"></i>
+
+                                            <span>Xóa</span>
+
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- ================================================= -->
+                            <!-- KHÔNG CÓ DỮ LIỆU -->
+                            <!-- ================================================= -->
+
+                            <tr th:if="${list == null or #lists.isEmpty(list)}">
+
+                                <td colspan="7">
+
+                                    <div class="category-empty">
+
+                                        <div class="category-empty-icon">
+
+                                            <i class="fa fa-building-o"></i>
+
+                                        </div>
+
+                                        <h4>
+                                            Không có phòng ban
+                                        </h4>
+
+                                        <p>
+                                            Chưa có phòng ban nào trong hệ thống.
+                                        </p>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- Phân trang -->
+                    <!-- ================================================= -->
+
+                    <div class="category-pagination">
+
+                        <!-- Thông tin trang -->
+
+                        <div class="category-pagination-info">
+
+                            Trang
+
+                            <strong th:text="${currentPage != null ? currentPage : 1}">
+                                1
+                            </strong>
+
+                            /
+
+                            <strong th:text="${totalPages != null and totalPages > 0 ? totalPages : 1}">
+                                1
+                            </strong>
+
+                        </div>
+
+
+                        <!-- Nút phân trang -->
+
+                        <div class="category-pagination-buttons">
+
+                            <!-- ================================= -->
+                            <!-- PREVIOUS -->
+                            <!-- ================================= -->
+
+                            <a th:if="${currentPage != null and currentPage > 1}"
+                               th:href="@{/admin/department(
+                                   pageNo=${currentPage - 1},
+                                   keyword=${keyword}
+                               )}"
+                               class="pagination-button">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                            <!-- Không có trang trước -->
+
+                            <span th:if="${currentPage == null or currentPage <= 1}"
+                                  class="pagination-button pagination-disabled">
+                                <i class="fa fa-angle-left"></i>
+                            </span>
+
+
+                            <!-- ================================= -->
+                            <!-- PAGE NUMBERS -->
+                            <!-- ================================= -->
+
+                            <th:block th:if="${totalPages != null and totalPages > 0}">
+                                <a th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                                   th:href="@{/admin/department(
+                                       pageNo=${pageNumber},
+                                       keyword=${keyword}
+                                   )}"
+                                   th:text="${pageNumber}"
+                                   th:classappend="${currentPage == pageNumber} ? ' pagination-active'"
+                                   class="pagination-button">
+
+                                    1
+
+                                </a>
+                            </th:block>
+
+
+                            <!-- ================================= -->
+                            <!-- NEXT -->
+                            <!-- ================================= -->
+
+                            <a th:if="${totalPages != null
+                                      and currentPage != null
+                                      and currentPage < totalPages}"
+                               th:href="@{/admin/department(
+                                   pageNo=${currentPage + 1},
+                                   keyword=${keyword}
+                               )}"
+                               class="pagination-button">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+
+                            <!-- Không có trang sau -->
+                            <span th:if="${totalPages == null
+                                          or totalPages <= 1
+                                          or currentPage == null
+                                          or currentPage >= totalPages}"
+                                  class="pagination-button pagination-disabled">
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- FOOTER -->
+            <!-- ================================================= -->
+
+            <div th:replace="admin/fragments/footer :: footer"></div>
+
+        </section>
+
+    </section>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT CỦA TEMPLATE -->
+<!-- ===================================================== -->
+
+<script th:replace="admin/fragments/script :: script"></script>
+
+</body>
+
+</html>

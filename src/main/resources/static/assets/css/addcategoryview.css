@@ -1,0 +1,740 @@
+/* =========================================================
+   TRANG THÊM DANH MỤC
+   ========================================================= */
+
+
+/* =========================================================
+   MAIN WRAPPER
+   ========================================================= */
+
+.category-wrapper {
+
+    padding: 25px 25px 0 25px;
+
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.category-card {
+
+    width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 6px;
+
+    border: 1px solid #eeeeee;
+
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.category-header {
+
+    width: 100%;
+
+    min-height: 82px;
+
+    padding: 18px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+
+}
+
+
+/* =========================================================
+   HEADER LEFT
+   ========================================================= */
+
+.category-header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   HEADER ICON
+   ========================================================= */
+
+.category-header-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-right: 15px;
+
+    background: #f4edf4;
+
+    border-radius: 7px;
+
+    color: #926383;
+
+    font-size: 21px;
+
+}
+
+
+/* =========================================================
+   HEADER CONTENT
+   ========================================================= */
+
+.category-header-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.category-title {
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #333333;
+
+    font-size: 21px;
+
+    line-height: 28px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
+
+.category-subtitle {
+
+    margin: 3px 0 0 0;
+
+    padding: 0;
+
+    color: #999999;
+
+    font-size: 13px;
+
+    line-height: 20px;
+
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.category-body {
+
+    width: 100%;
+
+    padding: 30px 30px 32px 30px;
+
+    background: #ffffff;
+
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.category-form {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.category-form .form-group {
+
+    width: 100%;
+
+    margin: 0 0 25px 0;
+
+    padding: 0;
+
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.category-form label {
+
+    display: block;
+
+    margin: 0 0 9px 0;
+
+    padding: 0;
+
+    color: #3f3f3f;
+
+    font-size: 14px;
+
+    line-height: 20px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   REQUIRED
+   ========================================================= */
+
+.category-form .required {
+
+    color: #e74c3c;
+
+    font-weight: 600;
+
+    margin-left: 3px;
+
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+   ========================================================= */
+
+.form-input-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   INPUT ICON
+   ========================================================= */
+
+.form-input-icon {
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+
+    color: #999999;
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.form-input-wrapper .form-control {
+
+    width: 100%;
+
+    height: 44px;
+
+    padding: 10px 15px 10px 42px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 4px;
+
+    background: #ffffff;
+
+    color: #555555;
+
+    font-size: 14px;
+
+    line-height: 22px;
+
+    box-shadow: none;
+
+    transition: all 0.2s ease;
+
+}
+
+
+/* =========================================================
+   INPUT FOCUS
+   ========================================================= */
+
+.form-input-wrapper .form-control:focus {
+
+    border-color: #926383;
+
+    background: #ffffff;
+
+    outline: none;
+
+    box-shadow: 0 0 0 2px rgba(146, 99, 131, 0.08);
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.category-form .form-control::placeholder {
+
+    color: #b5b5b5;
+
+    opacity: 1;
+
+}
+
+
+/* =========================================================
+   TEXTAREA WRAPPER
+   ========================================================= */
+
+.form-textarea-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   TEXTAREA ICON
+   ========================================================= */
+
+.form-textarea-icon {
+
+    position: absolute;
+
+    left: 15px;
+
+    top: 15px;
+
+    z-index: 2;
+
+    color: #999999;
+
+    font-size: 14px;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.category-textarea {
+
+    width: 100%;
+
+    min-height: 135px;
+
+    height: auto !important;
+
+    padding: 12px 15px 12px 42px !important;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 4px;
+
+    background: #ffffff;
+
+    color: #555555;
+
+    font-size: 14px;
+
+    line-height: 22px;
+
+    resize: vertical;
+
+    box-shadow: none;
+
+    transition: all 0.2s ease;
+
+}
+
+
+/* =========================================================
+   TEXTAREA FOCUS
+   ========================================================= */
+
+.category-textarea:focus {
+
+    border-color: #926383;
+
+    outline: none;
+
+    box-shadow: 0 0 0 2px rgba(146, 99, 131, 0.08);
+
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.category-select {
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   HELP TEXT
+   ========================================================= */
+
+.form-help {
+
+    margin-top: 7px;
+
+    color: #999999;
+
+    font-size: 12px;
+
+    line-height: 18px;
+
+}
+
+
+.form-help i {
+
+    margin-right: 4px;
+
+    color: #aaaaaa;
+
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.category-divider {
+
+    width: 100%;
+
+    height: 1px;
+
+    margin: 5px 0 25px 0;
+
+    background: #eeeeee;
+
+}
+
+
+/* =========================================================
+   BUTTON AREA
+   ========================================================= */
+
+.category-form-footer {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+}
+
+
+/* =========================================================
+   BUTTON CHUNG
+   ========================================================= */
+
+.category-btn {
+
+    height: 42px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 18px;
+
+    border-radius: 4px;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    line-height: 20px;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+}
+
+
+/* =========================================================
+   ICON BUTTON
+   ========================================================= */
+
+.category-btn i {
+
+    margin-right: 7px;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   QUAY LẠI
+   ========================================================= */
+
+.category-btn-back {
+
+    color: #666666;
+
+    background: #ffffff;
+
+    border: 1px solid #dddddd;
+
+}
+
+
+.category-btn-back:hover {
+
+    color: #555555;
+
+    background: #f7f7f7;
+
+    border-color: #cccccc;
+
+}
+
+
+/* =========================================================
+   NHẬP LẠI
+   ========================================================= */
+
+.category-btn-reset {
+
+    color: #666666;
+
+    background: #ffffff;
+
+    border: 1px solid #dddddd;
+
+}
+
+
+.category-btn-reset:hover {
+
+    color: #555555;
+
+    background: #f7f7f7;
+
+    border-color: #cccccc;
+
+}
+
+
+/* =========================================================
+   LƯU
+   ========================================================= */
+
+.category-btn-save {
+
+    color: #ffffff;
+
+    background: #926383;
+
+    border: 1px solid #926383;
+
+}
+
+
+.category-btn-save:hover {
+
+    color: #ffffff;
+
+    background: #7d526e;
+
+    border-color: #7d526e;
+
+}
+
+
+/* =========================================================
+   CLEARFIX
+   ========================================================= */
+
+.clearfix-custom {
+
+    clear: both;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .category-wrapper {
+
+        padding: 20px 15px 0 15px;
+
+    }
+
+    .category-body {
+
+        padding: 25px;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .category-wrapper {
+
+        padding: 15px 10px 0 10px;
+
+    }
+
+
+    .category-header {
+
+        min-height: auto;
+
+        padding: 18px;
+
+    }
+
+
+    .category-header-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        min-width: 42px;
+
+        margin-right: 12px;
+
+        font-size: 18px;
+
+    }
+
+
+    .category-title {
+
+        font-size: 18px;
+
+        line-height: 24px;
+
+    }
+
+
+    .category-subtitle {
+
+        font-size: 12px;
+
+        line-height: 18px;
+
+    }
+
+
+    .category-body {
+
+        padding: 20px 18px 25px 18px;
+
+    }
+
+
+    .category-form-footer {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 8px;
+
+    }
+
+
+    .category-btn {
+
+        width: 100%;
+
+    }
+
+}

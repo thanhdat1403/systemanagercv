@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/fragments/head :: head"></head>
+
+<body>
+
+<section id="container">
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <header th:replace="admin/fragments/header :: header"></header>
+
+
+    <!-- ===================================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================================== -->
+
+    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
+
+    <!-- ===================================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================================== -->
+
+    <section id="main-content">
+
+        <section class="wrapper category-wrapper">
+
+
+            <!-- ================================================= -->
+            <!-- EMPLOYEE CARD -->
+            <!-- ================================================= -->
+
+            <div class="category-card">
+
+
+                <!-- ================================================= -->
+                <!-- PAGE HEADER -->
+                <!-- ================================================= -->
+
+                <div class="category-header">
+
+                    <div class="category-header-left">
+
+                        <!-- ICON -->
+
+                        <div class="category-header-icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <div class="category-header-content">
+
+                            <h3 class="category-title">
+                                Sửa nhân viên
+                            </h3>
+
+                            <p class="category-subtitle">
+                                Cập nhật thông tin nhân viên trong hệ thống
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- EMPLOYEE BODY -->
+                <!-- ================================================= -->
+
+                <div class="category-body">
+
+
+                    <!-- ================================================= -->
+                    <!-- FORM -->
+                    <!-- ================================================= -->
+
+                    <form th:action="@{/admin/employee/update/{id}(id=${employee.id})}"
+                          method="post"
+                          class="category-form"
+                          th:object="${employee}">
+
+
+                        <!-- ================================================= -->
+                        <!-- ID -->
+                        <!-- ================================================= -->
+
+                        <!--
+                            ID chỉ dùng để xác định Employee đang sửa.
+                            Người dùng không được phép thay đổi ID.
+                        -->
+
+                        <input type="hidden"
+                               th:field="*{id}">
+
+
+                        <!-- ================================================= -->
+                        <!-- 1. TÀI KHOẢN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="user">
+                                Tài khoản đăng nhập
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-user form-input-icon"></i>
+
+                                <select id="user"
+                                        name="userId"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="">
+                                        -- Chọn tài khoản --
+                                    </option>
+
+                                    <option th:each="u : ${users}"
+                                            th:value="${u.id}"
+                                            th:text="${u.username}"
+                                            th:selected="${employee.user != null and employee.user.id == u.id}">
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 2. MÃ NHÂN VIÊN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="employeeCode">
+
+                                Mã nhân viên
+
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-id-card form-input-icon"></i>
+
+                                <input type="text"
+                                       id="employeeCode"
+                                       class="form-control"
+                                       placeholder="Ví dụ: NV001"
+                                       autocomplete="off"
+                                       th:field="*{employeeCode}"
+                                       required>
+
+                            </div>
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Mã nhân viên phải là duy nhất.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 3. HỌ VÀ TÊN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="fullName">
+
+                                Họ và tên
+
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-user-o form-input-icon"></i>
+
+                                <input type="text"
+                                       id="fullName"
+                                       class="form-control"
+                                       placeholder="Nhập họ và tên nhân viên..."
+                                       autocomplete="off"
+                                       th:field="*{fullName}"
+                                       required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 4. EMAIL -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-envelope form-input-icon"></i>
+
+                                <input type="email"
+                                       id="email"
+                                       class="form-control"
+                                       placeholder="example@company.com"
+                                       autocomplete="off"
+                                       th:field="*{email}">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 5. SỐ ĐIỆN THOẠI -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Số điện thoại
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-phone form-input-icon"></i>
+
+                                <input type="tel"
+                                       id="phone"
+                                       class="form-control"
+                                       placeholder="Nhập số điện thoại..."
+                                       autocomplete="off"
+                                       th:field="*{phone}">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 6. PHÒNG BAN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="department">
+
+                                Phòng ban
+
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-building form-input-icon"></i>
+
+                                <select id="department"
+                                        name="departmentId"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="">
+                                        -- Chọn phòng ban --
+                                    </option>
+
+                                    <option th:each="dept : ${departments}"
+                                            th:value="${dept.id}"
+                                            th:text="${dept.name}"
+                                            th:selected="${employee.department != null
+                                                and employee.department.id == dept.id}">
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Chọn phòng ban mà nhân viên đang làm việc.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 7. CHỨC VỤ -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="position">
+
+                                Chức vụ
+
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-user-tie form-input-icon"></i>
+
+                                <select id="position"
+                                        th:field="*{position}"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="">
+                                        -- Chọn chức vụ --
+                                    </option>
+
+                                    <option value="NHAN_VIEN">
+                                        Nhân viên
+                                    </option>
+
+                                    <option value="TRUONG_NHOM">
+                                        Trưởng nhóm
+                                    </option>
+
+                                    <option value="NHAN_SU">
+                                        Nhân sự
+                                    </option>
+
+                                    <option value="TRUONG_PHONG">
+                                        Trưởng phòng
+                                    </option>
+
+                                    <option value="QUAN_LY">
+                                        Quản lý
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 8. CHỨC DANH -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="jobTitle">
+
+                                Chức danh
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-briefcase form-input-icon"></i>
+
+                                <input type="text"
+                                       id="jobTitle"
+                                       class="form-control"
+                                       placeholder="Ví dụ: Java Backend Developer"
+                                       autocomplete="off"
+                                       th:field="*{jobTitle}">
+
+                            </div>
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Ví dụ: Java Developer, HR Specialist, Project Manager...
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 9. NGÀY VÀO LÀM -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="joinDate">
+
+                                Ngày vào làm
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-calendar form-input-icon"></i>
+
+                                <input type="date"
+                                       id="joinDate"
+                                       class="form-control"
+                                       th:field="*{joinDate}">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 10. TRẠNG THÁI -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="status">
+
+                                Trạng thái
+
+                                <span class="required">*</span>
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-toggle-on form-input-icon"></i>
+
+                                <select id="status"
+                                        th:field="*{status}"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="ACTIVE">
+                                        Hoạt động
+                                    </option>
+
+                                    <option value="INACTIVE">
+                                        Không hoạt động
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhân viên không hoạt động sẽ không được sử dụng
+                                trong các chức năng liên quan.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 11. NGÀY TẠO -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="createdAt">
+
+                                Ngày tạo
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-calendar form-input-icon"></i>
+
+                                <input type="text"
+                                       id="createdAt"
+                                       class="form-control"
+                                       readonly
+                                       th:value="${employee.createdAt != null
+                                           ? #temporals.format(employee.createdAt,
+                                             'dd/MM/yyyy HH:mm')
+                                           : ''}">
+
+                            </div>
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Ngày tạo nhân viên được hệ thống tự động ghi nhận.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- UPDATED AT -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="updatedAt">
+
+                                Cập nhật lần cuối
+
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-clock-o form-input-icon"></i>
+
+                                <input type="text"
+                                       id="updatedAt"
+                                       class="form-control"
+                                       readonly
+                                       th:value="${employee.updatedAt != null
+                                           ? #temporals.format(employee.updatedAt,
+                                             'dd/MM/yyyy HH:mm')
+                                           : 'Chưa cập nhật'}">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- DIVIDER -->
+                        <!-- ================================================= -->
+
+                        <div class="category-divider"></div>
+
+
+                        <!-- ================================================= -->
+                        <!-- FORM FOOTER -->
+                        <!-- ================================================= -->
+
+                        <div class="category-form-footer">
+
+
+                            <!-- QUAY LẠI -->
+
+                            <a th:href="@{/admin/employees}"
+                               class="category-btn category-btn-back">
+
+                                <i class="fa fa-arrow-left"></i>
+
+                                <span>Quay lại</span>
+
+                            </a>
+
+
+                            <!-- NHẬP LẠI -->
+
+                            <button type="reset"
+                                    class="category-btn category-btn-reset">
+
+                                <i class="fa fa-refresh"></i>
+
+                                <span>Khôi phục</span>
+
+                            </button>
+
+
+                            <!-- LƯU -->
+
+                            <button type="submit"
+                                    class="category-btn category-btn-save">
+
+                                <i class="fa fa-save"></i>
+
+                                <span>Lưu thay đổi</span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- FOOTER -->
+            <!-- ================================================= -->
+
+            <div th:replace="admin/fragments/footer :: footer"></div>
+
+        </section>
+
+    </section>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================================== -->
+
+<script th:replace="admin/fragments/script :: script"></script>
+
+</body>
+
+</html>

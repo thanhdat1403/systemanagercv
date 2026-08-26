@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/fragments/head :: head"></head>
+
+<body>
+
+<section id="container">
+
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <header th:replace="admin/fragments/header :: header"></header>
+
+
+    <!-- ===================================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================================== -->
+
+    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
+
+    <!-- ===================================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================================== -->
+
+    <section id="main-content">
+
+        <section class="wrapper category-wrapper">
+
+
+            <!-- ================================================= -->
+            <!-- DEPARTMENT CARD -->
+            <!-- ================================================= -->
+
+            <div class="category-card">
+
+
+                <!-- ================================================= -->
+                <!-- PAGE HEADER -->
+                <!-- ================================================= -->
+
+                <div class="category-header">
+
+                    <div class="category-header-left">
+
+
+                        <!-- ICON -->
+
+                        <div class="category-header-icon">
+
+                            <i class="fa fa-building"></i>
+
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <div class="category-header-content">
+
+                            <h3 class="category-title">
+
+                                Sửa phòng ban
+
+                            </h3>
+
+                            <p class="category-subtitle">
+
+                                Cập nhật thông tin phòng ban trong hệ thống
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- DEPARTMENT BODY -->
+                <!-- ================================================= -->
+
+                <div class="category-body">
+
+
+                    <!-- ================================================= -->
+                    <!-- FORM -->
+                    <!-- ================================================= -->
+
+                    <form th:action="@{/admin/department/update-department/{id}(id=${department.id})}"
+                          method="post"
+                          class="category-form"
+                          th:object="${department}">
+
+
+                        <!-- ================================================= -->
+                        <!-- ID -->
+                        <!-- ================================================= -->
+
+                        <!--
+                            Giữ lại ID của phòng ban đang sửa.
+                            ID này không cho người dùng chỉnh sửa.
+                        -->
+
+                        <input type="hidden"
+                               th:field="*{id}">
+
+
+                        <!-- ================================================= -->
+                        <!-- MÃ PHÒNG BAN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentCode">
+
+                                Mã phòng ban
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-barcode form-input-icon"></i>
+
+                                <input type="text"
+                                       id="departmentCode"
+                                       class="form-control"
+                                       placeholder="Nhập mã phòng ban..."
+                                       autocomplete="off"
+                                       th:field="*{code}">
+
+                            </div>
+
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhập mã phòng ban, ví dụ: PB001, PB002...
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- TÊN PHÒNG BAN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentName">
+
+                                Tên phòng ban
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-building-o form-input-icon"></i>
+
+                                <input type="text"
+                                       id="departmentName"
+                                       class="form-control"
+                                       placeholder="Nhập tên phòng ban..."
+                                       autocomplete="off"
+                                       th:field="*{name}">
+
+                            </div>
+
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhập tên phòng ban, ví dụ: Phòng Nhân sự, Phòng IT...
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- MÔ TẢ PHÒNG BAN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentDescription">
+
+                                Mô tả phòng ban
+
+                            </label>
+
+
+                            <div class="form-textarea-wrapper">
+
+                                <i class="fa fa-align-left form-textarea-icon"></i>
+
+                                <textarea id="departmentDescription"
+                                          class="form-control category-textarea"
+                                          rows="6"
+                                          placeholder="Nhập mô tả chi tiết cho phòng ban..."
+                                          th:field="*{description}"></textarea>
+
+                            </div>
+
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhập thông tin mô tả về chức năng, nhiệm vụ của phòng ban.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- TRẠNG THÁI -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentStatus">
+
+                                Trạng thái
+
+                            </label>
+
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-toggle-on form-input-icon"></i>
+
+
+                                <select id="departmentStatus"
+                                        class="form-control category-select"
+                                        th:field="*{status}">
+
+
+                                    <!-- ĐANG HOẠT ĐỘNG -->
+
+                                    <option value="ACTIVE">
+
+                                        Hoạt động
+
+                                    </option>
+
+
+                                    <!-- KHÔNG HOẠT ĐỘNG -->
+
+                                    <option value="INACTIVE">
+
+                                        Không hoạt động
+
+                                    </option>
+
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Phòng ban ở trạng thái hoạt động sẽ được sử dụng trong hệ thống.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- NGÀY TẠO -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="createdAt">
+
+                                Ngày tạo
+
+                            </label>
+
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-calendar form-input-icon"></i>
+
+                                <input type="text"
+                                       id="createdAt"
+                                       class="form-control"
+                                       readonly
+                                       th:value="${department.createdAt != null
+                                       ? #temporals.format(department.createdAt, 'dd/MM/yyyy HH:mm')
+                                       : ''}">
+
+                            </div>
+
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Ngày tạo phòng ban được hệ thống tự động ghi nhận.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- DIVIDER -->
+                        <!-- ================================================= -->
+
+                        <div class="category-divider"></div>
+
+
+                        <!-- ================================================= -->
+                        <!-- FORM FOOTER -->
+                        <!-- ================================================= -->
+
+                        <div class="category-form-footer">
+
+
+                            <!-- QUAY LẠI -->
+
+                            <a th:href="@{/admin/department}"
+                               class="category-btn category-btn-back">
+
+                                <i class="fa fa-arrow-left"></i>
+
+                                <span>Quay lại</span>
+
+                            </a>
+
+
+                            <!-- NHẬP LẠI -->
+
+                            <button type="reset"
+                                    class="category-btn category-btn-reset">
+
+                                <i class="fa fa-refresh"></i>
+
+                                <span>Nhập lại</span>
+
+                            </button>
+
+
+                            <!-- LƯU -->
+
+                            <button type="submit"
+                                    class="category-btn category-btn-save">
+
+                                <i class="fa fa-save"></i>
+
+                                <span>Lưu thay đổi</span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- FOOTER -->
+            <!-- ================================================= -->
+
+            <div th:replace="admin/fragments/footer :: footer"></div>
+
+
+        </section>
+
+    </section>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT CỦA TEMPLATE -->
+<!-- ===================================================== -->
+
+<script th:replace="admin/fragments/script :: script"></script>
+
+
+</body>
+
+</html>

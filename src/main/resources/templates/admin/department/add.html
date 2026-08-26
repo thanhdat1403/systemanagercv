@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="admin/fragments/head :: head"></head>
+
+<body>
+
+<section id="container">
+
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <header th:replace="admin/fragments/header :: header"></header>
+
+
+    <!-- ===================================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================================== -->
+
+    <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
+
+    <!-- ===================================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================================== -->
+
+    <section id="main-content">
+
+        <section class="wrapper category-wrapper">
+
+
+            <!-- ================================================= -->
+            <!-- CATEGORY CARD -->
+            <!-- ================================================= -->
+
+            <div class="category-card">
+
+
+                <!-- ================================================= -->
+                <!-- PAGE HEADER -->
+                <!-- ================================================= -->
+
+                <div class="category-header">
+
+                    <div class="category-header-left">
+
+                        <!-- ICON -->
+
+                        <div class="category-header-icon">
+
+                            <i class="fa fa-folder-open"></i>
+
+                        </div>
+
+
+                        <!-- TITLE -->
+
+                        <div class="category-header-content">
+
+                            <h3 class="category-title">
+
+                                Thêm phòng ban
+
+                            </h3>
+
+                            <p class="category-subtitle">
+
+                                Thêm phòng ban mới vào hệ thống
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- CATEGORY BODY -->
+                <!-- ================================================= -->
+
+                <div class="category-body">
+
+
+                    <!-- ================================================= -->
+                    <!-- FORM -->
+                    <!-- ================================================= -->
+
+                    <form th:action="@{/admin/department/add}"
+                          method="post"
+                          class="category-form"
+                          th:object="${department}">
+
+                        <!-- MÃ PHÒNG BAN -->
+                        <div class="form-group">
+
+                            <label for="code">
+                                Mã phòng ban
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-code form-input-icon"></i>
+
+                                <input type="text"
+                                       id="code"
+                                       class="form-control"
+                                       placeholder="Nhập mã phòng ban..."
+                                       autocomplete="off"
+                                       th:field="*{code}">
+
+                            </div>
+
+                            <div class="form-help">
+                                <i class="fa fa-info-circle"></i>
+                                Ví dụ: IT, HR, ACC.
+                            </div>
+
+                        </div>
+
+
+                        <!-- TÊN PHÒNG BAN -->
+                        <div class="form-group">
+
+                            <label for="name">
+                                Tên phòng ban
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-folder-o form-input-icon"></i>
+
+                                <input type="text"
+                                       id="name"
+                                       class="form-control"
+                                       placeholder="Nhập tên phòng ban..."
+                                       autocomplete="off"
+                                       th:field="*{name}">
+
+                            </div>
+
+                            <div class="form-help">
+                                <i class="fa fa-info-circle"></i>
+                                Nhập tên phòng ban trong công ty.
+                            </div>
+
+                        </div>
+
+
+                        <!-- MÔ TẢ -->
+                        <div class="form-group">
+
+                            <label for="description">
+                                Mô tả
+                            </label>
+
+                            <div class="form-textarea-wrapper">
+
+                                <i class="fa fa-align-left form-textarea-icon"></i>
+
+                                <textarea id="description"
+                                          class="form-control category-textarea"
+                                          rows="5"
+                                          placeholder="Nhập mô tả phòng ban..."
+                                          th:field="*{description}"></textarea>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TRẠNG THÁI -->
+                        <div class="form-group">
+
+                            <label for="status">
+                                Trạng thái
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-toggle-on form-input-icon"></i>
+
+                                <select id="status"
+                                        class="form-control category-select"
+                                        th:field="*{status}">
+
+                                    <option value="ACTIVE">
+                                        Hoạt động
+                                    </option>
+
+                                    <option value="INACTIVE">
+                                        Không hoạt động
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-help">
+                                <i class="fa fa-info-circle"></i>
+                                Phòng ban ACTIVE được sử dụng trong hệ thống.
+                            </div>
+
+                        </div>
+
+
+                        <div class="category-divider"></div>
+
+
+                        <div class="category-form-footer">
+
+                            <a th:href="@{/admin/department}"
+                               class="category-btn category-btn-back">
+
+                                <i class="fa fa-arrow-left"></i>
+                                <span>Quay lại</span>
+
+                            </a>
+
+                            <button type="reset"
+                                    class="category-btn category-btn-reset">
+
+                                <i class="fa fa-refresh"></i>
+                                <span>Nhập lại</span>
+
+                            </button>
+
+                            <button type="submit"
+                                    class="category-btn category-btn-save">
+
+                                <i class="fa fa-save"></i>
+                                <span>Lưu phòng ban</span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- FOOTER -->
+            <!-- ================================================= -->
+
+            <div th:replace="admin/fragments/footer :: footer"></div>
+
+
+        </section>
+
+    </section>
+</section>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT CỦA TEMPLATE -->
+<!-- ===================================================== -->
+
+<script th:replace="admin/fragments/script :: script"></script>
+
+
+</body>
+
+</html>

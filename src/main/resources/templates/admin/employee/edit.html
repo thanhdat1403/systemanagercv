@@ -336,24 +336,9 @@
                                         -- Chọn chức vụ --
                                     </option>
 
-                                    <option value="NHAN_VIEN">
-                                        Nhân viên
-                                    </option>
-
-                                    <option value="TRUONG_NHOM">
-                                        Trưởng nhóm
-                                    </option>
-
-                                    <option value="NHAN_SU">
-                                        Nhân sự
-                                    </option>
-
-                                    <option value="TRUONG_PHONG">
-                                        Trưởng phòng
-                                    </option>
-
-                                    <option value="QUAN_LY">
-                                        Quản lý
+                                    <option th:each="position : ${positions}"
+                                            th:value="${position}"
+                                            th:text="${position.displayName}">
                                     </option>
 
                                 </select>
@@ -448,12 +433,9 @@
                                         class="form-control category-select"
                                         required>
 
-                                    <option value="ACTIVE">
-                                        Hoạt động
-                                    </option>
-
-                                    <option value="INACTIVE">
-                                        Không hoạt động
+                                    <option th:each="status : ${statuses}"
+                                            th:value="${status}"
+                                            th:text="${status.displayName}">
                                     </option>
 
                                 </select>

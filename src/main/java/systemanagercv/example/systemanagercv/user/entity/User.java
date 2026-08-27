@@ -1,14 +1,13 @@
 package systemanagercv.example.systemanagercv.user.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import systemanagercv.example.systemanagercv.common.entity.BaseEntity;
 import systemanagercv.example.systemanagercv.employee.entity.Employee;
 import systemanagercv.example.systemanagercv.role.entity.UserRole;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,11 +28,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
 
     @Column(
             name = "username",
@@ -61,15 +56,6 @@ public class User {
     )
     private boolean enabled = true;
 
-    @Column(
-            name = "created_at",
-            nullable = false
-    )
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
     @OneToOne(mappedBy = "user")
     private Employee employee;
 
@@ -77,18 +63,7 @@ public class User {
             mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.EAGER //fetch = FetchType.EAGER nghĩa là khi lấy User, Hibernate sẽ lấy luôn danh sách UserRole.
+            fetch = FetchType.EAGER
     )
     private Set<UserRole> userRoles = new HashSet<>();
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
 }

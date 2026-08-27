@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import systemanagercv.example.systemanagercv.department.entity.Departments;
 import systemanagercv.example.systemanagercv.employee.entity.Employee;
+import systemanagercv.example.systemanagercv.employee.entity.EmployeePosition;
+import systemanagercv.example.systemanagercv.employee.entity.EmployeeStatus;
 import systemanagercv.example.systemanagercv.user.entity.User;
 import systemanagercv.example.systemanagercv.department.service.DepartmentService;
 import systemanagercv.example.systemanagercv.employee.service.EmployeeService;
@@ -53,6 +55,20 @@ public class EmployeeController {
         // Danh sách nhân viên của trang hiện tại
         model.addAttribute( "list", page.getContent() );
 
+        // ==========================================
+        // ENUM về dịnh dạng Position và Status Employee
+        // ==========================================
+
+        model.addAttribute(
+                "positions",
+                EmployeePosition.values()
+        );
+
+        model.addAttribute(
+                "statuses",
+                EmployeeStatus.values()
+        );
+
         // Từ khóa tìm kiếm
         // Giữ lại keyword khi chuyển trang
         model.addAttribute("keyword", keyword);
@@ -88,6 +104,18 @@ public class EmployeeController {
         model.addAttribute("users", userService.getEmployeeUsers());
 
         model.addAttribute("departments", departmentService.getAll());
+
+        // ENUM POSITION
+        model.addAttribute(
+                "positions",
+                EmployeePosition.values()
+        );
+
+        // ENUM STATUS
+        model.addAttribute(
+                "statuses",
+                EmployeeStatus.values()
+        );
 
         return "admin/employee/add";
     }
@@ -228,19 +256,41 @@ public class EmployeeController {
             return "redirect:/admin/employees";
         }
 
+        // Employee hiện tại
         model.addAttribute(
                 "employee",
                 employee
         );
 
+        // User có role EMPLOYEE
+        // + User hiện tại đang được Employee sử dụng
         model.addAttribute(
                 "users",
                 userService.getEmployeeUsersForEdit(id)
         );
 
+        // Danh sách phòng ban
         model.addAttribute(
                 "departments",
                 departmentService.getAll()
+        );
+
+        // ==========================================
+        // ENUM POSITION
+        // ==========================================
+
+        model.addAttribute(
+                "positions",
+                EmployeePosition.values()
+        );
+
+        // ==========================================
+        // ENUM STATUS
+        // ==========================================
+
+        model.addAttribute(
+                "statuses",
+                EmployeeStatus.values()
         );
 
         return "admin/employee/edit";

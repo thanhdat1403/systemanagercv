@@ -1,0 +1,10 @@
+databaseChangeLog:
+
+  - include:
+      file: db/changelog/changes/001-add-audit-columns.yaml
+
+  - include:
+      file: db/changelog/changes/002-add-audit-columns-employees.yaml
+
+  - include:
+      file: db/changelog/changes/003-add-audit-columns-departments.yaml

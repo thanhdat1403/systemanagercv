@@ -385,30 +385,18 @@
                                 <!-- 7. CHỨC VỤ -->
                                 <!-- ================================================= -->
 
+<!--                                không sửa dụng hard-code như kiểu này để chèn dữ liệu k đúng định dạng vào DB mà phải dùng Enum-->
+<!--                                <span th:case="'NHAN_VIEN'">-->
+<!--                                    Nhân viên-->
+<!--                                </span>-->
                                 <td class="employee-col-position">
 
-                                    <span th:switch="${employee.position}">
+                                    <span th:if="${employee.position != null}"
+                                          th:text="${employee.position.displayName}">
+                                    </span>
 
-                                        <!-- NHÂN VIÊN -->
-                                        <span th:case="'NHAN_VIEN'">
-                                            Nhân viên
-                                        </span>
-
-                                        <!-- TRƯỞNG NHÓM -->
-                                        <span th:case="'TRUONG_NHOM'">
-                                            Trưởng nhóm
-                                        </span>
-
-                                        <!-- QUẢN LÝ -->
-                                        <span th:case="'QUAN_LY'">
-                                            Quản Lý
-                                        </span>
-
-                                        <!-- NULL / GIÁ TRỊ KHÔNG XÁC ĐỊNH -->
-                                        <span th:case="*">
-                                            ---
-                                        </span>
-
+                                    <span th:unless="${employee.position != null}">
+                                        ---
                                     </span>
 
                                 </td>
@@ -454,32 +442,38 @@
                                 <!-- 10. TRẠNG THÁI -->
                                 <!-- ================================================= -->
 
+
+
+
+<!--                                    Không hard-code như này mà phải dùng Enum-->
+<!--                                    <span-->
+<!--                                            th:if="${employee.status == 'ACTIVE'}"-->
+<!--                                            class="category-status category-status-active">-->
+
+<!--                                        <i class="fa fa-check-circle"></i>-->
+
+<!--                                        Hoạt động-->
+
+<!--                                    </span>-->
+
                                 <td class="category-col-status">
 
+                                    <span th:if="${employee.status != null}"
+                                          th:class="${employee.status.name() == 'ACTIVE'
+                                                    ? 'category-status category-status-active'
+                                                    : 'category-status category-status-inactive'}">
 
-                                    <!-- ACTIVE -->
+                                        <i th:class="${employee.status.name() == 'ACTIVE'
+                                                      ? 'fa fa-check-circle'
+                                                      : 'fa fa-times-circle'}"></i>
 
-                                    <span
-                                            th:if="${employee.status == 'ACTIVE'}"
-                                            class="category-status category-status-active">
-
-                                        <i class="fa fa-check-circle"></i>
-
-                                        Hoạt động
+                                        <span th:text="${employee.status.displayName}">
+                                        </span>
 
                                     </span>
 
-
-                                    <!-- INACTIVE -->
-
-                                    <span
-                                            th:unless="${employee.status == 'ACTIVE'}"
-                                            class="category-status category-status-inactive">
-
-                                        <i class="fa fa-times-circle"></i>
-
-                                        Không hoạt động
-
+                                    <span th:unless="${employee.status != null}">
+                                        ---
                                     </span>
 
                                 </td>

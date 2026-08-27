@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-add-audit-columns-departments
+      author: systemanagercv
+
+      changes:
+
+        # =====================================================
+        # ĐỔI created_at → created_date
+        # =====================================================
+
+        - renameColumn:
+            tableName: departments
+            oldColumnName: created_at
+            newColumnName: created_date
+            columnDataType: datetime
+
+        # =====================================================
+        # ĐỔI updated_at → updated_date
+        # =====================================================
+
+        - renameColumn:
+            tableName: departments
+            oldColumnName: updated_at
+            newColumnName: updated_date
+            columnDataType: datetime
+
+        # =====================================================
+        # THÊM created_by
+        # =====================================================
+
+        - addColumn:
+            tableName: departments
+            columns:
+              - column:
+                  name: created_by
+                  type: varchar(100)
+
+        # =====================================================
+        # THÊM updated_by
+        # =====================================================
+
+        - addColumn:
+            tableName: departments
+            columns:
+              - column:
+                  name: updated_by
+                  type: varchar(100)
+
+        # =====================================================
+        # THÊM is_deleted
+        # =====================================================
+
+        - addColumn:
+            tableName: departments
+            columns:
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false

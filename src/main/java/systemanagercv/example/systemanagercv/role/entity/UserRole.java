@@ -11,8 +11,8 @@ import systemanagercv.example.systemanagercv.user.entity.User;
         name = "user_roles",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "uk_user_roles_user",
-                        columnNames = "user_id"
+                        name = "uk_user_roles_user_role",
+                        columnNames = {"user_id", "role_id"}
                 )
         }
 )

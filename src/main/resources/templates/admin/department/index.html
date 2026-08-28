@@ -294,31 +294,24 @@
 
 
                                 <!-- TRẠNG THÁI -->
-
                                 <td class="category-col-status">
 
+                                    <span th:if="${department.status != null}"
+                                          th:class="${department.status.name() == 'ACTIVE'
+                                                    ? 'category-status category-status-active'
+                                                    : 'category-status category-status-inactive'}">
 
-                                    <!-- ĐANG HOẠT ĐỘNG -->
+                                        <i th:class="${department.status.name() == 'ACTIVE'
+                                                      ? 'fa fa-check-circle'
+                                                      : 'fa fa-times-circle'}"></i>
 
-                                    <span th:if="${department.status == 'ACTIVE'}"
-                                          class="category-status category-status-active">
-
-                                        <i class="fa fa-check-circle"></i>
-
-                                        Hoạt động
+                                        <span th:text="${department.status.description}">
+                                        </span>
 
                                     </span>
 
-
-                                    <!-- KHÔNG HOẠT ĐỘNG -->
-
-                                    <span th:unless="${department.status == 'ACTIVE'}"
-                                          class="category-status category-status-inactive">
-
-                                        <i class="fa fa-times-circle"></i>
-
-                                        Không hoạt động
-
+                                    <span th:unless="${department.status != null}">
+                                        ---
                                     </span>
 
                                 </td>
@@ -329,12 +322,9 @@
                                 <td class="category-col-created">
 
                                     <span class="category-created"
-                                          th:text="${department.createdAt != null
-                                          ? #temporals.format(department.createdAt, 'dd/MM/yyyy HH:mm')
+                                          th:text="${department.createdDate != null
+                                          ? #temporals.format(department.createdDate, 'dd/MM/yyyy HH:mm')
                                           : '---'}">
-
-                                        24/08/2026 10:30
-
                                     </span>
 
                                 </td>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; // Bắt buộc import thư viện này để truyền dữ liệu ra HTML
 import org.springframework.web.bind.annotation.*;
 import systemanagercv.example.systemanagercv.department.entity.Departments;
+import systemanagercv.example.systemanagercv.department.enums.DepartmentStatus;
 import systemanagercv.example.systemanagercv.department.service.DepartmentService;
 
 @Controller
@@ -77,7 +78,10 @@ public class DepartmentController {
         //Tạo một đối tượng rỗng để liên kết (binding) dữ liệu với form html
         Departments departments = new Departments();
         //Mặc định phòng ban mới là ACTIVE
-        departments.setStatus("ACTIVE");
+        departments.setStatus(DepartmentStatus.ACTIVE);
+        //ENUM STATUS
+        // Danh sách trạng thái cho dropdown
+        model.addAttribute("statuses", DepartmentStatus.values());
         model.addAttribute("department", departments);
         return "admin/department/add";
     }
@@ -102,6 +106,8 @@ public class DepartmentController {
         Departments department = departmentService.findById(id);
         // Đẩy dữ liệu cũ ra form để người dùng nhìn thấy và chỉnh sửa
         model.addAttribute("department", department);
+        // Danh sách trạng thái cho dropdown
+        model.addAttribute("statuses", DepartmentStatus.values());
         return "admin/department/edit";
     }
     /**

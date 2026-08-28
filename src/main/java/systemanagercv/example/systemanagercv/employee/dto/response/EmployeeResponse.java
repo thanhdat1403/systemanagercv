@@ -2,8 +2,8 @@ package systemanagercv.example.systemanagercv.employee.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import systemanagercv.example.systemanagercv.employee.entity.EmployeePosition;
-import systemanagercv.example.systemanagercv.employee.entity.EmployeeStatus;
+import systemanagercv.example.systemanagercv.employee.enums.EmployeePosition;
+import systemanagercv.example.systemanagercv.employee.enums.EmployeeStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

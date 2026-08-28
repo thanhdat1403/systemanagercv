@@ -7,8 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import systemanagercv.example.systemanagercv.employee.entity.EmployeePosition;
-import systemanagercv.example.systemanagercv.employee.entity.EmployeeStatus;
+import systemanagercv.example.systemanagercv.employee.enums.EmployeePosition;
+import systemanagercv.example.systemanagercv.employee.enums.EmployeeStatus;
 
 import java.time.LocalDate;
 

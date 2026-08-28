@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="admin/fragments/head :: head"></head>
@@ -7,6 +8,7 @@
 
 <section id="container">
 
+    ```
     <!-- ===================================================== -->
     <!-- HEADER -->
     <!-- ===================================================== -->
@@ -261,8 +263,7 @@
                             <!-- CÓ DỮ LIỆU -->
                             <!-- ================================================= -->
 
-                            <tr
-                                    th:each="employee, stat : ${list}">
+                            <tr th:each="employee, stat : ${list}">
 
 
                                 <!-- ================================================= -->
@@ -271,13 +272,13 @@
 
                                 <td class="category-col-stt">
 
-                                    <span
-                                            class="category-stt"
-                                            th:text="${(currentPage - 1) * pageSize + stat.index + 1}">
+                                <span
+                                        class="category-stt"
+                                        th:text="${(currentPage - 1) * pageSize + stat.index + 1}">
 
-                                        1
+                                    1
 
-                                    </span>
+                                </span>
 
                                 </td>
 
@@ -288,13 +289,13 @@
 
                                 <td class="category-col-code">
 
-                                    <span
-                                            class="category-code"
-                                            th:text="${employee.employeeCode}">
+                                <span
+                                        class="category-code"
+                                        th:text="${employee.employeeCode}">
 
-                                        NV001
+                                    NV001
 
-                                    </span>
+                                </span>
 
                                 </td>
 
@@ -307,20 +308,20 @@
 
                                     <div class="category-name">
 
-                                        <span class="category-name-icon">
+                                    <span class="category-name-icon">
 
-                                            <i class="fa fa-user"></i>
+                                        <i class="fa fa-user"></i>
 
-                                        </span>
+                                    </span>
 
 
                                         <span
                                                 class="category-name-text"
                                                 th:text="${employee.fullName}">
 
-                                            Nguyễn Văn A
+                                        Nguyễn Văn A
 
-                                        </span>
+                                    </span>
 
                                     </div>
 
@@ -333,14 +334,16 @@
 
                                 <td class="employee-col-email">
 
-                                    <span
-                                            th:text="${employee.email != null
-                                            and !#strings.isEmpty(employee.email)
-                                            ? employee.email
-                                            : '---'}"
-                                            th:title="${employee.email}">
-                                        nguyenvana@gmail.com
-                                    </span>
+                                <span
+                                        th:text="${employee.email != null
+                                        and !#strings.isEmpty(employee.email)
+                                        ? employee.email
+                                        : '---'}"
+                                        th:title="${employee.email}">
+
+                                    nguyenvana@gmail.com
+
+                                </span>
 
                                 </td>
 
@@ -350,14 +353,18 @@
                                 <!-- ================================================= -->
 
                                 <td class="employee-col-phone">
-                                    <span
-                                            th:text="${employee.phone != null
-                                            and !#strings.isEmpty(employee.phone)
-                                            ? employee.phone
-                                            : '---'}"
-                                            th:title="${employee.phone}">
-                                        0123456789
-                                    </span>
+
+                                <span
+                                        th:text="${employee.phone != null
+                                        and !#strings.isEmpty(employee.phone)
+                                        ? employee.phone
+                                        : '---'}"
+                                        th:title="${employee.phone}">
+
+                                    0123456789
+
+                                </span>
+
                                 </td>
 
 
@@ -367,16 +374,21 @@
 
                                 <td class="employee-col-department">
 
-                                    <span
-                                            th:if="${employee.department != null}"
-                                            th:text="${employee.department.name}"
-                                            th:title="${employee.department.name}">
-                                        Công nghệ thông tin
-                                    </span>
+                                <span
+                                        th:if="${employee.department != null}"
+                                        th:text="${employee.department.name}"
+                                        th:title="${employee.department.name}">
 
-                                    <span th:unless="${employee.department != null}">
-                                        Chưa có phòng ban
-                                    </span>
+                                    Công nghệ thông tin
+
+                                </span>
+
+                                    <span
+                                            th:unless="${employee.department != null}">
+
+                                    Chưa có phòng ban
+
+                                </span>
 
                                 </td>
 
@@ -385,19 +397,40 @@
                                 <!-- 7. CHỨC VỤ -->
                                 <!-- ================================================= -->
 
-<!--                                không sửa dụng hard-code như kiểu này để chèn dữ liệu k đúng định dạng vào DB mà phải dùng Enum-->
-<!--                                <span th:case="'NHAN_VIEN'">-->
-<!--                                    Nhân viên-->
-<!--                                </span>-->
                                 <td class="employee-col-position">
 
-                                    <span th:if="${employee.position != null}"
-                                          th:text="${employee.position.displayName}">
-                                    </span>
+                                    <!--
+                                        EmployeePosition là Enum.
 
-                                    <span th:unless="${employee.position != null}">
-                                        ---
-                                    </span>
+                                        Enum hiện tại:
+
+                                        NHAN_VIEN("Nhân viên")
+                                        TRUONG_NHOM("Trưởng nhóm")
+                                        PHO_PHONG("Phó phòng")
+                                        TRUONG_PHONG("Trưởng phòng")
+                                        QUAN_LY("Quản lý")
+
+                                        Enum có:
+                                        getDescription()
+
+                                        Vì vậy Thymeleaf sử dụng:
+                                        employee.position.description
+                                    -->
+
+                                    <span
+                                            th:if="${employee.position != null}"
+                                            th:text="${employee.position.description}">
+
+                                    Nhân viên
+
+                                </span>
+
+                                    <span
+                                            th:unless="${employee.position != null}">
+
+                                    ---
+
+                                </span>
 
                                 </td>
 
@@ -408,14 +441,16 @@
 
                                 <td class="employee-col-job-title">
 
-                                    <span
-                                            th:text="${employee.jobTitle != null
-                                            and !#strings.isEmpty(employee.jobTitle)
-                                            ? employee.jobTitle
-                                            : '---'}"
-                                            th:title="${employee.jobTitle}">
-                                        Lập trình viên
-                                    </span>
+                                <span
+                                        th:text="${employee.jobTitle != null
+                                        and !#strings.isEmpty(employee.jobTitle)
+                                        ? employee.jobTitle
+                                        : '---'}"
+                                        th:title="${employee.jobTitle}">
+
+                                    Lập trình viên
+
+                                </span>
 
                                 </td>
 
@@ -426,14 +461,14 @@
 
                                 <td>
 
-                                    <span
-                                            th:text="${employee.joinDate != null
-                                            ? #temporals.format(employee.joinDate, 'dd/MM/yyyy')
-                                            : '---'}">
+                                <span
+                                        th:text="${employee.joinDate != null
+                                        ? #temporals.format(employee.joinDate, 'dd/MM/yyyy')
+                                        : '---'}">
 
-                                        24/08/2026
+                                    24/08/2026
 
-                                    </span>
+                                </span>
 
                                 </td>
 
@@ -442,39 +477,38 @@
                                 <!-- 10. TRẠNG THÁI -->
                                 <!-- ================================================= -->
 
-
-
-
-<!--                                    Không hard-code như này mà phải dùng Enum-->
-<!--                                    <span-->
-<!--                                            th:if="${employee.status == 'ACTIVE'}"-->
-<!--                                            class="category-status category-status-active">-->
-
-<!--                                        <i class="fa fa-check-circle"></i>-->
-
-<!--                                        Hoạt động-->
-
-<!--                                    </span>-->
-
                                 <td class="category-col-status">
 
-                                    <span th:if="${employee.status != null}"
-                                          th:class="${employee.status.name() == 'ACTIVE'
-                                                    ? 'category-status category-status-active'
-                                                    : 'category-status category-status-inactive'}">
+                                <span
+                                        th:if="${employee.status != null}"
+                                        th:class="${employee.status.name() == 'ACTIVE'
+                                        ? 'category-status category-status-active'
+                                        : 'category-status category-status-inactive'}">
 
-                                        <i th:class="${employee.status.name() == 'ACTIVE'
-                                                      ? 'fa fa-check-circle'
-                                                      : 'fa fa-times-circle'}"></i>
+                                    <i
+                                            th:class="${employee.status.name() == 'ACTIVE'
+                                            ? 'fa fa-check-circle'
+                                            : 'fa fa-times-circle'}">
+                                    </i>
 
-                                        <span th:text="${employee.status.displayName}">
-                                        </span>
+                                    <span
+                                            th:text="${employee.status.description}">
+
+                                        Hoạt động
 
                                     </span>
 
-                                    <span th:unless="${employee.status != null}">
-                                        ---
-                                    </span>
+                                </span>
+
+
+                                    <!-- Status null -->
+
+                                    <span
+                                            th:unless="${employee.status != null}">
+
+                                    ---
+
+                                </span>
 
                                 </td>
 
@@ -497,7 +531,9 @@
 
                                             <i class="fa fa-pencil"></i>
 
-                                            <span>Sửa</span>
+                                            <span>
+                                            Sửa
+                                        </span>
 
                                         </a>
 
@@ -512,7 +548,9 @@
 
                                             <i class="fa fa-trash"></i>
 
-                                            <span>Xóa</span>
+                                            <span>
+                                            Xóa
+                                        </span>
 
                                         </a>
 
@@ -556,6 +594,7 @@
 
                             </tr>
 
+
                             </tbody>
 
                         </table>
@@ -580,8 +619,8 @@
 
                             <strong
                                     th:text="${currentPage != null
-                                    ? currentPage
-                                    : 1}">
+                                ? currentPage
+                                : 1}">
 
                                 1
 
@@ -591,9 +630,9 @@
 
                             <strong
                                     th:text="${totalPages != null
-                                    and totalPages > 0
-                                    ? totalPages
-                                    : 1}">
+                                and totalPages > 0
+                                ? totalPages
+                                : 1}">
 
                                 1
 
@@ -615,12 +654,12 @@
 
                             <a
                                     th:if="${currentPage != null
-                                    and currentPage > 1}"
+                                and currentPage > 1}"
 
                                     th:href="@{/admin/employees(
-                                        pageNo=${currentPage - 1},
-                                        keyword=${keyword}
-                                    )}"
+                                    pageNo=${currentPage - 1},
+                                    keyword=${keyword}
+                                )}"
 
                                     class="pagination-button">
 
@@ -633,13 +672,13 @@
 
                             <span
                                     th:if="${currentPage == null
-                                    or currentPage <= 1}"
+                                or currentPage <= 1}"
 
                                     class="pagination-button pagination-disabled">
 
-                                <i class="fa fa-angle-left"></i>
+                            <i class="fa fa-angle-left"></i>
 
-                            </span>
+                        </span>
 
 
                             <!-- ================================================= -->
@@ -648,21 +687,21 @@
 
                             <th:block
                                     th:if="${totalPages != null
-                                    and totalPages > 0}">
+                                and totalPages > 0}">
 
                                 <a
                                         th:each="pageNumber :
-                                        ${#numbers.sequence(1, totalPages)}"
+                                    ${#numbers.sequence(1, totalPages)}"
 
                                         th:href="@{/admin/employees(
-                                            pageNo=${pageNumber},
-                                            keyword=${keyword}
-                                        )}"
+                                        pageNo=${pageNumber},
+                                        keyword=${keyword}
+                                    )}"
 
                                         th:text="${pageNumber}"
 
                                         th:classappend="${currentPage == pageNumber}
-                                        ? ' pagination-active'"
+                                    ? ' pagination-active'"
 
                                         class="pagination-button">
 
@@ -679,13 +718,13 @@
 
                             <a
                                     th:if="${totalPages != null
-                                    and currentPage != null
-                                    and currentPage < totalPages}"
+                                and currentPage != null
+                                and currentPage < totalPages}"
 
                                     th:href="@{/admin/employees(
-                                        pageNo=${currentPage + 1},
-                                        keyword=${keyword}
-                                    )}"
+                                    pageNo=${currentPage + 1},
+                                    keyword=${keyword}
+                                )}"
 
                                     class="pagination-button">
 
@@ -698,15 +737,15 @@
 
                             <span
                                     th:if="${totalPages == null
-                                    or totalPages <= 1
-                                    or currentPage == null
-                                    or currentPage >= totalPages}"
+                                or totalPages <= 1
+                                or currentPage == null
+                                or currentPage >= totalPages}"
 
                                     class="pagination-button pagination-disabled">
 
-                                <i class="fa fa-angle-right"></i>
+                            <i class="fa fa-angle-right"></i>
 
-                            </span>
+                        </span>
 
                         </div>
 
@@ -729,11 +768,13 @@
 
     </section>
 
+
 </section>
 
-
 <!-- ===================================================== -->
+
 <!-- JAVASCRIPT -->
+
 <!-- ===================================================== -->
 
 <script

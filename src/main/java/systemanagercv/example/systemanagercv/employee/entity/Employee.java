@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import systemanagercv.example.systemanagercv.common.entity.BaseEntity;
 import systemanagercv.example.systemanagercv.department.entity.Departments;
+import systemanagercv.example.systemanagercv.employee.enums.EmployeePosition;
+import systemanagercv.example.systemanagercv.employee.enums.EmployeeStatus;
 import systemanagercv.example.systemanagercv.user.entity.User;
 
 import java.time.LocalDate;

@@ -189,12 +189,9 @@
                                         class="form-control category-select"
                                         th:field="*{status}">
 
-                                    <option value="ACTIVE">
-                                        Hoạt động
-                                    </option>
-
-                                    <option value="INACTIVE">
-                                        Không hoạt động
+                                    <option th:each="status : ${statuses}"
+                                            th:value="${status}"
+                                            th:text="${status.description}">
                                     </option>
 
                                 </select>
@@ -207,6 +204,7 @@
                             </div>
 
                         </div>
+
 
 
                         <div class="category-divider"></div>

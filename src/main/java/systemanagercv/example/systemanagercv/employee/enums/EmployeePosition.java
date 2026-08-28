@@ -1,4 +1,4 @@
-package systemanagercv.example.systemanagercv.employee.entity;
+package systemanagercv.example.systemanagercv.employee.enums;
 
 public enum EmployeePosition {
     /*position đây cũng là cụng cố định nên phải dùng Enum

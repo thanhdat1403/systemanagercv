@@ -1,4 +1,4 @@
-package systemanagercv.example.systemanagercv.employee.entity;
+package systemanagercv.example.systemanagercv.employee.enums;
 
 public enum EmployeeStatus {
 

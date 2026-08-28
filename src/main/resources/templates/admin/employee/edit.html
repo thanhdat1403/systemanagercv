@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="admin/fragments/head :: head"></head>
@@ -29,13 +30,11 @@
 
         <section class="wrapper category-wrapper">
 
-
             <!-- ================================================= -->
             <!-- EMPLOYEE CARD -->
             <!-- ================================================= -->
 
             <div class="category-card">
-
 
                 <!-- ================================================= -->
                 <!-- PAGE HEADER -->
@@ -77,6 +76,21 @@
 
                 <div class="category-body">
 
+                    <!-- ================================================= -->
+                    <!-- ERROR MESSAGE -->
+                    <!-- ================================================= -->
+
+                    <div th:if="${error != null}"
+                         class="alert alert-danger">
+
+                        <i class="fa fa-exclamation-circle"></i>
+
+                        <span th:text="${error}">
+                        Có lỗi xảy ra.
+                    </span>
+
+                    </div>
+
 
                     <!-- ================================================= -->
                     <!-- FORM -->
@@ -91,11 +105,6 @@
                         <!-- ================================================= -->
                         <!-- ID -->
                         <!-- ================================================= -->
-
-                        <!--
-                            ID chỉ dùng để xác định Employee đang sửa.
-                            Người dùng không được phép thay đổi ID.
-                        -->
 
                         <input type="hidden"
                                th:field="*{id}">
@@ -145,11 +154,8 @@
                         <div class="form-group">
 
                             <label for="employeeCode">
-
                                 Mã nhân viên
-
                                 <span class="required">*</span>
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -184,11 +190,8 @@
                         <div class="form-group">
 
                             <label for="fullName">
-
                                 Họ và tên
-
                                 <span class="required">*</span>
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -267,11 +270,8 @@
                         <div class="form-group">
 
                             <label for="department">
-
                                 Phòng ban
-
                                 <span class="required">*</span>
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -290,8 +290,7 @@
                                     <option th:each="dept : ${departments}"
                                             th:value="${dept.id}"
                                             th:text="${dept.name}"
-                                            th:selected="${employee.department != null
-                                                and employee.department.id == dept.id}">
+                                            th:selected="${employee.department != null and employee.department.id == dept.id}">
                                     </option>
 
                                 </select>
@@ -316,16 +315,13 @@
                         <div class="form-group">
 
                             <label for="position">
-
                                 Chức vụ
-
                                 <span class="required">*</span>
-
                             </label>
 
                             <div class="form-input-wrapper">
 
-                                <i class="fa fa-user-tie form-input-icon"></i>
+                                <i class="fa fa-user form-input-icon"></i>
 
                                 <select id="position"
                                         th:field="*{position}"
@@ -336,9 +332,9 @@
                                         -- Chọn chức vụ --
                                     </option>
 
-                                    <option th:each="position : ${positions}"
-                                            th:value="${position}"
-                                            th:text="${position.displayName}">
+                                    <option th:each="positionItem : ${positions}"
+                                            th:value="${positionItem}"
+                                            th:text="${positionItem.description}">
                                     </option>
 
                                 </select>
@@ -355,9 +351,7 @@
                         <div class="form-group">
 
                             <label for="jobTitle">
-
                                 Chức danh
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -377,7 +371,8 @@
 
                                 <i class="fa fa-info-circle"></i>
 
-                                Ví dụ: Java Developer, HR Specialist, Project Manager...
+                                Ví dụ: Java Developer, HR Specialist,
+                                Project Manager...
 
                             </div>
 
@@ -391,9 +386,7 @@
                         <div class="form-group">
 
                             <label for="joinDate">
-
                                 Ngày vào làm
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -417,11 +410,8 @@
                         <div class="form-group">
 
                             <label for="status">
-
                                 Trạng thái
-
                                 <span class="required">*</span>
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -433,9 +423,9 @@
                                         class="form-control category-select"
                                         required>
 
-                                    <option th:each="status : ${statuses}"
-                                            th:value="${status}"
-                                            th:text="${status.displayName}">
+                                    <option th:each="statusItem : ${statuses}"
+                                            th:value="${statusItem}"
+                                            th:text="${statusItem.description}">
                                     </option>
 
                                 </select>
@@ -446,8 +436,8 @@
 
                                 <i class="fa fa-info-circle"></i>
 
-                                Nhân viên không hoạt động sẽ không được sử dụng
-                                trong các chức năng liên quan.
+                                Nhân viên không hoạt động sẽ không được
+                                sử dụng trong các chức năng liên quan.
 
                             </div>
 
@@ -460,10 +450,8 @@
 
                         <div class="form-group">
 
-                            <label for="createdAt">
-
+                            <label for="createdDate">
                                 Ngày tạo
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -471,13 +459,12 @@
                                 <i class="fa fa-calendar form-input-icon"></i>
 
                                 <input type="text"
-                                       id="createdAt"
+                                       id="createdDate"
                                        class="form-control"
                                        readonly
-                                       th:value="${employee.createdAt != null
-                                           ? #temporals.format(employee.createdAt,
-                                             'dd/MM/yyyy HH:mm')
-                                           : ''}">
+                                       th:value="${employee.createdDate != null
+                                       ? #temporals.format(employee.createdDate, 'dd/MM/yyyy HH:mm')
+                                       : ''}">
 
                             </div>
 
@@ -485,7 +472,8 @@
 
                                 <i class="fa fa-info-circle"></i>
 
-                                Ngày tạo nhân viên được hệ thống tự động ghi nhận.
+                                Ngày tạo nhân viên được hệ thống tự động
+                                ghi nhận.
 
                             </div>
 
@@ -493,15 +481,13 @@
 
 
                         <!-- ================================================= -->
-                        <!-- UPDATED AT -->
+                        <!-- 12. CẬP NHẬT LẦN CUỐI -->
                         <!-- ================================================= -->
 
                         <div class="form-group">
 
-                            <label for="updatedAt">
-
+                            <label for="updatedDate">
                                 Cập nhật lần cuối
-
                             </label>
 
                             <div class="form-input-wrapper">
@@ -509,13 +495,12 @@
                                 <i class="fa fa-clock-o form-input-icon"></i>
 
                                 <input type="text"
-                                       id="updatedAt"
+                                       id="updatedDate"
                                        class="form-control"
                                        readonly
-                                       th:value="${employee.updatedAt != null
-                                           ? #temporals.format(employee.updatedAt,
-                                             'dd/MM/yyyy HH:mm')
-                                           : 'Chưa cập nhật'}">
+                                       th:value="${employee.updatedDate != null
+                                       ? #temporals.format(employee.updatedDate, 'dd/MM/yyyy HH:mm')
+                                       : 'Chưa cập nhật'}">
 
                             </div>
 
@@ -535,7 +520,6 @@
 
                         <div class="category-form-footer">
 
-
                             <!-- QUAY LẠI -->
 
                             <a th:href="@{/admin/employees}"
@@ -543,19 +527,23 @@
 
                                 <i class="fa fa-arrow-left"></i>
 
-                                <span>Quay lại</span>
+                                <span>
+                                Quay lại
+                            </span>
 
                             </a>
 
 
-                            <!-- NHẬP LẠI -->
+                            <!-- KHÔI PHỤC -->
 
                             <button type="reset"
                                     class="category-btn category-btn-reset">
 
                                 <i class="fa fa-refresh"></i>
 
-                                <span>Khôi phục</span>
+                                <span>
+                                Khôi phục
+                            </span>
 
                             </button>
 
@@ -567,7 +555,9 @@
 
                                 <i class="fa fa-save"></i>
 
-                                <span>Lưu thay đổi</span>
+                                <span>
+                                Lưu thay đổi
+                            </span>
 
                             </button>
 
@@ -589,12 +579,14 @@
         </section>
 
     </section>
+    ```
 
 </section>
 
-
 <!-- ===================================================== -->
+
 <!-- JAVASCRIPT -->
+
 <!-- ===================================================== -->
 
 <script th:replace="admin/fragments/script :: script"></script>

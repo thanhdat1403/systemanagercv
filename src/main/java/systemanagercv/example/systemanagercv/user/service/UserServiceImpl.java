@@ -1,14 +1,20 @@
 package systemanagercv.example.systemanagercv.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import systemanagercv.example.systemanagercv.role.entity.Role;
+import systemanagercv.example.systemanagercv.user.dto.request.UserSearchRequest;
 import systemanagercv.example.systemanagercv.user.entity.User;
 import systemanagercv.example.systemanagercv.role.entity.UserRole;
 import systemanagercv.example.systemanagercv.role.entity.UserRoleId;
 import systemanagercv.example.systemanagercv.role.repository.RoleRepository;
 import systemanagercv.example.systemanagercv.user.repository.UserRepository;
+import systemanagercv.example.systemanagercv.user.specification.UserSpecification;
 
 import java.util.HashSet;
 import java.util.List;
@@ -190,5 +196,26 @@ public class UserServiceImpl implements UserService {
         existingUser.getUserRoles().add(userRole);
 
         return userRepository.save(existingUser);
+    }
+
+    //Phân trang, tìm kiếm và sắp xếp
+    @Override
+    public Page<User> search(UserSearchRequest request) {
+
+        Sort sort = Sort.by(
+                Sort.Direction.DESC,
+                request.getSortBy()
+        );
+
+        Pageable pageable = PageRequest.of(
+                request.getPage(),
+                request.getSize(),
+                sort
+        );
+        //Đây chính là trả về nơi Dynamic Query + Pagination kết hợp với nhau
+        return userRepository.findAll(
+                UserSpecification.search(request),
+                pageable
+        );
     }
 }

@@ -10,7 +10,7 @@ public enum EmployeePosition {
     * Tránh cho việc hard-code*/
     NHAN_VIEN("Nhân viên"),
     TRUONG_NHOM("Trưởng nhóm"),
-    PHO_PHONG("Phó phòng"),
+//    PHO_PHONG("Phó phòng"),
     TRUONG_PHONG("Trưởng phòng"),
     QUAN_LY("Quản lý");
 

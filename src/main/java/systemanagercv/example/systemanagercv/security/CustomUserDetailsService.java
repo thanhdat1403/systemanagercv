@@ -72,3 +72,6 @@ public class CustomUserDetailsService
         return new CustomUserDetails(user);
     }
 }
+/*Lớp này phục vụ: Spring Security
+Login
+Load username/password/role*/

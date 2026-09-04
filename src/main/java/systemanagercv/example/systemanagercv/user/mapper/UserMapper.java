@@ -2,6 +2,8 @@ package systemanagercv.example.systemanagercv.user.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import systemanagercv.example.systemanagercv.user.dto.request.UserCreateRequest;
+import systemanagercv.example.systemanagercv.user.dto.response.UserDetailResponse;
 import systemanagercv.example.systemanagercv.user.dto.response.UserResponse;
 import systemanagercv.example.systemanagercv.user.entity.User;
 import systemanagercv.example.systemanagercv.user.projection.UserListProjection;
@@ -29,4 +31,8 @@ public interface UserMapper {
     UserResponse toResponse(User user);
 
     UserResponse toResponse(UserListProjection projection);
+
+    UserDetailResponse toDetailResponse(User user);
+
+    User toEntity(UserCreateRequest request);
 }

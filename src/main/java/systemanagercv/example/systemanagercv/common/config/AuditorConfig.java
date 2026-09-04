@@ -1,4 +1,4 @@
-package systemanagercv.example.systemanagercv.config;
+package systemanagercv.example.systemanagercv.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

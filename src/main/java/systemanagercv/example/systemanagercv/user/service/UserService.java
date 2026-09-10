@@ -6,6 +6,7 @@ import systemanagercv.example.systemanagercv.user.dto.request.UserSearchRequest;
 import systemanagercv.example.systemanagercv.user.dto.request.UserUpdateRequest;
 import systemanagercv.example.systemanagercv.user.dto.response.UserDetailResponse;
 import systemanagercv.example.systemanagercv.user.dto.response.UserResponse;
+import systemanagercv.example.systemanagercv.user.dto.response.UserSelectResponse;
 import systemanagercv.example.systemanagercv.user.entity.User;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public interface UserService {
     // Dùng cho Spring Security khi đăng nhập
     User findByUsername(String username);
 
+    User findActiveUserEntityById(Long id);
 
     // =====================================================
     // CREATE / UPDATE / DELETE
@@ -38,14 +40,33 @@ public interface UserService {
 
     void delete(Long id);
 
-    // =====================================================
-    // EMPLOYEE - USER
-    // =====================================================
-    List<User> getEmployeeUsers();
+    // ============================================================
+    // EMPLOYEE - USER SELECT
+    // ============================================================
 
-    // User EMPLOYEE chưa được liên kết
-    // + User hiện tại của Employee đang sửa
-    List<User> getEmployeeUsersForEdit(Long employeeId);
+    /**
+     * Lấy User có thể chọn khi thêm Employee.
+     *
+     * Bao gồm:
+     * - HR
+     * - TECH_LEAD
+     * - EMPLOYEE
+     *
+     * Không bao gồm:
+     * - ADMIN
+     * - User đã được liên kết Employee
+     * - User disabled
+     * - User đã soft delete
+     */
+    List<UserSelectResponse> getEmployeeUsers();
+
+    /**
+     * Lấy User có thể chọn khi sửa Employee.
+     *
+     * Bao gồm cả User hiện tại đang được liên kết
+     * với Employee đang sửa.
+     */
+    List<UserSelectResponse> getEmployeeUsersForEdit(Long employeeId);
 
 
     // =====================================================

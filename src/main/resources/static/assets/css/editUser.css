@@ -1,0 +1,367 @@
+/* =========================================================
+USER EDIT PAGE
+========================================================= */
+
+.user-edit-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.user-edit-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+}
+
+.user-edit-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-edit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    color: #334155;
+    font-size: 20px;
+}
+
+.user-edit-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.user-edit-subtitle {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.user-edit-id {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.user-edit-id strong {
+    color: #334155;
+}
+
+/* =========================================================
+ALERT
+========================================================= */
+
+.user-alert {
+    margin: 20px 28px 0;
+    padding: 12px 15px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 14px;
+}
+
+.user-alert-danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+/* =========================================================
+FORM
+========================================================= */
+
+.user-edit-form {
+    padding: 28px;
+}
+
+/* =========================================================
+FORM SECTION
+========================================================= */
+
+.user-form-section {
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid #eee;
+}
+
+.user-form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+
+.user-form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.user-section-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 15px;
+}
+
+.user-form-section-title h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.user-form-section-title p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* =========================================================
+FORM GRID
+========================================================= */
+
+.user-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 24px;
+}
+
+.user-form-group-full {
+    grid-column: 1 / -1;
+}
+
+/* =========================================================
+LABEL
+========================================================= */
+
+.user-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.user-form-group .required {
+    color: #dc2626;
+    margin-left: 2px;
+}
+
+/* =========================================================
+INPUT
+========================================================= */
+
+.user-input-wrapper {
+    position: relative;
+}
+
+.user-input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.user-form-control {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px 0 40px;
+    border: 1px solid #dbe1e8;
+    border-radius: 6px;
+    background: #fff;
+    color: #334155;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease,
+    box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.user-form-control::placeholder {
+    color: #b0b8c4;
+}
+
+.user-form-control:focus {
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.12);
+}
+
+/* =========================================================
+SELECT
+========================================================= */
+
+.user-form-select {
+    appearance: auto;
+    cursor: pointer;
+}
+
+/* =========================================================
+HINT
+========================================================= */
+
+.user-form-hint {
+    display: block;
+    margin-top: 7px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.user-form-hint i {
+    margin-right: 4px;
+}
+
+/* =========================================================
+VALIDATION ERROR
+========================================================= */
+
+.user-field-error {
+    margin-top: 6px;
+    color: #dc2626;
+    font-size: 12px;
+}
+
+/* =========================================================
+ACTION BUTTONS
+========================================================= */
+
+.user-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding-top: 22px;
+    border-top: 1px solid #eee;
+}
+
+.user-btn {
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.user-btn-cancel {
+    background: #fff;
+    border: 1px solid #dbe1e8;
+    color: #64748b;
+}
+
+.user-btn-cancel:hover {
+    background: #f8fafc;
+    color: #334155;
+    text-decoration: none;
+}
+
+.user-btn-save {
+    border: 1px solid #334155;
+    background: #334155;
+    color: #fff;
+}
+
+.user-btn-save:hover {
+    background: #1e293b;
+    border-color: #1e293b;
+}
+
+/* =========================================================
+RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .user-edit-header {
+    padding: 20px;
+    align-items: flex-start;
+}
+
+    .user-edit-id {
+        display: none;
+    }
+
+    .user-edit-form {
+        padding: 20px;
+    }
+
+    .user-form-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .user-form-group-full {
+        grid-column: auto;
+    }
+
+    .user-alert {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .user-form-actions {
+        justify-content: stretch;
+    }
+
+    .user-btn {
+        flex: 1;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .user-edit-header-left {
+    align-items: flex-start;
+}
+
+    .user-edit-title {
+        font-size: 18px;
+    }
+
+    .user-edit-subtitle {
+        font-size: 12px;
+    }
+
+    .user-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .user-btn {
+        width: 100%;
+    }
+
+}

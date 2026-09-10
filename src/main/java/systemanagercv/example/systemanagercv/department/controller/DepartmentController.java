@@ -1,131 +1,149 @@
 package systemanagercv.example.systemanagercv.department.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; // Bắt buộc import thư viện này để truyền dữ liệu ra HTML
 import org.springframework.web.bind.annotation.*;
+import systemanagercv.example.systemanagercv.common.response.ApiResponse;
+import systemanagercv.example.systemanagercv.department.dto.request.DepartmentCreateRequest;
+import systemanagercv.example.systemanagercv.department.dto.request.DepartmentSearchRequest;
+import systemanagercv.example.systemanagercv.department.dto.request.DepartmentUpdateRequest;
+import systemanagercv.example.systemanagercv.department.dto.response.DepartmentDetailResponse;
+import systemanagercv.example.systemanagercv.department.dto.response.DepartmentResponse;
 import systemanagercv.example.systemanagercv.department.entity.Departments;
 import systemanagercv.example.systemanagercv.department.enums.DepartmentStatus;
 import systemanagercv.example.systemanagercv.department.service.DepartmentService;
 
-@Controller
-@RequestMapping("/admin")
+@RestController
+@RequestMapping("/api/v1/departments")
+@RequiredArgsConstructor
 public class DepartmentController {
-    @Autowired
-    private DepartmentService departmentService;
-    /**
-     * 1. TRANG DANH SÁCH PHÒNG BAN (ĐƯỜNG DẪN: /admin/department)
-     */
-    @GetMapping("/department")
-    public String index(
-        Model model,
-        //Từ khóa tìm kiếm
-        //@RequestParam : Trích xuất (lấy) các tham số được truyền trên thanh địa chỉ URL từ trình duyệt gửi nên
-        @RequestParam(name = "keyword", defaultValue = "") String keyword,
-        //Số trang mặc định là trang 1
-        @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo
-    ) {
-        Page<Departments> page;
-        // =====================================================
-        // NẾU CÓ TỪ KHÓA → TÌM KIẾM + PHÂN TRANG
-        // =====================================================
-        if (keyword != null && !keyword.trim().isEmpty()){
-            page = departmentService.searchDepartment(keyword.trim(), pageNo);
 
-            // =====================================================
-            // NẾU KHÔNG CÓ TỪ KHÓA → CHỈ PHÂN TRANG
-            // =====================================================
-        }else {
-            page = departmentService.getAll(pageNo);
-        }
+    private final DepartmentService departmentService;
 
-        // =====================================================
-        // ĐƯA DỮ LIỆU RA VIEW
-        // =====================================================
+    // =========================================================
+    // 1. API: TÌM KIẾM NÂNG CAO + PHÂN TRANG + SẮP XẾP PHÒNG BAN
+    // Hành động: GET -> Địa chỉ: /api/v1/departments
+    // Ví dụ: GET /api/v1/departments?keyword=IT&page=0&size=10&status=ACTIVE
+    // =========================================================
+    @GetMapping
+    public ResponseEntity<ApiResponse<Page<DepartmentResponse>>> search(
+            @Valid DepartmentSearchRequest request // Nhận các tham số lọc gửi qua URL và tự động kiểm tra tính hợp lệ dữ liệu (@Valid)
+    ){
+        //Chuyển gói yêu cầu xuống service để ghép nối Specification Lego và lấy trang dữ liệu lên
+        Page<DepartmentResponse> result =
+                departmentService.search(request);
 
-        // Danh sách phòng ban của trang hiện tại
-        model.addAttribute("list", page.getContent());
-
-        // Từ khóa tìm kiếm
-        // Giữ lại keyword khi chuyển trang
-        model.addAttribute("keyword", keyword);
-
-        // Trang hiện tại
-        model.addAttribute("currentPage", pageNo);
-
-        // Tổng số trang
-        model.addAttribute("totalPages", page.getTotalPages());
-
-        // Tổng số phòng ban
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        // Số phòng ban trên mỗi trang
-        model.addAttribute("pageSize", 2); // Có thể thay đổi tùy ý
-
-
-        return "admin/department/index";
+        //Đóng gói trang dữ liệu kết quả sạch đẹp vào khuôn mẫu ApiResponse
+        ApiResponse<Page<DepartmentResponse>> response =
+                new ApiResponse<>(
+                        "success",
+                        "Success",
+                        result
+                );
+        //Phản hồi kết quả về cho FE với mã trạng thái HTTP 200 OK
+        return ResponseEntity.ok(response);
     }
-    /**
-     * 2. HIỂN THỊ TRANG THÊM MỚI PHÒNG BAN
-     */
-    /**
-     * Hiển thị form thêm phòng ban
-     * URL: /admin/department/add-department
-     */
-    @GetMapping("/department/add-department")
-    public String addDepartment(Model model) {
-        //Tạo một đối tượng rỗng để liên kết (binding) dữ liệu với form html
-        Departments departments = new Departments();
-        //Mặc định phòng ban mới là ACTIVE
-        departments.setStatus(DepartmentStatus.ACTIVE);
-        //ENUM STATUS
-        // Danh sách trạng thái cho dropdown
-        model.addAttribute("statuses", DepartmentStatus.values());
-        model.addAttribute("department", departments);
-        return "admin/department/add";
+
+    // =========================================================
+    // 2. API: XEM CHI TIẾT MỘT PHÒNG BAN THEO ID
+    // Hành động: GET -> Địa chỉ: /api/v1/departments/{id}
+    // Ví dụ: GET /api/v1/departments/5
+    // =========================================================
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<DepartmentDetailResponse>> findById(
+            @PathVariable Long id // @PathVariable giúp tự động bốc số ID nằm ngay trên thanh URL gán vào biến 'id'
+    ){
+        // Gọi Service tìm kiếm thông tin chi tiết phòng ban (Hàm có chốt chặn filter loại bỏ bản ghi xóa mềm)
+        DepartmentDetailResponse result =
+                departmentService.findById(id);
+
+        //Đóng gói dữ liệu chi tiết sạch đẹp vào chiếc hộp ApiResponse
+        ApiResponse<DepartmentDetailResponse> response =
+                new ApiResponse<>(
+                        "success",
+                        "Success",
+                        result
+                );
+        return ResponseEntity.ok(response);
     }
-    /**
-     * 3. XỬ LÝ LỆNH LƯU THÊM MỚI (KHI BẤM NÚT SUBMIT FORM)
-     */
-    /**
-     * Xử lý thêm phòng ban
-     * POST: /admin/department/add
-     */
-    @PostMapping("/department/add")
-    public String saveDepartment(@ModelAttribute("department") Departments department) {
-        departmentService.create(department);
-        return "redirect:/admin/department";
+
+    // =========================================================
+    // 3. API: TẠO MỚI PHÒNG BAN (THÊM PHÒNG BAN)
+    // Hành động: POST -> Địa chỉ: /api/v1/departments
+    // =========================================================
+    @PostMapping
+    public ResponseEntity<ApiResponse<DepartmentResponse>> create(
+            @Valid @RequestBody DepartmentCreateRequest request // @RequestBody ép hệ thống mở gói JSON gửi lên đổ vào Java Object
+    ){
+        // Chuyển thông tin xuống Service thực hiện cắt khoảng trắng mã code, kiểm tra trùng lặp và lưu DB
+        DepartmentResponse result =
+                departmentService.create(request);
+
+        // Đóng gói dữ liệu phòng ban vừa tạo thành công kèm thông báo phản hồi lịch sự
+        ApiResponse<DepartmentResponse> response =
+                new ApiResponse<>(
+                        "success",
+                        "Department created successfully",
+                        result
+                );
+
+        // Trả kết quả về với trạng thái HTTP 201 (CREATED - Đã tạo thành công gói tài nguyên)
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
+
     }
-    /**
-     * 4. HIỂN THỊ TRANG SỬA PHÒNG BAN THEO ID
-     */
-    @GetMapping("/department/edit/{id}")
-    public String editDepartment(@PathVariable("id") Long id, Model model) {
-        //Tìm thông tin phòng ban cũ dựa vào ID trên đường dẫn URL
-        Departments department = departmentService.findById(id);
-        // Đẩy dữ liệu cũ ra form để người dùng nhìn thấy và chỉnh sửa
-        model.addAttribute("department", department);
-        // Danh sách trạng thái cho dropdown
-        model.addAttribute("statuses", DepartmentStatus.values());
-        return "admin/department/edit";
+
+    // =========================================================
+    // 4. API: CẬP NHẬT THÔNG TIN PHÒNG BAN
+    // Hành động: PUT -> Địa chỉ: /api/v1/departments/{id}
+    // Ví dụ: PUT /api/v1/departments/5
+    // =========================================================
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<DepartmentResponse>> update(
+            @PathVariable Long id, //Lấy mã ID của phòng ban cần chỉnh sửa
+            @Valid @RequestBody DepartmentUpdateRequest request // Lấy gói JSON chứa các thông tin chỉnh sửa mới
+    ){
+        //Gọi Service thực hiện cập nhật thông tin và kiểm tra trùng mã có loại trừ chính mình
+        DepartmentResponse result =
+                departmentService.update(id, request);
+
+        // Đóng gói kết quả cập nhật mới nhất vào chiếc hộp ApiResponse
+        ApiResponse<DepartmentResponse> response =
+                new ApiResponse<>(
+                        "success",
+                        "Department updated successfully",
+                        result
+                );
+        return ResponseEntity.ok(response);
+
     }
-    /**
-     * 5. XỬ LÝ LỆNH CẬP NHẬT (KHI BẤM LƯU SỬA)
-     */
-    @PostMapping("/department/update-department/{id}")
-    public String updateDepartment(@PathVariable("id") Long id, @ModelAttribute("department") Departments department) {
-        //Gọi service thực hiện đè dữ liệu mới vào ID cũ dưới DB
-        departmentService.update(id, department);
-        return "redirect:/admin/department";
-    }
-    /**
-     * 6. XỬ LÝ LỆNH XÓA PHÒNG BAN THEO ID
-     */
-    @GetMapping("/department/delete/{id}")
-    public String deleteDepartment(@PathVariable("id") Long id) {
-        //Gọi service thực hiện xóa sạch khỏi DB
+
+    // =========================================================
+    // 5. API: XÓA PHÒNG BAN
+    // Hành động: DELETE -> Địa chỉ: /api/v1/departments/{id}
+    // Lưu ý: Tầng Service thực hiện XÓA MỀM (SOFT DELETE), chỉ chuyển cờ 'deleted' thành true chứ không xóa vật lý.
+    // =========================================================
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> delete(
+            @PathVariable Long id
+    ){
+        //Gọi Service kích hoạt tính năng đổi cờ trạng thái ẩn phòng ban này đi
         departmentService.delete(id);
-        return "redirect:/admin/department";
+
+        //Vì phòng ban đã bị xóa nên không cần trả dữ liệu gì v nữa, trường 'data' cuối cùng để là null
+        // Kiểu bọc ApiResponse<Void> đại diện cho chiếc hộp rỗng dữ liệu
+        ApiResponse<Void> response =
+                new ApiResponse<>(
+                        "success",
+                        "Department deleted successfully",
+                        null
+                );
+        return ResponseEntity.ok(response);
     }
 }

@@ -31,6 +31,14 @@ public class UserSearchRequest {
     )
     private int size = 10;
 
-    private String sortBy = "id";
+    /**
+     * Tên field Java dùng để sort.
+     *
+     * BaseEntity sử dụng createdDate,
+     * không phải createdAt.
+     */
+    private String sortBy = "createdDate";
+
+    private String sortDirection = "DESC";
 
 }

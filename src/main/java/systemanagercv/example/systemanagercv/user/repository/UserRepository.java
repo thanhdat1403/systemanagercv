@@ -6,135 +6,195 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import systemanagercv.example.systemanagercv.user.entity.User;
-import systemanagercv.example.systemanagercv.user.projection.UserListProjection;
+import systemanagercv.example.systemanagercv.user.projection.UserSelectProjection;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository
         extends JpaRepository<User, Long>,
         JpaSpecificationExecutor<User> {
 
-    // =====================================================
-    // TÌM USER THEO USERNAME
-    // =====================================================
+    /**
+     * ============================================================
+     * USER LOGIN
+     * ============================================================
+     *
+     * Tìm User đang hoạt động theo username.
+     *
+     * Load luôn:
+     * User -> UserRoles -> Role
+     *
+     * để Spring Security có thể lấy Role khi đăng nhập.
+     */
 
     @EntityGraph(attributePaths = {
             "userRoles",
             "userRoles.role"
     })
-    User findByUsername(String username);
+    User findByUsernameAndDeletedFalse(String username);
 
 
     // =====================================================
     // KIỂM TRA USERNAME / EMAIL
     // =====================================================
 
-    boolean existsByUsername(String username);
+    boolean existsByUsernameAndDeletedFalse(String username);
 
-    boolean existsByEmail(String email);
-
-
-    // =====================================================
-    // LẤY USER THEO ROLE
-    // =====================================================
-
-    List<User> findByUserRoles_Role_Name(String roleName);
+    boolean existsByEmailAndDeletedFalse(String email);
 
 
-    // =====================================================
-    // THÊM EMPLOYEE
-    // =====================================================
-    //
-    // Chỉ lấy User:
-    // - Có role EMPLOYEE
-    // - Chưa có Employee
-    // - Chưa bị xóa mềm
-    //
-    // =====================================================
 
-    @Query("""
-        SELECT DISTINCT u
-        FROM User u
-        JOIN u.userRoles ur
-        JOIN ur.role r
-        LEFT JOIN u.employee e
-        WHERE u.deleted = false
-          AND r.name = :roleName
-          AND e.id IS NULL
-        """)
-    List<User> findUsersAvailableForEmployee(
-            @Param("roleName") String roleName
+    boolean existsByUsernameAndIdNotAndDeletedFalse(
+            String username,
+            Long id
     );
 
+    boolean existsByEmailAndIdNotAndDeletedFalse(
+            String email,
+            Long id
+    );
 
-    // =====================================================
-    // SỬA EMPLOYEE
-    // =====================================================
-    //
-    // Lấy User:
-    // - Có role EMPLOYEE
-    // - Chưa bị xóa mềm
-    // - Và:
-    //      + Chưa có Employee
-    //      HOẶC
-    //      + Là User hiện tại của Employee đang sửa
-    //
-    // =====================================================
+    // ============================================================
+    // USER - CHECK ADMIN
+    // ============================================================
 
+    /**
+     * Kiểm tra đã tồn tại tài khoản ADMIN đang hoạt động hay chưa.
+     *
+     * Điều kiện:
+     * - User chưa bị soft delete
+     * - User có Role ADMIN
+     *
+     * Dùng để đảm bảo hệ thống chỉ có duy nhất 1 ADMIN
+     * đang hoạt động.
+     */
+    boolean existsByUserRoles_Role_NameAndDeletedFalse(String roleName);
+
+
+    /**
+     * ============================================================
+     * USER SELECT - CREATE EMPLOYEE
+     * ============================================================
+     *
+     * Lấy danh sách tài khoản có thể gán cho Employee khi TẠO mới.
+     *
+     * Điều kiện:
+     *
+     * 1. User chưa bị soft-delete.
+     * 2. User đang enabled.
+     * 3. User phải có Role phù hợp:
+     *      - HR
+     *      - TECH_LEAD
+     *      - EMPLOYEE
+     *
+     * 4. User chưa được liên kết với Employee nào.
+     *
+     * 5. Không cho ADMIN xuất hiện trong dropdown.
+     *
+     * Chỉ SELECT 3 field cần thiết:
+     *      id
+     *      username
+     *      roleName
+     *
+     * để map sang UserSelectProjection.
+     */
     @Query("""
-        SELECT DISTINCT u
+        SELECT DISTINCT
+            u.id AS id,
+            u.username AS username,
+            r.name AS roleName
         FROM User u
         JOIN u.userRoles ur
         JOIN ur.role r
         LEFT JOIN u.employee e
         WHERE u.deleted = false
-          AND r.name = :roleName
-          AND (e.id IS NULL OR e.id = :employeeId)
+          AND u.enabled = true
+          AND r.name <> :adminRole
+          AND e.id IS NULL
+        ORDER BY u.username ASC
         """)
-    List<User> findUsersAvailableForEmployeeEdit(
-            @Param("roleName") String roleName,
+    List<UserSelectProjection> findUsersAvailableForEmployee(
+            @Param("adminRole") String adminRole
+    );
+
+    /**
+     * ============================================================
+     * USER SELECT - EDIT EMPLOYEE
+     * ============================================================
+     *
+     * Lấy danh sách tài khoản có thể gán cho Employee khi CHỈNH SỬA.
+     *
+     * Khác với method phía trên:
+     *
+     * User hiện đang được Employee này sử dụng
+     * vẫn phải xuất hiện trong dropdown.
+     *
+     * Ví dụ:
+     *
+     * Employee A -> tech01
+     *
+     * Khi sửa Employee A:
+     *
+     * tech01 phải vẫn xuất hiện.
+     *
+     * Nhưng tech01 sẽ không xuất hiện khi sửa Employee B.
+     *
+     * Điều kiện:
+     *
+     * 1. User chưa bị soft-delete.
+     * 2. User đang enabled.
+     * 3. Không phải ADMIN.
+     * 4. User chưa được gán Employee khác.
+     * 5. Hoặc User chính là tài khoản hiện tại của Employee đang sửa.
+     */
+    @Query("""
+        SELECT DISTINCT
+            u.id AS id,
+            u.username AS username,
+            r.name AS roleName
+        FROM User u
+        JOIN u.userRoles ur
+        JOIN ur.role r
+        LEFT JOIN u.employee e
+        WHERE u.deleted = false
+          AND u.enabled = true
+          AND r.name <> :adminRole
+          AND (
+                e.id IS NULL
+                OR e.id = :employeeId
+              )
+        ORDER BY u.username ASC
+        """)
+    List<UserSelectProjection> findUsersAvailableForEmployeeEdit(
+            @Param("adminRole") String adminRole,
             @Param("employeeId") Long employeeId
     );
 
 
-    // =====================================================
-    // LẤY USER LIST PROJECTION
-    // =====================================================
-    //
-    // Chỉ lấy những field cần thiết cho màn hình danh sách:
-    // - id
-    // - username
-    // - email
-    // - enabled
-    // - roleId
-    // - roleName
-    // - roleDescription
-    //
-    // Không lấy password và các quan hệ không cần thiết.
-    //
-    // =====================================================
 
+    /**
+     * ============================================================
+     * USER DETAIL
+     * ============================================================
+     *
+     * Lấy đầy đủ thông tin User phục vụ trang Detail/Edit.
+     *
+     * Load:
+     * - Employee
+     * - UserRole
+     * - Role
+     */
     @Query("""
-        SELECT
-            u.id AS id,
-            u.username AS username,
-            u.email AS email,
-            u.enabled AS enabled,
-            r.id AS roleId,
-            r.name AS roleName,
-            r.description AS roleDescription
+        SELECT DISTINCT u
         FROM User u
-        JOIN u.userRoles ur
-        JOIN ur.role r
-        WHERE u.deleted = false
+        LEFT JOIN FETCH u.employee e
+        LEFT JOIN FETCH u.userRoles ur
+        LEFT JOIN FETCH ur.role r
+        WHERE u.id = :id
+          AND u.deleted = false
         """)
-    List<UserListProjection> findAllUserListProjection();
+    Optional<User> findUserDetailById(
+            @Param("id") Long id
+    );
 }
-
-    /*JpaRepository giúp: save(),findById(),findAll(),delete(),..
-    * JpaSpecificationExecutor cho phép chúng ta thực hiện:
-    * Dynamic Query(Truy vấn động)
-    +
-    Pagination
-    +
-    Sorting*/

@@ -1,27 +1,31 @@
 package systemanagercv.example.systemanagercv.employee.dto.response;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import systemanagercv.example.systemanagercv.employee.enums.EmployeePosition;
 import systemanagercv.example.systemanagercv.employee.enums.EmployeeStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Getter
+@Setter
 @Builder //Nhãn này giúp tạo ra đối tượng Response mới và gán dữ liệu cho nó theo phong cách chuỗi cực kỳ sạch sẽ và dễ đọc mà k cần dùng hàm set hay tạo constructor dài dòng
 //NV chính của file này là : bảo mật thông tin , ẩn đi dữ liệu nhạy cảm
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeResponse {
 
+        // User
         //Nhóm 1: lấy thông tin từ bảng users
         //Giúp giao diện nhận biết nhân viên này đang liêt kết với tài khoản đăng nhập nào trong hệ thống bảo mật
         private Long userId;
         private String username;
-        private String email;
+        private String userEmail;
 
-        //Nhóm 2: thông tin lấy từ bảng employees
+        //Nhóm 2: thông tin lấy từ bảng Employees
         private Long id;
         private String employeeCode; //Mã nhân viên (VD: NV001)
         private String fullName; // Họ và tên
+        private String email;
         private String phone; // Sdth
 
         /*Điều quan trọng là ở 2 dòng này:
@@ -40,11 +44,12 @@ public class EmployeeResponse {
         private String statusDescription;
 
 
-        //Nhóm 3: lấy thông tin từ bảng departments
+        //Nhóm 3: lấy thông tin từ bảng Departments
         private Long departmentId;
         private String departmentCode; //VD: IT, HR,..
         private String departmentName; // phòng cntt,...
 
+        // Audit
         //Nhóm 4: lấy thông tin nhật ký lịch sử (kế thừa từ BaseEntity)
         private LocalDateTime createdDate;
         private String createdBy;

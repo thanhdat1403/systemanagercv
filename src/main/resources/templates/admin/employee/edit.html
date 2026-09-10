@@ -80,14 +80,32 @@
                     <!-- ERROR MESSAGE -->
                     <!-- ================================================= -->
 
-                    <div th:if="${error != null}"
-                         class="alert alert-danger">
+                    <div
+                            th:if="${error != null}"
+                            class="alert alert-danger">
 
                         <i class="fa fa-exclamation-circle"></i>
 
                         <span th:text="${error}">
-                        Có lỗi xảy ra.
-                    </span>
+                            Có lỗi xảy ra.
+                        </span>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- SUCCESS MESSAGE -->
+                    <!-- ================================================= -->
+
+                    <div
+                            th:if="${success != null}"
+                            class="alert alert-success">
+
+                        <i class="fa fa-check-circle"></i>
+
+                        <span th:text="${success}">
+                            Cập nhật thành công.
+                        </span>
 
                     </div>
 
@@ -96,37 +114,36 @@
                     <!-- FORM -->
                     <!-- ================================================= -->
 
-                    <form th:action="@{/admin/employee/update/{id}(id=${employee.id})}"
-                          method="post"
-                          class="category-form"
-                          th:object="${employee}">
+                    <form
+                            th:action="@{/admin/employees/edit/{id}(id=${employeeId})}"
+                            method="post"
+                            class="category-form"
+                            th:object="${employee}">
 
 
                         <!-- ================================================= -->
-                        <!-- ID -->
-                        <!-- ================================================= -->
-
-                        <input type="hidden"
-                               th:field="*{id}">
-
-
-                        <!-- ================================================= -->
-                        <!-- 1. TÀI KHOẢN -->
+                        <!-- 1. TÀI KHOẢN ĐĂNG NHẬP -->
                         <!-- ================================================= -->
 
                         <div class="form-group">
 
-                            <label for="user">
+                            <label for="userId">
+
                                 Tài khoản đăng nhập
+
                                 <span class="required">*</span>
+
                             </label>
+
 
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-user form-input-icon"></i>
 
-                                <select id="user"
-                                        name="userId"
+
+                                <select
+                                        id="userId"
+                                        th:field="*{userId}"
                                         class="form-control category-select"
                                         required>
 
@@ -134,13 +151,38 @@
                                         -- Chọn tài khoản --
                                     </option>
 
-                                    <option th:each="u : ${users}"
+
+                                    <option
+                                            th:each="u : ${users}"
                                             th:value="${u.id}"
-                                            th:text="${u.username}"
-                                            th:selected="${employee.user != null and employee.user.id == u.id}">
+                                            th:text="${u.username}">
                                     </option>
 
                                 </select>
+
+                            </div>
+
+
+                            <!-- Validation -->
+
+                            <div
+                                    class="form-error"
+                                    th:if="${#fields.hasErrors('userId')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span th:errors="*{userId}"></span>
+
+                            </div>
+
+
+                            <!-- Help -->
+
+                            <div class="form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Chọn tài khoản đăng nhập có quyền EMPLOYEE.
 
                             </div>
 
@@ -154,25 +196,46 @@
                         <div class="form-group">
 
                             <label for="employeeCode">
+
                                 Mã nhân viên
+
                                 <span class="required">*</span>
+
                             </label>
+
 
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-id-card form-input-icon"></i>
 
-                                <input type="text"
-                                       id="employeeCode"
-                                       class="form-control"
-                                       placeholder="Ví dụ: NV001"
-                                       autocomplete="off"
-                                       th:field="*{employeeCode}"
-                                       required>
+                                <input
+                                        type="text"
+                                        id="employeeCode"
+                                        class="form-control"
+                                        placeholder="Ví dụ: NV001"
+                                        autocomplete="off"
+                                        th:field="*{employeeCode}"
+                                        required>
 
                             </div>
 
-                            <div class="form-help">
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('employeeCode')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{employeeCode}">
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:unless="${#fields.hasErrors('employeeCode')}">
 
                                 <i class="fa fa-info-circle"></i>
 
@@ -190,21 +253,39 @@
                         <div class="form-group">
 
                             <label for="fullName">
+
                                 Họ và tên
+
                                 <span class="required">*</span>
+
                             </label>
+
 
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-user-o form-input-icon"></i>
 
-                                <input type="text"
-                                       id="fullName"
-                                       class="form-control"
-                                       placeholder="Nhập họ và tên nhân viên..."
-                                       autocomplete="off"
-                                       th:field="*{fullName}"
-                                       required>
+                                <input
+                                        type="text"
+                                        id="fullName"
+                                        class="form-control"
+                                        placeholder="Nhập họ và tên nhân viên..."
+                                        autocomplete="off"
+                                        th:field="*{fullName}"
+                                        required>
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('fullName')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{fullName}">
+                                </span>
 
                             </div>
 
@@ -221,16 +302,31 @@
                                 Email
                             </label>
 
+
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-envelope form-input-icon"></i>
 
-                                <input type="email"
-                                       id="email"
-                                       class="form-control"
-                                       placeholder="example@company.com"
-                                       autocomplete="off"
-                                       th:field="*{email}">
+                                <input
+                                        type="email"
+                                        id="email"
+                                        class="form-control"
+                                        placeholder="example@company.com"
+                                        autocomplete="off"
+                                        th:field="*{email}">
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('email')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{email}">
+                                </span>
 
                             </div>
 
@@ -247,16 +343,31 @@
                                 Số điện thoại
                             </label>
 
+
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-phone form-input-icon"></i>
 
-                                <input type="tel"
-                                       id="phone"
-                                       class="form-control"
-                                       placeholder="Nhập số điện thoại..."
-                                       autocomplete="off"
-                                       th:field="*{phone}">
+                                <input
+                                        type="tel"
+                                        id="phone"
+                                        class="form-control"
+                                        placeholder="Nhập số điện thoại..."
+                                        autocomplete="off"
+                                        th:field="*{phone}">
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('phone')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{phone}">
+                                </span>
 
                             </div>
 
@@ -269,17 +380,22 @@
 
                         <div class="form-group">
 
-                            <label for="department">
+                            <label for="departmentId">
+
                                 Phòng ban
+
                                 <span class="required">*</span>
+
                             </label>
+
 
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-building form-input-icon"></i>
 
-                                <select id="department"
-                                        name="departmentId"
+                                <select
+                                        id="departmentId"
+                                        th:field="*{departmentId}"
                                         class="form-control category-select"
                                         required>
 
@@ -287,17 +403,33 @@
                                         -- Chọn phòng ban --
                                     </option>
 
-                                    <option th:each="dept : ${departments}"
+                                    <option
+                                            th:each="dept : ${departments}"
                                             th:value="${dept.id}"
-                                            th:text="${dept.name}"
-                                            th:selected="${employee.department != null and employee.department.id == dept.id}">
+                                            th:text="${dept.name}">
                                     </option>
 
                                 </select>
 
                             </div>
 
-                            <div class="form-help">
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('departmentId')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{departmentId}">
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:unless="${#fields.hasErrors('departmentId')}">
 
                                 <i class="fa fa-info-circle"></i>
 
@@ -315,29 +447,45 @@
                         <div class="form-group">
 
                             <label for="position">
+
                                 Chức vụ
-                                <span class="required">*</span>
+
                             </label>
+
 
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-user form-input-icon"></i>
 
-                                <select id="position"
+                                <select
+                                        id="position"
                                         th:field="*{position}"
-                                        class="form-control category-select"
-                                        required>
+                                        class="form-control category-select">
 
                                     <option value="">
                                         -- Chọn chức vụ --
                                     </option>
 
-                                    <option th:each="positionItem : ${positions}"
+                                    <option
+                                            th:each="positionItem : ${positions}"
                                             th:value="${positionItem}"
                                             th:text="${positionItem.description}">
                                     </option>
 
                                 </select>
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('position')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{position}">
+                                </span>
 
                             </div>
 
@@ -354,20 +502,38 @@
                                 Chức danh
                             </label>
 
+
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-briefcase form-input-icon"></i>
 
-                                <input type="text"
-                                       id="jobTitle"
-                                       class="form-control"
-                                       placeholder="Ví dụ: Java Backend Developer"
-                                       autocomplete="off"
-                                       th:field="*{jobTitle}">
+                                <input
+                                        type="text"
+                                        id="jobTitle"
+                                        class="form-control"
+                                        placeholder="Ví dụ: Java Backend Developer"
+                                        autocomplete="off"
+                                        th:field="*{jobTitle}">
 
                             </div>
 
-                            <div class="form-help">
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('jobTitle')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{jobTitle}">
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:unless="${#fields.hasErrors('jobTitle')}">
 
                                 <i class="fa fa-info-circle"></i>
 
@@ -389,14 +555,29 @@
                                 Ngày vào làm
                             </label>
 
+
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-calendar form-input-icon"></i>
 
-                                <input type="date"
-                                       id="joinDate"
-                                       class="form-control"
-                                       th:field="*{joinDate}">
+                                <input
+                                        type="date"
+                                        id="joinDate"
+                                        class="form-control"
+                                        th:field="*{joinDate}">
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('joinDate')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{joinDate}">
+                                </span>
 
                             </div>
 
@@ -410,20 +591,26 @@
                         <div class="form-group">
 
                             <label for="status">
+
                                 Trạng thái
+
                                 <span class="required">*</span>
+
                             </label>
+
 
                             <div class="form-input-wrapper">
 
                                 <i class="fa fa-toggle-on form-input-icon"></i>
 
-                                <select id="status"
+                                <select
+                                        id="status"
                                         th:field="*{status}"
                                         class="form-control category-select"
                                         required>
 
-                                    <option th:each="statusItem : ${statuses}"
+                                    <option
+                                            th:each="statusItem : ${statuses}"
                                             th:value="${statusItem}"
                                             th:text="${statusItem.description}">
                                     </option>
@@ -432,7 +619,23 @@
 
                             </div>
 
-                            <div class="form-help">
+
+                            <div
+                                    class="form-help"
+                                    th:if="${#fields.hasErrors('status')}">
+
+                                <i class="fa fa-exclamation-circle"></i>
+
+                                <span
+                                        th:errors="*{status}">
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                    class="form-help"
+                                    th:unless="${#fields.hasErrors('status')}">
 
                                 <i class="fa fa-info-circle"></i>
 
@@ -445,62 +648,73 @@
 
 
                         <!-- ================================================= -->
-                        <!-- 11. NGÀY TẠO -->
+                        <!-- AUDIT INFORMATION -->
                         <!-- ================================================= -->
 
-                        <div class="form-group">
+                        <div
+                                th:if="${employeeDetail != null}"
+                                class="category-audit-info">
 
-                            <label for="createdDate">
-                                Ngày tạo
-                            </label>
+                            <!-- NGÀY TẠO -->
 
-                            <div class="form-input-wrapper">
+                            <div class="form-group">
 
-                                <i class="fa fa-calendar form-input-icon"></i>
+                                <label for="createdDate">
+                                    Ngày tạo
+                                </label>
 
-                                <input type="text"
-                                       id="createdDate"
-                                       class="form-control"
-                                       readonly
-                                       th:value="${employee.createdDate != null
-                                       ? #temporals.format(employee.createdDate, 'dd/MM/yyyy HH:mm')
-                                       : ''}">
+
+                                <div class="form-input-wrapper">
+
+                                    <i class="fa fa-calendar form-input-icon"></i>
+
+                                    <input
+                                            type="text"
+                                            id="createdDate"
+                                            class="form-control"
+                                            readonly
+                                            th:value="${employeeDetail.createdDate != null
+                                            ? #temporals.format(employeeDetail.createdDate, 'dd/MM/yyyy HH:mm')
+                                            : '---'}">
+
+                                </div>
+
+
+                                <div class="form-help">
+
+                                    <i class="fa fa-info-circle"></i>
+
+                                    Ngày tạo nhân viên được hệ thống tự động
+                                    ghi nhận.
+
+                                </div>
 
                             </div>
 
-                            <div class="form-help">
 
-                                <i class="fa fa-info-circle"></i>
+                            <!-- CẬP NHẬT LẦN CUỐI -->
 
-                                Ngày tạo nhân viên được hệ thống tự động
-                                ghi nhận.
+                            <div class="form-group">
 
-                            </div>
-
-                        </div>
+                                <label for="updatedDate">
+                                    Cập nhật lần cuối
+                                </label>
 
 
-                        <!-- ================================================= -->
-                        <!-- 12. CẬP NHẬT LẦN CUỐI -->
-                        <!-- ================================================= -->
+                                <div class="form-input-wrapper">
 
-                        <div class="form-group">
+                                    <i class="fa fa-clock-o form-input-icon"></i>
 
-                            <label for="updatedDate">
-                                Cập nhật lần cuối
-                            </label>
+                                    <input
+                                            type="text"
+                                            id="updatedDate"
+                                            class="form-control"
+                                            readonly
+                                            th:value="${employeeDetail.updatedDate != null
+                                            ? #temporals.format(employeeDetail.updatedDate, 'dd/MM/yyyy HH:mm')
+                                            : 'Chưa cập nhật'}">
 
-                            <div class="form-input-wrapper">
-
-                                <i class="fa fa-clock-o form-input-icon"></i>
-
-                                <input type="text"
-                                       id="updatedDate"
-                                       class="form-control"
-                                       readonly
-                                       th:value="${employee.updatedDate != null
-                                       ? #temporals.format(employee.updatedDate, 'dd/MM/yyyy HH:mm')
-                                       : 'Chưa cập nhật'}">
+                                </div>
 
                             </div>
 
@@ -522,42 +736,45 @@
 
                             <!-- QUAY LẠI -->
 
-                            <a th:href="@{/admin/employees}"
-                               class="category-btn category-btn-back">
+                            <a
+                                    th:href="@{/admin/employees}"
+                                    class="category-btn category-btn-back">
 
                                 <i class="fa fa-arrow-left"></i>
 
                                 <span>
-                                Quay lại
-                            </span>
+                                    Quay lại
+                                </span>
 
                             </a>
 
 
                             <!-- KHÔI PHỤC -->
 
-                            <button type="reset"
+                            <button
+                                    type="reset"
                                     class="category-btn category-btn-reset">
 
                                 <i class="fa fa-refresh"></i>
 
                                 <span>
-                                Khôi phục
-                            </span>
+                                    Khôi phục
+                                </span>
 
                             </button>
 
 
                             <!-- LƯU -->
 
-                            <button type="submit"
+                            <button
+                                    type="submit"
                                     class="category-btn category-btn-save">
 
                                 <i class="fa fa-save"></i>
 
                                 <span>
-                                Lưu thay đổi
-                            </span>
+                                    Lưu thay đổi
+                                </span>
 
                             </button>
 
@@ -574,22 +791,24 @@
             <!-- FOOTER -->
             <!-- ================================================= -->
 
-            <div th:replace="admin/fragments/footer :: footer"></div>
+            <div
+                    th:replace="admin/fragments/footer :: footer">
+            </div>
 
         </section>
 
     </section>
-    ```
 
 </section>
 
-<!-- ===================================================== -->
 
+<!-- ===================================================== -->
 <!-- JAVASCRIPT -->
-
 <!-- ===================================================== -->
 
-<script th:replace="admin/fragments/script :: script"></script>
+<script
+        th:replace="admin/fragments/script :: script">
+</script>
 
 </body>
 

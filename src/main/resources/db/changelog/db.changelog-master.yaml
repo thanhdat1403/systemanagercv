@@ -8,3 +8,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/changes/003-add-audit-columns-departments.yaml
+
+  - include:
+      file: db/changelog/changes/004-fix-audit-columns-users.yaml

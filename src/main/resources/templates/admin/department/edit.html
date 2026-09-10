@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="admin/fragments/head :: head"></head>
@@ -13,13 +14,11 @@
 
     <header th:replace="admin/fragments/header :: header"></header>
 
-
     <!-- ===================================================== -->
     <!-- SIDEBAR -->
     <!-- ===================================================== -->
 
     <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
-
 
     <!-- ===================================================== -->
     <!-- MAIN CONTENT -->
@@ -63,25 +62,17 @@
 
                 </div>
 
-
                 <!-- ================================================= -->
                 <!-- DEPARTMENT BODY -->
                 <!-- ================================================= -->
 
                 <div class="category-body">
 
-                    <form th:action="@{/admin/department/update-department/{id}(id=${department.id})}"
-                          method="post"
-                          class="category-form"
-                          th:object="${department}">
-
-                        <!-- ================================================= -->
-                        <!-- ID -->
-                        <!-- ================================================= -->
-
-                        <input type="hidden"
-                               th:field="*{id}">
-
+                    <form
+                            th:action="@{/admin/departments/edit/{id}(id=${departmentId})}"
+                            method="post"
+                            class="category-form"
+                            th:object="${department}">
 
                         <!-- ================================================= -->
                         <!-- MÃ PHÒNG BAN -->
@@ -98,13 +89,22 @@
 
                                 <i class="fa fa-barcode form-input-icon"></i>
 
-                                <input type="text"
-                                       id="departmentCode"
-                                       class="form-control"
-                                       placeholder="Nhập mã phòng ban..."
-                                       autocomplete="off"
-                                       th:field="*{code}">
+                                <input
+                                        type="text"
+                                        id="departmentCode"
+                                        class="form-control"
+                                        placeholder="Nhập mã phòng ban..."
+                                        autocomplete="off"
+                                        th:field="*{code}">
 
+                            </div>
+
+                            <!-- VALIDATION ERROR -->
+
+                            <div
+                                    class="form-error"
+                                    th:if="${#fields.hasErrors('code')}"
+                                    th:errors="*{code}">
                             </div>
 
                             <div class="form-help">
@@ -116,7 +116,6 @@
                             </div>
 
                         </div>
-
 
                         <!-- ================================================= -->
                         <!-- TÊN PHÒNG BAN -->
@@ -133,13 +132,22 @@
 
                                 <i class="fa fa-building-o form-input-icon"></i>
 
-                                <input type="text"
-                                       id="departmentName"
-                                       class="form-control"
-                                       placeholder="Nhập tên phòng ban..."
-                                       autocomplete="off"
-                                       th:field="*{name}">
+                                <input
+                                        type="text"
+                                        id="departmentName"
+                                        class="form-control"
+                                        placeholder="Nhập tên phòng ban..."
+                                        autocomplete="off"
+                                        th:field="*{name}">
 
+                            </div>
+
+                            <!-- VALIDATION ERROR -->
+
+                            <div
+                                    class="form-error"
+                                    th:if="${#fields.hasErrors('name')}"
+                                    th:errors="*{name}">
                             </div>
 
                             <div class="form-help">
@@ -151,7 +159,6 @@
                             </div>
 
                         </div>
-
 
                         <!-- ================================================= -->
                         <!-- MÔ TẢ PHÒNG BAN -->
@@ -167,12 +174,13 @@
 
                                 <i class="fa fa-align-left form-textarea-icon"></i>
 
-                                <textarea id="departmentDescription"
-                                          class="form-control category-textarea"
-                                          rows="6"
-                                          placeholder="Nhập mô tả chi tiết cho phòng ban..."
-                                          th:field="*{description}">
-                                </textarea>
+                                <textarea
+                                        id="departmentDescription"
+                                        class="form-control category-textarea"
+                                        rows="6"
+                                        placeholder="Nhập mô tả chi tiết cho phòng ban..."
+                                        th:field="*{description}">
+                            </textarea>
 
                             </div>
 
@@ -185,7 +193,6 @@
                             </div>
 
                         </div>
-
 
                         <!-- ================================================= -->
                         <!-- TRẠNG THÁI -->
@@ -201,17 +208,27 @@
 
                                 <i class="fa fa-toggle-on form-input-icon"></i>
 
-                                <select id="departmentStatus"
+                                <select
+                                        id="departmentStatus"
                                         class="form-control category-select"
                                         th:field="*{status}">
 
-                                    <option th:each="status : ${statuses}"
+                                    <option
+                                            th:each="status : ${statuses}"
                                             th:value="${status}"
                                             th:text="${status.description}">
                                     </option>
 
                                 </select>
 
+                            </div>
+
+                            <!-- VALIDATION ERROR -->
+
+                            <div
+                                    class="form-error"
+                                    th:if="${#fields.hasErrors('status')}"
+                                    th:errors="*{status}">
                             </div>
 
                             <div class="form-help">
@@ -224,49 +241,11 @@
 
                         </div>
 
-
-                        <!-- ================================================= -->
-                        <!-- NGÀY TẠO -->
-                        <!-- ================================================= -->
-
-                        <div class="form-group">
-
-                            <label for="createdDate">
-                                Ngày tạo
-                            </label>
-
-                            <div class="form-input-wrapper">
-
-                                <i class="fa fa-calendar form-input-icon"></i>
-
-                                <input type="text"
-                                       id="createdDate"
-                                       class="form-control"
-                                       readonly
-                                       th:value="${department.createdDate != null
-                                       ? #temporals.format(department.createdDate, 'dd/MM/yyyy HH:mm')
-                                       : ''}">
-
-                            </div>
-
-                            <div class="form-help">
-
-                                <i class="fa fa-info-circle"></i>
-
-                                Ngày tạo phòng ban được hệ thống tự động ghi nhận.
-
-                            </div>
-
-                        </div>
-
-
-
                         <!-- ================================================= -->
                         <!-- DIVIDER -->
                         <!-- ================================================= -->
 
                         <div class="category-divider"></div>
-
 
                         <!-- ================================================= -->
                         <!-- FORM FOOTER -->
@@ -276,8 +255,9 @@
 
                             <!-- QUAY LẠI -->
 
-                            <a th:href="@{/admin/department}"
-                               class="category-btn category-btn-back">
+                            <a
+                                    th:href="@{/admin/departments}"
+                                    class="category-btn category-btn-back">
 
                                 <i class="fa fa-arrow-left"></i>
 
@@ -285,10 +265,10 @@
 
                             </a>
 
-
                             <!-- NHẬP LẠI -->
 
-                            <button type="reset"
+                            <button
+                                    type="reset"
                                     class="category-btn category-btn-reset">
 
                                 <i class="fa fa-refresh"></i>
@@ -297,10 +277,10 @@
 
                             </button>
 
-
                             <!-- LƯU -->
 
-                            <button type="submit"
+                            <button
+                                    type="submit"
                                     class="category-btn category-btn-save">
 
                                 <i class="fa fa-save"></i>
@@ -317,7 +297,6 @@
 
             </div>
 
-
             <!-- ================================================= -->
             <!-- FOOTER -->
             <!-- ================================================= -->
@@ -327,12 +306,14 @@
         </section>
 
     </section>
+    ```
 
 </section>
 
-
 <!-- ===================================================== -->
+
 <!-- JAVASCRIPT -->
+
 <!-- ===================================================== -->
 
 <script th:replace="admin/fragments/script :: script"></script>

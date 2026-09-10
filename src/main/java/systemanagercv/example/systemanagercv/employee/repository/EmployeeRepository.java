@@ -1,35 +1,35 @@
 package systemanagercv.example.systemanagercv.employee.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import systemanagercv.example.systemanagercv.employee.entity.Employee;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface EmployeeRepository
+        extends JpaRepository<Employee, Long>,
+        JpaSpecificationExecutor<Employee> {
 
-    //Kiểm tra mã employee đã tồn tại chưa
-    boolean existsByEmployeeCode(String employeeCode);
+    boolean existsByEmployeeCodeAndDeletedFalse(String employeeCode);
 
-    //Kiểm tra id user này đã tồn tại chưa
-    boolean existsByUserId(Long userId);
-
-    /*(Vế 1) EmployeeCodeContainingIgnoreCase:Tìm theo cột employee_code.
-    * Chữ Containing tương đương với lệnh LIKE %giá-trị% (tìm kiếm một đoạn ký tự, không cần gõ chính xác cả từ).
-    * Chữ IgnoreCase nghĩa là không phân biệt chữ hoa chữ thường (gõ nv01 hay NV01 đều ra).*/
-
-    /*(Vế 2) FullNameContainingIgnoreCase:Tương tự vế 1 nhưng áp dụng cho cột full_name (tìm kiếm họ tên chứa từ khóa và không phân biệt hoa thường).*/
-
-    List<Employee> findByEmployeeCodeContainingIgnoreCaseOrFullNameContainingIgnoreCase(
+    boolean existsByEmployeeCodeAndIdNotAndDeletedFalse(
             String employeeCode,
-            String fullName
+            Long id
     );
 
-    //Tìm kiếm phân trang
-    Page<Employee> findByEmployeeCodeContainingIgnoreCaseOrFullNameContainingIgnoreCase(
-            String employeeCode,
-            String fullName,
-            Pageable pageable
+    boolean existsByUserIdAndDeletedFalse(Long userId);
+
+    @Query("""
+        SELECT e
+        FROM Employee e
+        JOIN FETCH e.user u
+        JOIN FETCH e.department d
+        WHERE e.id = :id
+          AND e.deleted = false
+        """)
+    Optional<Employee> findEmployeeDetailById(
+            @Param("id") Long id
     );
 }

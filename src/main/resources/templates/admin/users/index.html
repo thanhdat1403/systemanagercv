@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="admin/fragments/head :: head"></head>
 
@@ -30,7 +31,7 @@
         <section class="wrapper category-page">
 
             <!-- ================================================= -->
-            <!-- EMPLOYEE CONTAINER -->
+            <!-- USER CONTAINER -->
             <!-- ================================================= -->
 
             <div class="category-container">
@@ -51,11 +52,11 @@
                         <div class="category-title-content">
 
                             <h3>
-                                Danh sách nhân viên
+                                Quản lý người dùng
                             </h3>
 
                             <p>
-                                Quản lý thông tin nhân viên
+                                Quản lý tài khoản và quyền người dùng
                             </p>
 
                         </div>
@@ -63,7 +64,9 @@
                     </div>
 
 
-                    <!-- Tổng số nhân viên -->
+                    <!-- ================================================= -->
+                    <!-- TỔNG SỐ USER -->
+                    <!-- ================================================= -->
 
                     <div class="category-total-box">
 
@@ -80,7 +83,7 @@
                                 0
                             </strong>
 
-                            <small>nhân viên</small>
+                            <small>người dùng</small>
 
                         </div>
 
@@ -102,12 +105,15 @@
 
                     <div class="category-search">
 
-                        <form th:action="@{/admin/employees}"
-                              method="get"
-                              class="category-search-form">
+                        <form
+                                th:action="@{/admin/users}"
+                                method="get"
+                                class="category-search-form"
+                                th:object="${searchRequest}">
 
-
-                            <!-- Ô tìm kiếm -->
+                            <!-- ================================================= -->
+                            <!-- KEYWORD -->
+                            <!-- ================================================= -->
 
                             <div class="category-search-input">
 
@@ -115,19 +121,73 @@
 
                                 <input
                                         type="text"
-                                        name="keyword"
+                                        th:field="*{keyword}"
                                         class="form-control"
-                                        placeholder="Nhập mã nhân viên hoặc họ tên cần tìm..."
-                                        th:value="${keyword}">
+                                        placeholder="Nhập username hoặc email cần tìm..."
+                                        autocomplete="off">
 
                             </div>
 
 
-                            <!-- Nút tìm kiếm -->
+                            <!-- ================================================= -->
+                            <!-- ROLE -->
+                            <!-- ================================================= -->
+
+                            <div class="category-search-select">
+
+                                <select
+                                        th:field="*{roleId}"
+                                        class="form-control">
+
+                                    <option value="">
+                                        Tất cả quyền
+                                    </option>
+
+                                    <option
+                                            th:each="role : ${roles}"
+                                            th:value="${role.id}"
+                                            th:text="${role.name}">
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- ================================================= -->
+                            <!-- STATUS -->
+                            <!-- ================================================= -->
+
+                            <div class="category-search-select">
+
+                                <select
+                                        th:field="*{enabled}"
+                                        class="form-control">
+
+                                    <option value="">
+                                        Tất cả trạng thái
+                                    </option>
+
+                                    <option value="true">
+                                        Hoạt động
+                                    </option>
+
+                                    <option value="false">
+                                        Không hoạt động
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- ================================================= -->
+                            <!-- SEARCH BUTTON -->
+                            <!-- ================================================= -->
 
                             <button
                                     type="submit"
-                                    class="category-btn category-btn-search">
+                                    class="btn btn-primary">
 
                                 <i class="fa fa-search"></i>
 
@@ -136,11 +196,13 @@
                             </button>
 
 
-                            <!-- Nút làm mới -->
+                            <!-- ================================================= -->
+                            <!-- RESET -->
+                            <!-- ================================================= -->
 
                             <a
-                                    th:href="@{/admin/employees}"
-                                    class="category-btn category-btn-refresh">
+                                    th:href="@{/admin/users}"
+                                    class="btn btn-secondary">
 
                                 <i class="fa fa-refresh"></i>
 
@@ -161,6 +223,7 @@
 
                         <table class="category-table">
 
+
                             <!-- ================================================= -->
                             <!-- TABLE HEADER -->
                             <!-- ================================================= -->
@@ -176,70 +239,42 @@
                                 </th>
 
 
-                                <!-- 2. MÃ NHÂN VIÊN -->
-
-                                <th class="category-col-code">
-                                    Mã nhân viên
-                                </th>
-
-
-                                <!-- 3. HỌ VÀ TÊN -->
+                                <!-- 2. USERNAME -->
 
                                 <th class="category-col-name">
-                                    Họ và tên
+                                    Username
                                 </th>
 
 
-                                <!-- 4. EMAIL -->
+                                <!-- 3. EMAIL -->
 
                                 <th>
                                     Email
                                 </th>
 
 
-                                <!-- 5. SỐ ĐIỆN THOẠI -->
+                                <!-- 4. ROLE -->
 
                                 <th>
-                                    Số điện thoại
+                                    Quyền
                                 </th>
 
 
-                                <!-- 6. PHÒNG BAN -->
+                                <!-- 5. ROLE DESCRIPTION -->
 
                                 <th>
-                                    Phòng ban
+                                    Mô tả quyền
                                 </th>
 
 
-                                <!-- 7. CHỨC VỤ -->
-
-                                <th>
-                                    Chức vụ
-                                </th>
-
-
-                                <!-- 8. CHỨC DANH -->
-
-                                <th>
-                                    Chức danh
-                                </th>
-
-
-                                <!-- 9. NGÀY VÀO -->
-
-                                <th>
-                                    Ngày vào
-                                </th>
-
-
-                                <!-- 10. TRẠNG THÁI -->
+                                <!-- 6. STATUS -->
 
                                 <th class="category-col-status">
                                     Trạng thái
                                 </th>
 
 
-                                <!-- 11. THAO TÁC -->
+                                <!-- 7. ACTION -->
 
                                 <th class="category-col-action">
                                     Thao tác
@@ -262,7 +297,7 @@
                             <!-- ================================================= -->
 
                             <tr
-                                    th:each="employee, stat : ${list}">
+                                    th:each="user, stat : ${users}">
 
 
                                 <!-- ================================================= -->
@@ -283,24 +318,7 @@
 
 
                                 <!-- ================================================= -->
-                                <!-- 2. MÃ NHÂN VIÊN -->
-                                <!-- ================================================= -->
-
-                                <td class="category-col-code">
-
-                                    <span
-                                            class="category-code"
-                                            th:text="${employee.employeeCode}">
-
-                                        NV001
-
-                                    </span>
-
-                                </td>
-
-
-                                <!-- ================================================= -->
-                                <!-- 3. HỌ VÀ TÊN -->
+                                <!-- 2. USERNAME -->
                                 <!-- ================================================= -->
 
                                 <td class="category-col-name">
@@ -313,12 +331,11 @@
 
                                         </span>
 
-
                                         <span
                                                 class="category-name-text"
-                                                th:text="${employee.fullName}">
+                                                th:text="${user.username}">
 
-                                            Nguyễn Văn A
+                                            admin
 
                                         </span>
 
@@ -328,122 +345,19 @@
 
 
                                 <!-- ================================================= -->
-                                <!-- 4. EMAIL -->
-                                <!-- ================================================= -->
-
-                                <td class="employee-col-email">
-
-                                    <span
-                                            th:text="${employee.email != null
-                                            and !#strings.isEmpty(employee.email)
-                                            ? employee.email
-                                            : '---'}"
-                                            th:title="${employee.email}">
-                                        nguyenvana@gmail.com
-                                    </span>
-
-                                </td>
-
-
-                                <!-- ================================================= -->
-                                <!-- 5. SỐ ĐIỆN THOẠI -->
-                                <!-- ================================================= -->
-
-                                <td class="employee-col-phone">
-                                    <span
-                                            th:text="${employee.phone != null
-                                            and !#strings.isEmpty(employee.phone)
-                                            ? employee.phone
-                                            : '---'}"
-                                            th:title="${employee.phone}">
-                                        0123456789
-                                    </span>
-                                </td>
-
-
-                                <!-- ================================================= -->
-                                <!-- 6. PHÒNG BAN -->
-                                <!-- ================================================= -->
-
-                                <td class="employee-col-department">
-
-                                    <span
-                                            th:if="${employee.department != null}"
-                                            th:text="${employee.department.name}"
-                                            th:title="${employee.department.name}">
-                                        Công nghệ thông tin
-                                    </span>
-
-                                    <span th:unless="${employee.department != null}">
-                                        Chưa có phòng ban
-                                    </span>
-
-                                </td>
-
-
-                                <!-- ================================================= -->
-                                <!-- 7. CHỨC VỤ -->
-                                <!-- ================================================= -->
-
-                                <td class="employee-col-position">
-
-                                    <span th:switch="${employee.position}">
-
-                                        <!-- NHÂN VIÊN -->
-                                        <span th:case="'NHAN_VIEN'">
-                                            Nhân viên
-                                        </span>
-
-                                        <!-- TRƯỞNG NHÓM -->
-                                        <span th:case="'TRUONG_NHOM'">
-                                            Trưởng nhóm
-                                        </span>
-
-                                        <!-- QUẢN LÝ -->
-                                        <span th:case="'QUAN_LY'">
-                                            Quản Lý
-                                        </span>
-
-                                        <!-- NULL / GIÁ TRỊ KHÔNG XÁC ĐỊNH -->
-                                        <span th:case="*">
-                                            ---
-                                        </span>
-
-                                    </span>
-
-                                </td>
-
-
-                                <!-- ================================================= -->
-                                <!-- 8. CHỨC DANH -->
-                                <!-- ================================================= -->
-
-                                <td class="employee-col-job-title">
-
-                                    <span
-                                            th:text="${employee.jobTitle != null
-                                            and !#strings.isEmpty(employee.jobTitle)
-                                            ? employee.jobTitle
-                                            : '---'}"
-                                            th:title="${employee.jobTitle}">
-                                        Lập trình viên
-                                    </span>
-
-                                </td>
-
-
-                                <!-- ================================================= -->
-                                <!-- 9. NGÀY VÀO -->
+                                <!-- 3. EMAIL -->
                                 <!-- ================================================= -->
 
                                 <td>
 
                                     <span
-                                            th:text="${employee.joinDate != null
-                                            ? #temporals.format(employee.joinDate, 'dd/MM/yyyy')
-                                            : '---'}">
+                                            th:text="${user.email != null
+                                            and !#strings.isEmpty(user.email)
+                                            ? user.email
+                                            : '---'}"
+                                            th:title="${user.email}">
 
-                                        24/08/2026
+                                        admin@gmail.com
 
                                     </span>
 
@@ -451,7 +365,46 @@
 
 
                                 <!-- ================================================= -->
-                                <!-- 10. TRẠNG THÁI -->
+                                <!-- 4. ROLE -->
+                                <!-- ================================================= -->
+
+                                <td>
+
+                                    <span
+                                            class="category-role"
+                                            th:text="${user.roleName != null
+                                            ? user.roleName
+                                            : '---'}">
+
+                                        ADMIN
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- ================================================= -->
+                                <!-- 5. ROLE DESCRIPTION -->
+                                <!-- ================================================= -->
+
+                                <td>
+
+                                    <span
+                                            th:text="${user.roleDescription != null
+                                            and !#strings.isEmpty(user.roleDescription)
+                                            ? user.roleDescription
+                                            : '---'}"
+                                            th:title="${user.roleDescription}">
+
+                                        System Administrator
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- ================================================= -->
+                                <!-- 6. STATUS -->
                                 <!-- ================================================= -->
 
                                 <td class="category-col-status">
@@ -460,7 +413,7 @@
                                     <!-- ACTIVE -->
 
                                     <span
-                                            th:if="${employee.status == 'ACTIVE'}"
+                                            th:if="${user.enabled}"
                                             class="category-status category-status-active">
 
                                         <i class="fa fa-check-circle"></i>
@@ -473,7 +426,7 @@
                                     <!-- INACTIVE -->
 
                                     <span
-                                            th:unless="${employee.status == 'ACTIVE'}"
+                                            th:unless="${user.enabled}"
                                             class="category-status category-status-inactive">
 
                                         <i class="fa fa-times-circle"></i>
@@ -486,7 +439,7 @@
 
 
                                 <!-- ================================================= -->
-                                <!-- 11. THAO TÁC -->
+                                <!-- 7. ACTION -->
                                 <!-- ================================================= -->
 
                                 <td class="category-col-action">
@@ -494,12 +447,14 @@
                                     <div class="category-action-buttons">
 
 
-                                        <!-- SỬA -->
+                                        <!-- ================================================= -->
+                                        <!-- EDIT -->
+                                        <!-- ================================================= -->
 
                                         <a
-                                                th:href="@{/admin/employee/edit/{id}(id=${employee.id})}"
+                                                th:href="@{/admin/users/edit/{id}(id=${user.id})}"
                                                 class="category-action category-action-edit"
-                                                title="Sửa nhân viên">
+                                                title="Sửa người dùng">
 
                                             <i class="fa fa-pencil"></i>
 
@@ -508,19 +463,28 @@
                                         </a>
 
 
-                                        <!-- XÓA -->
+                                        <!-- ================================================= -->
+                                        <!-- DELETE -->
+                                        <!-- ================================================= -->
 
-                                        <a
-                                                th:href="@{/admin/employee/delete/{id}(id=${employee.id})}"
-                                                class="category-action category-action-delete"
-                                                title="Xóa nhân viên"
-                                                onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này không?');">
+                                        <form
+                                                th:action="@{/admin/users/delete/{id}(id=${user.id})}"
+                                                method="post"
+                                                style="display: inline;">
 
-                                            <i class="fa fa-trash"></i>
+                                            <button
+                                                    type="submit"
+                                                    class="category-action category-action-delete"
+                                                    title="Xóa người dùng"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này không?');">
 
-                                            <span>Xóa</span>
+                                                <i class="fa fa-trash"></i>
 
-                                        </a>
+                                                <span>Xóa</span>
+
+                                            </button>
+
+                                        </form>
 
                                     </div>
 
@@ -534,9 +498,9 @@
                             <!-- ================================================= -->
 
                             <tr
-                                    th:if="${list == null or #lists.isEmpty(list)}">
+                                    th:if="${users == null or #lists.isEmpty(users)}">
 
-                                <td colspan="11">
+                                <td colspan="7">
 
                                     <div class="category-empty">
 
@@ -548,12 +512,12 @@
 
 
                                         <h4>
-                                            Không có nhân viên
+                                            Không có người dùng
                                         </h4>
 
 
                                         <p>
-                                            Chưa có nhân viên nào trong hệ thống.
+                                            Không tìm thấy người dùng phù hợp với điều kiện tìm kiếm.
                                         </p>
 
                                     </div>
@@ -570,14 +534,14 @@
 
 
                     <!-- ================================================= -->
-                    <!-- PHÂN TRANG -->
+                    <!-- PAGINATION -->
                     <!-- ================================================= -->
 
                     <div class="category-pagination">
 
 
                         <!-- ================================================= -->
-                        <!-- THÔNG TIN TRANG -->
+                        <!-- PAGE INFO -->
                         <!-- ================================================= -->
 
                         <div class="category-pagination-info">
@@ -588,9 +552,7 @@
                                     th:text="${currentPage != null
                                     ? currentPage
                                     : 1}">
-
                                 1
-
                             </strong>
 
                             /
@@ -600,16 +562,14 @@
                                     and totalPages > 0
                                     ? totalPages
                                     : 1}">
-
                                 1
-
                             </strong>
 
                         </div>
 
 
                         <!-- ================================================= -->
-                        <!-- NÚT PHÂN TRANG -->
+                        <!-- PAGINATION BUTTONS -->
                         <!-- ================================================= -->
 
                         <div class="category-pagination-buttons">
@@ -623,10 +583,14 @@
                                     th:if="${currentPage != null
                                     and currentPage > 1}"
 
-                                    th:href="@{/admin/employees(
-                                        pageNo=${currentPage - 1},
-                                        keyword=${keyword}
-                                    )}"
+                                    th:href="@{/admin/users(
+                                    page=${currentPage - 2},
+                                    keyword=${searchRequest.keyword},
+                                    roleId=${searchRequest.roleId},
+                                    enabled=${searchRequest.enabled},
+                                    size=${searchRequest.size},
+                                    sortBy=${searchRequest.sortBy}
+                                )}"
 
                                     class="pagination-button">
 
@@ -635,7 +599,9 @@
                             </a>
 
 
-                            <!-- Không có trang trước -->
+                            <!-- ================================================= -->
+                            <!-- PREVIOUS DISABLED -->
+                            <!-- ================================================= -->
 
                             <span
                                     th:if="${currentPage == null
@@ -657,18 +623,21 @@
                                     and totalPages > 0}">
 
                                 <a
-                                        th:each="pageNumber :
-                                        ${#numbers.sequence(1, totalPages)}"
+                                        th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
 
-                                        th:href="@{/admin/employees(
-                                            pageNo=${pageNumber},
-                                            keyword=${keyword}
-                                        )}"
+                                        th:href="@{/admin/users(
+                                        page=${pageNumber - 1},
+                                        keyword=${searchRequest.keyword},
+                                        roleId=${searchRequest.roleId},
+                                        enabled=${searchRequest.enabled},
+                                        size=${searchRequest.size},
+                                        sortBy=${searchRequest.sortBy}
+                                    )}"
 
                                         th:text="${pageNumber}"
 
                                         th:classappend="${currentPage == pageNumber}
-                                        ? ' pagination-active'"
+                                    ? ' pagination-active'"
 
                                         class="pagination-button">
 
@@ -688,10 +657,14 @@
                                     and currentPage != null
                                     and currentPage < totalPages}"
 
-                                    th:href="@{/admin/employees(
-                                        pageNo=${currentPage + 1},
-                                        keyword=${keyword}
-                                    )}"
+                                    th:href="@{/admin/users(
+                                    page=${currentPage},
+                                    keyword=${searchRequest.keyword},
+                                    roleId=${searchRequest.roleId},
+                                    enabled=${searchRequest.enabled},
+                                    size=${searchRequest.size},
+                                    sortBy=${searchRequest.sortBy}
+                                )}"
 
                                     class="pagination-button">
 
@@ -700,7 +673,9 @@
                             </a>
 
 
-                            <!-- Không có trang sau -->
+                            <!-- ================================================= -->
+                            <!-- NEXT DISABLED -->
+                            <!-- ================================================= -->
 
                             <span
                                     th:if="${totalPages == null
@@ -722,20 +697,20 @@
 
             </div>
 
-
-            <!-- ================================================= -->
-            <!-- FOOTER -->
-            <!-- ================================================= -->
-
-            <div
-                    th:replace="admin/fragments/footer :: footer">
-            </div>
-
         </section>
 
     </section>
 
 </section>
+
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<div
+        th:replace="admin/fragments/footer :: footer">
+</div>
 
 
 <!-- ===================================================== -->
@@ -745,6 +720,7 @@
 <script
         th:replace="admin/fragments/script :: script">
 </script>
+
 
 </body>
 

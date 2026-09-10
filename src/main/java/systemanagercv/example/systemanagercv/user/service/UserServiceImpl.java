@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import systemanagercv.example.systemanagercv.common.enums.RoleName;
 import systemanagercv.example.systemanagercv.common.exception.BusinessException;
 import systemanagercv.example.systemanagercv.role.entity.Role;
 import systemanagercv.example.systemanagercv.user.dto.request.UserCreateRequest;
@@ -15,6 +17,7 @@ import systemanagercv.example.systemanagercv.user.dto.request.UserSearchRequest;
 import systemanagercv.example.systemanagercv.user.dto.request.UserUpdateRequest;
 import systemanagercv.example.systemanagercv.user.dto.response.UserDetailResponse;
 import systemanagercv.example.systemanagercv.user.dto.response.UserResponse;
+import systemanagercv.example.systemanagercv.user.dto.response.UserSelectResponse;
 import systemanagercv.example.systemanagercv.user.entity.User;
 import systemanagercv.example.systemanagercv.role.entity.UserRole;
 import systemanagercv.example.systemanagercv.role.entity.UserRoleId;
@@ -25,6 +28,7 @@ import systemanagercv.example.systemanagercv.user.specification.UserSpecificatio
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor //tự động viết hộ một hàm khởi tạo (Constructor) chứa tất cả các biến được khai báo với từ khóa final
@@ -79,7 +83,7 @@ public class UserServiceImpl implements UserService {
         //1. Vào Database tìm User theo ID
         //-NẾU TÌM THẤY: Gán dữ liệu vào biến 'user'
         //-NẾU K THẤY: Chặn đứng hàm lại và ném ra lỗi BusinessException với mã 'error.user.notFound'
-        User user = userRepository.findById(id)
+        User user = userRepository.findUserDetailById(id) //Repository mới dùng findUserDetailById() để lấy User chưa deleted và fetch các quan hệ cần thiết cho detail.
                 .orElseThrow(() ->
                         new BusinessException("error.user.notFound"));
 
@@ -103,7 +107,21 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsernameAndDeletedFalse(username); //User đã soft delete không được đăng nhập.(Định nghĩa trong Repository)
+    }
+
+    // ============================================================
+    // USER - FIND ACTIVE USER ENTITY
+    // ============================================================
+    @Override
+    @Transactional(readOnly = true)
+    public User findActiveUserEntityById(Long id) {
+        return userRepository
+                .findById(id)
+                .filter(user -> !user.isDeleted())
+                .orElseThrow(() ->
+                        new BusinessException("error.user.notFound")
+                );
     }
 
     // =====================================================
@@ -130,12 +148,23 @@ public class UserServiceImpl implements UserService {
         Role role = roleRepository.findById(request.getRoleId())
                 .orElseThrow(() -> new BusinessException("error.role.notFound"));
 
+        // =================================================
+        // 1.2. Kiểm tra chỉ được có 1 ADMIN đang hoạt động
+        // =================================================
+        if (RoleName.ADMIN.name().equals(role.getName())
+                && userRepository.existsByUserRoles_Role_NameAndDeletedFalse(
+                RoleName.ADMIN.name()
+        )) {
+
+            throw new BusinessException("error.user.admin.exists");
+        }
+
 
         // =================================================
         // 2. Kiểm tra Tên đăng nhập (Username) xem đã bị trùng chưa
         // =================================================
         // Nếu trong Database đã có ai đăng ký tên này rồi -> dừng lại và ném lỗi "Tên đăng nhập đã tồn tại"
-        if (userRepository.existsByUsername(request.getUsername())) {
+        if (userRepository.existsByUsernameAndDeletedFalse(request.getUsername())) {
             throw new BusinessException("error.user.username.exists");
         }
 
@@ -144,7 +173,7 @@ public class UserServiceImpl implements UserService {
         // 3. Kiểm tra Email xem đã bị trùng chưa
         // =================================================
         // Nếu trong Database đã có ai đăng ký email này rồi -> dừng lại và ném lỗi "Email đã tồn tại"
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.existsByEmailAndDeletedFalse(request.getEmail())) {
             throw new BusinessException("error.user.email.exists");
         }
 
@@ -167,7 +196,7 @@ public class UserServiceImpl implements UserService {
         // =================================================
         // 6. Đặt trạng thái mặc định cho User mới là Hoạt động
         // =================================================
-        user.setEnabled(true);
+        user.setEnabled(request.getEnabled());
 
 
         // =================================================
@@ -244,7 +273,7 @@ public class UserServiceImpl implements UserService {
         // 1. Tìm thông tin User hiện tại đang lưu trong kho
         // =================================================
         // Lấy thông tin cũ lên để chuẩn bị sửa đổi. Nếu ID không tồn tại -> ngừng xử lý và báo lỗi "Không tìm thấy người dùng"
-        User existingUser = userRepository.findById(id)
+        User existingUser = userRepository.findUserDetailById(id)
                 .orElseThrow(() -> new BusinessException("error.user.notFound"));
 
 
@@ -263,7 +292,26 @@ public class UserServiceImpl implements UserService {
         // !existingUser.getUsername().equals(request.getUsername()): Nếu người dùng thực sự muốn thay ĐỔI sang một username mới hoàn toàn (khác cái cũ đang dùng)
         // && userRepository.existsByUsername(request.getUsername()): VÀ cái username mới đó lại ĐÃ BỊ người khác đăng ký mất rồi
         // -> Lập tức chặn lại và ném lỗi "Tên đăng nhập đã tồn tại"
-        if (!existingUser.getUsername().equals(request.getUsername()) && userRepository.existsByUsername(request.getUsername())) {
+        // ========================================================
+        // 3. TODO - KIỂM TRA ADMIN KHI ĐỔI ROLE
+        //
+        // BƯỚC NÀY CHÚNG TA SẼ BỔ SUNG SAU.
+        //
+        // Mục tiêu:
+        //
+        // admin01 = ADMIN
+        //
+        // Không được đổi:
+        //
+        // hr01 → ADMIN
+        //
+        // nếu admin01 vẫn đang active.
+        // ========================================================
+        if (!existingUser.getUsername().equals(request.getUsername())
+                && userRepository.existsByUsernameAndIdNotAndDeletedFalse(
+                request.getUsername(),
+                id
+        )) {
             throw new BusinessException("error.user.username.exists");
         }
 
@@ -273,7 +321,12 @@ public class UserServiceImpl implements UserService {
         // =================================================
         // Tương tự như kiểm tra Username: Nếu người dùng thay ĐỔI email mới mà email đó lại trùng với email của một người khác trong hệ thống
         // -> Lập tức chặn lại và ném lỗi "Email đã tồn tại"
-        if (!existingUser.getEmail().equals(request.getEmail()) && userRepository.existsByEmail(request.getEmail())) {
+        if (hasText(request.getEmail())
+                && !isSameEmail(existingUser.getEmail(), request.getEmail())
+                && userRepository.existsByEmailAndIdNotAndDeletedFalse(
+                request.getEmail(),
+                id
+        )) {
             throw new BusinessException("error.user.email.exists");
         }
 
@@ -303,6 +356,8 @@ public class UserServiceImpl implements UserService {
         // 7. Xóa sạch Quyền (Role) cũ của User
         // =================================================
         // Để thay đổi quyền mới, cách an toàn nhất là xóa hết các mối quan hệ liên kết cũ đang có trong danh sách của User này
+        //Mục tiêu:
+        //User chỉ giữ lại 1 Role
         existingUser.getUserRoles().clear();
 
 
@@ -353,14 +408,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
 
-        User user = userRepository.findById(id)
+        User user = userRepository.findUserDetailById(id)
                         .orElseThrow(() -> new BusinessException("error.user.notFound"));
-        userRepository.delete(user);
+        user.setDeleted(true);
     }
 
 
     // =====================================================
-    // EMPLOYEE - USER
+    // EMPLOYEE - GET USERS FOR CREATE
     // =====================================================
 
     /**
@@ -373,86 +428,244 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> getEmployeeUsers() {
-
+    public List<UserSelectResponse> getEmployeeUsers() {
+        /*
+         * ============================================================
+         * LẤY DANH SÁCH USER CÓ THỂ GÁN CHO EMPLOYEE KHI TẠO MỚI
+         * ============================================================
+         *
+         * Repository sẽ lấy:
+         *
+         * - User chưa bị soft-delete
+         * - User đang enabled
+         * - User chưa được liên kết với Employee
+         * - User không phải ADMIN
+         *
+         * Role hợp lệ:
+         * - HR
+         * - TECH_LEAD
+         * - EMPLOYEE
+         *
+         * Role ADMIN được loại bỏ thông qua:
+         *
+         * RoleName.ADMIN.name()
+         *
+         * Không hard-code chuỗi "ADMIN".
+         */
         return userRepository.findUsersAvailableForEmployee(
-                "EMPLOYEE"
-        );
+                RoleName.ADMIN.name()
+        )
+                .stream()
+                .map(projection -> UserSelectResponse.builder()
+                        .id(projection.getId())
+                        .username(projection.getUsername())
+                        .roleName(projection.getRoleName())
+                        .build()
+                )
+                .toList();
     }
 
 
-    /**
-     * Khi Edit Employee:
-     *
-     * - User EMPLOYEE chưa được liên kết
-     * - User hiện tại của Employee đang sửa
-     */
+    // ============================================================
+    // EMPLOYEE - GET USERS FOR EDIT
+    // ============================================================
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> getEmployeeUsersForEdit(Long employeeId) {
+    public List<UserSelectResponse> getEmployeeUsersForEdit(
+            Long employeeId
+    ) {
+        /*
+         * ============================================================
+         * LẤY DANH SÁCH USER CÓ THỂ GÁN CHO EMPLOYEE KHI EDIT
+         * ============================================================
+         *
+         * Repository sẽ lấy:
+         *
+         * 1. User chưa bị soft-delete.
+         * 2. User đang enabled.
+         * 3. User không phải ADMIN.
+         * 4. User chưa được Employee khác sử dụng.
+         * 5. User hiện tại của Employee đang sửa vẫn được giữ lại.
+         *
+         * Ví dụ:
+         *
+         * Employee A đang sử dụng:
+         *     tech01 - TECH_LEAD
+         *
+         * Khi sửa Employee A:
+         *     tech01 - TECH_LEAD   ← vẫn xuất hiện
+         *
+         * Nhưng nếu:
+         *
+         * Employee B đang sử dụng:
+         *     tech02 - TECH_LEAD
+         *
+         * thì khi sửa Employee A:
+         *     tech02 - TECH_LEAD   ← không xuất hiện
+         *
+         * Không hard-code "ADMIN".
+         */
 
         return userRepository.findUsersAvailableForEmployeeEdit(
-                "EMPLOYEE",
+                RoleName.ADMIN.name(),
                 employeeId
-        );
+        )
+                .stream()
+                .map(projection -> UserSelectResponse.builder()
+                        .id(projection.getId())
+                        .username(projection.getUsername())
+                        .roleName(projection.getRoleName())
+                        .build()
+                )
+                .toList();
     }
 
 
 
     // =====================================================
-    // SEARCH / PAGINATION (Tìm kiếm người dùng nâng cao kết hợp phân trang và sắp xếp dữ liệu.)
+    // SEARCH / PAGINATION
     // =====================================================
 
     /**
-     * Tìm kiếm nâng cao kết hợp Phân trang (Pagination) và Sắp xếp (Sort).
-     * Input: UserSearchRequest (Chứa từ khóa tìm kiếm, số trang muốn xem, số lượng dòng mỗi trang)
-     * Output: Page<UserResponse> (Một "trang" dữ liệu sạch đẹp chứa danh sách người dùng kèm thông tin tổng số trang, tổng số dòng)
+     * Tìm kiếm User kết hợp:
+     * - Từ khóa
+     * - Role
+     * - Enabled
+     * - Phân trang
+     * - Sắp xếp
+     *
+     * Lưu ý:
+     * Pageable phải sử dụng TÊN FIELD JAVA của Entity,
+     * không sử dụng tên column trong Database.
+     *
+     * BaseEntity:
+     * createdDate -> created_date
      */
     @Override
-    @Transactional(readOnly = true) // Hàm này chỉ đọc dữ liệu (SELECT) để phân trang -> giúp tối ưu hiệu năng và tốc độ truy vấn
+    @Transactional(readOnly = true)
     public Page<UserResponse> search(UserSearchRequest request) {
 
-        // =================================================
-        // Bước 1: Cấu hình quy tắc Sắp xếp (Sort)
-        // =================================================
-        // Tạo ra một đối tượng Sort: Sắp xếp theo chiều giảm dần (DESC - Mới nhất lên đầu)
-        // dựa vào trường dữ liệu mà người dùng yêu cầu (ví dụ truyền vào "id" hoặc "username")
-        Sort sort = Sort.by(
-                Sort.Direction.DESC,
+        // =====================================================
+        // 1. Xác định field được phép sort
+        // =====================================================
+        String sortProperty = resolveSortProperty(
                 request.getSortBy()
         );
 
-        // =================================================
-        // Bước 2: Khởi tạo thông số Phân trang (Pageable)
-        // =================================================
-        // Định nghĩa một "yêu cầu phân trang" bao gồm:
-        // request.getPage(): Số thứ tự trang muốn xem (Trang 0, Trang 1, Trang 2...)
-        // request.getSize(): Số lượng bản ghi muốn hiển thị trên 1 trang (Ví dụ: 10 người / trang)
-        // sort: Kèm theo quy tắc sắp xếp vừa cấu hình ở Bước 1
+        // =====================================================
+        // 2. Xác định chiều sort
+        // =====================================================
+        Sort.Direction sortDirection;
+
+        try {
+            sortDirection = Sort.Direction.fromString(
+                    request.getSortDirection()
+            );
+        } catch (IllegalArgumentException | NullPointerException e) {
+            sortDirection = Sort.Direction.DESC;
+        }
+
+        // =====================================================
+        // 3. Tạo Sort
+        // =====================================================
+        Sort sort = Sort.by(
+                sortDirection,
+                sortProperty
+        );
+
+        // =====================================================
+        // 4. Tạo Pageable
+        // =====================================================
         Pageable pageable = PageRequest.of(
                 request.getPage(),
                 request.getSize(),
                 sort
         );
 
-        // =================================================
-        // Bước 3: Đẩy xuống Database quét dữ liệu
-        // =================================================
-        // Gọi hàm findAll() được cung cấp bởi JpaSpecificationExecutor trong Repository để kết hợp 2 thứ:
-        // 1. UserSpecification.search(request): Bộ lọc tìm kiếm động (Chỉ lấy user chưa xóa, khớp từ khóa, đúng role...)
-        // 2. pageable: Khuôn phân trang (Chỉ lấy đúng số lượng của trang hiện tại)
-        // Kết quả trả về một gói 'Page<User>' chứa dữ liệu thô của trang đó.
+        // =====================================================
+        // 5. Tạo Specification để tìm kiếm động
+        // =====================================================
         Page<User> userPage = userRepository.findAll(
                 UserSpecification.search(request),
                 pageable
         );
 
-        // =================================================
-        // Bước 4: Đổi sang dữ liệu sạch (Map Entity → Response DTO)
-        // =================================================
-        // Vòng lặp tự động duyệt qua từng ông 'User' thô có trong trang hiện tại,
-        // nhờ 'userMapper' chuyển đổi thành 'UserResponse' sạch đẹp để trả về cho Frontend hiển thị.
-        return userPage.map(userMapper::toResponse);
+        // =====================================================
+        // 6. Entity -> Response DTO
+        // =====================================================
+        return userPage.map(
+                userMapper::toResponse
+        );
+    }
+
+
+    // ============================================================
+    // PRIVATE - CHECK EMAIL
+    // ============================================================
+
+    private boolean hasText(String value) {
+
+        return StringUtils.hasText(value);
+    }
+
+    // ============================================================
+    // PRIVATE - COMPARE EMAIL
+    // ============================================================
+    /**
+     * Kiểm tra Email cũ và Email mới có giống nhau hay không.
+     *
+     * Dùng để tránh lỗi NullPointerException khi Email cũ đang là null.
+     */
+    private boolean isSameEmail(
+            String oldEmail,
+            String newEmail
+    ) {
+        // Trường hợp 1: Cả email cũ và email mới đều đang trống (null) -> Coi như giống nhau (trả về true)
+        if (oldEmail == null && newEmail == null) {
+            return true;
+        }
+
+        // Trường hợp 2: Một trong hai cái bị trống, cái còn lại có chữ -> Chắc chắn khác nhau (trả về false)
+        if (oldEmail == null || newEmail == null) {
+            return false;
+        }
+
+        // Trường hợp 3: Cả hai đều có chữ hợp lệ -> Lúc này mới an toàn dùng .equals() để so sánh chính xác từng ký tự
+        return oldEmail.equalsIgnoreCase(
+                newEmail
+        );
+    }
+
+    /**
+     * ============================================================
+     * XÁC ĐỊNH FIELD ĐƯỢC PHÉP SORT USER
+     * ============================================================
+     *
+     * Pageable của Spring Data JPA sort theo
+     * TÊN FIELD JAVA trong Entity.
+     *
+     * Không sử dụng tên column Database.
+     */
+    private String resolveSortProperty(String sortBy) {
+
+        if (sortBy == null || sortBy.isBlank()) {
+            return "createdDate";
+        }
+
+        return switch (sortBy) {
+
+            case "id" -> "id";
+            case "username" -> "username";
+            case "email" -> "email";
+            case "enabled" -> "enabled";
+            case "createdDate" -> "createdDate";
+
+            // Nếu giao diện cũ vẫn gửi "createdAt",
+            // chủ động chuyển nó về field đúng của Entity.
+            case "createdAt" -> "createdDate";
+
+            default -> "createdDate";
+        };
     }
 }

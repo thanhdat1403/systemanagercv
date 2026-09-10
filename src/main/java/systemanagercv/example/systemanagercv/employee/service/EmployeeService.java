@@ -1,23 +1,36 @@
 package systemanagercv.example.systemanagercv.employee.service;
 
 import org.springframework.data.domain.Page;
-import systemanagercv.example.systemanagercv.employee.entity.Employee;
-
-import java.util.List;
+import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeCreateRequest;
+import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
+import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeUpdateRequest;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeDetailResponse;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeResponse;
 
 public interface EmployeeService {
-    List<Employee> getAll();
 
-    Employee findById(long id);
-    Employee save(Employee employee);
-    Employee update(Long id, Employee employee);
+    /**
+     * Tìm kiếm và phân trang danh sách nhân viên.
+     */
+    Page<EmployeeResponse> search(EmployeeSearchRequest request);
+
+    /**
+     * Lấy chi tiết nhân viên theo ID.
+     */
+    EmployeeDetailResponse findById(Long id);
+
+    /**
+     * Thêm mới nhân viên.
+     */
+    EmployeeResponse create(EmployeeCreateRequest request);
+
+    /**
+     * Cập nhật thông tin nhân viên.
+     */
+    EmployeeResponse update(Long id, EmployeeUpdateRequest request);
+
+    /**
+     * Xóa mềm nhân viên.
+     */
     void delete(Long id);
-
-    boolean existsByEmployeeCode(String employeeCode);
-    boolean existsByUserId(long userId);
-
-    //Phân trang
-    Page<Employee> getAll(Integer pageNo);
-    //Kết hợp Tìm kiếm + phân trang
-    Page<Employee> searchEmployee(String keyword, Integer pageNo);
 }

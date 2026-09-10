@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
@@ -13,11 +14,13 @@
 
     <header th:replace="admin/fragments/header :: header"></header>
 
+
     <!-- ===================================================== -->
     <!-- SIDEBAR -->
     <!-- ===================================================== -->
 
     <aside th:replace="admin/fragments/sidebar :: sidebar"></aside>
+
 
     <!-- ===================================================== -->
     <!-- MAIN CONTENT -->
@@ -32,6 +35,7 @@
             <!-- ================================================= -->
 
             <div class="category-container">
+
 
                 <!-- ================================================= -->
                 <!-- PAGE HEADER -->
@@ -99,9 +103,11 @@
 
                     <div class="category-search">
 
-                        <form th:action="@{/admin/department}"
-                              method="get"
-                              class="category-search-form">
+                        <form
+                                th:action="@{/admin/departments}"
+                                method="get"
+                                class="category-search-form">
+
 
                             <!-- Ô tìm kiếm -->
 
@@ -109,18 +115,20 @@
 
                                 <i class="fa fa-search"></i>
 
-                                <input type="text"
-                                       name="keyword"
-                                       class="form-control"
-                                       placeholder="Nhập mã hoặc tên phòng ban cần tìm..."
-                                       th:value="${keyword}">
+                                <input
+                                        type="text"
+                                        name="keyword"
+                                        class="form-control"
+                                        placeholder="Nhập mã hoặc tên phòng ban cần tìm..."
+                                        th:value="${searchRequest.keyword}">
 
                             </div>
 
 
                             <!-- Nút tìm kiếm -->
 
-                            <button type="submit"
+                            <button
+                                    type="submit"
                                     class="category-btn category-btn-search">
 
                                 <i class="fa fa-search"></i>
@@ -132,8 +140,9 @@
 
                             <!-- Nút làm mới -->
 
-                            <a th:href="@{/admin/department}"
-                               class="category-btn category-btn-refresh">
+                            <a
+                                    th:href="@{/admin/departments}"
+                                    class="category-btn category-btn-refresh">
 
                                 <i class="fa fa-refresh"></i>
 
@@ -153,6 +162,7 @@
                     <div class="category-table-wrapper">
 
                         <table class="category-table">
+
 
                             <!-- ================================================= -->
                             <!-- TABLE HEADER -->
@@ -226,25 +236,36 @@
                             <!-- CÓ DỮ LIỆU -->
                             <!-- ================================================= -->
 
-                            <tr th:each="department, stat : ${list}">
+                            <tr
+                                    th:each="department, stat : ${departments}">
 
 
+                                <!-- ================================================= -->
                                 <!-- STT -->
+                                <!-- ================================================= -->
 
                                 <td class="category-col-stt">
-                                    <span class="category-stt"
-                                          th:text="${(currentPage - 1) * pageSize + stat.index + 1}">
+
+                                    <span
+                                            class="category-stt"
+                                            th:text="${(currentPage - 1) * pageSize + stat.index + 1}">
+
                                         1
+
                                     </span>
+
                                 </td>
 
 
+                                <!-- ================================================= -->
                                 <!-- MÃ PHÒNG BAN -->
+                                <!-- ================================================= -->
 
                                 <td class="category-col-code">
 
-                                    <span class="category-code"
-                                          th:text="${department.code}">
+                                    <span
+                                            class="category-code"
+                                            th:text="${department.code}">
 
                                         PB001
 
@@ -253,7 +274,9 @@
                                 </td>
 
 
+                                <!-- ================================================= -->
                                 <!-- TÊN PHÒNG BAN -->
+                                <!-- ================================================= -->
 
                                 <td class="category-col-name">
 
@@ -265,8 +288,9 @@
 
                                         </span>
 
-                                        <span class="category-name-text"
-                                              th:text="${department.name}">
+                                        <span
+                                                class="category-name-text"
+                                                th:text="${department.name}">
 
                                             Phòng Nhân sự
 
@@ -277,14 +301,17 @@
                                 </td>
 
 
+                                <!-- ================================================= -->
                                 <!-- MÔ TẢ -->
+                                <!-- ================================================= -->
 
                                 <td class="category-col-description">
 
-                                    <span class="category-description"
-                                          th:text="${department.description != null and !#strings.isEmpty(department.description)
-                                          ? department.description
-                                          : 'Chưa có mô tả'}">
+                                    <span
+                                            class="category-description"
+                                            th:text="${department.description != null and !#strings.isEmpty(department.description)
+                                            ? department.description
+                                            : 'Chưa có mô tả'}">
 
                                         Chưa có mô tả
 
@@ -293,75 +320,122 @@
                                 </td>
 
 
+                                <!-- ================================================= -->
                                 <!-- TRẠNG THÁI -->
+                                <!-- ================================================= -->
+
                                 <td class="category-col-status">
 
-                                    <span th:if="${department.status != null}"
-                                          th:class="${department.status.name() == 'ACTIVE'
-                                                    ? 'category-status category-status-active'
-                                                    : 'category-status category-status-inactive'}">
+                                    <!-- Có status -->
 
-                                        <i th:class="${department.status.name() == 'ACTIVE'
-                                                      ? 'fa fa-check-circle'
-                                                      : 'fa fa-times-circle'}"></i>
+                                    <span
+                                            th:if="${department.status != null}"
+                                            th:class="${department.status.name() == 'ACTIVE'
+                                            ? 'category-status category-status-active'
+                                            : 'category-status category-status-inactive'}">
 
-                                        <span th:text="${department.status.description}">
+
+                                        <!-- ICON -->
+
+                                        <i
+                                                th:class="${department.status.name() == 'ACTIVE'
+                                                ? 'fa fa-check-circle'
+                                                : 'fa fa-times-circle'}">
+                                        </i>
+
+
+                                        <!-- TEXT -->
+
+                                        <span
+                                                th:text="${department.status.description}">
+
+                                            Hoạt động
+
                                         </span>
 
                                     </span>
 
-                                    <span th:unless="${department.status != null}">
+
+                                    <!-- Không có status -->
+
+                                    <span
+                                            th:unless="${department.status != null}">
+
                                         ---
+
                                     </span>
 
                                 </td>
 
 
+                                <!-- ================================================= -->
                                 <!-- NGÀY TẠO -->
+                                <!-- ================================================= -->
 
                                 <td class="category-col-created">
 
-                                    <span class="category-created"
-                                          th:text="${department.createdDate != null
-                                          ? #temporals.format(department.createdDate, 'dd/MM/yyyy HH:mm')
-                                          : '---'}">
+                                    <span
+                                            class="category-created"
+                                            th:text="${department.createdDate != null
+                                            ? #temporals.format(department.createdDate, 'dd/MM/yyyy HH:mm')
+                                            : '---'}">
+
                                     </span>
 
                                 </td>
 
 
+                                <!-- ================================================= -->
                                 <!-- THAO TÁC -->
+                                <!-- ================================================= -->
 
                                 <td class="category-col-action">
 
                                     <div class="category-action-buttons">
 
 
+                                        <!-- ================================================= -->
                                         <!-- SỬA -->
+                                        <!-- ================================================= -->
 
-                                        <a th:href="@{/admin/department/edit/{id}(id=${department.id})}"
-                                           class="category-action category-action-edit"
-                                           title="Sửa phòng ban">
+                                        <a
+                                                th:href="@{/admin/departments/edit/{id}(id=${department.id})}"
+                                                class="category-action category-action-edit"
+                                                title="Sửa phòng ban">
 
                                             <i class="fa fa-pencil"></i>
 
-                                            <span>Sửa</span>
+                                            <span>
+                                                Sửa
+                                            </span>
 
                                         </a>
 
 
+                                        <!-- ================================================= -->
                                         <!-- XÓA -->
+                                        <!-- ================================================= -->
 
-                                        <a th:href="@{/admin/department/delete/{id}(id=${department.id})}"
-                                           class="category-action category-action-delete"
-                                           title="Xóa phòng ban"
-                                           onclick="return confirm('Bạn có chắc chắn muốn xóa phòng ban này không?');">
+                                        <form
+                                                th:action="@{/admin/departments/delete/{id}(id=${department.id})}"
+                                                method="post"
+                                                style="display: inline;"
+                                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa phòng ban này không?');">
 
-                                            <i class="fa fa-trash"></i>
+                                            <button
+                                                    type="submit"
+                                                    class="category-action category-action-delete"
+                                                    title="Xóa phòng ban">
 
-                                            <span>Xóa</span>
+                                                <i class="fa fa-trash"></i>
 
-                                        </a>
+                                                <span>
+                                                    Xóa
+                                                </span>
+
+                                            </button>
+
+                                        </form>
 
                                     </div>
 
@@ -374,7 +448,8 @@
                             <!-- KHÔNG CÓ DỮ LIỆU -->
                             <!-- ================================================= -->
 
-                            <tr th:if="${list == null or #lists.isEmpty(list)}">
+                            <tr
+                                    th:if="${departments == null or #lists.isEmpty(departments)}">
 
                                 <td colspan="7">
 
@@ -400,7 +475,6 @@
 
                             </tr>
 
-
                             </tbody>
 
                         </table>
@@ -409,101 +483,140 @@
 
 
                     <!-- ================================================= -->
-                    <!-- Phân trang -->
+                    <!-- PHÂN TRANG -->
                     <!-- ================================================= -->
 
                     <div class="category-pagination">
 
-                        <!-- Thông tin trang -->
+
+                        <!-- ================================================= -->
+                        <!-- THÔNG TIN TRANG -->
+                        <!-- ================================================= -->
 
                         <div class="category-pagination-info">
 
                             Trang
 
-                            <strong th:text="${currentPage != null ? currentPage : 1}">
+                            <strong
+                                    th:text="${currentPage != null ? currentPage : 1}">
                                 1
                             </strong>
 
                             /
 
-                            <strong th:text="${totalPages != null and totalPages > 0 ? totalPages : 1}">
+                            <strong
+                                    th:text="${totalPages != null and totalPages > 0
+                                    ? totalPages
+                                    : 1}">
                                 1
                             </strong>
 
                         </div>
 
 
-                        <!-- Nút phân trang -->
+                        <!-- ================================================= -->
+                        <!-- NÚT PHÂN TRANG -->
+                        <!-- ================================================= -->
 
                         <div class="category-pagination-buttons">
 
-                            <!-- ================================= -->
-                            <!-- PREVIOUS -->
-                            <!-- ================================= -->
 
-                            <a th:if="${currentPage != null and currentPage > 1}"
-                               th:href="@{/admin/department(
-                                   pageNo=${currentPage - 1},
-                                   keyword=${keyword}
-                               )}"
-                               class="pagination-button">
+                            <!-- ================================================= -->
+                            <!-- PREVIOUS -->
+                            <!-- ================================================= -->
+
+                            <a
+                                    th:if="${currentPage != null and currentPage > 1}"
+                                    th:href="@{/admin/departments(
+                                    page=${currentPage - 2},
+                                    size=${pageSize},
+                                    keyword=${searchRequest.keyword},
+                                    status=${searchRequest.status},
+                                    sortBy=${searchRequest.sortBy},
+                                    sortDirection=${searchRequest.sortDirection}
+                                )}"
+                                    class="pagination-button">
+
                                 <i class="fa fa-angle-left"></i>
+
                             </a>
 
 
                             <!-- Không có trang trước -->
 
-                            <span th:if="${currentPage == null or currentPage <= 1}"
-                                  class="pagination-button pagination-disabled">
+                            <span
+                                    th:if="${currentPage == null or currentPage <= 1}"
+                                    class="pagination-button pagination-disabled">
+
                                 <i class="fa fa-angle-left"></i>
+
                             </span>
 
 
-                            <!-- ================================= -->
+                            <!-- ================================================= -->
                             <!-- PAGE NUMBERS -->
-                            <!-- ================================= -->
+                            <!-- ================================================= -->
 
-                            <th:block th:if="${totalPages != null and totalPages > 0}">
-                                <a th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
-                                   th:href="@{/admin/department(
-                                       pageNo=${pageNumber},
-                                       keyword=${keyword}
-                                   )}"
-                                   th:text="${pageNumber}"
-                                   th:classappend="${currentPage == pageNumber} ? ' pagination-active'"
-                                   class="pagination-button">
+                            <th:block
+                                    th:if="${totalPages != null and totalPages > 0}">
+
+                                <a
+                                        th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                                        th:href="@{/admin/departments(
+                                        page=${pageNumber - 1},
+                                        size=${pageSize},
+                                        keyword=${searchRequest.keyword},
+                                        status=${searchRequest.status},
+                                        sortBy=${searchRequest.sortBy},
+                                        sortDirection=${searchRequest.sortDirection}
+                                    )}"
+                                        th:text="${pageNumber}"
+                                        th:classappend="${currentPage == pageNumber}
+                                        ? ' pagination-active'"
+                                        class="pagination-button">
 
                                     1
 
                                 </a>
+
                             </th:block>
 
 
-                            <!-- ================================= -->
+                            <!-- ================================================= -->
                             <!-- NEXT -->
-                            <!-- ================================= -->
+                            <!-- ================================================= -->
 
-                            <a th:if="${totalPages != null
-                                      and currentPage != null
-                                      and currentPage < totalPages}"
-                               th:href="@{/admin/department(
-                                   pageNo=${currentPage + 1},
-                                   keyword=${keyword}
-                               )}"
-                               class="pagination-button">
+                            <a
+                                    th:if="${totalPages != null
+                                    and currentPage != null
+                                    and currentPage < totalPages}"
+                                    th:href="@{/admin/departments(
+                                    page=${currentPage},
+                                    size=${pageSize},
+                                    keyword=${searchRequest.keyword},
+                                    status=${searchRequest.status},
+                                    sortBy=${searchRequest.sortBy},
+                                    sortDirection=${searchRequest.sortDirection}
+                                )}"
+                                    class="pagination-button">
+
                                 <i class="fa fa-angle-right"></i>
+
                             </a>
 
 
                             <!-- Không có trang sau -->
-                            <span th:if="${totalPages == null
-                                          or totalPages <= 1
-                                          or currentPage == null
-                                          or currentPage >= totalPages}"
-                                  class="pagination-button pagination-disabled">
-                                <i class="fa fa-angle-right"></i>
-                            </span>
 
+                            <span
+                                    th:if="${totalPages == null
+                                    or totalPages <= 1
+                                    or currentPage == null
+                                    or currentPage >= totalPages}"
+                                    class="pagination-button pagination-disabled">
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </span>
 
                         </div>
 
@@ -518,7 +631,9 @@
             <!-- FOOTER -->
             <!-- ================================================= -->
 
-            <div th:replace="admin/fragments/footer :: footer"></div>
+            <div
+                    th:replace="admin/fragments/footer :: footer">
+            </div>
 
         </section>
 
@@ -531,7 +646,9 @@
 <!-- JAVASCRIPT CỦA TEMPLATE -->
 <!-- ===================================================== -->
 
-<script th:replace="admin/fragments/script :: script"></script>
+<script
+        th:replace="admin/fragments/script :: script">
+</script>
 
 </body>
 

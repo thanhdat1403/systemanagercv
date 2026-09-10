@@ -1,0 +1,29 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 004-remove-old-audit-columns-users
+      author: systemanagercv
+
+      changes:
+
+        # =====================================================
+        # XÓA created_at CŨ
+        #
+        # created_date đã được tạo bởi changeset 001.
+        # Không rename created_at → created_date vì
+        # created_date đã tồn tại.
+        # =====================================================
+
+        - dropColumn:
+            tableName: users
+            columnName: created_at
+
+        # =====================================================
+        # XÓA updated_at CŨ
+        #
+        # updated_date đã được tạo bởi changeset 001.
+        # =====================================================
+
+        - dropColumn:
+            tableName: users
+            columnName: updated_at

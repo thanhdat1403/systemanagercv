@@ -114,43 +114,70 @@
 
                         <div class="form-group">
 
+                            <!-- LABEL -->
                             <label for="user">
-
                                 Tài khoản đăng nhập
-
                                 <span class="required">*</span>
-
                             </label>
-
 
                             <div class="form-input-wrapper">
 
+                                <!-- ICON -->
                                 <i class="fa fa-user form-input-icon"></i>
 
-
+                                <!-- USER SELECT -->
                                 <select id="user"
-                                        name="userId"
+                                        th:field="*{userId}"
                                         class="form-control category-select"
                                         required>
 
-                                    <option value="">-- Chọn tài khoản --</option>
+                                    <!-- Giá trị mặc định -->
+                                    <option value="">
+                                        -- Chọn tài khoản đăng nhập --
+                                    </option>
+
+                                    <!-- ====================================================
+                                         DANH SÁCH USER
+
+                                         users được truyền từ:
+                                         AdminEmployeeController
+
+                                         Kiểu dữ liệu:
+                                         List<UserSelectResponse>
+
+                                         Bao gồm:
+                                         - HR
+                                         - TECH_LEAD
+                                         - EMPLOYEE
+
+                                         Không bao gồm:
+                                         - ADMIN
+                                         - User đã có Employee
+                                         - User disabled
+                                         - User soft delete
+
+                                         Hiển thị:
+                                         username - roleName
+
+                                         Ví dụ:
+                                         tech01 - TECH_LEAD
+                                         hr01 - HR
+                                         emp01 - EMPLOYEE
+                                         ==================================================== -->
 
                                     <option th:each="u : ${users}"
                                             th:value="${u.id}"
-                                            th:text="${u.username}">
+                                            th:text="${u.username + ' - ' + u.roleName}">
                                     </option>
 
                                 </select>
 
                             </div>
 
-
+                            <!-- HELP TEXT -->
                             <div class="form-help">
-
                                 <i class="fa fa-info-circle"></i>
-
                                 Chọn tài khoản đăng nhập được liên kết với nhân viên.
-
                             </div>
 
                         </div>

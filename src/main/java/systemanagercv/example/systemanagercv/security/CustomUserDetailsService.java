@@ -1,7 +1,6 @@
 package systemanagercv.example.systemanagercv.security;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,9 +26,18 @@ public class CustomUserDetailsService
                 "Username nhận được: " + username
         );
 
+        /*
+         * Chỉ lấy User chưa bị soft delete.
+         *
+         * UserRepository:
+         * User findByUsernameAndDeletedFalse(String username);
+         */
         User user =
-                userRepository.findByUsername(username);
+                userRepository.findByUsernameAndDeletedFalse(username);
 
+        /*
+         * Không tìm thấy User
+         */
         if (user == null) {
 
             throw new UsernameNotFoundException(

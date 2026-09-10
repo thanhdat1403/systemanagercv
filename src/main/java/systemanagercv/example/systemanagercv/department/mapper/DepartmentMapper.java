@@ -2,7 +2,9 @@ package systemanagercv.example.systemanagercv.department.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
-import systemanagercv.example.systemanagercv.department.dto.request.DepartmentRequest;
+import systemanagercv.example.systemanagercv.department.dto.request.DepartmentCreateRequest;
+import systemanagercv.example.systemanagercv.department.dto.request.DepartmentUpdateRequest;
+import systemanagercv.example.systemanagercv.department.dto.response.DepartmentDetailResponse;
 import systemanagercv.example.systemanagercv.department.dto.response.DepartmentResponse;
 import systemanagercv.example.systemanagercv.department.entity.Departments;
 
@@ -18,7 +20,7 @@ public interface DepartmentMapper {
      * - Thêm phòng ban
      * - Cập nhật phòng ban
      */
-    Departments toEntity(DepartmentRequest request);
+    Departments toEntity(DepartmentCreateRequest request);
 
     /**
      * DepartmentRequest → Departments đã tồn tại
@@ -26,7 +28,7 @@ public interface DepartmentMapper {
      * Dùng khi cập nhật phòng ban.
      */
     void updateEntity(
-            DepartmentRequest request,
+            DepartmentUpdateRequest request,
             @MappingTarget Departments departments
     );
 
@@ -38,6 +40,8 @@ public interface DepartmentMapper {
      * - Xem chi tiết phòng ban
      */
     DepartmentResponse toResponse(Departments departments);
+
+    DepartmentDetailResponse toDetailResponse(Departments departments);
 }
 /*Hiểu về Mapper (Nỗi đau nếu k có Mapper)
 NẾU KHÔNG CÓ MAPPER: Nếu không tạo file Mapper, bạn sẽ phải tự tay viết code get/set thủ công cho từng trường dữ liệu ở tầng Service.

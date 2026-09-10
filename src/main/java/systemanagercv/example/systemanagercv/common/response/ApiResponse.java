@@ -14,6 +14,20 @@ public class ApiResponse<T> { // lớp này đc dùng lm khuôn mẫu chung duy 
     private String message;
 
     private T data;
+
+    /**
+     * Trả về response thành công có dữ liệu.
+     *
+     * Ví dụ:
+     * ApiResponse.success(userResponse)
+     */
+    public static <T> ApiResponse<T> success(T data) {
+        return new ApiResponse<>(
+                "success",
+                "Success",
+                data
+        );
+    }
 }
 /*Lớp này có tác dụng trả về API theo cấu trúc response (Quy đinh số 4):
 * VD: API trả về 1 User: ApiResponse<UserResponse>

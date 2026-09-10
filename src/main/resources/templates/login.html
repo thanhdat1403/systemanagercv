@@ -1,58 +1,426 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Login :: w3layouts</title>
+    <title>Login</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- bootstrap-css -->
-    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" >
-    <!-- //bootstrap-css -->
+
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=utf-8"/>
+
+    <meta name="keywords"
+          content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates"/>
+
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          th:href="@{/assets/css/bootstrap.min.css}">
+
     <!-- Custom CSS -->
-    <link th:href="@{/assets/css/style.css}" rel='stylesheet' type='text/css' />
-    <link th:href="@{/assets/css/style-responsive.css}" rel="stylesheet"/>
-    <!-- font CSS -->
-    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <!-- font-awesome icons -->
-    <link rel="stylesheet" th:href="@{/assets/css/font.css}" type="text/css"/>
-    <link th:href="@{/assets/css/font-awesome.css}" rel="stylesheet"/>
-    <!-- //font-awesome icons -->
-    <script th:src="@{/assets/js/jquery2.0.3.min.js}"></script>
+    <link th:href="@{/assets/css/style.css}"
+          rel="stylesheet"
+          type="text/css">
+
+    <link th:href="@{/assets/css/style-responsive.css}"
+          rel="stylesheet">
+
+    <!-- Font CSS -->
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,300,500,700,900"
+          rel="stylesheet"
+          type="text/css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          th:href="@{/assets/css/font.css}"
+          type="text/css">
+
+    <link th:href="@{/assets/css/font-awesome.css}"
+          rel="stylesheet">
+
+    <script th:src="@{/assets/js/jquery2.0.3.min.js}">
+    </script>
+
+
 </head>
+
 <body>
+
 <div class="log-w3">
+
     <div class="w3layouts-main">
+
         <h2>Sign In Now</h2>
-        <form th:action="@{/login}" method="post">
-            <!-- Ô tài khoản đặt name="username" (vì trong file cấu hình SecurityConfig :usernameParameter("username")) là đã đúng chuẩn -->
-            <input type="text" class="ggg" name="username" placeholder="USERNAME" required="">
 
-            <!-- SỬA: Đổi "Password" thành "password" viết thường hoàn toàn (vì trong file cấu hình SecurityConfig :passwordParameter("password")) -->
-            <input type="password" class="ggg" name="password" placeholder="PASSWORD" required="">
+        <!--
+            =====================================================
+            JWT LOGIN
+            =====================================================
 
-            <span><input type="checkbox" />Remember Me</span>
-            <h6><a href="#">Forgot Password?</a></h6>
+            Không sử dụng:
+
+                th:action="@{/login}"
+
+            vì login hiện tại được xử lý bằng JavaScript.
+
+            JavaScript sẽ gọi:
+
+                POST /api/v1/auth/login
+
+            Server sẽ:
+                1. Kiểm tra username/password
+                2. Tạo JWT
+                3. Đưa JWT vào HttpOnly Cookie "accessToken"
+
+            Browser sau đó sẽ tự động gửi Cookie khi truy cập:
+
+                /admin/index
+                /hr/index
+                /tech-lead/index
+                /employee/index
+        -->
+
+        <form id="loginForm">
+
+            <!-- Username -->
+            <input type="text"
+                   id="username"
+                   class="ggg"
+                   name="username"
+                   placeholder="USERNAME"
+                   required>
+
+            <!-- Password -->
+            <input type="password"
+                   id="password"
+                   class="ggg"
+                   name="password"
+                   placeholder="PASSWORD"
+                   required>
+
+            <!-- Remember Me -->
+            <span>
+            <input type="checkbox"
+                   id="rememberMe">
+
+            Remember Me
+        </span>
+
+            <!-- Forgot Password -->
+            <h6>
+                <a href="#">Forgot Password?</a>
+            </h6>
+
             <div class="clearfix"></div>
-            <input type="submit" value="Sign In" name="login">
+
+            <!-- Submit -->
+            <input type="submit"
+                   value="Sign In"
+                   name="login">
+
+            <!-- Login Error -->
+            <div id="loginError"
+                 style="display: none;
+                    color: red;
+                    margin-top: 15px;">
+            </div>
+
         </form>
-        <p>Don't Have an Account ?<a th:href="@{/register}">Create an account</a></p>
+
+        <p>
+            Don't Have an Account ?
+
+            <a th:href="@{/register}">
+                Create an account
+            </a>
+        </p>
+
     </div>
 
 </div>
-<script th:src="@{/assets/js/bootstrap.js}"></script>
-<script th:src="@{/assets/js/jquery.dcjqaccordion.2.7.js}"></script>
-<script th:src="@{/assets/js/scripts.js}"></script>
-<script th:src="@{/assets/js/jquery.slimscroll.js}"></script>
-<script th:src="@{/assets/js/jquery.nicescroll.js}"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" th:src="@{/assets/js/flot-chart/excanvas.min.js}"></script><![endif]-->
-<script th:src="@{/assets/js/jquery.scrollTo.js}"></script>
+
+<!-- Bootstrap -->
+
+<script th:src="@{/assets/js/bootstrap.js}">
+</script>
+
+<!-- Accordion -->
+
+<script th:src="@{/assets/js/jquery.dcjqaccordion.2.7.js}">
+</script>
+
+<!-- Scripts -->
+
+<script th:src="@{/assets/js/scripts.js}">
+</script>
+
+<!-- Slimscroll -->
+
+<script th:src="@{/assets/js/jquery.slimscroll.js}">
+</script>
+
+<!-- Nice Scroll -->
+
+<script th:src="@{/assets/js/jquery.nicescroll.js}">
+</script>
+
+<!--[if lte IE 8]>
+<script language="javascript"
+        type="text/javascript"
+        th:src="@{/assets/js/flot-chart/excanvas.min.js}">
+</script>
+<![endif]-->
+
+<script th:src="@{/assets/js/jquery.scrollTo.js}">
+</script>
+
+<!-- =========================================================
+     JWT LOGIN JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+    document.getElementById("loginForm")
+        .addEventListener("submit", async function (event) {
+
+            /*
+             * =====================================================
+             * BƯỚC 1
+             * =====================================================
+             *
+             * Không cho HTML form tự POST tới /login.
+             *
+             * Chúng ta tự gọi REST API bằng fetch().
+             */
+
+            event.preventDefault();
+
+
+            /*
+             * =====================================================
+             * BƯỚC 2
+             * Lấy username/password
+             * =====================================================
+             */
+
+            const username =
+                document.getElementById("username")
+                    .value
+                    .trim();
+
+            const password =
+                document.getElementById("password")
+                    .value;
+
+
+            /*
+             * Khu vực hiển thị lỗi
+             */
+
+            const loginError =
+                document.getElementById("loginError");
+
+
+            /*
+             * Xóa lỗi cũ
+             */
+
+            loginError.style.display = "none";
+            loginError.textContent = "";
+
+
+            try {
+
+                /*
+                 * =================================================
+                 * BƯỚC 3
+                 * Gọi API Login
+                 * =================================================
+                 */
+
+                const response = await fetch(
+                    "/api/v1/auth/login",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        })
+                    }
+                );
+
+
+                /*
+                 * =================================================
+                 * BƯỚC 4
+                 * Đọc response
+                 * =================================================
+                 */
+
+                const result =
+                    await response.json();
+
+
+                /*
+                 * =================================================
+                 * BƯỚC 5
+                 * Kiểm tra login thất bại
+                 * =================================================
+                 */
+
+                if (!response.ok) {
+
+                    loginError.textContent =
+                        result.message ||
+                        "Đăng nhập thất bại.";
+
+                    loginError.style.display =
+                        "block";
+
+                    return;
+                }
+
+
+                /*
+                 * =================================================
+                 * BƯỚC 6
+                 * Login thành công
+                 * =================================================
+                 *
+                 * Quan trọng:
+                 *
+                 * JWT hiện tại đã được server đưa vào:
+                 *
+                 * HttpOnly Cookie:
+                 *
+                 * accessToken
+                 *
+                 * Vì vậy KHÔNG lưu accessToken vào
+                 * localStorage nữa.
+                 */
+
+                const loginData =
+                    result.data;
+
+
+                /*
+                 * Chỉ lấy username và roles từ response
+                 * để phục vụ việc chuyển trang.
+                 */
+
+                const usernameResponse =
+                    loginData.username;
+
+                const roles =
+                    loginData.roles;
+
+
+                /*
+                 * =================================================
+                 * BƯỚC 7
+                 * Kiểm tra roles
+                 * =================================================
+                 */
+
+                if (!roles ||
+                    !Array.isArray(roles) ||
+                    roles.length === 0) {
+
+                    loginError.textContent =
+                        "Tài khoản chưa được cấp quyền.";
+
+                    loginError.style.display =
+                        "block";
+
+                    return;
+                }
+
+
+                /*
+                 * =================================================
+                 * BƯỚC 8
+                 * Chuyển trang theo ROLE
+                 * =================================================
+                 *
+                 * Cookie accessToken đã được browser lưu.
+                 *
+                 * Khi chuyển tới:
+                 *
+                 * /admin/index
+                 *
+                 * Browser sẽ tự động gửi:
+                 *
+                 * Cookie: accessToken=JWT
+                 */
+
+                if (roles.includes("ADMIN")) {
+
+                    window.location.href =
+                        "/admin/index";
+
+                } else if (roles.includes("HR")) {
+
+                    window.location.href =
+                        "/hr/index";
+
+                } else if (roles.includes("TECH_LEAD")) {
+
+                    window.location.href =
+                        "/tech-lead/index";
+
+                } else if (roles.includes("EMPLOYEE")) {
+
+                    window.location.href =
+                        "/employee/index";
+
+                } else {
+
+                    loginError.textContent =
+                        "Tài khoản chưa được cấp quyền.";
+
+                    loginError.style.display =
+                        "block";
+                }
+
+            } catch (error) {
+
+                /*
+                 * =================================================
+                 * BƯỚC 9
+                 * Lỗi kết nối server
+                 * =================================================
+                 */
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+                loginError.textContent =
+                    "Không thể kết nối tới máy chủ.";
+
+                loginError.style.display =
+                    "block";
+            }
+
+        });
+
+</script>
+
 </body>
 </html>

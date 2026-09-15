@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import systemanagercv.example.systemanagercv.common.response.ApiResponse;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeCreateRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
@@ -30,8 +31,16 @@ public class EmployeeController {
     // Ví dụ: GET /api/v1/employees?keyword=Nguyen&page=0&size=10
     // =========================================================
     @GetMapping
+    @PreAuthorize("""
+        hasAnyRole(
+            'ADMIN',
+            'HR',
+            'TECH_LEAD',
+            'EMPLOYEE'
+        )
+        """) // <--- Chỉ ai có quyền ADMIN mới được bước vào hàm này
     public ResponseEntity<ApiResponse<Page<EmployeeResponse>>> search(
-            @Valid EmployeeSearchRequest request // Nhận thông số lọc (từ khóa, số trang, kích thước) từ URL và kiểm tra tính hợp lệ (@Valid)
+            @Valid @ModelAttribute EmployeeSearchRequest request // Nhận thông số lọc (từ khóa, số trang, kích thước) từ URL và kiểm tra tính hợp lệ (@Valid)
     ){
         //Chuyển gói request xuống tầng Service để lọc thông tin nâng cao và phân trang từ DB lên
         Page<EmployeeResponse> result =
@@ -78,6 +87,13 @@ public class EmployeeController {
     // Hành động: POST -> Địa chỉ: /api/v1/employees
     // =========================================================
     @PostMapping
+    @PreAuthorize("""
+    hasAnyRole(
+        'ADMIN',
+        'HR',
+        'TECH_LEAD'
+    )
+    """)
     public ResponseEntity<ApiResponse<EmployeeResponse>> create(
             @Valid @RequestBody EmployeeCreateRequest request // Nhãn @RequestBody bắt hệ thống mở gói JSON gửi lên đổ vào Java Object
     ){
@@ -106,6 +122,14 @@ public class EmployeeController {
     // Ví dụ: PUT /api/v1/employees/5
     // =========================================================
     @PutMapping("/{id}")
+    @PreAuthorize("""
+    hasAnyRole(
+        'ADMIN',
+        'HR',
+        'TECH_LEAD',
+        'EMPLOYEE'
+    )
+    """)
     public ResponseEntity<ApiResponse<EmployeeResponse>> update(
             @PathVariable Long id, // Bốc số ID của nhân viên cần chỉnh sửa trên URL
             @Valid @RequestBody EmployeeUpdateRequest request // Bốc dữ liệu JSON chứa các thông tin chỉnh sửa mới

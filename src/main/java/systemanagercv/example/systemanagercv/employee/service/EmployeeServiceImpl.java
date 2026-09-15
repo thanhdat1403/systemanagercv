@@ -12,12 +12,14 @@ import systemanagercv.example.systemanagercv.common.enums.RoleName;
 import systemanagercv.example.systemanagercv.common.exception.BusinessException;
 import systemanagercv.example.systemanagercv.department.entity.Departments;
 import systemanagercv.example.systemanagercv.department.service.DepartmentService;
+import systemanagercv.example.systemanagercv.employee.authorization.EmployeeAccessScope;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeCreateRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeUpdateRequest;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeDetailResponse;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeResponse;
 import systemanagercv.example.systemanagercv.employee.entity.Employee;
+import systemanagercv.example.systemanagercv.employee.authorization.EmployeeAuthorizationService;
 import systemanagercv.example.systemanagercv.employee.mapper.EmployeeMapper;
 import systemanagercv.example.systemanagercv.employee.repository.EmployeeRepository;
 import systemanagercv.example.systemanagercv.employee.specification.EmployeeSpecification;
@@ -53,6 +55,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         private final EmployeeMapper employeeMapper;
         private final UserService userService;
         private final DepartmentService departmentService;
+        private final EmployeeAuthorizationService employeeAuthorizationService;
 
 
     /**
@@ -64,13 +67,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional(readOnly = true) // Hàm chỉ đọc dữ liệu (SELECT) -> giúp tăng tốc độ truy vấn tối đa
     public Page<EmployeeResponse> search(EmployeeSearchRequest request) {
 
+        System.out.println("===== EMPLOYEE SEARCH DEBUG =====");
+        System.out.println("keyword = " + request.getKeyword());
+        System.out.println("departmentId = " + request.getDepartmentId());
+
         //Gọi hàm tạo thông số phân trang (hàm createPageable được viết ở cuối file)
         Pageable pageable = createPageable(request);
 
+        // Phạm vi truy cập của employee
+        EmployeeAccessScope accessScope =
+                employeeAuthorizationService.getCurrentUserScope();
+
         //Kết hợp file lọc động EmployeeSpecification và khuôn phân trang để quét Database
         return employeeRepository
-                .findAll(EmployeeSpecification.search(request), pageable)
-                .map(employeeMapper::toResponse); // Tự động lặp và đổi ruột từ dữ liệu thô sang EmployeeResponse sạch đẹp
+                .findAll(
+                        EmployeeSpecification.search(
+                                request,
+                                accessScope
+                        ),
+                        pageable
+                )
+                .map(employeeMapper::toResponse);// Tự động lặp và đổi ruột từ dữ liệu thô sang EmployeeResponse sạch đẹp
     }
 
     /**
@@ -89,6 +106,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() ->
                         new BusinessException("error.employee.notFound")
                 );
+        if (!employeeAuthorizationService.canView(id)){
+            throw new BusinessException(
+                    "error.employee.accessDenied"
+            );
+        }
 
         //Chuyển đổi dữ liệu sang gói DTO chi tiết để trả về cho phía giao diện
         return employeeMapper.toDetailResponse(employee);
@@ -101,6 +123,32 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public EmployeeResponse create(EmployeeCreateRequest request) {
+
+        System.out.println(
+                "========== EMPLOYEE CREATE =========="
+        );
+
+        System.out.println(
+                "Current request userId = "
+                        + request.getUserId()
+        );
+
+        System.out.println(
+                "Current request departmentId = "
+                        + request.getDepartmentId()
+        );
+
+        System.out.println(
+                "===================================="
+        );
+
+        if (!employeeAuthorizationService.canCreate(
+                request.getDepartmentId()
+        )){
+            throw new BusinessException(
+                    "error.employee.create.accessDenied"
+            );
+        }
         /*
          * --------------------------------------------------------
          * Bước 1: Kiểm tra xem Mã nhân viên (employeeCode) có bị trùng không
@@ -212,7 +260,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         /*
          * --------------------------------------------------------
-         * Bước 2: Kiểm tra xem Mã nhân viên mới có bị trùng với người khác không
+         * Bước 2: Kiểm tra quyền UPDATE Employee
+         * --------------------------------------------------------
+         */
+        if (!employeeAuthorizationService.canUpdate(
+                employee,
+                request.getDepartmentId()
+        )) {
+            throw new BusinessException(
+                    "error.employee.update.accessDenied"
+            );
+        }
+
+        /*
+         * --------------------------------------------------------
+         * Bước 3: Kiểm tra xem Mã nhân viên mới có bị trùng với người khác không
          * --------------------------------------------------------
          */
         String employeeCode = request.getEmployeeCode().trim();
@@ -224,14 +286,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         /*
          * --------------------------------------------------------
-         * Bước 3: Lấy thông tin tài khoản User mới từ hệ thống
+         * Bước 4: Lấy thông tin tài khoản User mới từ hệ thống
          * --------------------------------------------------------
          */
         User user = userService.findActiveUserEntityById(request.getUserId());
 
         /*
          * --------------------------------------------------------
-         * Bước 4: Kiểm tra xem tài khoản User mới đó có đúng quyền EMPLOYEE hay không
+         * Bước 5: Kiểm tra xem tài khoản User mới đó có đúng quyền EMPLOYEE hay không
          * --------------------------------------------------------
          */
         boolean isEmployeeRole = user.getUserRoles()
@@ -247,7 +309,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         /*
          * --------------------------------------------------------
-         * Bước 5: Kiểm tra xem tài khoản User mới này đã được nhân viên khác sử dụng chưa
+         * Bước 6: Kiểm tra xem tài khoản User mới này đã được nhân viên khác sử dụng chưa
          * --------------------------------------------------------
          */
         // Kiểm tra xem ID của tài khoản mới nhập có khác (thay ĐỔI) so với ID tài khoản cũ của nhân viên này không
@@ -266,7 +328,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         /*
          * --------------------------------------------------------
-         * Bước 6: Lấy thông tin Phòng ban mới
+         * Bước 7: Lấy thông tin Phòng ban mới
          * --------------------------------------------------------
          */
         Departments departments =
@@ -275,7 +337,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         /*
          * --------------------------------------------------------
-         * Bước 7: Tiến hành đè dữ liệu mới lên thực thể cũ (Update Entity)
+         * Bước 8: Tiến hành đè dữ liệu mới lên thực thể cũ (Update Entity)
          * --------------------------------------------------------
          */
         // Nhờ mapper tự động copy các thông tin cơ bản từ request đè lên đối tượng employee cũ
@@ -288,7 +350,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         /*
          * --------------------------------------------------------
-         * Bước 8: Lưu thông tin Nhân viên mới cập nhật xuống Database
+         * Bước 9: Lưu thông tin Nhân viên mới cập nhật xuống Database
          * --------------------------------------------------------
          */
         Employee updatedEmployee =
@@ -296,7 +358,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         /*
          * --------------------------------------------------------
-         * Bước 9: Chuyển đổi dữ liệu sạch (Entity → Response DTO) để trả về kết quả
+         * Bước 10: Chuyển đổi dữ liệu sạch (Entity → Response DTO) để trả về kết quả
          * --------------------------------------------------------
          */
         return employeeMapper.toResponse(updatedEmployee);

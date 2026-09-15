@@ -2,6 +2,8 @@ package systemanagercv.example.systemanagercv.employee.specification;
 
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
+import systemanagercv.example.systemanagercv.employee.authorization.EmployeeAccessScope;
+import systemanagercv.example.systemanagercv.employee.authorization.EmployeeAccessType;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
 import systemanagercv.example.systemanagercv.employee.entity.Employee;
 
@@ -11,14 +13,15 @@ import java.util.List;
 // Khai báo final và private constructor để ngăn việc khởi tạo đối tượng (Utility Class)
 public final class EmployeeSpecification {
 
-    public EmployeeSpecification() {
+    private EmployeeSpecification() {
     }
 
     /**
      * Hàm chính để tạo ra cấu trúc tìm kiếm động dựa trên dữ liệu lọc nhân viên gửi lên (EmployeeSearchRequest)
      */
     public static Specification<Employee> search(
-            EmployeeSearchRequest request
+            EmployeeSearchRequest request,
+            EmployeeAccessScope accessScope
     ){
         // root: Đại diện cho bảng Employee (đối tượng gốc để lấy các trường dữ liệu)
         // query: Đại diện cho toàn bộ câu lệnh truy vấn (giúp cấu hình DISTINCT, ORDER BY,...)
@@ -81,30 +84,83 @@ public final class EmployeeSpecification {
             // =========================================================================
             // 3. ĐIỀU KIỆN LỌC THEO PHÒNG BAN (Department)
             // =========================================================================
-            // Nếu người dùng có chọn một phòng ban cụ thể trên giao diện
+            // Kiểm tra: Nếu hệ thống có cấu hình giới hạn phạm vi truy cập cho tài khoản này
+            if (accessScope != null) {
+
+                /*
+                 * TRƯỜNG HỢP 1: TÀI KHOẢN CHỈ CÓ QUYỀN TRONG PHẠM VI PHÒNG BAN (DEPARTMENT)
+                 * (Ví dụ: Bạn là Tech Lead hoặc HR Manager, bạn chỉ được xem nhân viên của phòng mình).
+                 */
+                if (accessScope.getAccessType() == EmployeeAccessType.DEPARTMENT) {
+
+                    // Chốt chặn an toàn: Nếu hệ thống bị lỗi không tìm thấy ID phòng ban của người này
+                    if (accessScope.getDepartmentId() == null) {
+                        // cb.disjunction() tương đương lệnh SQL: "WHERE 1=0" (Ép mệnh đề luôn sai)
+                        // Mục đích: Chặn đứng không cho trả về bất kỳ dòng dữ liệu nào để bảo mật thông tin.
+                        predicates.add(cb.disjunction());
+                    } else {
+                        // Ngược lại, nếu có ID phòng ban hợp lệ -> Tự động cấy thêm lệnh SQL ngầm:
+                        // "AND department_id = [ID phòng ban của chính người đang đăng nhập]"
+                        predicates.add(
+                                cb.equal(
+                                        root.get("department").get("id"), // Mò vào cột ID phòng ban của bảng dữ liệu đang quét
+                                        accessScope.getDepartmentId()     // Đối chiếu với ID phòng ban của người xem
+                                )
+                        );
+                    }
+
+                    /*
+                     * 👤 TRƯỜNG HỢP 2: TÀI KHOẢN CHỈ CÓ QUYỀN TRONG PHẠM VI CÁ NHÂN (SELF)
+                     * (Ví dụ: Bạn là Nhân viên thường, bạn chỉ được quyền xem duy nhất Hồ sơ CV của chính bạn).
+                     */
+                } else if (accessScope.getAccessType() == EmployeeAccessType.SELF) {
+
+                    // Chốt chặn an toàn: Nếu không tìm thấy ID nhân viên của tài khoản đang đăng nhập
+                    if (accessScope.getEmployeeId() == null) {
+                        // Chặn đứng, trả về danh sách trống rỗng để bảo vệ an toàn hệ thống
+                        predicates.add(cb.disjunction());
+                    } else {
+                        // Nếu có ID nhân viên hợp lệ -> Tự động cấy thêm lệnh SQL ngầm:
+                        // "AND id = [ID nhân viên của chính người đang đăng nhập]"
+                        predicates.add(
+                                cb.equal(
+                                        root.get("id"),               // Mò vào cột ID khóa chính của bảng dữ liệu đang quét
+                                        accessScope.getEmployeeId()   // Đối chiếu với ID cá nhân của người xem
+                                )
+                        );
+                    }
+                }
+
+                /*
+                 * 💡 MẸO HIỂU NGẦM: Nếu 'accessScope.getAccessType()' mang giá trị là "ALL" (Quyền Admin tối cao),
+                 * code sẽ tự động bỏ qua cả 2 nhánh 'if' trên, không cấy thêm điều kiện chặn nào cả,
+                 * giúp Admin có thể nhìn thấy toàn bộ dữ liệu của tất cả mọi người trong công ty!
+                 */
+            }
+
+            // =========================================================================
+            // 4. ĐIỀU KIỆN LỌC THEO PHÒNG BAN DO NGƯỜI DÙNG YÊU CẦU
+            // =========================================================================
+            // Đây là bộ lọc departmentId được gửi trực tiếp từ request.
+            //
+            // Ví dụ:
+            // GET /api/v1/employees?departmentId=1
+            //
+            // Tương đương:
+            // AND department_id = 1
+            //
+            // Lưu ý:
+            // Điều kiện này chỉ LỌC thêm dữ liệu.
+            // Nó không thể mở rộng quyền truy cập của người dùng.
+            // Authorization scope ở phía trên vẫn được áp dụng độc lập.
+
             if (request != null
                     && request.getDepartmentId() != null) {
-                // Đi từ đối tượng Employee gốc -> Lấy thuộc tính liên kết "department" -> Lấy tiếp id để so sánh
-                //Tương đương với SQL: AND department_id = :departmentId
+
                 predicates.add(
                         cb.equal(
                                 root.get("department").get("id"),
                                 request.getDepartmentId()
-                        )
-                );
-            }
-
-            // =========================================================================
-            // 4. ĐIỀU KIỆN LỌC THEO CHỨC VỤ (Position)
-            // =========================================================================
-            // Nếu người dùng có chọn lọc theo chức vụ (Ví dụ: DEVELOPER, MANAGER...)
-            if (request != null
-                    && request.getPosition() != null) {
-                //Tương đương SQL: AND position = :position
-                predicates.add(
-                        cb.equal(
-                                root.get("position"),
-                                request.getPosition()
                         )
                 );
             }

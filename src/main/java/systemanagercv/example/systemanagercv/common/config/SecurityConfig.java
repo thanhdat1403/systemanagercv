@@ -140,17 +140,21 @@ public class SecurityConfig {
                                 "/api/v1/employees",
                                 "/api/v1/employees/**") // Bất kỳ ai gọi lệnh PUT đến đường dẫn nhân viên (Tính năng Sửa thông tin nhân viên)
                         .hasAnyRole(
-                                RoleName.ADMIN.name(),     // Chỉ chấp nhận ADMIN
-                                RoleName.HR.name(),        // Hoặc HR
-                                RoleName.TECH_LEAD.name(), // Hoặc TECH_LEAD
-                                RoleName.EMPLOYEE.name()    // Hoặc EMPLOYEE
+                                RoleName.ADMIN.name(),     // Chỉ chấp nhận ADMIN cập nhật tất cả employee
+                                RoleName.HR.name(),        // Hoặc HR cập nhật tất cả employee
+                                RoleName.TECH_LEAD.name(), // Hoặc TECH_LEAD cập nhật tất cả employee có cùng phòng ban mình
+                                RoleName.EMPLOYEE.name()    // Hoặc EMPLOYEE cập nhật của chính mình
                         ) // -> Chỉ có ADMIN hoặc HR mới được phép thay đổi, chỉnh sửa hồ sơ nhân viên.
 
                         // =========================================================================
                         // LUẬT 4: QUY ĐỊNH CHO HÀNH ĐỘNG XÓA (HÀM TIÊU HỦY DỮ LIỆU - DELETE)
                         // =========================================================================
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/employees/**") // Bất kỳ ai gọi lệnh DELETE đến đường dẫn nhân viên (Tính năng Xóa nhân viên)
-                        .hasRole(RoleName.ADMIN.name()) // Chỉ chấp nhận một mình quyền ADMIN duy nhất (hasRole dùng cho 1 quyền duy nhất)
+                        .hasAnyRole(
+                                RoleName.ADMIN.name(), // Chỉ ADMIN mới đc xóa tất cả employee
+                                RoleName.HR.name(), // Chỉ HR mới đc xóa tất cả employee
+                                RoleName.TECH_LEAD.name() // Chỉ được xóa employee có cùng phòng ban
+                        )
                         // -> Lệnh xóa cực kỳ nguy hiểm, nên hệ thống thắt chặt tối đa: Chỉ có sếp lớn nhất (ADMIN) mới được quyền xóa nhân viên. HR hay TECH_LEAD đều bị cấm hoàn toàn.
 
 

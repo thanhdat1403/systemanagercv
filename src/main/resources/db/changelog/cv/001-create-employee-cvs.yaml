@@ -1,0 +1,100 @@
+databaseChangeLog: # Khai báo đây là file nhật ký thay đổi cấu trúc Database của Liquibase
+  - changeSet: # Định nghĩa một tập hợp các thay đổi (giống như 1 phiên làm việc/1 commit)
+      id: cv-001-create-employee-cvs # Mã định danh duy nhất của changeset này, dùng để kiểm tra xem đã chạy hay chưa
+      author: systemanagercv # Tên người viết đoạn mã này để tiện theo dõi trong nhóm
+
+      changes: # Danh sách các hành động thay đổi Database sẽ thực hiện bên dưới
+
+        # ----------------------------------------------------
+        # HÀNH ĐỘNG 1: TẠO BẢNG MỚI (employee_cvs)
+        # ----------------------------------------------------
+        - createTable:
+            tableName: employee_cvs # tên bảng sẽ đc tạo trong DB
+            columns: # Danh sách các cột (trường dữ liệu) của bảng này
+              - column:
+                  name: id #Tên cột khóa chính
+                  type: BIGINT # kiểu dữ liệu số nguyên lớn (Tương đương Long trong Java)
+                  autoIncrement: true # Tự động tăng
+                  constraints:
+                    primaryKey: true # Đặt cột này làm khóa chính (Primary Key) để định  danh mỗi dòng
+                    nullable: false # Bắt buộc phải có giá trị, k đc phép để trống
+
+              - column:
+                  name: employee_id # Tên cột lưu ID nhân viên sở hữu CV này
+                  type: BIGINT
+                  constraints:
+                    nullable: false # Bắt buộc phải điền ID nhân viên, k đc để trống
+
+              - column:
+                  name: current_version_id # Cột lưu ID phiên bản hiện tại của CV
+                  type: BIGINT
+
+              - column:
+                  name: status # Cột lưu trạng thái CV (ví dụ: DRAFT, UPDATED, APPROVED...)
+                  type: VARCHAR(30) # Kiểu chuỗi ký tự
+                  defaultValue: UPDATED # Nếu khi lưu không truyền trạng thái, Database sẽ tự điền mặc định là 'UPDATED'
+                  constraints:
+                    nullable: false # Bắt buộc phải có trạng thái, k đc để trống
+
+              - column:
+                  name: created_date # Cột ghi nhận ngày giờ tạo ra dòng dữ liệu này
+                  type: DATETIME # Kiểu dữ liệu ngày giờ
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_by # Cột ghi nhận tên người đã tạo dòng này (Dùng để kiểm toán/Audit dữ liệu)
+                  type: VARCHAR(100)
+
+              - column:
+                  name: updated_date # Cột ghi nhận ngày giờ cập nhật chỉnh sửa dữ liệu gần nhất
+                  type: DATETIME # Kiểu dữ liệu ngày giờ
+
+              - column:
+                  name: updated_by # Cột ghi nhận tên người vừa chỉnh sửa dữ liệu gần nhất
+                  type: VARCHAR(100) # Kiểu chuỗi ký tự, tối đa 100 ký tự
+
+              - column:
+                  name: is_deleted # Cột đánh dấu trạng thái xóa
+                  type: BOOLEAN # Kiểu dữ liệu Đúng/Sai (True/False)
+                  defaultValueBoolean: false # Mặc định khi tạo mới là False
+                  constraints:
+                    nullable: false
+
+        # ----------------------------------------------------
+        # HÀNH ĐỘNG 2: THÊM RÀNG BUỘC DUY NHẤT (Unique Constraint)
+        # ----------------------------------------------------
+        - addUniqueConstraint:
+            tableName: employee_cvs # Áp dụng lên bảng employee_cvs
+            columnNames: employee_id
+            constraintName: uk_employee_cvs_employee_id # Đặt tên cho ràng buộc này là uk_...
+            # Ý nghĩa: Đảm bảo mỗi nhân viên (employee_id) chỉ có duy nhất 1 dòng trong bảng này
+            # Nếu cố tình thêm dòng thứ 2 trùng employee_id, Database sẽ báo lỗi ngay
+
+        # ----------------------------------------------------
+        # HÀNH ĐỘNG 3: THÊM RÀNG BUỘC KHÓA NGOẠI (Foreign Key)
+        # ----------------------------------------------------
+        - addForeignKeyConstraint:
+            baseTableName: employee_cvs # Bảng gốc (bảng chứa khóa ngoại) là employee_cvs
+            baseColumnNames: employee_id # Cột đóng vai trò làm khóa ngoại là employee_id
+            referencedTableName: employees # Bảng được liên kết tới là bảng employees (bảng Nhân viên)
+            referencedColumnNames: id # Cột được liên kết tới ở bảng Nhân viên là cột id
+            constraintName: fk_employee_cvs_employee # Đặt tên cho mối liên kết này là fk_...
+            onDelete: RESTRICT # Quy tắc xóa: Nếu xóa 1 Nhân viên ở bảng 'employees' mà họ đang có CV ở bảng 'employee_cvs' này, Database sẽ NGĂN CHẶN (chặn không cho xóa nhân viên đó) để bảo vệ toàn vẹn dữ liệu.
+
+        # ----------------------------------------------------
+        # HÀNH ĐỘNG 4: TẠO CÁC MỤC LỤC INDEX (Để tìm kiếm siêu nhanh)
+        # ----------------------------------------------------
+        - createIndex:
+            tableName: employee_cvs
+            indexName: idx_employee_cvs_status # Đặt tên cho mục lục này là idx_..._status
+            columns:
+              - column:
+                  name: status # Tạo mục lục cho cột 'status'. Giúp tăng tốc độ khi chạy lệnh lọc kiểu: WHERE status = 'UPDATED'
+
+        - createIndex:
+            tableName: employee_cvs
+            indexName: idx_employee_cvs_deleted # Đặt tên cho mục lục này là idx_..._deleted
+            columns:
+              - column:
+                  name: is_deleted

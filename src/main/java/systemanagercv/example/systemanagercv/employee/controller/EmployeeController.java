@@ -38,7 +38,8 @@ public class EmployeeController {
             'TECH_LEAD',
             'EMPLOYEE'
         )
-        """) // <--- Chỉ ai có quyền ADMIN mới được bước vào hàm này
+        """)// Chỉ các role được phép truy cập Employee API mới được vào method này.
+            // Quyền chi tiết theo Employee được kiểm tra tại EmployeeAuthorizationService.
     public ResponseEntity<ApiResponse<Page<EmployeeResponse>>> search(
             @Valid @ModelAttribute EmployeeSearchRequest request // Nhận thông số lọc (từ khóa, số trang, kích thước) từ URL và kiểm tra tính hợp lệ (@Valid)
     ){

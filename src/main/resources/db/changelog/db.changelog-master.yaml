@@ -11,3 +11,32 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/changes/004-fix-audit-columns-users.yaml
+
+      # CV
+
+  - include:
+      file: db/changelog/cv/001-create-employee-cvs.yaml
+
+  - include:
+      file: db/changelog/cv/002-create-cv-versions.yaml
+
+  - include:
+      file: db/changelog/cv/003-create-cv-profiles.yaml
+
+  - include:
+      file: db/changelog/cv/004-create-cv-skills.yaml
+
+  - include:
+      file: db/changelog/cv/005-create-cv-educations.yaml
+
+  - include:
+      file: db/changelog/cv/006-create-cv-experiences.yaml
+
+  - include:
+      file: db/changelog/cv/007-create-cv-projects.yaml
+
+  - include:
+      file: db/changelog/cv/008-create-cv-certificates.yaml
+
+  - include:
+      file: db/changelog/cv/009-create-cv-languages.yaml

@@ -55,13 +55,6 @@ public class AdminEmployeeController {
         Page<EmployeeResponse> employeePage =
                 employeeService.search(request);
 
-        System.out.println("========== EMPLOYEE DEBUG ==========");
-        System.out.println("Total employees: " + employeePage.getTotalElements());
-        System.out.println("Content size: " + employeePage.getContent().size());
-        System.out.println("Employees: " + employeePage.getContent());
-        System.out.println("====================================");
-
-
         // Đẩy danh sách nhân viên của trang hiện tại sang cho View HTML lặp mảng vẽ lên bảng
         model.addAttribute("employees", employeePage.getContent());
 

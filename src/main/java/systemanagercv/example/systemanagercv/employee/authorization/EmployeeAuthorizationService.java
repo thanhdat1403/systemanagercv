@@ -162,7 +162,7 @@ public class EmployeeAuthorizationService {
              * 👉 Ý nghĩa: Trưởng phòng IT chỉ được sửa nhân viên phòng IT và CẤM không được tự ý chuyển nhân viên đó sang phòng Kế toán!
              */
             return currentDepartmentId.equals(employeeDepartmentId)
-                    & currentDepartmentId.equals(targetDepartmentId);
+                    && currentDepartmentId.equals(targetDepartmentId);
         }
 
         // CHỐT CHẶN 4: PHÂN QUYỀN CHO NHÂN VIÊN THƯỜNG (EMPLOYEE)
@@ -190,6 +190,59 @@ public class EmployeeAuthorizationService {
         // ❌ CHỐT CHẶN CUỐI: Người lạ không có quyền, cấm sửa!
         return false;
 
+    }
+
+    /**
+     * CHỨC NĂNG: Kiểm tra xem User đang đăng nhập có quyền XÓA hồ sơ nhân viên mục tiêu hay không.
+     * Quy tắc phân quyền:
+     *   - ADMIN / HR: Được quyền xóa bất kỳ ai trên hệ thống.
+     *   - TECH_LEAD : Chỉ được quyền xóa nhân viên thuộc CÙNG PHÒNG BAN với mình.
+     *   - Các quyền khác: Bị từ chối, không được xóa ai.
+     */
+    public boolean canDelete(Employee employee){
+        if (employee == null){
+            return false;
+        }
+        // Bước 1: Thò tay vào túi áo hệ thống bốc ra thông tin tài khoản của người đang thực hiện lệnh xóa
+        User currentUser = getCurrentUser();
+
+        // Bước 2: Sếp lớn (ADMIN) -> cho phép xóa ngay lập tức (return true)
+        if (hasRole(currentUser, RoleName.ADMIN)) {
+            return true;
+        }
+
+        // Bước 3: Phòng nhân sự (HR) -> Cho phép xóa ngay lập tức
+        if (hasRole(currentUser, RoleName.HR)) {
+            return true;
+        }
+
+        // Bước 4: Xét quyền cho Trưởng nhóm kỹ thuật (TECH_LEAD)
+        if (hasRole(currentUser, RoleName.TECH_LEAD)) {
+            // Lấy thông tin hồ sơ nhân viên gắn liền với tài khoản TECH_LEAD đang đăng nhập này
+            Employee currentEmployee = currentUser.getEmployee();
+
+            // Chốt chặn phòng ngừa lỗi NullPointerException:
+            // Nếu bản thân ông TECH_LEAD này chưa có hồ sơ, hoặc tài khoản của ông ấy chưa được gán phòng ban,
+            // hoặc người nhân viên bị xóa chưa được gán phòng ban nào -> Báo lỗi từ chối không cho xóa (return false)
+            if (currentEmployee == null
+                || currentEmployee.getDepartment() == null
+                || employee.getDepartment() == null){
+                return false;
+            }
+
+            // Bốc ra ID phòng ban của ông TECH_LEAD đang đăng nhập
+            Long currentDepartmentId = currentEmployee.getDepartment().getId();
+
+            // Bốc ra ID phòng ban của người nhân viên sắp sửa bị xóa
+            Long employeeDepartmentId = employee.getDepartment().getId();
+
+            // Tiến hành so sánh: Nếu hai ID phòng ban trùng khớp 100% với nhau
+            // -> Trả về true (Đồng ý cho xóa nhân viên cùng bộ phận), ngược lại trả về false (Cấm xóa người phòng khác)
+            return currentDepartmentId.equals(employeeDepartmentId);
+        }
+
+        // Bước 5: Nếu rơi vào các quyền thấp hơn (như EMPLOYEE thường) -> Mặc định cấm cửa hoàn toàn không cho xóa
+        return false;
     }
 
     /**

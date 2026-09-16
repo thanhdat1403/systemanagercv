@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet: 
+      id: cv-003-create-cv-profiles
+      author: systemanagercv
+
+      changes:
+        - createTable:
+            tableName: cv_profiles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: cv_version_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: headline
+                  type: VARCHAR(255)
+
+              - column:
+                  name: address
+                  type: VARCHAR(500)
+
+              - column:
+                  name: avatar_url
+                  type: VARCHAR(1000)
+
+              - column:
+                  name: career_objective
+                  type: TEXT
+
+              - column:
+                  name: created_date
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+
+              - column:
+                  name: updated_date
+                  type: DATETIME
+
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: cv_profiles
+            baseColumnNames: cv_version_id
+            referencedTableName: cv_versions
+            referencedColumnNames: id
+            constraintName: fk_cv_profiles_cv_version
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            tableName: cv_profiles
+            columnNames: cv_version_id
+            constraintName: uk_cv_profiles_cv_version
+
+        - createIndex:
+            tableName: cv_profiles
+            indexName: idx_cv_profiles_deleted
+            columns:
+              - column:
+                  name: is_deleted

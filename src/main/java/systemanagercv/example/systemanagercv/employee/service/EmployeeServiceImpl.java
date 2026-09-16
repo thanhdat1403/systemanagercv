@@ -67,10 +67,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional(readOnly = true) // Hàm chỉ đọc dữ liệu (SELECT) -> giúp tăng tốc độ truy vấn tối đa
     public Page<EmployeeResponse> search(EmployeeSearchRequest request) {
 
-        System.out.println("===== EMPLOYEE SEARCH DEBUG =====");
-        System.out.println("keyword = " + request.getKeyword());
-        System.out.println("departmentId = " + request.getDepartmentId());
-
         //Gọi hàm tạo thông số phân trang (hàm createPageable được viết ở cuối file)
         Pageable pageable = createPageable(request);
 
@@ -123,24 +119,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public EmployeeResponse create(EmployeeCreateRequest request) {
-
-        System.out.println(
-                "========== EMPLOYEE CREATE =========="
-        );
-
-        System.out.println(
-                "Current request userId = "
-                        + request.getUserId()
-        );
-
-        System.out.println(
-                "Current request departmentId = "
-                        + request.getDepartmentId()
-        );
-
-        System.out.println(
-                "===================================="
-        );
 
         if (!employeeAuthorizationService.canCreate(
                 request.getDepartmentId()
@@ -379,6 +357,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() ->
                             new BusinessException("error.employee.notFound")
                         );
+
+        // Kiểm tra điều kiện xóa employee logic
+        if (!employeeAuthorizationService.canDelete(employee)) {
+            throw new BusinessException(
+                    "error.employee.delete.accessDenied"
+            );
+        }
 
         /*
          * Tuyệt đối KHÔNG dùng hàm cứng: repository.delete().

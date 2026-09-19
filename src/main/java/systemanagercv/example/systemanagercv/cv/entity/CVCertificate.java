@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Table(name = "cv_certificates")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class CVCertificate extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

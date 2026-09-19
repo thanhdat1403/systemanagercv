@@ -16,7 +16,7 @@ import systemanagercv.example.systemanagercv.common.entity.BaseEntity;
 @Table(name = "cv_languages")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class CVLanguage extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

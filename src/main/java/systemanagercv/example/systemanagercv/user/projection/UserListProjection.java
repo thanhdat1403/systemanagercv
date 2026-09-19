@@ -36,4 +36,11 @@ UserSpecification: xây điều kiện tìm kiếm động.
 UserSearchRequest: nhận toàn bộ điều kiện tìm kiếm.
 UserListProjection: chỉ lấy các cột cần cho danh sách.
 UserMapper: chuyển Projection → Response DTO.
-UserService: điều phối các thành phần trên.*/
+UserService: điều phối các thành phần trên.
+
+[Trình duyệt Web] ➔ ──(Request)── ➔ [Controller] ➔ [Service] ➔ [Specification/Projection] ➔ [Repository]
+                                                                                                  │
+                                                                                           (Quét MariaDB)
+                                                                                                  │
+[Giao diện HTML] ◄ ──(Render)── ◄ [Controller] ◄ [UserResponse DTO] ◄── (Mapper) ◄── [Entity] ◄──┘
+*/

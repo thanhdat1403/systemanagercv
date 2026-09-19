@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Table(name = "cv_educations")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class CVEducation extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -13,199 +13,46 @@
  ## "AS builder" đặt tên cho stage này là "builder"
  ## để sau này stage 2 có thể lấy file JAR từ đây.
 # ============================================================
-# STAGE 1: BUILD
-# Dùng JDK 17 để BUILD project
+# STAGE 1 - BUILD
 # ============================================================
 
 FROM eclipse-temurin:17-jdk AS builder
 
-# ============================================================
-# Tạo thư mục /app bên trong container
-# ============================================================
-#
-# Docker container có filesystem riêng.
-#
-# WORKDIR /app có nghĩa:
-# "Từ bây giờ hãy làm việc trong thư mục /app"
-#
-# Các lệnh COPY, RUN... phía sau sẽ chủ yếu làm việc
-# trong thư mục /app.
 WORKDIR /app
 
-
-# ============================================================
-# COPY GRADLE WRAPPER
-# ============================================================
-# Copy file gradlew từ project máy tính của bạn
-# vào thư mục /app trong container.
-#
-# Project của bạn hiện có:
-#
-# project/
-# ├── gradlew
-# ├── gradlew.bat
-# ├── gradle/
-# ├── build.gradle
-# ├── settings.gradle
-# └── src/
-#
-# Linux container sử dụng "gradlew"
-# chứ không sử dụng "gradlew.bat".
-# Copy Gradle Wrapper của project
+# Gradle Wrapper
 COPY gradlew .
-
-# Copy toàn bộ thư mục gradle từ project
-# vào container.
-#
-# Thư mục này chứa Gradle Wrapper và những file
-# cần thiết để ./gradlew có thể hoạt động.
 COPY gradle ./gradle
 
-
-# ============================================================
-# COPY CẤU HÌNH GRADLE
-# ============================================================
-
-# Copy build.gradle vào container.
-#
-# File này chứa cấu hình build của project:
-# - Spring Boot
-# - dependency
-# - Java version
-# - plugin
-# - cấu hình build...
+# Gradle configuration
 COPY build.gradle .
-
-# Copy settings.gradle vào container.
-#
-# File này chứa cấu hình cấp project của Gradle.
 COPY settings.gradle .
 
-
-# ============================================================
-# CẤP QUYỀN CHẠY CHO gradlew
-# ============================================================
-
-# Container đang sử dụng Linux.
-#
-# Linux yêu cầu file gradlew phải có quyền execute
-# thì mới có thể chạy:
-#
-# ./gradlew clean bootJar
-#
-# chmod +x = cấp quyền thực thi cho file.
-RUN chmod +x gradlew
-
-
-# ============================================================
-# COPY SOURCE CODE
-# ============================================================
-
-# Copy thư mục src từ project của bạn
-# vào thư mục /app/src trong container.
-#
-# Đây chính là source code Spring Boot của bạn:
-#
-# src/
-# ├── main/
-# │   ├── java/
-# │   └── resources/
-# └── test/
+# Source code
 COPY src ./src
 
+# Grant execute permission
+RUN chmod +x gradlew
 
-# ============================================================
-# BUILD SPRING BOOT
-# ============================================================
-
-# Chạy Gradle Wrapper để BUILD project.
-#
-# clean:
-#   Xóa kết quả build cũ.
-#
-# bootJar:
-#   Build project Spring Boot thành file .jar
-#
-# --no-daemon:
-#   Không chạy Gradle Daemon trong container.
-#   Container chỉ cần build xong rồi kết thúc quá trình build.
-#
-# Sau khi lệnh này chạy thành công,
-# Gradle sẽ tạo JAR tại:
-#
-# /app/build/libs/
-#
-# Ví dụ:
-#
-# /app/build/libs/systemanagercv-0.0.1-SNAPSHOT.jar
-#
+# Build Spring Boot JAR
 RUN ./gradlew clean bootJar --no-daemon
 
 
 # ============================================================
-# STAGE 2: RUN
+# STAGE 2 - RUN
 # ============================================================
-#
-# Sau khi build xong, chúng ta không cần JDK nữa.
-# Chỉ cần JRE 17 để chạy file JAR.
-#
-# JRE nhẹ hơn JDK vì JRE chủ yếu dùng để chạy Java application.
-#
-# Đây chính là lý do chúng ta tách thành 2 stage.
+
 FROM eclipse-temurin:17-jre
 
-# Thư mục làm việc
 WORKDIR /app
 
-
-# ============================================================
-# COPY FILE JAR TỪ STAGE 1
-# ============================================================
-
-# --from=builder
-# có nghĩa:
-#
-# "Lấy file từ stage có tên builder ở phía trên"
-#
-# Stage 1 đã build ra:
-#
-# /app/build/libs/*.jar
-#
-# Sau đó copy file JAR đó sang stage 2
-# và đổi tên thành:
-#
-# /app/app.jar
-#
+# Copy JAR from builder
 COPY --from=builder /app/build/libs/*.jar app.jar
 
-
-# ============================================================
-# KHAI BÁO PORT
-# ============================================================
-
-# Spring Boot của bạn mặc định chạy port 8080.
-#
-# EXPOSE 8080 chỉ có ý nghĩa:
-# "Container này dự kiến sử dụng port 8080"
-#
-# Nó KHÔNG tự động mở port ra máy tính.
-#
-# Việc mapping port sẽ được thực hiện trong
-# docker-compose.yml hoặc khi docker run.
+# Spring Boot port
 EXPOSE 8080
 
-
-# ============================================================
-# LỆNH KHỞI ĐỘNG APPLICATION
-# ============================================================
-
-# Khi container được START,
-# Docker sẽ chạy:
-#
-# java -jar app.jar
-#
-# Đây chính là lệnh chạy Spring Boot application
-# trên máy tính của bạn.
+# Start application
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 #LUỒNG HOẠT ĐỘNG:                    Dockerfile

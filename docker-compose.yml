@@ -1,72 +1,121 @@
 services:
-# ==========================================================
-# DATABASE - MARIADB
-# ==========================================================
+
+  # ==========================================================
+  # DATABASE - MARIADB
+  # ==========================================================
 
   database:
 
-   #MariaDB đúng version máy hiện tại của bn
-   image: mariadb:12.3.2
+    # MariaDB version
+    image: mariadb:12.3.2
 
-   #Tên container
-   container_name: systemanagercv-db # Đặt tên cho chiếc máy ảo DB này để dễ quản lý
+    # Container name
+    container_name: systemanagercv-db
 
-   # ========================================================
-   # DATABASE CONFIGURATION (Cấu hình DB)
-   # ========================================================
-   environment:  # THIẾT LẬP BIẾN MÔI TRƯỜNG (Cấu hình tài khoản DB)
+    # ========================================================
+    # DATABASE CONFIGURATION
+    # ========================================================
 
-     # Mật khẩu tài khoản root
-     MARIADB_ROOT_PASSWORD: 123456
+    environment:
 
-     #Tự động tạo database này khi container chạy lần đầu
-     MARIADB_DATABASE: systemcv_db
+      # Root password
+      MARIADB_ROOT_PASSWORD: 123456
 
-   ports:
-      # Máy Windows : Docker container
+      # Database tự động tạo
+      MARIADB_DATABASE: systemcv_db
+
+    ports:
+      # Windows : Docker
       #
-      # HeidiSQL sẽ kết nối:
+      # HeidiSQL:
       # localhost:3307
       #
-      # MariaDB bên trong container vẫn chạy:
+      # MariaDB bên trong container:
       # 3306
-     - "3307:3306"                              # CẦU NỐI CỔNG MẠNG: Ép cổng 3306 mặc định bên trong máy ảo
-                                                # thông ra cổng 3307 ngoài máy thật của bạn.
-                                                # (Nhờ dòng này, bạn mở HeidiSQL gõ Port 3307 là kết nối được vào máy ảo).
 
-   volumes:
-      # Lưu dữ liệu MariaDB
-     - mariadb_data:/var/lib/mysql
+      - "3307:3306"
 
-   restart: unless-stopped
+    volumes:
+      # Persistent database data
 
-   # ==========================================================
-   # SPRING BOOT APPLICATION
-   # ==========================================================
+      - mariadb_data:/var/lib/mysql
+
+    restart: unless-stopped
+
+    # ========================================================
+    # HEALTH CHECK
+    # ========================================================
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "healthcheck.sh",
+          "--connect",
+          "--innodb_initialized"
+        ]
+
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+
+  # ==========================================================
+  # SPRING BOOT APPLICATION
+  # ==========================================================
 
   app:
 
-   build:
-     context: .
-     dockerfile: Dockerfile
+    # Build image từ Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
 
-   container_name: systemanagercv-app
+    # Container name
+    container_name: systemanagercv-app
 
-   ports:
-     # Truy cập Spring Boot:
-     # http://localhost:8080
-     - "8080:8080"
+    ports:
+      # Windows:Container
+      - "8080:8080"
 
-   depends_on:
-     - database
+    # ========================================================
+    # ENVIRONMENT VARIABLES
+    # ========================================================
 
-   restart: unless-stopped
+    environment:
 
-  # ==========================================================
-  # DOCKER VOLUME
-  # ==========================================================
+      # ------------------------------------------------------
+      # DATABASE
+      # ------------------------------------------------------
+
+      DB_URL: jdbc:mariadb://database:3306/systemcv_db?useSSL=false
+      DB_USERNAME: root
+      DB_PASSWORD: 123456
+
+      # ------------------------------------------------------
+      # JWT
+      # ------------------------------------------------------
+
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-3600000}
+
+    # ========================================================
+    # DATABASE DEPENDENCY
+    # ========================================================
+
+    depends_on:
+
+      database:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+
+# ==========================================================
+# DOCKER VOLUMES
+# ==========================================================
 
 volumes:
 
- # Volume lưu dữ liệu MariaDB
- mariadb_data:
+  mariadb_data:

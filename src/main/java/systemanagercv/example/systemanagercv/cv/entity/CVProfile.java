@@ -16,7 +16,7 @@ import systemanagercv.example.systemanagercv.common.entity.BaseEntity;
 @Table(name = "cv_profiles")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class CVProfile extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)

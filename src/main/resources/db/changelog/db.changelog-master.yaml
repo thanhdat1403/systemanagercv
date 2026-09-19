@@ -1,18 +1,16 @@
 databaseChangeLog:
 
-  - include:
-      file: db/changelog/changes/001-add-audit-columns.yaml
+  # =====================================================
+  # BASE SCHEMA
+  # =====================================================
 
   - include:
-      file: db/changelog/changes/002-add-audit-columns-employees.yaml
+      file: db/changelog/schema/001-create-base-tables.yaml
 
-  - include:
-      file: db/changelog/changes/003-add-audit-columns-departments.yaml
 
-  - include:
-      file: db/changelog/changes/004-fix-audit-columns-users.yaml
-
-      # CV
+  # =====================================================
+  # CV
+  # =====================================================
 
   - include:
       file: db/changelog/cv/001-create-employee-cvs.yaml

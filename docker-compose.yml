@@ -18,11 +18,11 @@ services:
 
     environment:
 
-      # Root password
-      MARIADB_ROOT_PASSWORD: 123456
+      # Root password lấy từ .env (chi tiết sẽ ở .env và .env sẽ k được up nên github (thông qua .gitignore) để tăng tính bảo mật chỉ có thể show những trường cần thiết qua .env.example)
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
 
-      # Database tự động tạo
-      MARIADB_DATABASE: systemcv_db
+      # Database name lấy từ .env
+      MARIADB_DATABASE: ${DB_NAME}
 
     ports:
       # Windows : Docker
@@ -60,6 +60,59 @@ services:
       retries: 10
       start_period: 20s
 
+  # ==========================================================
+  # OBJECT STORAGE - MINIO
+  # ==========================================================
+
+  minio:
+
+    # MinIO image
+    image: quay.io/minio/minio:latest
+
+    # Container name
+    container_name: systemanagercv-minio
+
+    # ========================================================
+    # MINIO CONFIGURATION
+    # ========================================================
+
+    environment:
+
+      # MinIO root username
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+
+      # MinIO root password
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+
+    # ========================================================
+    # PORTS
+    # ========================================================
+
+    ports:
+
+      # MinIO API
+      # Spring Boot / S3 API
+      - "9000:9000"
+
+      # MinIO Web Console
+      - "9001:9001"
+
+    # ========================================================
+    # PERSISTENT STORAGE
+    # ========================================================
+
+    volumes:
+
+      - minio_data:/data
+
+    # ========================================================
+    # START MINIO
+    # ========================================================
+
+    command: server /data --console-address ":9001"
+
+    restart: unless-stopped
+
 
   # ==========================================================
   # SPRING BOOT APPLICATION
@@ -89,9 +142,9 @@ services:
       # DATABASE
       # ------------------------------------------------------
 
-      DB_URL: jdbc:mariadb://database:3306/systemcv_db?useSSL=false
-      DB_USERNAME: root
-      DB_PASSWORD: 123456
+      DB_URL: jdbc:mariadb://database:3306/${DB_NAME}?useSSL=false
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
 
       # ------------------------------------------------------
       # JWT
@@ -99,6 +152,15 @@ services:
 
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-3600000}
+
+      # ------------------------------------------------------
+      # MINIO
+      # ------------------------------------------------------
+
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_BUCKET: ${MINIO_BUCKET}
 
     # ========================================================
     # DATABASE DEPENDENCY
@@ -119,3 +181,5 @@ services:
 volumes:
 
   mariadb_data:
+
+  minio_data:

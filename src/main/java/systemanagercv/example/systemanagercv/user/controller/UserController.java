@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult; // Thư viện bắt buộc để hứng lỗi Validation
 import org.springframework.web.bind.annotation.*;
 import systemanagercv.example.systemanagercv.common.response.ApiResponse;
+import systemanagercv.example.systemanagercv.common.security.SecurityAuthorization;
 import systemanagercv.example.systemanagercv.user.dto.request.UserCreateRequest;
 import systemanagercv.example.systemanagercv.user.dto.request.UserSearchRequest;
 import systemanagercv.example.systemanagercv.user.dto.request.UserUpdateRequest;
@@ -27,6 +29,7 @@ public class UserController {
     // Hành động: GET -> Địa chỉ: /api/v1/users (UserResponse)
     // =========================================================
     @GetMapping
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<Page<UserResponse>>> search(
             @Valid UserSearchRequest request // Nhận các tham số tìm kiếm (keyword, page, size) từ URL và kiểm tra hợp lệ
     ){
@@ -49,6 +52,7 @@ public class UserController {
     // Hành động: GET -> Địa chỉ: /api/v1/users/{id} (Ví dụ: /api/v1/users/5) (UserDetailResponse)
     // =========================================================
     @GetMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<UserDetailResponse>> findById(
             @PathVariable Long id  //@PathVariable giúp lấy số ID từ trên đường dẫn URL xuống biến 'id' này
     ){
@@ -71,6 +75,7 @@ public class UserController {
     // Hành động: POST -> Địa chỉ: /api/v1/users
     // =========================================================
     @PostMapping
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<UserResponse>> create(
             @Valid @RequestBody UserCreateRequest request // @RequestBody để nhận gói dữ liệu JSON người dùng gửi lên
     ){
@@ -95,6 +100,7 @@ public class UserController {
     // Hành động: PUT -> Địa chỉ: /api/v1/users/{id} (Ví dụ: /api/v1/users/5)
     // =========================================================
     @PutMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<UserResponse>> update(
             @PathVariable Long id,                         // Lấy ID của người cần sửa trên URL
             @Valid @RequestBody UserUpdateRequest request // Lấy gói thông tin mới trong phần thân (Body) của request
@@ -117,6 +123,7 @@ public class UserController {
     // Hành động: DELETE -> Địa chỉ: /api/v1/users/{id}
     // =========================================================
     @DeleteMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<Void>> delete(
             @PathVariable Long id // Lấy ID của người cần xóa
     ){

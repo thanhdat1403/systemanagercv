@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import systemanagercv.example.systemanagercv.common.response.ApiResponse;
+import systemanagercv.example.systemanagercv.common.security.SecurityAuthorization;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeCreateRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeUpdateRequest;
@@ -31,14 +32,7 @@ public class EmployeeController {
     // Ví dụ: GET /api/v1/employees?keyword=Nguyen&page=0&size=10
     // =========================================================
     @GetMapping
-    @PreAuthorize("""
-        hasAnyRole(
-            'ADMIN',
-            'HR',
-            'TECH_LEAD',
-            'EMPLOYEE'
-        )
-        """)// Chỉ các role được phép truy cập Employee API mới được vào method này.
+    @PreAuthorize(SecurityAuthorization.EMPLOYEE_READER)// Chỉ các role được phép truy cập Employee API mới được vào method này.
             // Quyền chi tiết theo Employee được kiểm tra tại EmployeeAuthorizationService.
     public ResponseEntity<ApiResponse<Page<EmployeeResponse>>> search(
             @Valid @ModelAttribute EmployeeSearchRequest request // Nhận thông số lọc (từ khóa, số trang, kích thước) từ URL và kiểm tra tính hợp lệ (@Valid)
@@ -88,13 +82,7 @@ public class EmployeeController {
     // Hành động: POST -> Địa chỉ: /api/v1/employees
     // =========================================================
     @PostMapping
-    @PreAuthorize("""
-    hasAnyRole(
-        'ADMIN',
-        'HR',
-        'TECH_LEAD'
-    )
-    """)
+    @PreAuthorize(SecurityAuthorization.EMPLOYEE_CREATOR)
     public ResponseEntity<ApiResponse<EmployeeResponse>> create(
             @Valid @RequestBody EmployeeCreateRequest request // Nhãn @RequestBody bắt hệ thống mở gói JSON gửi lên đổ vào Java Object
     ){
@@ -123,14 +111,7 @@ public class EmployeeController {
     // Ví dụ: PUT /api/v1/employees/5
     // =========================================================
     @PutMapping("/{id}")
-    @PreAuthorize("""
-    hasAnyRole(
-        'ADMIN',
-        'HR',
-        'TECH_LEAD',
-        'EMPLOYEE'
-    )
-    """)
+    @PreAuthorize(SecurityAuthorization.EMPLOYEE_EDITOR)
     public ResponseEntity<ApiResponse<EmployeeResponse>> update(
             @PathVariable Long id, // Bốc số ID của nhân viên cần chỉnh sửa trên URL
             @Valid @RequestBody EmployeeUpdateRequest request // Bốc dữ liệu JSON chứa các thông tin chỉnh sửa mới
@@ -156,6 +137,7 @@ public class EmployeeController {
     // Lưu ý: Tầng Service thực hiện XÓA MỀM (SOFT DELETE), chỉ chuyển cờ 'deleted' thành true chứ không xóa mất tích trong DB.
     // =========================================================
     @DeleteMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.EMPLOYEE_DELETER)
     public ResponseEntity<ApiResponse<Void>> delete(
             @PathVariable Long id
     ){

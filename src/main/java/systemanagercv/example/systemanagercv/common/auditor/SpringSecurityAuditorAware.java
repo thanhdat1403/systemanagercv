@@ -4,7 +4,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import systemanagercv.example.systemanagercv.security.CustomUserDetails;
+import systemanagercv.example.systemanagercv.common.security.CustomUserDetails;
 
 import java.util.Optional;
 

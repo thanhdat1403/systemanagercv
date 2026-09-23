@@ -17,13 +17,15 @@ public interface EmployeeCVRepository extends JpaRepository<EmployeeCV, Long> {
     boolean existsByEmployeeIdAndDeletedFalse(Long employeeId);
 
     @Query("""
-            SELECT cv
-            FROM EmployeeCV cv
-            JOIN FETCH cv.employee e
-            WHERE cv.id = :id
-              AND cv.deleted = false
-              AND e.deleted = false
-            """)
+        SELECT cv
+        FROM EmployeeCV cv
+        JOIN FETCH cv.employee e
+        JOIN FETCH e.department d
+        WHERE cv.id = :id
+          AND cv.deleted = false
+          AND e.deleted = false
+          AND d.deleted = false
+        """)
     Optional<EmployeeCV> findActiveById(@Param("id") Long id);
 
     /**

@@ -1,4 +1,4 @@
-package systemanagercv.example.systemanagercv.security;
+package systemanagercv.example.systemanagercv.common.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

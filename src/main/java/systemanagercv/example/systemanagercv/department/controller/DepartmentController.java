@@ -5,10 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; // Bắt buộc import thư viện này để truyền dữ liệu ra HTML
 import org.springframework.web.bind.annotation.*;
 import systemanagercv.example.systemanagercv.common.response.ApiResponse;
+import systemanagercv.example.systemanagercv.common.security.SecurityAuthorization;
 import systemanagercv.example.systemanagercv.department.dto.request.DepartmentCreateRequest;
 import systemanagercv.example.systemanagercv.department.dto.request.DepartmentSearchRequest;
 import systemanagercv.example.systemanagercv.department.dto.request.DepartmentUpdateRequest;
@@ -31,6 +33,7 @@ public class DepartmentController {
     // Ví dụ: GET /api/v1/departments?keyword=IT&page=0&size=10&status=ACTIVE
     // =========================================================
     @GetMapping
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<Page<DepartmentResponse>>> search(
             @Valid DepartmentSearchRequest request // Nhận các tham số lọc gửi qua URL và tự động kiểm tra tính hợp lệ dữ liệu (@Valid)
     ){
@@ -55,6 +58,7 @@ public class DepartmentController {
     // Ví dụ: GET /api/v1/departments/5
     // =========================================================
     @GetMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<DepartmentDetailResponse>> findById(
             @PathVariable Long id // @PathVariable giúp tự động bốc số ID nằm ngay trên thanh URL gán vào biến 'id'
     ){
@@ -77,6 +81,7 @@ public class DepartmentController {
     // Hành động: POST -> Địa chỉ: /api/v1/departments
     // =========================================================
     @PostMapping
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<DepartmentResponse>> create(
             @Valid @RequestBody DepartmentCreateRequest request // @RequestBody ép hệ thống mở gói JSON gửi lên đổ vào Java Object
     ){
@@ -105,6 +110,7 @@ public class DepartmentController {
     // Ví dụ: PUT /api/v1/departments/5
     // =========================================================
     @PutMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<DepartmentResponse>> update(
             @PathVariable Long id, //Lấy mã ID của phòng ban cần chỉnh sửa
             @Valid @RequestBody DepartmentUpdateRequest request // Lấy gói JSON chứa các thông tin chỉnh sửa mới
@@ -130,6 +136,7 @@ public class DepartmentController {
     // Lưu ý: Tầng Service thực hiện XÓA MỀM (SOFT DELETE), chỉ chuyển cờ 'deleted' thành true chứ không xóa vật lý.
     // =========================================================
     @DeleteMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.ADMIN)
     public ResponseEntity<ApiResponse<Void>> delete(
             @PathVariable Long id
     ){

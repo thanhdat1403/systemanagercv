@@ -59,6 +59,12 @@ dependencies {
 
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
+    // =====================================================
+    // MinIO - Image
+    // =====================================================
+
+    implementation 'io.minio:minio:8.6.0'
+
 
     // =====================================================
     // LIQUIBASE

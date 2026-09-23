@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import systemanagercv.example.systemanagercv.auth.jwt.JwtAuthenticationFilter;
 import systemanagercv.example.systemanagercv.common.enums.RoleName;
-import systemanagercv.example.systemanagercv.security.CustomUserDetailsService;
+import systemanagercv.example.systemanagercv.common.security.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity // Annotion này giúp để kích hoạt tính năng bảo mật web (Web Security) trên toàn bộ ứng dụng
@@ -113,8 +113,15 @@ public class SecurityConfig {
                         .hasRole(RoleName.ADMIN.name())
 
                         // =========================================================================
-                        // LUẬT 1: QUY ĐỊNH CHO HÀNH ĐỘNG XEM (HÀM ĐỌC DỮ LIỆU - GET)
+                        // EMPLOYEE API AUTHORIZATION
                         // =========================================================================
+
+                        // ---------------------------------------------------------
+                        // GET EMPLOYEE
+                        // ADMIN / HR / TECH_LEAD / EMPLOYEE được phép gọi API.
+                        // Phạm vi dữ liệu cụ thể được kiểm tra tại
+                        // EmployeeAuthorizationService.
+                        // ---------------------------------------------------------
                         .requestMatchers(HttpMethod.GET, "/api/v1/employees/**") // Bất kỳ ai gọi lệnh GET đến đường dẫn nhân viên (Xem danh sách, xem chi tiết)
                         .hasAnyRole(
                                 RoleName.ADMIN.name(),     // Chấp nhận thẻ quyền ADMIN (Quản trị viên)
@@ -123,19 +130,29 @@ public class SecurityConfig {
                                 RoleName.EMPLOYEE.name()
                         ) // -> Bốn quyền này có quyền xem thông tin nhân viên. Các quyền khác (như EMPLOYEE thường) sẽ bị chặn cửa đuổi về.
 
-                        // =========================================================================
-                        // LUẬT 2: QUY ĐỊNH CHO HÀNH ĐỘNG THÊM MỚI (HÀM GHI DỮ LIỆU - POST)
-                        // =========================================================================
+                        // ---------------------------------------------------------
+                        // CREATE EMPLOYEE
+                        // ADMIN / HR / TECH_LEAD được phép gọi API.
+                        // TECH_LEAD chỉ được tạo employee trong department của mình.
+                        // Phạm vi cụ thể được kiểm tra tại EmployeeAuthorizationService.
+                        // ---------------------------------------------------------
                         .requestMatchers(HttpMethod.POST, "/api/v1/employees/**") // Bất kỳ ai gọi lệnh POST đến đường dẫn nhân viên (Tính năng Tạo mới nhân viên)
                         .hasAnyRole(
                                 RoleName.ADMIN.name(),     // Chỉ chấp nhận ADMIN
                                 RoleName.HR.name(),         // HOẶC HR
                                 RoleName.TECH_LEAD.name()   // HOẶC TECH_LEAD
-                        ) // -> Chỉ có Quản trị viên và phòng Nhân sự mới được phép tạo hồ sơ nhân viên mới. TECH_LEAD lúc này cũng bị chặn.
+                        )
 
-                        // =========================================================================
-                        // LUẬT 3: QUY ĐỊNH CHO HÀNH ĐỘNG CHỈNH SỬA (HÀM CẬP NHẬT - PUT)
-                        // =========================================================================
+                        // ---------------------------------------------------------
+                        // UPDATE EMPLOYEE
+                        // ADMIN / HR / TECH_LEAD / EMPLOYEE được phép gọi API.
+                        //
+                        // ADMIN / HR      → toàn bộ employee
+                        // TECH_LEAD       → cùng department
+                        // EMPLOYEE        → chính mình
+                        //
+                        // Phạm vi cụ thể được kiểm tra tại EmployeeAuthorizationService.
+                        // ---------------------------------------------------------
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/v1/employees",
                                 "/api/v1/employees/**") // Bất kỳ ai gọi lệnh PUT đến đường dẫn nhân viên (Tính năng Sửa thông tin nhân viên)
@@ -144,20 +161,39 @@ public class SecurityConfig {
                                 RoleName.HR.name(),        // Hoặc HR cập nhật tất cả employee
                                 RoleName.TECH_LEAD.name(), // Hoặc TECH_LEAD cập nhật tất cả employee có cùng phòng ban mình
                                 RoleName.EMPLOYEE.name()    // Hoặc EMPLOYEE cập nhật của chính mình
-                        ) // -> Chỉ có ADMIN hoặc HR mới được phép thay đổi, chỉnh sửa hồ sơ nhân viên.
+                        )
 
-                        // =========================================================================
-                        // LUẬT 4: QUY ĐỊNH CHO HÀNH ĐỘNG XÓA (HÀM TIÊU HỦY DỮ LIỆU - DELETE)
-                        // =========================================================================
+                        // ---------------------------------------------------------
+                        // DELETE EMPLOYEE
+                        // ADMIN / HR / TECH_LEAD được phép gọi API.
+                        //
+                        // ADMIN / HR      → toàn bộ employee
+                        // TECH_LEAD       → cùng department
+                        // EMPLOYEE        → không được phép
+                        //
+                        // Phạm vi cụ thể được kiểm tra tại EmployeeAuthorizationService.
+                        // ---------------------------------------------------------
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/employees/**") // Bất kỳ ai gọi lệnh DELETE đến đường dẫn nhân viên (Tính năng Xóa nhân viên)
                         .hasAnyRole(
                                 RoleName.ADMIN.name(), // Chỉ ADMIN mới đc xóa tất cả employee
                                 RoleName.HR.name(), // Chỉ HR mới đc xóa tất cả employee
                                 RoleName.TECH_LEAD.name() // Chỉ được xóa employee có cùng phòng ban
                         )
-                        // -> Lệnh xóa cực kỳ nguy hiểm, nên hệ thống thắt chặt tối đa: Chỉ có sếp lớn nhất (ADMIN) mới được quyền xóa nhân viên. HR hay TECH_LEAD đều bị cấm hoàn toàn.
 
 
+                        // ---------------------------------------------------------
+                        // CV API
+                        // Cả 4 role đều được phép gọi CV API.
+                        // Quyền trên từng CV cụ thể được kiểm tra tại
+                        // EmployeeAuthorizationService trong CVServiceImpl.
+                        // ---------------------------------------------------------
+                        .requestMatchers("/api/v1/cvs/**")
+                        .hasAnyRole(
+                                RoleName.ADMIN.name(),
+                                RoleName.HR.name(),
+                                RoleName.TECH_LEAD.name(),
+                                RoleName.EMPLOYEE.name()
+                        )
 
                         // ==============================
                         // THYMELEAF PAGE AUTHORIZATION
@@ -174,6 +210,8 @@ public class SecurityConfig {
 
                         .requestMatchers("/employee/**")
                         .hasRole(RoleName.EMPLOYEE.name())
+
+
 
                         .anyRequest()
                         .authenticated()

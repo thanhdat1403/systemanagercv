@@ -154,17 +154,25 @@ public class EmployeeServiceImpl implements EmployeeService {
          */
         // Bật "băng chuyền" duyệt qua danh sách các quyền của User hiện tại,
         // kiểm tra xem có quyền nào trùng khớp với tên "EMPLOYEE" hay không.
-        boolean isEmployeeRole = user.getUserRoles()
-                .stream()
-                .anyMatch(userRole ->
-                        RoleName.EMPLOYEE.name()
-                                .equals(userRole.getRole().getName())
-                );
+        boolean isEmployeeOrTechLeadRole = user.getUserRoles()
+                .stream() // Duyệt qua danh sách các quyền (roles) của người dùng
+                .anyMatch(userRole -> { // Tìm xem có "bất kỳ" quyền nào thỏa mãn điều kiện bên dưới không
+                    // Lấy tên của quyền hiện tại dưới dạng chuỗi (String)
+                    String roleName = userRole.getRole().getName();
 
-        //Nếu tài khoản này không có quyền Nhân viên (Ví dụ là quyền ADMIN)
-        if (!isEmployeeRole) {
-            throw new BusinessException("error.employee.userInvalidRole");
+                    // So sánh tên quyền: Nếu là quyền EMPLOYEE HOẶC quyền TECH_LEAD thì trả về true
+                    return RoleName.EMPLOYEE.name().equals(roleName)
+                            || RoleName.TECH_LEAD.name().equals(roleName);
+                });
+
+        // Nếu biến trên trả về false (nghĩa là người dùng KHÔNG phải Employee cũng KHÔNG phải Tech Lead)
+        if (!isEmployeeOrTechLeadRole) {
+            // Ngăn chặn hành động và ném ra lỗi nghiệp vụ (mã lỗi để FE hiển thị thông báo)
+            throw new BusinessException(
+                    "error.employee.userInvalidRole"
+            );
         }
+
 
         /*
          * --------------------------------------------------------

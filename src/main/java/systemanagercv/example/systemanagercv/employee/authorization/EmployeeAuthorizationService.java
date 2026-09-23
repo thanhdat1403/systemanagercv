@@ -114,6 +114,180 @@ public class EmployeeAuthorizationService {
     }
 
     /**
+     * Kiểm tra quyền tạo CV cho một nhân viên cụ thể.
+     *
+     * Quy tắc:
+     * - ADMIN      : Được tạo CV cho mọi nhân viên.
+     * - HR         : Được tạo CV cho mọi nhân viên.
+     * - TECH_LEAD  : Chỉ được tạo CV cho nhân viên cùng phòng ban.
+     * - EMPLOYEE   : Chỉ được tạo CV cho chính mình.
+     */
+    public boolean canCreateCV(Employee targetEmployee){
+
+        // Không có nhân viên mục tiêu -> Không cho phép
+        if (targetEmployee == null
+                || targetEmployee.isDeleted()) {
+            return false;
+        }
+
+        // Lấy User hiện tại
+        User currentUser = getCurrentUser();
+
+        // ADMIN -> được tạo CV cho bất kỳ nhân viên nào
+        if (hasRole(currentUser, RoleName.ADMIN)) {
+            return true;
+        }
+
+        // HR -> được tạo CV cho bất kỳ nhân viên nào
+        if (hasRole(currentUser, RoleName.HR)) {
+            return true;
+        }
+
+        // TECH_LEAD -> chỉ được tạo CV cho nhân viên cùng phòng ban
+        if (hasRole(currentUser, RoleName.TECH_LEAD)) {
+
+            Employee currentEmployee =
+                    currentUser.getEmployee();
+
+            // TECH_LEAD phải có Employee và Department
+            if (currentEmployee == null
+                    || currentEmployee.getDepartment() == null
+                    || targetEmployee.getDepartment() == null){
+                return false;
+            }
+
+            return currentEmployee
+                    .getDepartment()
+                    .getId()
+                    .equals(targetEmployee.getDepartment().getId());
+        }
+
+        // EMPLOYEE -> chỉ được tạo CV cho chính mình
+        if (hasRole(currentUser, RoleName.EMPLOYEE)) {
+
+            Employee currentEmployee =
+                    currentUser.getEmployee();
+
+            if (currentEmployee == null){
+                return false;
+            }
+
+            return currentEmployee
+                    .getId()
+                    .equals(targetEmployee.getId());
+        }
+
+        // Không thuộc role hợp lệ -> từ chối
+        return false;
+
+    }
+
+    /**
+     * Kiểm tra quyền cập nhật CV của nhân viên.
+     *
+     * Quy tắc:
+     *
+     * ADMIN:
+     *      Có quyền cập nhật CV của tất cả nhân viên.
+     *
+     * HR:
+     *      Có quyền cập nhật CV của tất cả nhân viên.
+     *
+     * TECH_LEAD:
+     *      Chỉ được cập nhật CV của nhân viên
+     *      thuộc cùng phòng ban.
+     *
+     * EMPLOYEE:
+     *      Chỉ được cập nhật CV của chính mình.
+     */
+    public boolean canUpdateCV(Employee targetEmployee) {
+
+        // =====================================================
+        // 1. Kiểm tra dữ liệu đầu vào
+        // =====================================================
+
+        if (targetEmployee == null || targetEmployee.isDeleted()) {
+            return false;
+
+        }
+
+        // =====================================================
+        // 2. Lấy user hiện tại
+        // =====================================================
+
+        User currentUser = getCurrentUser();
+
+        // =====================================================
+        // 3. ADMIN
+        // =====================================================
+
+        if (hasRole(currentUser, RoleName.ADMIN)){
+            return true;
+        }
+
+        // =====================================================
+        // 4. HR
+        // =====================================================
+
+        if (hasRole(currentUser, RoleName.HR)) {
+            return true;
+        }
+
+        // =====================================================
+        // 5. TECH_LEAD
+        // =====================================================
+
+        if (hasRole(currentUser, RoleName.TECH_LEAD)) {
+
+            Employee currentEmployee =
+                    currentUser.getEmployee();
+
+            // Người đang đăng nhập phải có Employee
+            // và phải thuộc một Department.
+            if (currentEmployee == null
+                    || currentEmployee.isDeleted()
+                    || currentEmployee.getDepartment() == null
+                    || currentEmployee.getDepartment().isDeleted()
+                    || targetEmployee.getDepartment() == null
+                    || targetEmployee.getDepartment().isDeleted()){
+
+                return false;
+            }
+
+            Long currentDepartmentId = currentEmployee.getDepartment().getId();
+
+            Long targetDepartmentId = targetEmployee.getDepartment().getId();
+
+            return currentDepartmentId.equals(targetDepartmentId);
+        }
+
+        // =====================================================
+        // 6. EMPLOYEE
+        // =====================================================
+
+        if (hasRole(currentUser,RoleName.EMPLOYEE)){
+
+            Employee currentEmployee =
+                    currentUser.getEmployee();
+
+            if (currentEmployee == null
+                    || currentEmployee.isDeleted()){
+
+                return false;
+            }
+
+            return  currentEmployee
+                    .getId()
+                    .equals(targetEmployee.getId());
+        }
+
+        // =====================================================
+        // 7. Không thuộc role được phép
+        // =====================================================
+        return false;
+    }
+
+    /**
      * HÀM KIỂM TRA QUYỀN CHỈNH SỬA (UPDATE) HỒ SƠ NHÂN VIÊN
      * @param employee: Đối tượng nhân viên cũ đang chuẩn bị được sửa thông tin
      * @param targetDepartmentId: ID phòng ban mới mà người dùng muốn gán cho nhân viên này (nếu có đổi phòng)
@@ -349,10 +523,15 @@ public class EmployeeAuthorizationService {
         // Bốc lấy cái Username ghi trên vé, nhờ userService chạy xuống database tìm toàn bộ thông tin User Entity lên trả về
         return userService.findByUsername(authentication.getName());
     }
+
     // Kiểm tra phạm vị truy cập của User hiện tại
     public EmployeeAccessScope getCurrentUserScope() {
 
         User currentUser = getCurrentUser();
+
+        // =====================================================
+        // ADMIN / HR
+        // =====================================================
 
         if (hasRole(currentUser, RoleName.ADMIN)
                 || hasRole(currentUser, RoleName.HR)) {
@@ -362,18 +541,23 @@ public class EmployeeAuthorizationService {
                     .build();
         }
 
+        // =====================================================
+        // TECH_LEAD
+        // =====================================================
+
         if (hasRole(currentUser, RoleName.TECH_LEAD)) {
 
             Employee currentEmployee =
                     currentUser.getEmployee();
 
             if (currentEmployee == null
-                    || currentEmployee.getDepartment() == null) {
+                    || currentEmployee.isDeleted()
+                    || currentEmployee.getDepartment() == null
+                    || currentEmployee.getDepartment().isDeleted()) {
 
-                return EmployeeAccessScope.builder()
-                        .accessType(EmployeeAccessType.DEPARTMENT)
-                        .departmentId(null)
-                        .build();
+                throw new org.springframework.security.access.AccessDeniedException(
+                        "TECH_LEAD chưa được gán hồ sơ nhân viên hoặc phòng ban"
+                );
             }
 
             return EmployeeAccessScope.builder()
@@ -386,17 +570,21 @@ public class EmployeeAuthorizationService {
                     .build();
         }
 
+        // =====================================================
+        // EMPLOYEE
+        // =====================================================
+
         if (hasRole(currentUser, RoleName.EMPLOYEE)) {
 
             Employee currentEmployee =
                     currentUser.getEmployee();
 
-            if (currentEmployee == null) {
+            if (currentEmployee == null
+                    || currentEmployee.isDeleted()) {
 
-                return EmployeeAccessScope.builder()
-                        .accessType(EmployeeAccessType.SELF)
-                        .employeeId(null)
-                        .build();
+                throw new org.springframework.security.access.AccessDeniedException(
+                        "EMPLOYEE chưa được gán hồ sơ nhân viên"
+                );
             }
 
             return EmployeeAccessScope.builder()
@@ -407,10 +595,13 @@ public class EmployeeAuthorizationService {
                     .build();
         }
 
-        return EmployeeAccessScope.builder()
-                .accessType(EmployeeAccessType.SELF)
-                .employeeId(null)
-                .build();
+        // =====================================================
+        // ROLE KHÔNG HỢP LỆ
+        // =====================================================
+
+        throw new org.springframework.security.access.AccessDeniedException(
+                "Tài khoản không có quyền truy cập dữ liệu nhân viên"
+        );
     }
 
     /**

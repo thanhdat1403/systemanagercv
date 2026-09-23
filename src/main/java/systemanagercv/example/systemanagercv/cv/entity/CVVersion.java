@@ -23,7 +23,7 @@ import systemanagercv.example.systemanagercv.cv.enums.CvVersionStatus;
 )
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class CVVersion extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -53,4 +53,10 @@ public class CVVersion extends BaseEntity {
             nullable = false
     )
     private Boolean isCurrent = false;
+
+    @Column(
+            name = "rejection_reason",
+            length = 2000
+    )
+    private String rejectionReason;
 }

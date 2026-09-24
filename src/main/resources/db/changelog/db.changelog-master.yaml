@@ -38,3 +38,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/cv/009-create-cv-languages.yaml
+
+  - include:
+      file: db/changelog/cv/010-add-rejection-reason-to-cv-versions.yaml

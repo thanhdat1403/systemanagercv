@@ -81,6 +81,7 @@ public interface CVMapper {
     @Mapping(target = "updatedBy", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "cvVersion", ignore = true)
+    @Mapping(target = "sortOrder", source = "sortOrder")
     CVSkill toEntity(CVSkillRequest request);
 
     @Mapping(target = "id", ignore = true)
@@ -90,6 +91,7 @@ public interface CVMapper {
     @Mapping(target = "updatedBy", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "cvVersion", ignore = true)
+    @Mapping(target = "sortOrder", source = "sortOrder")
     CVEducation toEntity(CVEducationRequest request);
 
     @Mapping(target = "id", ignore = true)

@@ -288,6 +288,86 @@ public class EmployeeAuthorizationService {
     }
 
     /**
+     * Kiểm tra quyền gửi bản nháp CV vào quy trình phê duyệt.
+     *
+     * Quy tắc:
+     *
+     * EMPLOYEE:
+     * - Chỉ được submit CV của chính mình.
+     *
+     * TECH_LEAD:
+     * - Chỉ được submit CV của chính mình.
+     *
+     * ADMIN / HR:
+     * - Chưa sử dụng quyền submit draft trong workflow hiện tại.
+     */
+    public boolean canSubmitCV(Employee targetEmployee){
+
+        // =====================================================
+        // 1. Kiểm tra dữ liệu đầu vào
+        // =====================================================
+
+        if (targetEmployee == null
+                || targetEmployee.isDeleted()) {
+            return false;
+        }
+
+        // =====================================================
+        // 2. Lấy user hiện tại
+        // =====================================================
+
+        User currentUser = getCurrentUser();
+
+        // =====================================================
+        // 3. EMPLOYEE
+        // =====================================================
+
+        if (hasRole(currentUser, RoleName.EMPLOYEE)){
+
+                Employee currentEmployee =
+                        currentUser.getEmployee();
+
+                if (currentEmployee == null
+                        || currentEmployee.isDeleted()){
+                    return false;
+                }
+
+                // EMPLOYEE chỉ được submit CV của chính mình
+            return  currentEmployee
+                        .getId()
+                        .equals(targetEmployee.getId());
+        }
+
+        // =====================================================
+        // 4. TECH_LEAD
+        // =====================================================
+
+        if (hasRole(currentUser, RoleName.TECH_LEAD)){
+
+            Employee currentEmployee =
+                    currentUser.getEmployee();
+
+            if (currentEmployee == null
+                    || currentEmployee.isDeleted()){
+                return false;
+            }
+
+            // TECH_LEAD cũng chỉ được submit CV của chính mình.
+            //
+            // Không dùng canUpdateCV() ở đây vì TECH_LEAD
+            // có thể update CV của người cùng phòng ban,
+            // nhưng không được submit CV của người khác.
+            return currentEmployee
+                    .getId()
+                    .equals(targetEmployee.getId());
+        }
+
+        // 5. ADMIN/ HR/ ROLE KHÁC
+        return false;
+
+    }
+
+    /**
      * HÀM KIỂM TRA QUYỀN CHỈNH SỬA (UPDATE) HỒ SƠ NHÂN VIÊN
      * @param employee: Đối tượng nhân viên cũ đang chuẩn bị được sửa thông tin
      * @param targetDepartmentId: ID phòng ban mới mà người dùng muốn gán cho nhân viên này (nếu có đổi phòng)
@@ -420,6 +500,24 @@ public class EmployeeAuthorizationService {
     }
 
     /**
+     * Kiểm tra quyền xóa CV.
+     *
+     * Quy tắc:
+     *
+     * ADMIN:
+     *      Được xóa CV của tất cả nhân viên.
+     *
+     * HR:
+     *      Được xóa CV của tất cả nhân viên.
+     *
+     * TECH_LEAD:
+     *      Không được xóa CV.
+     *
+     * EMPLOYEE:
+     *      Không được xóa CV.
+     */
+
+    /**
      * CHỨC NĂNG CHÍNH 2: Chốt chặn ép buộc áp dụng riêng - Chỉ cho phép xem nếu đó là CHÍNH MÌNH.
      */
     public  boolean canViewOwn(Long employeeId) {
@@ -453,6 +551,68 @@ public class EmployeeAuthorizationService {
         }
         // Bắt buộc so sánh trùng phòng ban
         return isSameDepartment(currentUser, targetEmployee);
+    }
+
+    /**
+     * Kiểm tra Tech Lead có quyền duyệt CV ở bước Tech Lead hay không.
+     *
+     * Quy tắc:
+     *
+     * - Chỉ TECH_LEAD mới được thực hiện.
+     * - CV phải thuộc cùng department với Tech Lead.
+     * - Tech Lead KHÔNG được tự duyệt CV của chính mình.
+     */
+    public boolean canApproveCVByTechLead(Employee targetEmployee){
+
+        if (targetEmployee == null || targetEmployee.isDeleted()) {
+            return false;
+        }
+
+        User currentUser = getCurrentUser();
+
+        // Chỉ TECH_LEAD mới được duyệt ở bước này
+        if (!hasRole(currentUser, RoleName.TECH_LEAD)){
+            return false;
+        }
+
+        Employee currentEmployee = currentUser.getEmployee();
+
+        if (currentEmployee == null || currentEmployee.isDeleted()){
+            return false;
+        }
+
+        // Không được tự duyệt CV của chính mình
+        if (currentEmployee.getId().equals(targetEmployee.getId())){
+            return false;
+        }
+
+        // Tech Lead chỉ được duyệt CV cùng phòng ban
+        if (currentEmployee.getDepartment() == null
+                || targetEmployee.getDepartment() == null){
+            return false;
+        }
+
+        return currentEmployee.getDepartment()
+                .getId()
+                .equals(targetEmployee.getDepartment().getId());
+    }
+
+    /**
+     * Kiểm tra ADMIN / HR có quyền duyệt CV ở bước HR hay không.
+     *
+     * Quy tắc:
+     *
+     * - ADMIN: được duyệt CV ở bước HR.
+     * - HR: được duyệt CV ở bước HR.
+     * - TECH_LEAD: không được.
+     * - EMPLOYEE: không được.
+     */
+    public boolean canApproveCVByHr() {
+
+        User currentUser = getCurrentUser();
+
+        return hasRole(currentUser, RoleName.ADMIN)
+                || hasRole(currentUser, RoleName.HR);
     }
 
     /**

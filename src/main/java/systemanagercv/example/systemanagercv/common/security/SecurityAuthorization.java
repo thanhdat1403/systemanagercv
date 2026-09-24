@@ -48,5 +48,15 @@ public final class SecurityAuthorization {
             "hasAnyRole('ADMIN', 'HR', 'TECH_LEAD', 'EMPLOYEE')";
 
     public static final String CV_DELETER =
-            "hasAnyRole('ADMIN', 'HR', 'TECH_LEAD', 'EMPLOYEE')";
+            "hasAnyRole('ADMIN', 'HR')";
+
+    public static final String CV_SUBMITTER =
+            "hasAnyRole('TECH_LEAD', 'EMPLOYEE')";
+
+    public static final String TECH_LEAD_CV_REVIEWER =
+            "hasRole('TECH_LEAD')";
+
+    public static final String HR_CV_REVIEWER =
+            "hasAnyRole('ADMIN', 'HR')";
+
 }

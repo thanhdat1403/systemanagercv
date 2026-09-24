@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: cv-010-add-rejection-reason-to-cv-versions
+      author: systemanagercv
+
+      changes:
+        - addColumn:
+            tableName: cv_versions
+            columns:
+              - column:
+                  name: rejection_reason
+                  type: VARCHAR(2000)

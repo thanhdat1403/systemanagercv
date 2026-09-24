@@ -11,26 +11,59 @@ import java.util.Optional;
 
 public interface CVVersionRepository extends JpaRepository<CVVersion, Long> {
 
-    // Lấy toàn bộ version -> sau này có thể dùng cho chức năng xem lịch sử version
+    // =========================================================
+    // SUBMIT / GET VERSION DETAIL
+    // =========================================================
+
+    Optional<CVVersion> findByIdAndDeletedFalse(Long id);
+
+    // =========================================================
+    // VERSION HISTORY
+    // =========================================================
+
     List<CVVersion> findAllByEmployeeCVIdAndDeletedFalseOrderByCreatedDateDesc(
             Long employeeCvId
     );
+
+    // =========================================================
+    // FIND VERSION BY VERSION NUMBER
+    // =========================================================
 
     Optional<CVVersion> findByEmployeeCVIdAndVersionAndDeletedFalse(
             Long employeeCvId,
             String version
     );
 
-    //Lấy Version hiện tại chưa bị xóa và sẽ dùng trong update()
+    // =========================================================
+    // FIND CURRENT OFFICIAL VERSION
+    // =========================================================
+
     Optional<CVVersion> findByEmployeeCVIdAndIsCurrentTrueAndDeletedFalse(
             Long employeeCvId
     );
 
-    //Kiểm tra version đã tồn tại chưa dùng để tránh tạo trùng v1.1
+    // =========================================================
+    // CHECK DUPLICATE VERSION
+    // =========================================================
+
     boolean existsByEmployeeCVIdAndVersionAndDeletedFalse(
             Long employeeCvId,
             String version
     );
+
+    @Query("""
+        SELECT v.version
+        FROM CVVersion v
+        WHERE v.employeeCV.id = :employeeCvId
+          AND v.deleted = false
+        """)
+    List<String> findAllVersionNumbers(
+            @Param("employeeCvId") Long employeeCvId
+    );
+
+    // =========================================================
+    // VERSION HISTORY PROJECTION
+    // =========================================================
 
     @Query("""
             SELECT
@@ -46,7 +79,6 @@ public interface CVVersionRepository extends JpaRepository<CVVersion, Long> {
               AND cv.deleted = false
             ORDER BY v.createdDate DESC
             """)
-    //Lấy projection → sau này phục vụ API lịch sử version.
     List<CVVersionProjection> findAllActiveProjections(
             @Param("employeeCvId") Long employeeCvId
     );

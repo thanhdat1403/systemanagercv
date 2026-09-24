@@ -41,6 +41,14 @@ public class CVDetailResponse {
 
     private CvVersionStatus currentVersionStatus;
 
+    private Long workflowVersionId;
+
+    private String workflowVersion;
+
+    private CvVersionStatus workflowVersionStatus;
+
+    private String rejectionReason;
+
     private CVProfileResponse profile;
 
     @Builder.Default

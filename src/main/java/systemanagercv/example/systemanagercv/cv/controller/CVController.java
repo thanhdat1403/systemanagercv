@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import systemanagercv.example.systemanagercv.common.response.ApiResponse;
 import systemanagercv.example.systemanagercv.common.security.SecurityAuthorization;
 import systemanagercv.example.systemanagercv.cv.dto.request.CVCreateRequest;
+import systemanagercv.example.systemanagercv.cv.dto.request.CVRejectRequest;
 import systemanagercv.example.systemanagercv.cv.dto.request.CVSearchRequest;
 import systemanagercv.example.systemanagercv.cv.dto.request.CVUpdateRequest;
 import systemanagercv.example.systemanagercv.cv.dto.response.CVDetailResponse;
@@ -124,5 +125,94 @@ public class CVController {
                         result
                 );
         return  ResponseEntity.ok(response);
+    }
+
+    // post api gửi bản nháp cv
+    @PostMapping("/versions/{versionId}/submit")
+    @PreAuthorize(SecurityAuthorization.CV_SUBMITTER)
+    public ResponseEntity<ApiResponse<CVDetailResponse>> submitDraft(
+            @PathVariable Long versionId
+    ){
+
+        CVDetailResponse result =
+                cvService.submitDraft(versionId);
+
+        ApiResponse<CVDetailResponse> response =
+                new ApiResponse<>(
+                        "success",
+                        "CV draft submitted successfully",
+                        result
+                );
+
+        return  ResponseEntity.ok(response);
+    }
+
+    // POST API chấp nhận CV của TEACH_LEAD
+    @PostMapping("/versions/{versionId}/approve")
+    @PreAuthorize(SecurityAuthorization.TECH_LEAD_CV_REVIEWER)
+    public ResponseEntity<ApiResponse<CVDetailResponse>> approveByTechLead(
+            @PathVariable Long versionId
+    ) {
+
+        CVDetailResponse response =
+                cvService.approveByTechLead(versionId);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(response)
+        );
+    }
+
+    //POST API từ chối của TechLead
+    @PostMapping("/versions/{versionId}/reject")
+    @PreAuthorize(SecurityAuthorization.TECH_LEAD_CV_REVIEWER)
+    public ResponseEntity<ApiResponse<CVDetailResponse>> rejectByTechLead(
+            @PathVariable Long versionId,
+            @Valid @RequestBody CVRejectRequest request
+    ) {
+
+        CVDetailResponse response =
+                cvService.rejectByTechLead(
+                        versionId,
+                        request.getRejectionReason()
+                );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(response)
+        );
+    }
+
+    // POST API từ chối version cv của HR/ADMIN
+    @PostMapping("/versions/{versionId}/reject-hr")
+    @PreAuthorize(SecurityAuthorization.HR_CV_REVIEWER)
+    public ResponseEntity<ApiResponse<CVDetailResponse>> rejectByHr(
+            @PathVariable Long versionId,
+            @Valid @RequestBody CVRejectRequest request
+    ){
+
+        CVDetailResponse response =
+                cvService.rejectByHr(
+                        versionId,
+                        request.getRejectionReason()
+                );
+
+        return ResponseEntity.ok(
+                ApiResponse.success(response)
+        );
+
+    }
+
+    // POST API HR duyệt cv
+    @PostMapping("/versions/{versionId}/approve-hr")
+    @PreAuthorize(SecurityAuthorization.HR_CV_REVIEWER)
+    public ResponseEntity<ApiResponse<CVDetailResponse>> approveByHr(
+            @PathVariable Long versionId
+    ){
+
+        CVDetailResponse response =
+                cvService.approveByHr(versionId);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(response)
+        );
     }
 }

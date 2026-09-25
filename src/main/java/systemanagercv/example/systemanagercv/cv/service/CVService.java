@@ -78,4 +78,22 @@ public interface CVService {
      * Lấy chi tiết CV.
      */
     CVDetailResponse getDetail(Long id);
+
+    /**
+     * Hủy bản nháp CV.
+     *
+     * Chỉ cho phép EMPLOYEE hoặc TECH_LEAD
+     * hủy bản DRAFT của chính mình.
+     *
+     * DRAFT -> ARCHIVED
+     */
+    void cancelDraft(Long versionId);
+
+    /*
+    * Xóa CV
+    * không cho xóa CV khi đang có version đang xử lý
+    * */
+    void delete(Long id);
+
+
 }

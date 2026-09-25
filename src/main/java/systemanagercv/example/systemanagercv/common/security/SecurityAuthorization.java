@@ -53,10 +53,22 @@ public final class SecurityAuthorization {
     public static final String CV_SUBMITTER =
             "hasAnyRole('TECH_LEAD', 'EMPLOYEE')";
 
+    public static final String CV_CANCELLER =
+            "hasAnyRole('TECH_LEAD', 'EMPLOYEE')";
+
     public static final String TECH_LEAD_CV_REVIEWER =
             "hasRole('TECH_LEAD')";
 
     public static final String HR_CV_REVIEWER =
             "hasAnyRole('ADMIN', 'HR')";
 
+    // =====================================================
+    // NOTIFICATION
+    // =====================================================
+
+    public static final String NOTIFICATION_READER =
+            "hasAnyRole('ADMIN', 'HR', 'TECH_LEAD', 'EMPLOYEE')";
+
+    public static final String NOTIFICATION_MARK_READER =
+            "hasAnyRole('ADMIN', 'HR', 'TECH_LEAD', 'EMPLOYEE')";
 }

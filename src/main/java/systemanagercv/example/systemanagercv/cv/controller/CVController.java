@@ -147,6 +147,20 @@ public class CVController {
         return  ResponseEntity.ok(response);
     }
 
+    // Hàm xử lý xóa version cv
+    @PostMapping("/versions/{versionId}/cancel")
+    @PreAuthorize(SecurityAuthorization.CV_CANCELLER)
+    public ResponseEntity<ApiResponse<Void>> cancelDraft(
+            @PathVariable Long versionId
+    ){
+        cvService.cancelDraft(versionId);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(null)
+        );
+
+    }
+
     // POST API chấp nhận CV của TEACH_LEAD
     @PostMapping("/versions/{versionId}/approve")
     @PreAuthorize(SecurityAuthorization.TECH_LEAD_CV_REVIEWER)
@@ -214,5 +228,20 @@ public class CVController {
         return ResponseEntity.ok(
                 ApiResponse.success(response)
         );
+    }
+
+    // API XÓA CV
+    @DeleteMapping("/{id}")
+    @PreAuthorize(SecurityAuthorization.CV_DELETER)
+    public ResponseEntity<ApiResponse<Void>> delete(
+            @PathVariable Long id
+    ) {
+
+        cvService.delete(id);
+
+        return ResponseEntity.ok(
+                ApiResponse.success(null)
+        );
+
     }
 }

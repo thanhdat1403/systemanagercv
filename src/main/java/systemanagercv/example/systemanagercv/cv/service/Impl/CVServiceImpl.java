@@ -27,7 +27,10 @@ import systemanagercv.example.systemanagercv.employee.entity.Employee;
 import systemanagercv.example.systemanagercv.employee.repository.EmployeeRepository;
 
 import org.springframework.security.access.AccessDeniedException;
+import systemanagercv.example.systemanagercv.notification.enums.NotificationType;
+import systemanagercv.example.systemanagercv.notification.service.NotificationService;
 import systemanagercv.example.systemanagercv.user.entity.User;
+import systemanagercv.example.systemanagercv.user.repository.UserRepository;
 import systemanagercv.example.systemanagercv.user.service.UserService;
 
 import java.util.List;
@@ -64,6 +67,11 @@ public class CVServiceImpl implements CVService {
     private final EmployeeRepository employeeRepository;
     private final CVMapper cvMapper;
     private final EmployeeAuthorizationService employeeAuthorizationService;
+
+
+    private final UserRepository userRepository;
+
+    private final NotificationService notificationService;
 
     // Tạo CV
     @Override
@@ -443,6 +451,136 @@ public class CVServiceImpl implements CVService {
     }
 
     /**
+     * Hủy bản nháp CV.
+     *
+     * Chỉ cho phép EMPLOYEE hoặc TECH_LEAD
+     * hủy bản DRAFT của chính mình.
+     *
+     * DRAFT -> ARCHIVED
+     */
+    @Override
+    public void cancelDraft(Long versionId) {
+
+        // =====================================================
+        // 1. Tìm CV Version
+        // =====================================================
+
+        CVVersion version =
+                cvVersionRepository
+                        .findByIdAndDeletedFalse(versionId)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "CV version không tồn tại"
+                                )
+                        );
+
+        // =====================================================
+        // 2. Chỉ cho phép hủy version đang ở DRAFT
+        // =====================================================
+
+        if (version.getStatus() != CvVersionStatus.DRAFT){
+            throw new IllegalStateException(
+                    "Chỉ có thể hủy CV đang ở trạng thái DRAFT"
+            );
+        }
+
+        // =====================================================
+        // 3. Lấy EmployeeCV
+        // =====================================================
+
+        EmployeeCV employeeCV = version.getEmployeeCV();
+
+        if (employeeCV == null
+                || employeeCV.isDeleted()){
+
+            throw new ResourceNotFoundException(
+                    "CV không tồn tại"
+            );
+        }
+
+        // =====================================================
+        // 4. Lấy Employee sở hữu CV
+        // =====================================================
+
+        Employee employee = employeeCV.getEmployee();
+
+        if (employee == null
+                || employee.isDeleted()){
+
+            throw new ResourceNotFoundException(
+                    "Nhân viên không tồn tại"
+            );
+        }
+
+    // =====================================================
+    // 5. Kiểm tra quyền hủy DRAFT
+    // =====================================================
+
+        System.out.println("=== CANCEL CV DEBUG ===");
+        System.out.println("versionId = " + versionId);
+        System.out.println("employeeId = " + employee.getId());
+        System.out.println("employeeName = " + employee.getFullName());
+
+        boolean canCancel =
+                employeeAuthorizationService
+                        .canCancelCVDraft(employee);
+
+        System.out.println("canCancelCVDraft = " + canCancel);
+
+        if (!canCancel) {
+            throw new AccessDeniedException(
+                    "Bạn không có quyền hủy bản nháp CV này"
+            );
+        }
+
+        // =====================================================
+        // 6. DRAFT -> ARCHIVED
+        // =====================================================
+        version.setStatus(CvVersionStatus.ARCHIVED);
+
+        // =====================================================
+        // 7. Xóa rejection reason nếu có
+        // =====================================================
+
+        version.setRejectionReason(null);
+
+        // =====================================================
+        // 8. Lưu version
+        // =====================================================
+
+        cvVersionRepository.save(version);
+
+    }
+
+    /*
+    * Hàm xóa CV
+    * không cho xóa CV khi đang có version đang xử lý
+    * */
+    @Override
+    public void delete(Long id) {
+
+        EmployeeCV employeeCV =
+                employeeCVRepository
+                        .findActiveById(id)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "CV không tồn tại"
+                                )
+                        );
+
+        if (hasActiveWorkflowVersion(employeeCV.getId())){
+            throw new IllegalStateException(
+                    "CV đang có phiên bản đang được xử lý, không thể xóa"
+            );
+        }
+
+        employeeCV.setDeleted(true);
+
+        employeeCVRepository.save(employeeCV);
+    }
+
+
+    /**
      * Cập nhật CV hiện tại.
      *
      * @param id      ID của EmployeeCV
@@ -788,9 +926,41 @@ public class CVServiceImpl implements CVService {
         cvVersionRepository.save(version);
 
         // =====================================================
-        // 10. Lưu trạng thái mới
+        // 11. Trả về CV sau khi submit
         // =====================================================
         return getDetail(employeeCV.getId());
+    }
+
+    // Hàm bổ trợ cho việc thông báo đến TECH LEAD về việc gửi bản CV
+    private void notifyTechLeadsAboutSubmittedCV(
+            CVVersion version,
+            Employee employee
+    ) {
+
+        Long departmentId =
+                employee.getDepartment().getId();
+
+        List<User> techLeads =
+                userRepository.findUsersByDepartmentAndRole(
+                        departmentId,
+                        RoleName.TECH_LEAD.name()
+                );
+
+        for (User techLead : techLeads) {
+
+            notificationService.createNotification(
+                    techLead.getId(),
+                    NotificationType.CV_SUBMITTED,
+                    "CV được gửi duyệt",
+                    "CV của nhân viên"
+                                + employee.getFullName()
+                                + " phiên bản"
+                                + version.getVersion()
+                                + " đã được gửi và đang chờ Tech Lead duyệt.",
+                    "CV_VERSION",
+                    version.getId()
+            );
+        }
     }
 
     // Hàm kiểm tra quyền chấp nhận CV bởi Techlead

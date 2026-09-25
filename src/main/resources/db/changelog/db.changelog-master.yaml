@@ -41,3 +41,13 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/cv/010-add-rejection-reason-to-cv-versions.yaml
+
+  # =====================================================
+  # NOTIFICATION
+  # =====================================================
+
+  - include:
+      file: db/changelog/notification/001-create-notifications.yaml
+
+  - include:
+      file: db/changelog/notification/002-seed-test-notifications.yaml

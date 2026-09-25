@@ -197,4 +197,39 @@ public interface UserRepository
     Optional<User> findUserDetailById(
             @Param("id") Long id
     );
+
+    /**
+     * ============================================================
+     * Tìm kiếm TECH LEAD thuộc phòng ban nào để còn gửi CV
+     * ============================================================
+     *
+     * Tìm các User có Role TECH_LEAD và Employee
+     * thuộc Department được chỉ định.
+     *
+     * Điều kiện:
+     * - User chưa bị soft delete
+     * - User đang enabled
+     * - Employee chưa bị soft delete
+     * - Department chưa bị soft delete
+     * - User có role được truyền vào
+     * - Employee thuộc Department được truyền vào
+     */
+    @Query("""
+        SELECT DISTINCT u
+        FROM User u
+        JOIN u.userRoles ur
+        JOIN ur.role r
+        JOIN u.employee e
+        JOIN e.department d
+        WHERE u.deleted = false
+          AND u.enabled = true
+          AND e.deleted = false
+          AND d.deleted = false
+          AND r.name = :roleName
+          AND d.id = :departmentId
+        """)
+    List<User> findUsersByDepartmentAndRole(
+            @Param("departmentId") Long departmentId,
+            @Param("roleName") String roleName
+    );
 }

@@ -1,0 +1,167 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: notification-002-seed-test-notifications
+      author: systemanagercv
+
+      changes:
+
+        - insert:
+            tableName: notifications
+            columns:
+
+              - column:
+                  name: recipient_user_id
+                  valueNumeric: 4
+
+              - column:
+                  name: type
+                  value: "CV_SUBMITTED"
+
+              - column:
+                  name: title
+                  value: "CV được gửi duyệt"
+
+              - column:
+                  name: message
+                  value: "CV của bạn đã được gửi đến Tech Lead để phê duyệt."
+
+              - column:
+                  name: reference_type
+                  value: "CV_VERSION"
+
+              - column:
+                  name: reference_id
+                  valueNumeric: 1
+
+              - column:
+                  name: is_read
+                  valueBoolean: false
+
+              - column:
+                  name: created_date
+                  valueDate: "2026-09-25T15:00:00"
+
+              - column:
+                  name: created_by
+                  value: "system"
+
+              - column:
+                  name: updated_date
+                  valueDate: "2026-09-25T15:00:00"
+
+              - column:
+                  name: updated_by
+                  value: "system"
+
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: notifications
+            columns:
+
+              - column:
+                  name: recipient_user_id
+                  valueNumeric: 4
+
+              - column:
+                  name: type
+                  value: "CV_TECH_LEAD_REJECTED"
+
+              - column:
+                  name: title
+                  value: "CV bị Tech Lead từ chối"
+
+              - column:
+                  name: message
+                  value: "CV của bạn cần được chỉnh sửa lại."
+
+              - column:
+                  name: reference_type
+                  value: "CV_VERSION"
+
+              - column:
+                  name: reference_id
+                  valueNumeric: 2
+
+              - column:
+                  name: is_read
+                  valueBoolean: false
+
+              - column:
+                  name: created_date
+                  valueDate: "2026-09-25T15:01:00"
+
+              - column:
+                  name: created_by
+                  value: "system"
+
+              - column:
+                  name: updated_date
+                  valueDate: "2026-09-25T15:01:00"
+
+              - column:
+                  name: updated_by
+                  value: "system"
+
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+
+        - insert:
+            tableName: notifications
+            columns:
+
+              - column:
+                  name: recipient_user_id
+                  valueNumeric: 4
+
+              - column:
+                  name: type
+                  value: "CV_HR_APPROVED"
+
+              - column:
+                  name: title
+                  value: "CV đã được HR phê duyệt"
+
+              - column:
+                  name: message
+                  value: "CV của bạn đã được HR phê duyệt và trở thành bản chính thức."
+
+              - column:
+                  name: reference_type
+                  value: "CV_VERSION"
+
+              - column:
+                  name: reference_id
+                  valueNumeric: 3
+
+              - column:
+                  name: is_read
+                  valueBoolean: true
+
+              - column:
+                  name: read_at
+                  valueDate: "2026-09-25T15:02:00"
+
+              - column:
+                  name: created_date
+                  valueDate: "2026-09-25T15:02:00"
+
+              - column:
+                  name: created_by
+                  value: "system"
+
+              - column:
+                  name: updated_date
+                  valueDate: "2026-09-25T15:02:00"
+
+              - column:
+                  name: updated_by
+                  value: "system"
+
+              - column:
+                  name: is_deleted
+                  valueBoolean: false

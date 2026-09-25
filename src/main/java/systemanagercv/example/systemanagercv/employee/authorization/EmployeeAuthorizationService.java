@@ -368,6 +368,84 @@ public class EmployeeAuthorizationService {
     }
 
     /**
+     * Kiểm tra quyền hủy bản nháp CV.
+     *
+     * Quy tắc:
+     *
+     * EMPLOYEE:
+     * - Chỉ được hủy bản nháp CV của chính mình.
+     *
+     * TECH_LEAD:
+     * - Chỉ được hủy bản nháp CV của chính mình.
+     *
+     * ADMIN / HR:
+     * - Không được hủy DRAFT thông qua chức năng này.
+     */
+    public boolean canCancelCVDraft(Employee targetEmployee) {
+
+        // =====================================================
+        // 1. Kiểm tra dữ liệu đầu vào
+        // =====================================================
+
+        if (targetEmployee == null
+                || targetEmployee.isDeleted()) {
+            return false;
+        }
+
+        // =====================================================
+        // 2. Lấy user hiện tại
+        // =====================================================
+
+        User currentUser = getCurrentUser();
+
+        // =====================================================
+        // 3. EMPLOYEE
+        // =====================================================
+
+        if (hasRole(currentUser, RoleName.EMPLOYEE)) {
+
+            Employee currentEmployee =
+                    currentUser.getEmployee();
+
+            if (currentEmployee == null
+                    || currentEmployee.isDeleted()) {
+                return false;
+            }
+
+            // EMPLOYEE chỉ được hủy DRAFT CV của chính mình
+            return currentEmployee
+                    .getId()
+                    .equals(targetEmployee.getId());
+        }
+
+        // =====================================================
+        // 4. TECH_LEAD
+        // =====================================================
+
+        if (hasRole(currentUser, RoleName.TECH_LEAD)) {
+
+            Employee currentEmployee =
+                    currentUser.getEmployee();
+
+            if (currentEmployee == null
+                    || currentEmployee.isDeleted()) {
+                return false;
+            }
+
+            // TECH_LEAD chỉ được hủy DRAFT CV của chính mình
+            return currentEmployee
+                    .getId()
+                    .equals(targetEmployee.getId());
+        }
+
+        // =====================================================
+        // 5. ADMIN / HR / ROLE KHÁC
+        // =====================================================
+
+        return false;
+    }
+
+    /**
      * HÀM KIỂM TRA QUYỀN CHỈNH SỬA (UPDATE) HỒ SƠ NHÂN VIÊN
      * @param employee: Đối tượng nhân viên cũ đang chuẩn bị được sửa thông tin
      * @param targetDepartmentId: ID phòng ban mới mà người dùng muốn gán cho nhân viên này (nếu có đổi phòng)

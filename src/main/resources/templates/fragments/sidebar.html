@@ -1,0 +1,191 @@
+<aside th:fragment="sidebar"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <div id="sidebar" class="nav-collapse">
+
+        <div class="leftside-navigation">
+
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <!-- ==================== -->
+                <!-- DASHBOARD -->
+                <!-- ==================== -->
+
+                <li>
+                    <a th:href="@{/dashboard}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+
+                <!-- ==================== -->
+                <!-- USER MANAGEMENT -->
+                <!-- ADMIN ONLY -->
+                <!-- ==================== -->
+
+                <li class="sub-menu"
+                    sec:authorize="hasRole('ADMIN')">
+
+                    <a href="javascript:;">
+                        <i class="fa fa-users"></i>
+                        <span>Quản lý User</span>
+                    </a>
+
+                    <ul class="sub">
+
+                        <li>
+                            <a th:href="@{/users}">
+                                Danh sách User
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/users/new}">
+                                Thêm User
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+
+                <!-- ==================== -->
+                <!-- DEPARTMENT MANAGEMENT -->
+                <!-- ADMIN ONLY -->
+                <!-- ==================== -->
+
+                <li class="sub-menu"
+                    sec:authorize="hasRole('ADMIN')">
+
+                    <a href="javascript:;">
+                        <i class="fa fa-building"></i>
+                        <span>Quản lý phòng ban</span>
+                    </a>
+
+                    <ul class="sub">
+
+                        <li>
+                            <a th:href="@{/departments}">
+                                Danh sách phòng ban
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/departments/new}">
+                                Thêm phòng ban
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+
+                <!-- ==================== -->
+                <!-- EMPLOYEE MANAGEMENT -->
+                <!-- ALL ROLES -->
+                <!-- ==================== -->
+
+                <li class="sub-menu"
+                    sec:authorize="hasAnyRole('ADMIN','HR','TECH_LEAD','EMPLOYEE')">
+
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+                        <span>Quản lý nhân viên</span>
+                    </a>
+
+                    <ul class="sub">
+
+                        <li>
+                            <a th:href="@{/employees}">
+                                Danh sách nhân viên
+                            </a>
+                        </li>
+
+                        <!--
+                            Chỉ ADMIN, HR, TECH_LEAD
+                            được nhìn thấy nút thêm nhân viên.
+                        -->
+                        <li sec:authorize="hasAnyRole('ADMIN','HR','TECH_LEAD')">
+                            <a th:href="@{/employees/new}">
+                                Thêm nhân viên
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+
+                <!-- ==================== -->
+                <!-- CV MANAGEMENT -->
+                <!-- ALL ROLES -->
+                <!-- ==================== -->
+
+                <li class="sub-menu"
+                    sec:authorize="hasAnyRole('ADMIN','HR','TECH_LEAD','EMPLOYEE')">
+
+                    <a href="javascript:;">
+                        <i class="fa fa-file-text"></i>
+                        <span>Quản lý CV</span>
+                    </a>
+
+                    <ul class="sub">
+
+                        <li>
+                            <a th:href="@{/cvs}">
+                                Danh sách CV
+                            </a>
+                        </li>
+
+                        <!--
+                            Chỉ các role có quyền tạo CV
+                            mới nhìn thấy chức năng này.
+                        -->
+                        <li sec:authorize="hasAnyRole('ADMIN','HR','TECH_LEAD')">
+                            <a th:href="@{/cvs/new}">
+                                Tạo CV
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+
+                <!-- ==================== -->
+                <!-- NOTIFICATION -->
+                <!-- ALL ROLES -->
+                <!-- ==================== -->
+
+                <li>
+                    <a th:href="@{/notifications}">
+                        <i class="fa fa-bell"></i>
+                        <span>Thông báo</span>
+                    </a>
+                </li>
+
+
+                <!-- ==================== -->
+                <!-- LOGOUT -->
+                <!-- ==================== -->
+
+                <li sec:authorize="isAuthenticated()">
+
+                    <a th:href="@{/logout}">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</aside>

@@ -78,8 +78,10 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers("/login")
+                        .requestMatchers(
+                                "/login",
+                                "/error"
+                        )
                         .permitAll()
 
                         .requestMatchers("/api/v1/auth/login")
@@ -92,6 +94,14 @@ public class SecurityConfig {
                                 "/images/**"
                         )
                         .permitAll()
+
+                        .requestMatchers("/dashboard")
+                        .hasAnyRole(
+                                RoleName.ADMIN.name(),
+                                RoleName.HR.name(),
+                                RoleName.TECH_LEAD.name(),
+                                RoleName.EMPLOYEE.name()
+                        )
 
                         .requestMatchers(
                                 "/v3/api-docs/**",

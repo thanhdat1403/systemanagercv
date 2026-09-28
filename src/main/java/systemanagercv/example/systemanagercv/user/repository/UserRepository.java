@@ -232,4 +232,32 @@ public interface UserRepository
             @Param("departmentId") Long departmentId,
             @Param("roleName") String roleName
     );
+
+    /**
+     * ============================================================
+     * Tìm tất cả HR đang hoạt động để nhận thông báo CV
+     * ============================================================
+     *
+     * Dùng khi:
+     * TECH_LEAD duyệt CV
+     * -> CV chuyển sang PENDING_HR
+     * -> thông báo cho HR.
+     *
+     * Điều kiện:
+     * - User chưa bị soft delete
+     * - User đang enabled
+     * - User có Role HR
+     */
+    @Query("""
+    SELECT DISTINCT u
+    FROM User u
+    JOIN u.userRoles ur
+    JOIN ur.role r
+    WHERE u.deleted = false
+      AND u.enabled = true
+      AND r.name = :roleName
+    """)
+    List<User> findUsersByRole(
+            @Param("roleName") String roleName
+    );
 }

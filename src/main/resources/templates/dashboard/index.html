@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body class="smcv-app">
+
+<section id="container">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+    <header th:replace="~{fragments/header :: header}"></header>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+    <section id="main-content">
+
+        <div class="smcv-dashboard-page">
+
+            <!-- =================================================
+                 WELCOME HEADER
+                 ================================================= -->
+            <section class="smcv-welcome">
+
+                <div class="smcv-welcome-main">
+
+                    <div class="smcv-welcome-icon">
+                        <i class="fa fa-file-text-o"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="smcv-welcome-label">
+                            SYSTEMANAGERCV
+                        </span>
+
+                        <h1 class="smcv-welcome-title">
+                            Xin chào,
+                            <span sec:authentication="name">
+                                User
+                            </span>
+                        </h1>
+
+                        <p class="smcv-welcome-description">
+                            Quản lý nhân viên, hồ sơ CV và các yêu cầu
+                            cập nhật trên một nền tảng tập trung.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ROLE -->
+                <div class="smcv-welcome-role">
+
+                    <span sec:authorize="hasRole('ADMIN')"
+                          class="smcv-role-badge smcv-role-admin">
+                        <i class="fa fa-shield"></i>
+                        ADMIN
+                    </span>
+
+                    <span sec:authorize="hasRole('HR')"
+                          class="smcv-role-badge smcv-role-hr">
+                        <i class="fa fa-users"></i>
+                        HR
+                    </span>
+
+                    <span sec:authorize="hasRole('TECH_LEAD')"
+                          class="smcv-role-badge smcv-role-tech">
+                        <i class="fa fa-code"></i>
+                        TECH LEAD
+                    </span>
+
+                    <span sec:authorize="hasRole('EMPLOYEE')"
+                          class="smcv-role-badge smcv-role-employee">
+                        <i class="fa fa-user"></i>
+                        EMPLOYEE
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 QUICK OVERVIEW
+                 ================================================= -->
+            <section class="smcv-overview-grid">
+
+                <!-- CV -->
+                <a th:href="@{/cvs}"
+                   class="smcv-overview-card smcv-overview-blue">
+
+                    <div class="smcv-overview-icon">
+                        <i class="fa fa-file-text-o"></i>
+                    </div>
+
+                    <div class="smcv-overview-content">
+                        <span>HỒ SƠ</span>
+                        <h3>Quản lý CV</h3>
+                        <p>
+                            Xem và quản lý hồ sơ CV
+                            theo phạm vi được phân quyền.
+                        </p>
+                    </div>
+
+                    <i class="fa fa-angle-right smcv-overview-arrow"></i>
+
+                </a>
+
+
+                <!-- EMPLOYEE -->
+                <a th:href="@{/employees}"
+                   class="smcv-overview-card smcv-overview-green">
+
+                    <div class="smcv-overview-icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+
+                    <div class="smcv-overview-content">
+                        <span>NHÂN SỰ</span>
+                        <h3>Nhân viên</h3>
+                        <p>
+                            Tra cứu thông tin nhân viên
+                            trong phạm vi được phép.
+                        </p>
+                    </div>
+
+                    <i class="fa fa-angle-right smcv-overview-arrow"></i>
+
+                </a>
+
+
+                <!-- NOTIFICATION -->
+                <a th:href="@{/notifications}"
+                   class="smcv-overview-card smcv-overview-orange">
+
+                    <div class="smcv-overview-icon">
+                        <i class="fa fa-bell"></i>
+                    </div>
+
+                    <div class="smcv-overview-content">
+                        <span>THÔNG TIN</span>
+                        <h3>Thông báo</h3>
+                        <p>
+                            Theo dõi các thông báo liên quan
+                            đến hồ sơ và yêu cầu cập nhật.
+                        </p>
+                    </div>
+
+                    <i class="fa fa-angle-right smcv-overview-arrow"></i>
+
+                </a>
+
+
+                <!-- ADMIN -->
+                <a th:href="@{/users}"
+                   sec:authorize="hasRole('ADMIN')"
+                   class="smcv-overview-card smcv-overview-purple">
+
+                    <div class="smcv-overview-icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+
+                    <div class="smcv-overview-content">
+                        <span>QUẢN TRỊ</span>
+                        <h3>Người dùng</h3>
+                        <p>
+                            Quản lý tài khoản và quyền
+                            truy cập hệ thống.
+                        </p>
+                    </div>
+
+                    <i class="fa fa-angle-right smcv-overview-arrow"></i>
+
+                </a>
+
+            </section>
+
+
+            <!-- =================================================
+                 MAIN GRID
+                 ================================================= -->
+            <div class="smcv-dashboard-main-grid">
+
+
+                <!-- =================================================
+                     LEFT
+                     ================================================= -->
+                <div class="smcv-dashboard-main-left">
+
+
+                    <!-- =================================================
+                         CV STATUS
+                         ================================================= -->
+                    <section class="smcv-dashboard-card">
+
+                        <div class="smcv-card-header">
+
+                            <div class="smcv-card-title-group">
+
+                                <div class="smcv-card-title-icon smcv-icon-blue">
+                                    <i class="fa fa-file-text-o"></i>
+                                </div>
+
+                                <div>
+                                    <h2>Quản lý hồ sơ CV</h2>
+
+                                    <p>
+                                        Các trạng thái chính của hồ sơ
+                                        trong hệ thống.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <a th:href="@{/cvs}"
+                               class="smcv-card-link">
+                                Xem CV
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        </div>
+
+
+                        <div class="smcv-status-grid">
+
+                            <!-- UPDATED -->
+                            <div class="smcv-status-item smcv-status-green">
+
+                                <div class="smcv-status-icon">
+                                    <i class="fa fa-check"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Đã cập nhật</strong>
+
+                                    <span>
+                                        CV đã được cập nhật.
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- PENDING -->
+                            <div class="smcv-status-item smcv-status-orange">
+
+                                <div class="smcv-status-icon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Chưa cập nhật</strong>
+
+                                    <span>
+                                        CV đang có yêu cầu cập nhật.
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- CANCELLED -->
+                            <div class="smcv-status-item smcv-status-red">
+
+                                <div class="smcv-status-icon">
+                                    <i class="fa fa-times"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Hủy yêu cầu</strong>
+
+                                    <span>
+                                        Yêu cầu cập nhật đã được hủy.
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         WORKFLOW
+                         ================================================= -->
+                    <section class="smcv-dashboard-card">
+
+                        <div class="smcv-card-header">
+
+                            <div class="smcv-card-title-group">
+
+                                <div class="smcv-card-title-icon smcv-icon-purple">
+                                    <i class="fa fa-random"></i>
+                                </div>
+
+                                <div>
+                                    <h2>Quy trình cập nhật CV</h2>
+
+                                    <p>
+                                        Luồng xử lý chính của hồ sơ CV.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="smcv-workflow">
+
+                            <div class="smcv-workflow-step">
+
+                                <div class="smcv-workflow-circle smcv-workflow-blue">
+                                    01
+                                </div>
+
+                                <div class="smcv-workflow-content">
+
+                                    <span>YÊU CẦU</span>
+
+                                    <h3>
+                                        Tạo yêu cầu cập nhật
+                                    </h3>
+
+                                    <p>
+                                        Yêu cầu cập nhật được tạo
+                                        cho nhân viên.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="smcv-workflow-line"></div>
+
+
+                            <div class="smcv-workflow-step">
+
+                                <div class="smcv-workflow-circle smcv-workflow-orange">
+                                    02
+                                </div>
+
+                                <div class="smcv-workflow-content">
+
+                                    <span>THÔNG BÁO</span>
+
+                                    <h3>
+                                        Nhân viên nhận thông báo
+                                    </h3>
+
+                                    <p>
+                                        Hệ thống thông báo đến
+                                        người cần cập nhật.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="smcv-workflow-line"></div>
+
+
+                            <div class="smcv-workflow-step">
+
+                                <div class="smcv-workflow-circle smcv-workflow-purple">
+                                    03
+                                </div>
+
+                                <div class="smcv-workflow-content">
+
+                                    <span>CẬP NHẬT</span>
+
+                                    <h3>
+                                        Hoàn thiện hồ sơ
+                                    </h3>
+
+                                    <p>
+                                        Nhân viên cập nhật thông tin
+                                        CV theo yêu cầu.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="smcv-workflow-line"></div>
+
+
+                            <div class="smcv-workflow-step">
+
+                                <div class="smcv-workflow-circle smcv-workflow-green">
+                                    04
+                                </div>
+
+                                <div class="smcv-workflow-content">
+
+                                    <span>HOÀN TẤT</span>
+
+                                    <h3>
+                                        CV được cập nhật
+                                    </h3>
+
+                                    <p>
+                                        Hồ sơ chuyển sang trạng thái
+                                        đã cập nhật.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     RIGHT
+                     ================================================= -->
+                <div class="smcv-dashboard-main-right">
+
+
+                    <!-- =================================================
+                         ACCOUNT
+                         ================================================= -->
+                    <section class="smcv-dashboard-card smcv-account-card">
+
+                        <div class="smcv-account-top">
+
+                            <div class="smcv-account-avatar">
+                                <i class="fa fa-user"></i>
+                            </div>
+
+                            <div>
+
+                                <span class="smcv-account-label">
+                                    TÀI KHOẢN HIỆN TẠI
+                                </span>
+
+                                <strong sec:authentication="name">
+                                    User
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="smcv-account-role-box">
+
+                            <span>VAI TRÒ</span>
+
+                            <strong sec:authorize="hasRole('ADMIN')">
+                                ADMIN
+                            </strong>
+
+                            <strong sec:authorize="hasRole('HR')">
+                                HR
+                            </strong>
+
+                            <strong sec:authorize="hasRole('TECH_LEAD')">
+                                TECH LEAD
+                            </strong>
+
+                            <strong sec:authorize="hasRole('EMPLOYEE')">
+                                EMPLOYEE
+                            </strong>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         ROLE ACTIONS
+                         ================================================= -->
+                    <section class="smcv-dashboard-card">
+
+                        <div class="smcv-card-header">
+
+                            <div class="smcv-card-title-group">
+
+                                <div class="smcv-card-title-icon smcv-icon-green">
+                                    <i class="fa fa-tasks"></i>
+                                </div>
+
+                                <div>
+                                    <h2>Quyền truy cập</h2>
+
+                                    <p>
+                                        Chức năng theo vai trò.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="smcv-role-actions">
+
+                            <!-- ADMIN -->
+                            <div sec:authorize="hasRole('ADMIN')"
+                                 class="smcv-role-action">
+
+                                <i class="fa fa-shield"></i>
+
+                                <div>
+                                    <strong>Quản trị hệ thống</strong>
+                                    <span>
+                                        User, phòng ban, nhân viên và CV
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- HR -->
+                            <div sec:authorize="hasRole('HR')"
+                                 class="smcv-role-action">
+
+                                <i class="fa fa-users"></i>
+
+                                <div>
+                                    <strong>Quản lý nhân sự</strong>
+                                    <span>
+                                        Nhân viên và hồ sơ CV
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- TECH LEAD -->
+                            <div sec:authorize="hasRole('TECH_LEAD')"
+                                 class="smcv-role-action">
+
+                                <i class="fa fa-code"></i>
+
+                                <div>
+                                    <strong>Quản lý trong phòng ban</strong>
+                                    <span>
+                                        Nhân viên và CV theo phạm vi
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMPLOYEE -->
+                            <div sec:authorize="hasRole('EMPLOYEE')"
+                                 class="smcv-role-action">
+
+                                <i class="fa fa-user"></i>
+
+                                <div>
+                                    <strong>Hồ sơ cá nhân</strong>
+                                    <span>
+                                        Xem và cập nhật thông tin
+                                        được phép
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         ADMIN DEPARTMENT
+                         ================================================= -->
+                    <section class="smcv-dashboard-card"
+                             sec:authorize="hasRole('ADMIN')">
+
+                        <div class="smcv-admin-shortcut">
+
+                            <div class="smcv-admin-shortcut-icon">
+                                <i class="fa fa-building"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    QUẢN TRỊ
+                                </span>
+
+                                <h3>
+                                    Phòng ban
+                                </h3>
+
+                                <p>
+                                    Quản lý cơ cấu phòng ban
+                                    của hệ thống.
+                                </p>
+
+                            </div>
+
+                            <a th:href="@{/departments}">
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 QUICK ACCESS
+                 ================================================= -->
+            <section class="smcv-dashboard-card smcv-quick-card">
+
+                <div class="smcv-card-header">
+
+                    <div class="smcv-card-title-group">
+
+                        <div class="smcv-card-title-icon smcv-icon-orange">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+
+                        <div>
+                            <h2>Truy cập nhanh</h2>
+
+                            <p>
+                                Các khu vực thường xuyên sử dụng.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="smcv-quick-grid">
+
+                    <a th:href="@{/cvs}"
+                       class="smcv-quick-item smcv-quick-blue">
+
+                        <i class="fa fa-file-text-o"></i>
+
+                        <span>
+                            Danh sách CV
+                        </span>
+
+                        <i class="fa fa-angle-right"></i>
+
+                    </a>
+
+
+                    <a th:href="@{/employees}"
+                       class="smcv-quick-item smcv-quick-green">
+
+                        <i class="fa fa-users"></i>
+
+                        <span>
+                            Danh sách nhân viên
+                        </span>
+
+                        <i class="fa fa-angle-right"></i>
+
+                    </a>
+
+
+                    <a th:href="@{/notifications}"
+                       class="smcv-quick-item smcv-quick-orange">
+
+                        <i class="fa fa-bell"></i>
+
+                        <span>
+                            Thông báo
+                        </span>
+
+                        <i class="fa fa-angle-right"></i>
+
+                    </a>
+
+
+                    <a th:href="@{/cvs/new}"
+                       sec:authorize="hasAnyRole('ADMIN','HR','TECH_LEAD')"
+                       class="smcv-quick-item smcv-quick-purple">
+
+                        <i class="fa fa-plus"></i>
+
+                        <span>
+                            Tạo CV
+                        </span>
+
+                        <i class="fa fa-angle-right"></i>
+
+                    </a>
+
+
+                    <a th:href="@{/users}"
+                       sec:authorize="hasRole('ADMIN')"
+                       class="smcv-quick-item smcv-quick-red">
+
+                        <i class="fa fa-user-plus"></i>
+
+                        <span>
+                            Quản lý User
+                        </span>
+
+                        <i class="fa fa-angle-right"></i>
+
+                    </a>
+
+
+                    <a th:href="@{/departments}"
+                       sec:authorize="hasRole('ADMIN')"
+                       class="smcv-quick-item smcv-quick-cyan">
+
+                        <i class="fa fa-building"></i>
+
+                        <span>
+                            Phòng ban
+                        </span>
+
+                        <i class="fa fa-angle-right"></i>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </section>
+
+</section>
+
+
+<!-- COMMON SCRIPTS -->
+<div th:replace="~{fragments/script :: script}"></div>
+
+</body>
+</html>

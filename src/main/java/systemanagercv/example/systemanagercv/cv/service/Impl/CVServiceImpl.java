@@ -926,7 +926,18 @@ public class CVServiceImpl implements CVService {
         cvVersionRepository.save(version);
 
         // =====================================================
-        // 11. Trả về CV sau khi submit
+        // 11. Thông báo cho TECH_LEAD
+        // Chỉ EMPLOYEE gửi CV mới cần thông báo TECH_LEAD
+        // =====================================================
+        if (isEmployee) {
+            notifyTechLeadsAboutSubmittedCV(
+                    version,
+                    employee
+            );
+        }
+
+        // =====================================================
+        // 12. Trả về CV sau khi submit
         // =====================================================
         return getDetail(employeeCV.getId());
     }
@@ -940,27 +951,152 @@ public class CVServiceImpl implements CVService {
         Long departmentId =
                 employee.getDepartment().getId();
 
+        System.out.println("========== NOTIFICATION DEBUG ==========");
+        System.out.println("Employee ID: " + employee.getId());
+        System.out.println("Employee name: " + employee.getFullName());
+        System.out.println("Department ID: " + departmentId);
+        System.out.println("Version ID: " + version.getId());
+        System.out.println("Version: " + version.getVersion());
+
         List<User> techLeads =
                 userRepository.findUsersByDepartmentAndRole(
                         departmentId,
                         RoleName.TECH_LEAD.name()
                 );
 
+        System.out.println("Tech Lead count: " + techLeads.size());
+
         for (User techLead : techLeads) {
+
+            System.out.println(
+                    "Tech Lead found - ID: "
+                            + techLead.getId()
+                            + ", username: "
+                            + techLead.getUsername()
+            );
 
             notificationService.createNotification(
                     techLead.getId(),
                     NotificationType.CV_SUBMITTED,
                     "CV được gửi duyệt",
-                    "CV của nhân viên"
-                                + employee.getFullName()
-                                + " phiên bản"
-                                + version.getVersion()
-                                + " đã được gửi và đang chờ Tech Lead duyệt.",
+                    "CV của nhân viên "
+                            + employee.getFullName()
+                            + " phiên bản "
+                            + version.getVersion()
+                            + " đã được gửi và đang chờ Tech Lead duyệt.",
                     "CV_VERSION",
                     version.getId()
             );
+
+            System.out.println(
+                    "Notification created for user ID: "
+                            + techLead.getId()
+            );
         }
+
+        System.out.println("========== END NOTIFICATION DEBUG ==========");
+    }
+
+    /**
+     * Thông báo cho tất cả HR khi TECH_LEAD đã duyệt CV.
+     */
+    private void notifyHrAboutTechLeadApproval(
+            CVVersion version,
+            Employee employee
+    ){
+
+        System.out.println("========== NOTIFY HR ==========");
+
+        List<User> hrs =
+                userRepository.findUsersByRole(
+                        RoleName.HR.name()
+                );
+
+        System.out.println("HR count: " + hrs.size());
+
+        for (User hr : hrs) {
+
+            System.out.println(
+                    "HR found - ID: "
+                            + hr.getId()
+                            + ", username: "
+                            + hr.getUsername()
+            );
+
+            notificationService.createNotification(
+                    hr.getId(),
+                    NotificationType.CV_TECH_LEAD_APPROVED,
+                    "CV đã được Tech Lead phê duyệt",
+                    "CV của nhân viên "
+                    + employee.getFullName()
+                    + " phiên bản "
+                    + version.getVersion()
+                    + " đã được Tech Lead phê duyệt và đang chờ HR duyệt.",
+                    "CV_VERSION",
+                    version.getId()
+            );
+
+            System.out.println(
+                    "Notification created for HR user ID: "
+                            + hr.getId()
+            );
+        }
+
+        System.out.println("========== END NOTIFY HR ==========");
+    }
+
+    /**
+     * Thông báo cho Employee khi HR đã duyệt CV.
+     */
+    private void notifyEmployeeAboutHrApproval(
+            CVVersion version,
+            Employee employee
+    ){
+
+        System.out.println("========== NOTIFY EMPLOYEE ==========");
+
+        User employeeUser = employee.getUser();
+
+        if (employeeUser == null){
+
+            System.out.println(
+                    "Employee user not found for employee ID: "
+                            + employee.getId()
+            );
+
+            return;
+        }
+
+        System.out.println(
+                "Employee found - ID: "
+                        + employee.getId()
+                        + ", name: "
+                        + employee.getFullName()
+                        + ", user ID: "
+                        + employeeUser.getId()
+                        + ", username: "
+                        + employeeUser.getUsername()
+        );
+
+        notificationService.createNotification(
+                employeeUser.getId(),
+                NotificationType.CV_HR_APPROVED,
+                "CV đã được HR phê duyệt",
+                "CV của nhân viên"
+                + employee.getFullName()
+                + " phiên bản "
+                + version.getVersion()
+                + " đã được HR phê duyệt và trở thành phiên bản chính thức.",
+                "CV_VERSION",
+                version.getId()
+        );
+
+        System.out.println(
+                "Notification created for Employee user ID: "
+                        + employeeUser.getId()
+        );
+
+        System.out.println("========== END NOTIFY EMPLOYEE ==========");
     }
 
     // Hàm kiểm tra quyền chấp nhận CV bởi Techlead
@@ -1035,13 +1171,20 @@ public class CVServiceImpl implements CVService {
         // =====================================================
         cvVersionRepository.save(version);
 
-        // =====================================================
-        // 8. Trả về CV
-        // =====================================================
+        // TECH_LEAD đã duyệt CV
+        // -> CV chuyển sang PENDING_HR
+        // -> thông báo cho HR
+        notifyHrAboutTechLeadApproval(
+                version,
+                employee
+        );
+
         return getDetail(employeeCV.getId());
     }
 
-    // Phương thức HR chấp nhận version cv
+    /**
+     * Phương thức HR chấp nhận version CV
+     */
     @Override
     public CVDetailResponse approveByHr(Long versionId) {
 
@@ -1145,7 +1288,16 @@ public class CVServiceImpl implements CVService {
         employeeCVRepository.save(employeeCV);
 
         // =====================================================
-        // 10. Trả về CV
+        // 10. Thông báo cho Employee
+        // =====================================================
+
+        notifyEmployeeAboutHrApproval(
+                version,
+                employee
+        );
+
+        // =====================================================
+        // 11. Trả về CV
         // =====================================================
 
         return getDetail(employeeCV.getId());

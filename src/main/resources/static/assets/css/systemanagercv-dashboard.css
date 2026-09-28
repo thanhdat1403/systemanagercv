@@ -1,0 +1,1485 @@
+/* =========================================================
+   SYSTEMANAGERCV
+   DASHBOARD UI
+   ========================================================= */
+
+:root {
+    --dashboard-primary: #2563eb;
+    --dashboard-primary-dark: #1d4ed8;
+    --dashboard-primary-soft: #eff6ff;
+
+    --dashboard-text: #172033;
+    --dashboard-text-secondary: #475569;
+    --dashboard-text-muted: #64748b;
+    --dashboard-text-light: #94a3b8;
+
+    --dashboard-bg: #f5f7fb;
+    --dashboard-white: #ffffff;
+
+    --dashboard-border: #e2e8f0;
+    --dashboard-border-light: #edf1f5;
+
+    --dashboard-success: #16a34a;
+    --dashboard-success-soft: #f0fdf4;
+
+    --dashboard-warning: #d97706;
+    --dashboard-warning-soft: #fffbeb;
+
+    --dashboard-danger: #dc2626;
+    --dashboard-danger-soft: #fef2f2;
+
+    --dashboard-purple: #7c3aed;
+    --dashboard-purple-soft: #f5f3ff;
+
+    --dashboard-cyan: #0284c7;
+    --dashboard-cyan-soft: #f0f9ff;
+
+    --dashboard-radius-sm: 8px;
+    --dashboard-radius-md: 12px;
+    --dashboard-radius-lg: 16px;
+    --dashboard-radius-xl: 20px;
+
+    --dashboard-shadow-sm:
+            0 1px 3px rgba(15, 23, 42, 0.05);
+
+    --dashboard-shadow-md:
+            0 8px 24px rgba(15, 23, 42, 0.07);
+
+    --dashboard-shadow-lg:
+            0 15px 40px rgba(15, 23, 42, 0.09);
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.smcv-dashboard-page {
+    min-height: calc(100vh - 64px);
+
+    padding: 28px 30px 40px;
+
+    background: var(--dashboard-bg);
+
+    color: var(--dashboard-text);
+
+    font-family:
+            "Roboto",
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
+}
+
+
+/* =========================================================
+   TOP HEADER
+   ========================================================= */
+
+.smcv-dashboard-header {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    margin-bottom: 25px;
+}
+
+
+.smcv-dashboard-header-content {
+    min-width: 0;
+}
+
+
+.smcv-dashboard-eyebrow {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 7px;
+
+    color: var(--dashboard-primary);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+.smcv-dashboard-title {
+    margin: 0;
+
+    color: var(--dashboard-text);
+
+    font-size: 27px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+.smcv-dashboard-description {
+    max-width: 700px;
+
+    margin: 7px 0 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   ACCOUNT ROLE
+   ========================================================= */
+
+.smcv-dashboard-account {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    flex-shrink: 0;
+
+    padding: 9px 13px;
+
+    background: var(--dashboard-white);
+
+    border: 1px solid var(--dashboard-border-light);
+
+    border-radius: var(--dashboard-radius-md);
+
+    box-shadow: var(--dashboard-shadow-sm);
+}
+
+
+.smcv-dashboard-account-avatar {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    color: #ffffff;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+            );
+
+    font-size: 14px;
+}
+
+
+.smcv-dashboard-account-info {
+    min-width: 100px;
+}
+
+
+.smcv-dashboard-account-name {
+    display: block;
+
+    overflow: hidden;
+
+    max-width: 150px;
+
+    color: var(--dashboard-text);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.smcv-dashboard-account-role {
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
+
+.smcv-dashboard-kpi-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 28px;
+}
+
+
+.smcv-dashboard-kpi {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+    padding: 20px;
+
+    overflow: hidden;
+
+    background: var(--dashboard-white);
+
+    border: 1px solid var(--dashboard-border-light);
+
+    border-radius: var(--dashboard-radius-lg);
+
+    box-shadow: var(--dashboard-shadow-sm);
+
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+
+.smcv-dashboard-kpi:hover {
+    transform: translateY(-2px);
+
+    box-shadow: var(--dashboard-shadow-md);
+}
+
+
+.smcv-dashboard-kpi::after {
+    content: "";
+
+    position: absolute;
+
+    right: -25px;
+    bottom: -25px;
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    opacity: 0.35;
+}
+
+
+.smcv-dashboard-kpi-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 12px;
+
+    font-size: 17px;
+}
+
+
+.smcv-dashboard-kpi-content {
+    min-width: 0;
+}
+
+
+.smcv-dashboard-kpi-label {
+    margin: 0 0 4px;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 11px;
+
+    font-weight: 500;
+}
+
+
+.smcv-dashboard-kpi-title {
+    margin: 0;
+
+    color: var(--dashboard-text);
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* KPI COLORS */
+
+.smcv-kpi-blue .smcv-dashboard-kpi-icon {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.smcv-kpi-blue::after {
+    background: #dbeafe;
+}
+
+
+.smcv-kpi-purple .smcv-dashboard-kpi-icon {
+    color: #7c3aed;
+    background: #f5f3ff;
+}
+
+.smcv-kpi-purple::after {
+    background: #ede9fe;
+}
+
+
+.smcv-kpi-cyan .smcv-dashboard-kpi-icon {
+    color: #0284c7;
+    background: #f0f9ff;
+}
+
+.smcv-kpi-cyan::after {
+    background: #e0f2fe;
+}
+
+
+.smcv-kpi-green .smcv-dashboard-kpi-icon {
+    color: #16a34a;
+    background: #f0fdf4;
+}
+
+.smcv-kpi-green::after {
+    background: #dcfce7;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.smcv-dashboard-section {
+    margin-bottom: 28px;
+}
+
+
+.smcv-dashboard-section-header {
+    margin-bottom: 13px;
+}
+
+
+.smcv-dashboard-section-eyebrow {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-bottom: 5px;
+
+    color: var(--dashboard-primary);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+.smcv-dashboard-section-title {
+    margin: 0;
+
+    color: var(--dashboard-text);
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    line-height: 1.35;
+}
+
+
+.smcv-dashboard-section-description {
+    max-width: 700px;
+
+    margin: 5px 0 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   ROLE INFORMATION
+   ========================================================= */
+
+.smcv-account-card {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 20px 22px;
+
+    background: var(--dashboard-white);
+
+    border: 1px solid var(--dashboard-border-light);
+
+    border-radius: var(--dashboard-radius-lg);
+
+    box-shadow: var(--dashboard-shadow-sm);
+}
+
+
+.smcv-account-card-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-width: 0;
+}
+
+
+.smcv-account-card-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 11px;
+
+    color: var(--dashboard-primary);
+
+    background: var(--dashboard-primary-soft);
+
+    font-size: 16px;
+}
+
+
+.smcv-account-card-label {
+    margin: 0 0 3px;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+
+.smcv-account-card-value {
+    margin: 0;
+
+    color: var(--dashboard-text);
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+.smcv-role-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 7px 11px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.03em;
+}
+
+
+.smcv-role-admin {
+    color: #b91c1c;
+    background: #fef2f2;
+}
+
+
+.smcv-role-hr {
+    color: #0369a1;
+    background: #f0f9ff;
+}
+
+
+.smcv-role-tech {
+    color: #92400e;
+    background: #fffbeb;
+}
+
+
+.smcv-role-employee {
+    color: #166534;
+    background: #f0fdf4;
+}
+
+
+/* =========================================================
+   WORKFLOW
+   ========================================================= */
+
+.smcv-dashboard-workflow-card {
+    padding: 27px 25px;
+
+    background: var(--dashboard-white);
+
+    border: 1px solid var(--dashboard-border-light);
+
+    border-radius: var(--dashboard-radius-lg);
+
+    box-shadow: var(--dashboard-shadow-sm);
+}
+
+
+.smcv-dashboard-workflow {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 0;
+}
+
+
+.smcv-dashboard-workflow-step {
+    position: relative;
+
+    min-width: 0;
+
+    padding: 0 20px;
+}
+
+
+.smcv-dashboard-workflow-step:first-child {
+    padding-left: 3px;
+}
+
+
+.smcv-dashboard-workflow-step:last-child {
+    padding-right: 3px;
+}
+
+
+.smcv-dashboard-workflow-line {
+    position: absolute;
+
+    top: 23px;
+
+    left: 55px;
+    right: 0;
+
+    height: 2px;
+
+    background:
+            linear-gradient(
+                    90deg,
+                    #dbeafe,
+                    #e2e8f0
+            );
+}
+
+
+.smcv-dashboard-workflow-icon {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    margin-bottom: 15px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    box-shadow:
+            0 0 0 5px #ffffff,
+            0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+
+.smcv-dashboard-workflow-number-blue {
+    color: #2563eb;
+
+    border: 1px solid #bfdbfe;
+
+    background: #eff6ff;
+}
+
+
+.smcv-dashboard-workflow-number-purple {
+    color: #7c3aed;
+
+    border: 1px solid #ddd6fe;
+
+    background: #f5f3ff;
+}
+
+
+.smcv-dashboard-workflow-number-orange {
+    color: #d97706;
+
+    border: 1px solid #fde68a;
+
+    background: #fffbeb;
+}
+
+
+.smcv-dashboard-workflow-number-green {
+    color: #16a34a;
+
+    border: 1px solid #bbf7d0;
+
+    background: #f0fdf4;
+}
+
+
+.smcv-dashboard-workflow-step-label {
+    margin-bottom: 5px;
+
+    color: var(--dashboard-text-light);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+
+.smcv-dashboard-workflow-step-title {
+    margin: 0 0 6px;
+
+    color: var(--dashboard-text);
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+
+.smcv-dashboard-workflow-step-text {
+    max-width: 235px;
+
+    margin: 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   ROLE INFORMATION BLOCK
+   ========================================================= */
+
+.smcv-role-card {
+    padding: 22px;
+
+    background: var(--dashboard-white);
+
+    border: 1px solid var(--dashboard-border-light);
+
+    border-radius: var(--dashboard-radius-lg);
+
+    box-shadow: var(--dashboard-shadow-sm);
+}
+
+
+.smcv-role-card-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 17px;
+}
+
+
+.smcv-role-card-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+
+    color: var(--dashboard-primary);
+
+    background: var(--dashboard-primary-soft);
+
+    font-size: 15px;
+}
+
+
+.smcv-role-card-title {
+    margin: 0 0 3px;
+
+    color: var(--dashboard-text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.smcv-role-card-description {
+    margin: 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 11px;
+}
+
+
+.smcv-role-feature-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+.smcv-role-feature {
+    padding: 15px;
+
+    background: var(--dashboard-bg);
+
+    border: 1px solid var(--dashboard-border-light);
+
+    border-radius: var(--dashboard-radius-md);
+}
+
+
+.smcv-role-feature-icon {
+    margin-bottom: 9px;
+
+    color: var(--dashboard-primary);
+
+    font-size: 15px;
+}
+
+
+.smcv-role-feature h3 {
+    margin: 0 0 5px;
+
+    color: var(--dashboard-text);
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.smcv-role-feature p {
+    margin: 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   BOTTOM GRID
+   ========================================================= */
+
+.smcv-dashboard-bottom-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(0, 0.9fr);
+
+    gap: 18px;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.smcv-dashboard-card {
+    overflow: hidden;
+
+    background: var(--dashboard-white);
+
+    border: 1px solid var(--dashboard-border-light);
+
+    border-radius: var(--dashboard-radius-lg);
+
+    box-shadow: var(--dashboard-shadow-sm);
+}
+
+
+.smcv-dashboard-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid var(--dashboard-border-light);
+}
+
+
+.smcv-dashboard-card-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.smcv-dashboard-card-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+
+.smcv-icon-blue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+
+.smcv-icon-green {
+    color: #16a34a;
+    background: #f0fdf4;
+}
+
+
+.smcv-dashboard-card-title {
+    margin: 0 0 3px;
+
+    color: var(--dashboard-text);
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.smcv-dashboard-card-subtitle {
+    margin: 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+.smcv-dashboard-notifications {
+    padding: 4px 20px;
+}
+
+
+.smcv-dashboard-notification {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-height: 72px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--dashboard-border-light);
+}
+
+
+.smcv-dashboard-notification:last-child {
+    border-bottom: none;
+}
+
+
+.smcv-dashboard-notification-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+}
+
+
+.smcv-notification-blue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+
+.smcv-notification-purple {
+    color: #7c3aed;
+    background: #f5f3ff;
+}
+
+
+.smcv-notification-orange {
+    color: #d97706;
+    background: #fffbeb;
+}
+
+
+.smcv-notification-green {
+    color: #16a34a;
+    background: #f0fdf4;
+}
+
+
+.smcv-dashboard-notification-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.smcv-dashboard-notification-content h3 {
+    margin: 0 0 3px;
+
+    color: var(--dashboard-text);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+.smcv-dashboard-notification-content p {
+    margin: 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+.smcv-dashboard-notification-arrow {
+    flex: 0 0 auto;
+
+    color: #cbd5e1;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SYSTEM STATUS
+   ========================================================= */
+
+.smcv-dashboard-status-list {
+    padding: 4px 20px 12px;
+}
+
+
+.smcv-dashboard-status-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    min-height: 67px;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid var(--dashboard-border-light);
+}
+
+
+.smcv-dashboard-status-item:last-child {
+    border-bottom: none;
+}
+
+
+.smcv-dashboard-status-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+}
+
+
+.smcv-dashboard-status-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 33px;
+    height: 33px;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+}
+
+
+.smcv-status-green {
+    color: #16a34a;
+    background: #f0fdf4;
+}
+
+
+.smcv-status-blue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+
+.smcv-status-purple {
+    color: #7c3aed;
+    background: #f5f3ff;
+}
+
+
+.smcv-status-orange {
+    color: #d97706;
+    background: #fffbeb;
+}
+
+
+.smcv-dashboard-status-name {
+    margin: 0 0 2px;
+
+    color: var(--dashboard-text);
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.smcv-dashboard-status-description {
+    margin: 0;
+
+    color: var(--dashboard-text-muted);
+
+    font-size: 10px;
+}
+
+
+.smcv-dashboard-status-value {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    flex-shrink: 0;
+
+    color: var(--dashboard-success);
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.smcv-dashboard-status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--dashboard-success);
+
+    box-shadow:
+            0 0 0 3px rgba(22, 163, 74, 0.10);
+}
+
+
+.smcv-dashboard-system-footer {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 0 20px 17px;
+
+    padding: 10px 12px;
+
+    background: var(--dashboard-success-soft);
+
+    border: 1px solid #dcfce7;
+
+    border-radius: 9px;
+}
+
+
+.smcv-dashboard-system-footer i {
+    color: var(--dashboard-success);
+
+    font-size: 14px;
+}
+
+
+.smcv-dashboard-system-footer strong {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #166534;
+
+    font-size: 10px;
+}
+
+
+.smcv-dashboard-system-footer span {
+    display: block;
+
+    color: #4d7c5b;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   VIEW ALL LINK
+   ========================================================= */
+
+.smcv-dashboard-view-all {
+    color: var(--dashboard-primary);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+.smcv-dashboard-view-all:hover {
+    color: var(--dashboard-primary-dark);
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1199px) {
+
+    .smcv-dashboard-page {
+        padding: 25px 24px 35px;
+    }
+
+
+    .smcv-dashboard-kpi-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    .smcv-dashboard-header {
+        flex-direction: column;
+    }
+
+
+    .smcv-dashboard-account {
+        width: fit-content;
+    }
+
+
+    .smcv-dashboard-workflow {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        row-gap: 30px;
+    }
+
+
+    .smcv-dashboard-workflow-line {
+        display: none;
+    }
+
+
+    .smcv-dashboard-workflow-step,
+    .smcv-dashboard-workflow-step:first-child,
+    .smcv-dashboard-workflow-step:last-child {
+        padding: 0;
+    }
+
+
+    .smcv-dashboard-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .smcv-role-feature-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .smcv-dashboard-page {
+        padding: 20px 15px 30px;
+    }
+
+
+    .smcv-dashboard-title {
+        font-size: 23px;
+    }
+
+
+    .smcv-dashboard-description {
+        font-size: 12px;
+    }
+
+
+    .smcv-dashboard-kpi-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+
+    .smcv-dashboard-kpi {
+        padding: 16px;
+    }
+
+
+    .smcv-account-card {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .smcv-dashboard-workflow-card {
+        padding: 22px 18px;
+    }
+
+
+    .smcv-dashboard-workflow {
+        grid-template-columns: 1fr;
+
+        row-gap: 23px;
+    }
+
+
+    .smcv-dashboard-workflow-step {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 13px;
+    }
+
+
+    .smcv-dashboard-workflow-icon {
+        width: 42px;
+        height: 42px;
+
+        margin-bottom: 0;
+    }
+
+
+    .smcv-dashboard-workflow-step-content {
+        padding-top: 2px;
+    }
+
+
+    .smcv-dashboard-workflow-step-text {
+        max-width: none;
+    }
+
+
+    .smcv-role-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .smcv-dashboard-card-header {
+        padding: 16px;
+    }
+
+
+    .smcv-dashboard-notifications,
+    .smcv-dashboard-status-list {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+
+    .smcv-dashboard-system-footer {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+}
+
+
+@media (max-width: 479px) {
+
+    .smcv-dashboard-page {
+        padding: 17px 12px 25px;
+    }
+
+
+    .smcv-dashboard-title {
+        font-size: 21px;
+    }
+
+
+    .smcv-dashboard-account {
+        width: 100%;
+    }
+
+
+    .smcv-dashboard-account-info {
+        min-width: 0;
+    }
+
+
+    .smcv-dashboard-kpi {
+        padding: 15px;
+    }
+
+
+    .smcv-dashboard-card-header {
+        align-items: flex-start;
+    }
+
+
+    .smcv-dashboard-status-item {
+        align-items: flex-start;
+    }
+
+
+    .smcv-dashboard-status-value {
+        margin-top: 4px;
+    }
+
+
+    .smcv-dashboard-notification {
+        align-items: flex-start;
+    }
+
+
+    .smcv-dashboard-notification-arrow {
+        display: none;
+    }
+
+}

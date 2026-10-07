@@ -21,6 +21,10 @@ public final class DepartmentSpecification {
         // criteriaBuilder: Công cụ để xây dựng các điều kiện so sánh (LIKE, EQUAL, AND, OR,...)
         return (root, query, criteriaBuilder) -> {
 
+            System.out.println("======================================");
+            System.out.println("DepartmentSpecification.keyword()");
+            System.out.println("keyword received = [" + keyword + "]");
+
             //Nếu người dùng không nhập từ khóa tìm kiếm (bị null hoặc chỉ gõ khoảng trắng)
             if (keyword == null || keyword.isBlank()){
                 //Trả về một điều kiện trống luôn đúng -> Hệ thống tự bỏ qua k loc theo từ khóa nữa

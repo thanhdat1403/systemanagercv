@@ -11,7 +11,7 @@ public enum EmployeePosition {
     NHAN_VIEN("Nhân viên"),
     TRUONG_NHOM("Trưởng nhóm"),
 //    PHO_PHONG("Phó phòng"),
-    TRUONG_PHONG("Trưởng phòng"),
+//    TRUONG_PHONG("Trưởng phòng"),
     QUAN_LY("Quản lý");
 
     private final String description;

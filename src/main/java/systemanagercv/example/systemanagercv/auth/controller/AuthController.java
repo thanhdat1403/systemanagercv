@@ -4,14 +4,17 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import systemanagercv.example.systemanagercv.auth.dto.request.LoginRequest;
+import systemanagercv.example.systemanagercv.auth.dto.response.AuthMeResponse;
 import systemanagercv.example.systemanagercv.auth.dto.response.LoginResponse;
 import systemanagercv.example.systemanagercv.auth.service.AuthService;
+import systemanagercv.example.systemanagercv.common.exception.BusinessException;
 import systemanagercv.example.systemanagercv.common.response.ApiResponse;
+import systemanagercv.example.systemanagercv.user.entity.User;
+import systemanagercv.example.systemanagercv.user.repository.UserRepository;
+import systemanagercv.example.systemanagercv.user.service.UserService;
 
 @RestController // Đánh dấu class này là API Controller (trả về dữ liệu dạng JSON)
 @RequestMapping("/api/v1/auth") // Cấu hình đường dẫn gốc cho tất cả các API trong class này
@@ -23,6 +26,8 @@ public class AuthController {
 
     // Khai báo tầng Service để xử lý logic kiểm tra tài khoản mật khẩu
     private final AuthService authService;
+    private final UserRepository userRepository;
+    private final UserService userService;
 
     // Định nghĩa API đăng nhập: đón nhận Request dạng POST tới đường dẫn /api/v1/auth/login
     @PostMapping("/login")
@@ -62,5 +67,74 @@ public class AuthController {
         // 5. Trả về phản hồi thành công dạng JSON chứa thông tin LoginResponse cho Frontend hiển thị giao diện
         return ApiResponse.success(loginResponse);
 
+    }
+
+    @GetMapping("/me")
+    public ApiResponse<AuthMeResponse> me(
+            Authentication authentication
+    ) {
+
+        String username =
+                authentication.getName();
+
+
+        User user =
+                userService.findByUsername(
+                        username
+                );
+
+
+        String role =
+                authentication.getAuthorities()
+                        .stream()
+                        .map(authority ->
+                                authority.getAuthority()
+                        )
+                        .filter(authority ->
+                                authority.startsWith("ROLE_")
+                        )
+                        .map(authority ->
+                                authority.substring("ROLE_".length())
+                        )
+                        .findFirst()
+                        .orElse(null);
+
+
+        AuthMeResponse response =
+                AuthMeResponse.builder()
+                        .id(user.getId())
+                        .username(user.getUsername())
+                        .fullName(user.getFullName())
+                        .role(role)
+                        .build();
+
+
+        return ApiResponse.success(
+                response
+        );
+    }
+
+
+    @PostMapping("/logout")
+    public ApiResponse<Void> logout(
+            HttpServletResponse response
+    ) {
+
+        Cookie accessTokenCookie =
+                new Cookie(
+                        ACCESS_TOKEN_COOKIE,
+                        ""
+                );
+
+        accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setSecure(false);
+        accessTokenCookie.setPath("/");
+        accessTokenCookie.setMaxAge(0);
+
+        response.addCookie(
+                accessTokenCookie
+        );
+
+        return ApiResponse.success(null);
     }
 }

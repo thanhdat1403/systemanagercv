@@ -307,12 +307,44 @@ public class UserServiceImpl implements UserService {
         //
         // nếu admin01 vẫn đang active.
         // ========================================================
+
+        boolean targetIsAdmin =
+                RoleName.ADMIN.name().equals(role.getName());
+
+        boolean existingIsAdmin =
+                existingUser.getUserRoles()
+                        .stream()
+                        .anyMatch(userRole ->
+                                userRole.getRole() != null
+                                        && RoleName.ADMIN.name()
+                                        .equals(userRole.getRole().getName())
+                        );
+
+        if (targetIsAdmin
+                && !existingIsAdmin
+                && userRepository.existsByUserRoles_Role_NameAndDeletedFalse(
+                RoleName.ADMIN.name())
+        ){
+
+            throw new BusinessException(
+                    "error.user.admin.exists"
+            );
+
+        }
+
+        // ========================================================
+        // 3.1. Kiểm tra Username mới
+        // ========================================================
+
         if (!existingUser.getUsername().equals(request.getUsername())
                 && userRepository.existsByUsernameAndIdNotAndDeletedFalse(
                 request.getUsername(),
                 id
         )) {
-            throw new BusinessException("error.user.username.exists");
+
+            throw new BusinessException(
+                    "error.user.username.exists"
+            );
         }
 
 
@@ -336,6 +368,7 @@ public class UserServiceImpl implements UserService {
         // =================================================
         // Đè dữ liệu mới từ request lên đối tượng cũ đang nằm trong bộ nhớ tạm
         existingUser.setUsername(request.getUsername());
+        existingUser.setFullName(request.getFullName());
         existingUser.setEmail(request.getEmail());
         existingUser.setEnabled(request.getEnabled());
 

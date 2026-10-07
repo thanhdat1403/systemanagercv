@@ -25,6 +25,10 @@ public enum NotificationType {
 
     CV_HR_REJECTED(
             "CV bị HR từ chối"
+    ),
+
+    CV_UPDATE_REQUESTED(
+            "Có yêu cầu cập nhật CV"
     );
 
     private final String description;

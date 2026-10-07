@@ -1,0 +1,27 @@
+databaseChangeLog:
+
+  # =====================================================
+  # ADD AVATAR OBJECT KEY TO USERS
+  # Migration này chỉ làm 1 việc là users -> thêm avatar_object_key
+  # =====================================================
+
+  - changeSet:
+      id: 001-add-avatar-object-key-to-users
+      author: systemanagercv
+
+      changes:
+
+        - addColumn:
+            tableName: users
+
+            columns:
+
+              - column:
+                  name: avatar_object_key
+                  type: VARCHAR(500)
+
+      rollback:
+
+        - dropColumn:
+            tableName: users
+            columnName: avatar_object_key

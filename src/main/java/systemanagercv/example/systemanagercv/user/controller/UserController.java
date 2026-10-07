@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult; // Thư viện bắt buộc để hứng lỗi Validation
 import org.springframework.web.bind.annotation.*;
 import systemanagercv.example.systemanagercv.common.response.ApiResponse;
 import systemanagercv.example.systemanagercv.common.security.SecurityAuthorization;

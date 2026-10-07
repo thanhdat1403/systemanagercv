@@ -71,4 +71,35 @@ public final class SecurityAuthorization {
 
     public static final String NOTIFICATION_MARK_READER =
             "hasAnyRole('ADMIN', 'HR', 'TECH_LEAD', 'EMPLOYEE')";
+
+    // =========================================================
+    // CV UPDATE REQUEST AUTHORIZATION
+    // =========================================================
+
+    /**
+     * HR và EMPLOYEE được phép xem Update Request.
+     *
+     * HR:
+     *      xem toàn bộ request
+     *
+     * EMPLOYEE:
+     *      backend Service tự giới hạn
+     *      về chính Employee hiện tại.
+     */
+    public static final String UPDATE_REQUEST_READER =
+            "hasAnyRole('HR', 'EMPLOYEE')";
+
+
+    /**
+     * Chỉ HR được tạo Update Request.
+     */
+    public static final String UPDATE_REQUEST_CREATOR =
+            "hasRole('HR')";
+
+
+    /**
+     * Chỉ HR được hủy Update Request.
+     */
+    public static final String UPDATE_REQUEST_CANCELLER =
+            "hasRole('HR')";
 }

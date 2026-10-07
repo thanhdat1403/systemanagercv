@@ -6,11 +6,14 @@ import lombok.Getter;
 @Getter
 @Builder
 public class UserResponse {
-    //DTO Dùng để trả dữ liệu User từ Backend -> giao diện/API
-    //Nó k phải Entity, k lưu vào database
+
+    // DTO dùng để trả dữ liệu User từ Backend -> giao diện/API
+
     private Long id;
 
     private String username;
+
+    private String fullName;
 
     private String email;
 
@@ -22,7 +25,13 @@ public class UserResponse {
 
     private String roleDescription;
 
-    //Tại sao UserResponse chỉ có những field này?
-    //Vì API danh sách User chỉ cần trả: id, uername,email,enabled,role
-    //Không trả: password, userRoles, employee để tránh lộ dữ liệu và tránh kéo theo các quan hệ Entity k cần thiết
+    /*
+     * Không trả:
+     * - password
+     * - userRoles
+     * - employee
+     *
+     * để tránh lộ dữ liệu nhạy cảm và tránh kéo theo
+     * các quan hệ Entity không cần thiết.
+     */
 }

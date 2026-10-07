@@ -40,6 +40,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Page<DepartmentResponse> search(
             DepartmentSearchRequest request
     ) {
+
+        System.out.println("========================================");
+        System.out.println("KEYWORD = [" + request.getKeyword() + "]");
+        System.out.println("STATUS  = [" + request.getStatus() + "]");
+        System.out.println("PAGE    = [" + request.getPage() + "]");
+        System.out.println("SIZE    = [" + request.getSize() + "]");
+        System.out.println("========================================");
+
         //1.1. Xác định chiều sắp xếp: Nếu client truyền lên chữ "DESC" (không phân biệt hoa/thường) thì chọn Giảm dần, ngược lại chọn Tăng dần (ASC)
         Sort.Direction direction =
                 "DESC".equalsIgnoreCase(request.getSortDirection())

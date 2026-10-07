@@ -4,7 +4,9 @@ import org.springframework.data.domain.Page;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeCreateRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeUpdateRequest;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeCreateOptionsResponse;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeDetailResponse;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeEditOptionsResponse;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeResponse;
 
 public interface EmployeeService {
@@ -33,4 +35,8 @@ public interface EmployeeService {
      * Xóa mềm nhân viên.
      */
     void delete(Long id);
+
+    EmployeeEditOptionsResponse getEditOptions(Long employeeId);
+
+    EmployeeCreateOptionsResponse getCreateOptions();
 }

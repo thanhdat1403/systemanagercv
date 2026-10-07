@@ -1,0 +1,242 @@
+databaseChangeLog:
+
+  # =====================================================
+  # AVATAR CHANGE REQUESTS
+  # =====================================================
+
+  - changeSet:
+      id: 002-create-avatar-change-requests
+      author: systemanagercv
+
+      changes:
+
+        # =================================================
+        # CREATE TABLE
+        # =================================================
+
+        - createTable:
+            tableName: avatar_change_requests
+
+            columns:
+
+              # ===========================================
+              # ID
+              # ===========================================
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+
+              # ===========================================
+              # USER ID
+              # Người gửi yêu cầu đổi avatar
+              # ===========================================
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+
+                  constraints:
+                    nullable: false
+
+
+              # ===========================================
+              # PENDING OBJECT KEY
+              # Đường dẫn file đang chờ Admin duyệt
+              # ===========================================
+
+              - column:
+                  name: pending_object_key
+                  type: VARCHAR(500)
+
+                  constraints:
+                    nullable: false
+
+
+              # ===========================================
+              # STATUS
+              # PENDING / APPROVED / REJECTED
+              # ===========================================
+
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  defaultValue: PENDING
+
+                  constraints:
+                    nullable: false
+
+
+              # ===========================================
+              # REVIEWED BY
+              # User ID của người duyệt
+              # ===========================================
+
+              - column:
+                  name: reviewed_by
+                  type: BIGINT
+
+
+              # ===========================================
+              # REJECTION REASON
+              # ===========================================
+
+              - column:
+                  name: rejection_reason
+                  type: VARCHAR(1000)
+
+
+              # ===========================================
+              # AUDIT
+              # ===========================================
+
+              - column:
+                  name: created_date
+                  type: DATETIME
+
+
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+
+
+              - column:
+                  name: updated_date
+                  type: DATETIME
+
+
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+
+
+              - column:
+                  name: is_deleted
+                  type: TINYINT(1)
+                  defaultValueNumeric: 0
+
+                  constraints:
+                    nullable: false
+
+
+        # =================================================
+        # FOREIGN KEY: USER
+        # =================================================
+
+        - addForeignKeyConstraint:
+
+            baseTableName: avatar_change_requests
+            baseColumnNames: user_id
+
+            referencedTableName: users
+            referencedColumnNames: id
+
+            constraintName: fk_avatar_change_requests_user
+
+
+        # =================================================
+        # FOREIGN KEY: REVIEWER
+        # =================================================
+
+        - addForeignKeyConstraint:
+
+            baseTableName: avatar_change_requests
+            baseColumnNames: reviewed_by
+
+            referencedTableName: users
+            referencedColumnNames: id
+
+            constraintName: fk_avatar_change_requests_reviewer
+
+
+        # =================================================
+        # INDEX: USER
+        # =================================================
+
+        - createIndex:
+
+            tableName: avatar_change_requests
+
+            indexName: idx_avatar_change_requests_user
+
+            columns:
+
+              - column:
+                  name: user_id
+
+
+        # =================================================
+        # INDEX: STATUS
+        # =================================================
+
+        - createIndex:
+
+            tableName: avatar_change_requests
+
+            indexName: idx_avatar_change_requests_status
+
+            columns:
+
+              - column:
+                  name: status
+
+
+      # ===================================================
+      # ROLLBACK
+      # ===================================================
+
+      rollback:
+
+        # -----------------------------------------------
+        # DROP FOREIGN KEY REVIEWER
+        # -----------------------------------------------
+
+        - dropForeignKeyConstraint:
+
+            baseTableName: avatar_change_requests
+            constraintName: fk_avatar_change_requests_reviewer
+
+
+        # -----------------------------------------------
+        # DROP FOREIGN KEY USER
+        # -----------------------------------------------
+
+        - dropForeignKeyConstraint:
+
+            baseTableName: avatar_change_requests
+            constraintName: fk_avatar_change_requests_user
+
+
+        # -----------------------------------------------
+        # DROP INDEX USER
+        # -----------------------------------------------
+
+        - dropIndex:
+
+            tableName: avatar_change_requests
+            indexName: idx_avatar_change_requests_user
+
+
+        # -----------------------------------------------
+        # DROP INDEX STATUS
+        # -----------------------------------------------
+
+        - dropIndex:
+
+            tableName: avatar_change_requests
+            indexName: idx_avatar_change_requests_status
+
+
+        # -----------------------------------------------
+        # DROP TABLE
+        # -----------------------------------------------
+
+        - dropTable:
+
+            tableName: avatar_change_requests

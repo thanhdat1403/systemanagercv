@@ -20,7 +20,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import systemanagercv.example.systemanagercv.auth.jwt.JwtAuthenticationFilter;
 import systemanagercv.example.systemanagercv.common.enums.RoleName;
 import systemanagercv.example.systemanagercv.common.security.CustomUserDetailsService;
-
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.List;
+import org.springframework.security.config.Customizer;
 @Configuration
 @EnableWebSecurity // Annotion này giúp để kích hoạt tính năng bảo mật web (Web Security) trên toàn bộ ứng dụng
 
@@ -38,6 +42,50 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    // ==============================
+    // CORS
+    // ==============================
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        // 1. Khởi tạo đối tượng chứa các thiết lập cấu hình CORS
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // 2. Chỉ định danh sách các Domain (Frontend) được phép gửi yêu cầu tới Server này
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5500", // Thường là cổng chạy Live Server của VS Code
+                "http://127.0.0.1:5500"
+        ));
+
+        // 3. Khai báo các phương thức HTTP (HTTP Methods) mà Frontend được phép sử dụng
+        configuration.setAllowedMethods(List.of(
+                "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"
+        ));
+
+        // 4. Cho phép Frontend gửi kèm các HTTP Headers này trong yêu cầu (Ví dụ: gửi Token hoặc định dạng JSON)
+        configuration.setAllowedHeaders(List.of(
+                "Authorization", // Để gửi JWT Token định danh người dùng
+                "Content-Type",  // Để định dạng kiểu dữ liệu (ví dụ: application/json)
+                "Accept"
+        ));
+
+        // 5. Cho phép gửi kèm thông tin xác thực như Cookies, HTTP Authentication hoặc chứng chỉ TLS/SSL
+        configuration.setAllowCredentials(true);
+
+        // 6. Khởi tạo đối tượng quản lý cấu hình CORS dựa trên đường dẫn URL
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        // 7. Áp dụng toàn bộ cấu hình trên cho tất cả các endpoint (đường dẫn) của API ("/**")
+        source.registerCorsConfiguration(
+                "/**",
+                configuration
+        );
+
+        // Trả về cấu hình CORS hoàn chỉnh để Spring Security áp dụng
+        return source;
     }
 
     @Bean
@@ -65,6 +113,11 @@ public class SecurityConfig {
     ) throws Exception {
 
         http
+                // ==============================
+                // CORS
+                // ==============================
+                .cors(Customizer.withDefaults())
+
                 // JWT authentication nên k sử dụng CSRF token
                 .csrf(csrf -> csrf.disable())
 
@@ -77,6 +130,10 @@ public class SecurityConfig {
                         )
                 )
 
+                // ==============================
+                // AUTHORIZATION
+                // ==============================
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/login",
@@ -86,6 +143,13 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/v1/auth/login")
                         .permitAll()
+
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/v1/auth/logout"
+                        )
+                        .permitAll()
+
 
                         .requestMatchers(
                                 "/assets/**",

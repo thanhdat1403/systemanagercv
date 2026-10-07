@@ -51,3 +51,22 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/notification/002-seed-test-notifications.yaml
+
+  # =====================================================
+  # PROFILE / AVATAR
+  # =====================================================
+
+  - include:
+      file: db/changelog/profile/001-add-avatar-object-key-to-users.yaml
+
+  - include:
+      file: db/changelog/profile/002-create-avatar-change-requests.yaml
+
+  - include:
+      file: db/changelog/profile/003-add-full-name-to-users.yaml
+
+  # =====================================================
+  # UPDATE REQUEST CV WITH EMPLOYEES
+  # =====================================================
+  - include:
+      file: db/changelog/update-request/001-create-cv-update-requests.yaml

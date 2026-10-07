@@ -12,7 +12,9 @@ import systemanagercv.example.systemanagercv.common.security.SecurityAuthorizati
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeCreateRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeUpdateRequest;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeCreateOptionsResponse;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeDetailResponse;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeEditOptionsResponse;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeResponse;
 import systemanagercv.example.systemanagercv.employee.service.EmployeeService;
 
@@ -50,6 +52,39 @@ public class EmployeeController {
                 );
 
         //Trả kết quả về cho client với trạng thái HTTP 200 ok
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/edit-options")
+    @PreAuthorize(SecurityAuthorization.EMPLOYEE_EDITOR)
+    public ResponseEntity<ApiResponse<EmployeeEditOptionsResponse>> getEditOptions(
+            @PathVariable Long id
+    ){
+        EmployeeEditOptionsResponse result =
+                employeeService.getEditOptions(id);
+
+        ApiResponse<EmployeeEditOptionsResponse> response =
+                new ApiResponse<>(
+                        "success",
+                        "Success",
+                        result
+                );
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/create-options")
+    @PreAuthorize(SecurityAuthorization.EMPLOYEE_CREATOR)
+    public ResponseEntity<ApiResponse<EmployeeCreateOptionsResponse>> getCreateOptions() {
+
+        EmployeeCreateOptionsResponse result =
+                employeeService.getCreateOptions();
+
+        ApiResponse<EmployeeCreateOptionsResponse> response =
+                new ApiResponse<>(
+                        "success",
+                        "Success",
+                        result
+                );
         return ResponseEntity.ok(response);
     }
 
@@ -155,4 +190,5 @@ public class EmployeeController {
 
         return ResponseEntity.ok(response);
     }
+
 }

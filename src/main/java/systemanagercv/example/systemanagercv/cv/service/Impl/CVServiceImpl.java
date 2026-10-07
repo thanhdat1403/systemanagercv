@@ -100,7 +100,7 @@ public class CVServiceImpl implements CVService {
         EmployeeCV employeeCV = new EmployeeCV();
 
         employeeCV.setEmployee(employee);
-        employeeCV.setStatus(CvStatus.UPDATED);
+        employeeCV.setStatus(CvStatus.NOT_UPDATED);
 
         // 5. Lưu EmployeeCV
         employeeCV = employeeCVRepository.save(employeeCV);
@@ -116,8 +116,8 @@ public class CVServiceImpl implements CVService {
 
         currentVersion.setEmployeeCV(employeeCV);
         currentVersion.setVersion(INITIAL_VERSION);
-        currentVersion.setStatus(CvVersionStatus.OFFICIAL);
-        currentVersion.setIsCurrent(true);
+        currentVersion.setStatus(CvVersionStatus.DRAFT);
+        currentVersion.setIsCurrent(false);
 
         /*Tại sao lại phải save 2 lần ?
         * employee_cvs
@@ -130,13 +130,24 @@ public class CVServiceImpl implements CVService {
          ▲                  │
          └──────────────────┘*/
 
-        // 7. Lưu version
-        CVVersion savedVersion = cvVersionRepository.save(currentVersion);
+        // 7. Lưu version DRAFT đầu tiên
+        CVVersion savedVersion =
+                cvVersionRepository.save(currentVersion);
 
-        // 8. Đặt version hiện tại cho EmployeeCV
-        employeeCV.setCurrentVersion(savedVersion);
+        // =====================================================
+        // 8. KHÔNG đặt DRAFT làm currentVersion
+        //
+        // currentVersion chỉ dùng cho bản OFFICIAL.
+        // CV mới tạo chưa được duyệt nên:
+        //
+        // employeeCV.currentVersion = null
+        // =====================================================
 
-        employeeCVRepository.save(employeeCV);
+        // Không gọi:
+        // employeeCV.setCurrentVersion(savedVersion);
+        //
+        // Không cần:
+        // employeeCVRepository.save(employeeCV);
 
         // 9. Tạo CV Profile
         if (cvCreateRequest.getProfile() != null) {
@@ -318,137 +329,334 @@ public class CVServiceImpl implements CVService {
     }
 
 
-    // lấy chi tiết một bản CV của nhân viên dựa vào ID
-    @Override
-    @Transactional(readOnly = true) // Tối ưu hóa hiệu năng DB: Chỉ đọc, không ghi/cập nhật dữ liệu
-    public CVDetailResponse getDetail(Long id) {
-        // 1. Tìm CV đang hoạt động theo ID, nếu k thấy thì ném lỗi 404
-        EmployeeCV employeeCV = employeeCVRepository
-                .findActiveById(id)
-                .orElseThrow(() ->  new ResourceNotFoundException("CV không tồn tại"));
+    // =====================================================
+    // LẤY CHI TIẾT CV
+    // =====================================================
+        @Override
+        @Transactional(readOnly = true)
+        public CVDetailResponse getDetail(Long id) {
 
-        // 2. Lấy thông tin nhân viên sở hữu CV này
-        Employee employee = employeeCV.getEmployee();
+            // =====================================================
+            // 1. TÌM EMPLOYEE CV
+            // =====================================================
 
-        // 3. Kiểm tra quyền: Nếu người dùng hiện tại k có quyền xem, ném lỗi 403 (AccessDenied)
-        if (!employeeAuthorizationService.canView(employee.getId())) {
-            throw new AccessDeniedException(
-                    "Bạn không có quyền xem CV này"
+            EmployeeCV employeeCV = employeeCVRepository
+                    .findActiveById(id)
+                    .orElseThrow(() ->
+                            new ResourceNotFoundException(
+                                    "CV không tồn tại"
+                            )
+                    );
+
+            // =====================================================
+            // 2. LẤY EMPLOYEE
+            // =====================================================
+
+            Employee employee = employeeCV.getEmployee();
+
+            if (employee == null || employee.isDeleted()) {
+
+                throw new ResourceNotFoundException(
+                        "Nhân viên sở hữu CV không tồn tại"
+                );
+            }
+
+            // =====================================================
+            // 3. KIỂM TRA QUYỀN XEM CV
+            // =====================================================
+
+            if (!employeeAuthorizationService.canView(employee.getId())) {
+
+                throw new AccessDeniedException(
+                        "Bạn không có quyền xem CV này"
+                );
+            }
+
+            // =====================================================
+            // 4. LẤY CURRENT VERSION
+            //
+            // currentVersion chỉ đại diện cho:
+            // bản OFFICIAL hiện tại của CV
+            //
+            // Với CV mới tạo DRAFT:
+            // currentVersion = null
+            // =====================================================
+
+            CVVersion currentVersion =
+                    employeeCV.getCurrentVersion();
+
+            // =====================================================
+            // 5. KHỞI TẠO RESPONSE
+            // =====================================================
+
+            CVDetailResponse response =
+                    CVDetailResponse.builder()
+                            .id(employeeCV.getId())
+                            .employeeId(employee.getId())
+                            .employeeCode(employee.getEmployeeCode())
+                            .employeeName(employee.getFullName())
+                            .employeeEmail(employee.getEmail())
+                            .departmentCode(
+                                    employee.getDepartment() != null
+                                            ? employee.getDepartment().getCode()
+                                            : null
+                            )
+                            .departmentName(
+                                    employee.getDepartment() != null
+                                            ? employee.getDepartment().getName()
+                                            : null
+                            )
+                            .status(employeeCV.getStatus())
+                            .build();
+
+            // =====================================================
+            // 6. ĐỔ THÔNG TIN CURRENT VERSION
+            //
+            // Có OFFICIAL thì mới có currentVersion.
+            // =====================================================
+
+            if (currentVersion != null) {
+
+                response.setCurrentVersionId(
+                        currentVersion.getId()
+                );
+
+                response.setCurrentVersion(
+                        currentVersion.getVersion()
+                );
+
+                response.setCurrentVersionStatus(
+                        currentVersion.getStatus()
+                );
+            }
+
+            // =====================================================
+            // 7. LẤY TOÀN BỘ VERSION CỦA CV
+            //
+            // Sort CREATED_DATE DESC
+            // => phần tử đầu tiên là version mới nhất
+            // =====================================================
+
+            List<CVVersion> versions =
+                    cvVersionRepository
+                            .findAllByEmployeeCVIdAndDeletedFalseOrderByCreatedDateDesc(
+                                    employeeCV.getId()
+                            );
+
+
+            // =====================================================
+            // 8. XÁC ĐỊNH WORKFLOW VERSION
+            //
+            // Chỉ version MỚI NHẤT mới có thể là workflow hiện tại.
+            //
+            // Không được lấy một version REJECTED cũ làm workflow
+            // sau khi đã có một version OFFICIAL mới.
+            // =====================================================
+
+            CVVersion workflowVersion = null;
+
+            if (!versions.isEmpty()) {
+
+                CVVersion latestVersion = versions.get(0);
+
+                CvVersionStatus latestStatus =
+                        latestVersion.getStatus();
+
+                boolean isWorkflowStatus =
+                        latestStatus == CvVersionStatus.DRAFT
+                                || latestStatus == CvVersionStatus.PENDING_TECH_LEAD
+                                || latestStatus == CvVersionStatus.PENDING_HR
+                                || latestStatus == CvVersionStatus.TECH_LEAD_REJECTED
+                                || latestStatus == CvVersionStatus.HR_REJECTED;
+
+                // =================================================
+                // Trường hợp CV chưa có bản OFFICIAL
+                //
+                // Ví dụ:
+                // V1.0 = DRAFT
+                // =================================================
+
+                if (currentVersion == null) {
+
+                    if (isWorkflowStatus) {
+                        workflowVersion = latestVersion;
+                    }
+
+                }
+                // =================================================
+                // Trường hợp đã có bản OFFICIAL
+                //
+                // Chỉ lấy latest version nếu nó KHÁC currentVersion
+                // và đang nằm trong workflow.
+                // =================================================
+
+                else if (
+                        !latestVersion.getId()
+                                .equals(currentVersion.getId())
+                                && isWorkflowStatus
+                ) {
+
+                    workflowVersion = latestVersion;
+                }
+            }
+
+            // =====================================================
+            // 9. TRẢ THÔNG TIN WORKFLOW VERSION
+            // =====================================================
+
+            if (workflowVersion != null) {
+
+                response.setWorkflowVersionId(
+                        workflowVersion.getId()
+                );
+
+                response.setWorkflowVersion(
+                        workflowVersion.getVersion()
+                );
+
+                response.setWorkflowVersionStatus(
+                        workflowVersion.getStatus()
+                );
+
+                response.setRejectionReason(
+                        workflowVersion.getRejectionReason()
+                );
+            }
+
+            // =====================================================
+            // 10. XÁC ĐỊNH VERSION DÙNG ĐỂ HIỂN THỊ CONTENT
+            //
+            // Ưu tiên:
+            //
+            // 1. Workflow version
+            // 2. Current official version
+            //
+            // Vì Employee phải nhìn thấy bản đang sửa,
+            // không phải bản OFFICIAL cũ.
+            // =====================================================
+
+            CVVersion contentVersion;
+
+            if (workflowVersion != null) {
+
+                contentVersion = workflowVersion;
+
+            } else {
+
+                contentVersion = currentVersion;
+            }
+
+            // =====================================================
+            // 11. CV CHƯA CÓ VERSION
+            // =====================================================
+
+            if (contentVersion == null) {
+
+                return response;
+            }
+
+            Long versionId =
+                    contentVersion.getId();
+
+            // =====================================================
+            // 12. PROFILE
+            // =====================================================
+
+            cvProfileRepository
+                    .findByCvVersionIdAndDeletedFalse(versionId)
+                    .map(cvMapper::toProfileResponse)
+                    .ifPresent(response::setProfile);
+
+            // =====================================================
+            // 13. SKILLS
+            // =====================================================
+
+            response.setSkills(
+                    cvSkillRepository
+                            .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(
+                                    versionId
+                            )
+                            .stream()
+                            .map(cvMapper::toSkillResponse)
+                            .toList()
             );
-        }
 
-        // 4. Lấy thông tin phiên bản (version) hiện tại của CV
-        CVVersion currentVersion = employeeCV.getCurrentVersion();
+            // =====================================================
+            // 14. EDUCATIONS
+            // =====================================================
 
-        // 5. Khởi tạo đối tượng Response và map các thông tin cơ bản của Nhân viên & CV
-        CVDetailResponse response = CVDetailResponse.builder()
-                .id(employeeCV.getId())
-                .employeeId(employee.getId())
-                .employeeCode(employee.getEmployeeCode())
-                .employeeName(employee.getFullName())
-                .employeeEmail(employee.getEmail())
-                .departmentCode(employee.getDepartment().getCode())
-                .departmentName(employee.getDepartment().getName())
-                .status(employeeCV.getStatus())
-                .build();
+            response.setEducations(
+                    cvEducationRepository
+                            .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(
+                                    versionId
+                            )
+                            .stream()
+                            .map(cvMapper::toEducationResponse)
+                            .toList()
+            );
 
-        // 6. Nếu CV chưa có phiên bản nào (mới tạo, trống), trả về ngay thông tin cơ bản trên
-        if (currentVersion == null){
+            // =====================================================
+            // 15. EXPERIENCES
+            // =====================================================
+
+            response.setExperiences(
+                    cvExperienceRepository
+                            .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(
+                                    versionId
+                            )
+                            .stream()
+                            .map(cvMapper::toExperienceResponse)
+                            .toList()
+            );
+
+            // =====================================================
+            // 16. PROJECTS
+            // =====================================================
+
+            response.setProjects(
+                    cvProjectRepository
+                            .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(
+                                    versionId
+                            )
+                            .stream()
+                            .map(cvMapper::toProjectResponse)
+                            .toList()
+            );
+
+            // =====================================================
+            // 17. CERTIFICATES
+            // =====================================================
+
+            response.setCertificates(
+                    cvCertificateRepository
+                            .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(
+                                    versionId
+                            )
+                            .stream()
+                            .map(cvMapper::toCertificateResponse)
+                            .toList()
+            );
+
+            // =====================================================
+            // 18. LANGUAGES
+            // =====================================================
+
+            response.setLanguages(
+                    cvLanguageRepository
+                            .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(
+                                    versionId
+                            )
+                            .stream()
+                            .map(cvMapper::toLanguageResponse)
+                            .toList()
+            );
+
+            // =====================================================
+            // 19. TRẢ RESPONSE
+            // =====================================================
+
             return response;
         }
-
-        // 7. Điền thêm thông tin định danh của phiên bản hiện tại vào Response
-        response.setCurrentVersionId(currentVersion.getId());
-        response.setCurrentVersion(currentVersion.getVersion());
-        response.setCurrentVersionStatus(currentVersion.getStatus());
-
-        // 7.1. Lấy version mới nhất đang trong workflow
-        List<CVVersion> versions =
-                cvVersionRepository
-                        .findAllByEmployeeCVIdAndDeletedFalseOrderByCreatedDateDesc(
-                                employeeCV.getId()
-                        );
-
-        // 7.2. Version đầu tiên là version mới nhất
-        if (!versions.isEmpty()){
-
-            CVVersion latestVersion = versions.get(0);
-
-            // Chỉ xem là workflow version nếu không phải version hiện tại
-            if (!latestVersion.getId().equals(currentVersion.getId())){
-
-                response.setWorkflowVersionId(latestVersion.getId());
-                response.setWorkflowVersion(latestVersion.getVersion());
-                response.setWorkflowVersionStatus(latestVersion.getStatus());
-                response.setRejectionReason(latestVersion.getRejectionReason());
-            }
-        }
-
-        Long versionId = currentVersion.getId();
-
-        // 8. Lấy thông tin hồ sơ cá nhân (Profile) gắn với phiên bản CV (nếu có và chưa bị xóa)
-        cvProfileRepository
-                .findByCvVersionIdAndDeletedFalse(versionId)
-                .map(cvMapper::toProfileResponse)
-                .ifPresent(response::setProfile);
-
-        // 9. Lấy danh sách Kỹ năng (Skills) chưa xóa, xếp theo thứ tự hiển thị tăng dần
-        response.setSkills(
-                cvSkillRepository
-                        .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(versionId)
-                        .stream()
-                        .map(cvMapper::toSkillResponse)
-                        .toList()
-        );
-
-        // 10. Lấy danh sách Học vấn (Educations) chưa xóa, xếp theo thứ tự hiển thị tăng dần
-        response.setEducations(
-                cvEducationRepository
-                        .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(versionId)
-                        .stream()
-                        .map(cvMapper::toEducationResponse)
-                        .toList()
-        );
-
-        // 11. Lấy danh sách Kinh nghiệm (Experiences) chưa xóa, xếp theo thứ tự hiển thị tăng dần
-        response.setExperiences(
-                cvExperienceRepository
-                        .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(versionId)
-                        .stream()
-                        .map(cvMapper::toExperienceResponse)
-                        .toList()
-        );
-
-        // 12. Lấy danh sách Dự án (Projects) chưa xóa, xếp theo thứ tự hiển thị tăng dần
-        response.setProjects(
-                cvProjectRepository
-                        .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(versionId)
-                        .stream()
-                        .map(cvMapper::toProjectResponse)
-                        .toList()
-        );
-
-        // 13. Lấy danh sách Chứng chỉ (Certificates) chưa xóa, xếp theo thứ tự hiển thị tăng dần
-        response.setCertificates(
-                cvCertificateRepository
-                        .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(versionId)
-                        .stream()
-                        .map(cvMapper::toCertificateResponse)
-                        .toList()
-        );
-
-        // 14. Lấy danh sách Ngoại ngữ (Languages) chưa xóa, xếp theo thứ tự hiển thị tăng dần
-        response.setLanguages(
-                cvLanguageRepository
-                        .findAllByCvVersionIdAndDeletedFalseOrderBySortOrderAsc(versionId)
-                        .stream()
-                        .map(cvMapper::toLanguageResponse)
-                        .toList()
-        );
-
-        // Đóng gói và trả về toàn bộ dữ liệu chi tiết của CV
-        return response;
-    }
 
     /**
      * Hủy bản nháp CV.
@@ -1390,12 +1598,50 @@ public class CVServiceImpl implements CVService {
         // =====================================================
         // 9. Lưu
         // =====================================================
-        cvVersionRepository.save(version);
+
+            cvVersionRepository.save(version);
 
         // =====================================================
-        // 10. Trả về CV
+        // 10. Thông báo cho Employee
         // =====================================================
+
+            notifyEmployeeAboutTechLeadRejection(
+                    version,
+                    employee
+            );
+
+        // =====================================================
+        // 11. Trả về CV
+        // =====================================================
+
         return getDetail(employeeCV.getId());
+    }
+
+    /**
+     * Thông báo cho Employee khi Tech Lead từ chối CV.
+     */
+    private void notifyEmployeeAboutTechLeadRejection(
+            CVVersion version,
+            Employee employee
+    ) {
+        User employeeUser = employee.getUser();
+
+        if (employeeUser == null) {
+            return;
+        }
+
+        notificationService.createNotification(
+                employeeUser.getId(),
+                NotificationType.CV_TECH_LEAD_REJECTED,
+                "CV bị Tech Lead từ chối",
+                "CV phiên bản "
+                        + version.getVersion()
+                        + " đã bị Tech Lead từ chối. "
+                        + "Lý do: "
+                        + version.getRejectionReason(),
+                "CV_VERSION",
+                version.getId()
+        );
     }
 
     // Hàm xử lý nghiệp vụ khi ADMIN/HR từ chối chấp nhận với version cv
@@ -1491,12 +1737,51 @@ public class CVServiceImpl implements CVService {
         // =====================================================
         // 9. Lưu
         // =====================================================
+
         cvVersionRepository.save(version);
 
         // =====================================================
-        // 10. Trả về CV
+        // 10. Thông báo cho Employee
         // =====================================================
+
+        notifyEmployeeAboutHrRejection(
+                version,
+                employee
+        );
+
+        // =====================================================
+        // 11. Trả về CV
+        // =====================================================
+
         return getDetail(employeeCV.getId());
+    }
+
+    /**
+     * Thông báo cho Employee khi HR/Admin từ chối CV.
+     */
+    private void notifyEmployeeAboutHrRejection(
+            CVVersion version,
+            Employee employee
+    ) {
+
+        User employeeUser = employee.getUser();
+
+        if (employeeUser == null) {
+            return;
+        }
+
+        notificationService.createNotification(
+                employeeUser.getId(),
+                NotificationType.CV_HR_REJECTED,
+                "CV bị HR từ chối",
+                "CV phiên bản "
+                        + version.getVersion()
+                        + " đã bị HR/Admin từ chối. "
+                        + "Lý do: "
+                        + version.getRejectionReason(),
+                "CV_VERSION",
+                version.getId()
+        );
     }
 
 

@@ -10,19 +10,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import systemanagercv.example.systemanagercv.common.enums.RoleName;
 import systemanagercv.example.systemanagercv.common.exception.BusinessException;
+import systemanagercv.example.systemanagercv.department.dto.response.DepartmentOptionResponse;
 import systemanagercv.example.systemanagercv.department.entity.Departments;
 import systemanagercv.example.systemanagercv.department.service.DepartmentService;
 import systemanagercv.example.systemanagercv.employee.authorization.EmployeeAccessScope;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeCreateRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeSearchRequest;
 import systemanagercv.example.systemanagercv.employee.dto.request.EmployeeUpdateRequest;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeCreateOptionsResponse;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeDetailResponse;
+import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeEditOptionsResponse;
 import systemanagercv.example.systemanagercv.employee.dto.response.EmployeeResponse;
 import systemanagercv.example.systemanagercv.employee.entity.Employee;
 import systemanagercv.example.systemanagercv.employee.authorization.EmployeeAuthorizationService;
 import systemanagercv.example.systemanagercv.employee.mapper.EmployeeMapper;
 import systemanagercv.example.systemanagercv.employee.repository.EmployeeRepository;
 import systemanagercv.example.systemanagercv.employee.specification.EmployeeSpecification;
+import systemanagercv.example.systemanagercv.user.dto.response.UserSelectResponse;
 import systemanagercv.example.systemanagercv.user.entity.User;
 import systemanagercv.example.systemanagercv.user.service.UserService;
 
@@ -382,6 +386,74 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //Lưu lại trạng thái ẩn này xuống Database
         employeeRepository.save(employee);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public EmployeeEditOptionsResponse getEditOptions(Long employeeId) {
+
+        Employee employee =
+                employeeRepository
+                        .findEmployeeDetailById(employeeId)
+                        .orElseThrow(() ->
+                                new BusinessException(
+                                        "error.employee.notFound"
+                                )
+                        );
+
+        if (!employeeAuthorizationService.canView(employeeId)){
+            throw new BusinessException(
+                    "error.employee.accessDenied"
+            );
+        }
+
+        List<UserSelectResponse> users =
+                userService.getEmployeeUsersForEdit(employeeId);
+
+        List<DepartmentOptionResponse> departments =
+                departmentService
+                        .getActiveDepartments()
+                        .stream()
+                        .map(department ->
+                                DepartmentOptionResponse.builder()
+                                        .id(department.getId())
+                                        .code(department.getCode())
+                                        .name(department.getName())
+                                        .build()
+                                )
+                        .toList();
+
+        return EmployeeEditOptionsResponse
+                .builder()
+                .users(users)
+                .departments(departments)
+                .build();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public EmployeeCreateOptionsResponse getCreateOptions() {
+
+        List<UserSelectResponse> users =
+                userService.getEmployeeUsers();
+
+        List<DepartmentOptionResponse> departments =
+                departmentService
+                        .getActiveDepartments()
+                        .stream()
+                        .map(department ->
+                                DepartmentOptionResponse.builder()
+                                        .id(department.getId())
+                                        .code(department.getCode())
+                                        .name(department.getName())
+                                        .build()
+                                )
+                        .toList();
+        return EmployeeCreateOptionsResponse
+                .builder()
+                .users(users)
+                .departments(departments)
+                .build();
     }
 
     /**

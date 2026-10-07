@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+
+    <title>
+        Thông báo - SystemanagerCV
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+
+    <!-- =====================================================
+         SYSTEM CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+
+    <!-- =====================================================
+         NOTIFICATION CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/notification.css?v=20261007-step5"
+    >
+
+
+    <!-- =====================================================
+         FONT
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+
+    <!-- =====================================================
+         JQUERY
+         ===================================================== -->
+
+    <script
+        src="../../assets/js/jquery.min.js"
+    ></script>
+
+</head>
+
+
+<body class="smcv-app notification-page">
+
+
+<section id="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <section id="main-content">
+
+
+        <section class="notification-wrapper">
+
+
+            <div class="notification-container">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                     ================================================= -->
+
+                <header
+                    class="notification-page-header"
+                >
+
+
+                    <div
+                        class="notification-page-header-left"
+                    >
+
+
+                        <div
+                            class="notification-page-icon"
+                        >
+
+                            <i
+                                class="fa fa-bell-o"
+                            ></i>
+
+                        </div>
+
+
+                        <div
+                            class="notification-page-heading"
+                        >
+
+                            <span
+                                class="notification-eyebrow"
+                            >
+                                THÔNG TIN HỆ THỐNG
+                            </span>
+
+
+                            <h1
+                                id="notification-page-title"
+                            >
+                                Thông báo
+                            </h1>
+
+
+                            <p
+                                id="notification-page-description"
+                            >
+                                Theo dõi các thông báo liên quan
+                                đến hồ sơ CV và quy trình xử lý.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div
+                        class="notification-page-summary"
+                    >
+
+                        <span>
+                            CHƯA ĐỌC
+                        </span>
+
+
+                        <strong
+                            id="notification-unread-total"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </header>
+
+
+                <!-- =================================================
+                     ROLE CONTEXT
+                     ================================================= -->
+
+                <section
+                    class="notification-role-context"
+                >
+
+
+                    <div
+                        class="notification-role-icon"
+                    >
+
+                        <i
+                            class="fa fa-shield"
+                        ></i>
+
+                    </div>
+
+
+                    <div
+                        class="notification-role-content"
+                    >
+
+                        <strong
+                            id="notification-role-title"
+                        >
+                            Thông báo của bạn
+                        </strong>
+
+
+                        <span
+                            id="notification-role-description"
+                        >
+                            Danh sách được lấy trực tiếp theo
+                            tài khoản hiện tại.
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     ERROR
+                     ================================================= -->
+
+                <div
+                    id="notification-error"
+                    class="notification-alert notification-alert-error"
+                >
+
+                    <i
+                        class="fa fa-exclamation-circle"
+                    ></i>
+
+
+                    <span
+                        id="notification-error-text"
+                    >
+                        Không thể tải thông báo.
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     TOOLBAR
+                     ================================================= -->
+
+                <section
+                    class="notification-toolbar"
+                >
+
+
+                    <div
+                        class="notification-tabs"
+                    >
+
+                        <button
+                            type="button"
+                            class="notification-tab active"
+                            id="notification-tab-all"
+                            data-filter="all"
+                        >
+
+                            <i
+                                class="fa fa-list"
+                            ></i>
+
+                            <span>
+                                Tất cả
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="notification-tab"
+                            id="notification-tab-unread"
+                            data-filter="unread"
+                        >
+
+                            <i
+                                class="fa fa-envelope"
+                            ></i>
+
+                            <span>
+                                Chưa đọc
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="notification-refresh"
+                        class="notification-refresh"
+                    >
+
+                        <i
+                            class="fa fa-refresh"
+                        ></i>
+
+                        <span>
+                            Làm mới
+                        </span>
+
+                    </button>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     LIST CARD
+                     ================================================= -->
+
+                <section
+                    class="notification-list-card"
+                >
+
+
+                    <div
+                        class="notification-list-header"
+                    >
+
+                        <div>
+
+                            <span
+                                class="notification-list-eyebrow"
+                            >
+                                TRUNG TÂM THÔNG BÁO
+                            </span>
+
+
+                            <h2>
+                                Danh sách thông báo
+                            </h2>
+
+                        </div>
+
+
+                        <span
+                            id="notification-result-summary"
+                            class="notification-result-summary"
+                        >
+                            Đang tải...
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         LOADING
+                         ================================================= -->
+
+                    <div
+                        id="notification-loading"
+                        class="notification-state"
+                    >
+
+                        <i
+                            class="fa fa-spinner fa-spin"
+                        ></i>
+
+
+                        <span>
+                            Đang tải thông báo...
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         EMPTY
+                         ================================================= -->
+
+                    <div
+                        id="notification-empty"
+                        class="notification-empty"
+                    >
+
+                        <div
+                            class="notification-empty-icon"
+                        >
+
+                            <i
+                                class="fa fa-bell-slash-o"
+                            ></i>
+
+                        </div>
+
+
+                        <h3
+                            id="notification-empty-title"
+                        >
+                            Không có thông báo
+                        </h3>
+
+
+                        <p
+                            id="notification-empty-description"
+                        >
+                            Hiện chưa có thông báo nào
+                            trong phạm vi tài khoản của bạn.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         LIST
+                         ================================================= -->
+
+                    <div
+                        id="notification-list"
+                        class="notification-list"
+                    ></div>
+
+
+                    <!-- =================================================
+                         PAGINATION
+                         ================================================= -->
+
+                    <div
+                        id="notification-pagination"
+                        class="notification-pagination"
+                    >
+
+                        <div
+                            class="notification-pagination-info"
+                        >
+
+                            Trang
+
+                            <strong
+                                id="notification-current-page"
+                            >
+                                1
+                            </strong>
+
+                            /
+
+                            <strong
+                                id="notification-total-pages"
+                            >
+                                1
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="notification-pagination-controls"
+                        >
+
+                            <button
+                                type="button"
+                                id="notification-prev"
+                                class="notification-page-button"
+                            >
+
+                                <i
+                                    class="fa fa-angle-left"
+                                ></i>
+
+                            </button>
+
+
+                            <div
+                                id="notification-page-numbers"
+                                class="notification-page-numbers"
+                            ></div>
+
+
+                            <button
+                                type="button"
+                                id="notification-next"
+                                class="notification-page-button"
+                            >
+
+                                <i
+                                    class="fa fa-angle-right"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+
+        <footer
+            id="footer-container"
+        ></footer>
+
+
+    </section>
+
+
+</section>
+
+
+<!-- =========================================================
+     JAVASCRIPT LIBRARIES
+     ========================================================= -->
+
+<script
+    src="../../assets/js/jquery.min.js"
+></script>
+
+
+<script
+    src="../../assets/js/bootstrap.js"
+></script>
+
+
+<script
+    src="../../assets/js/jquery.dcjqaccordion.2.7.js"
+></script>
+
+
+<script
+    src="../../assets/js/jquery.slimscroll.js"
+></script>
+
+
+<script
+    src="../../assets/js/jquery.nicescroll.js"
+></script>
+
+
+<script
+    src="../../assets/js/jquery.scrollTo.js"
+></script>
+
+
+<script
+    src="../../assets/js/scripts.js"
+></script>
+
+
+<!-- =========================================================
+     API
+     ========================================================= -->
+
+<script
+    src="../../services/api/api.js"
+></script>
+
+
+<script
+    src="../../services/api/notificationApi.js?v=20261007-step5"
+></script>
+
+
+<!-- =========================================================
+     AUTH
+     ========================================================= -->
+
+<script
+    src="../../services/auth/authApi.js"
+></script>
+
+
+<script
+    src="../../services/auth/auth.js"
+></script>
+
+
+<!-- =========================================================
+     PAGE
+     ========================================================= -->
+
+<script
+    src="./index.js?v=20261007-step5"
+></script>
+
+
+</body>
+
+</html>

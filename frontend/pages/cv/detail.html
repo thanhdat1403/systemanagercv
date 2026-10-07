@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Chi tiết CV - SystemanagerCV</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+
+    <!-- =====================================================
+         SYSTEM CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+
+    <!-- =====================================================
+         KHÔNG DÙNG DASHBOARD CSS
+         ===================================================== -->
+
+
+    <!-- =====================================================
+         CV DETAIL CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/cv-detail.css?v=20261006-step4"
+    >
+
+
+    <!-- =====================================================
+         FONT
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+
+    <!-- =====================================================
+         JQUERY
+         ===================================================== -->
+
+    <script
+        src="../../assets/js/jquery.min.js"
+    ></script>
+
+</head>
+
+
+<body class="smcv-app cv-detail-page">
+
+
+<section id="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <section id="main-content">
+
+
+        <section class="cv-detail-wrapper">
+
+
+            <!-- =================================================
+                 PAGE TOOLBAR
+                 ================================================= -->
+
+            <header class="cv-page-toolbar">
+
+
+                <div class="cv-page-heading">
+
+
+                    <div class="cv-page-heading-icon">
+
+                        <i class="fa fa-file-text-o"></i>
+
+                    </div>
+
+
+                    <div class="cv-page-heading-content">
+
+                        <span
+                            id="cv-detail-eyebrow"
+                            class="cv-page-heading-kicker"
+                        >
+                            QUẢN LÝ CV
+                        </span>
+
+
+                        <h1
+                            id="cv-detail-page-title"
+                        >
+                            Chi tiết CV
+                        </h1>
+
+
+                        <p
+                            id="cv-detail-page-description"
+                        >
+                            Xem nội dung, phiên bản và
+                            tiến trình xử lý CV.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <a
+                    href="./index.html"
+                    class="cv-top-back-button"
+                >
+
+                    <i class="fa fa-arrow-left"></i>
+
+                    <span>
+                        Danh sách CV
+                    </span>
+
+                </a>
+
+
+            </header>
+
+
+            <!-- =================================================
+                 LOADING
+                 ================================================= -->
+
+            <div
+                id="cv-loading"
+                class="cv-detail-state"
+            >
+
+                <i
+                    class="fa fa-spinner fa-spin"
+                ></i>
+
+                <span>
+                    Đang tải thông tin CV...
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 ERROR
+                 ================================================= -->
+
+            <div
+                id="cv-error"
+                class="cv-detail-alert cv-detail-alert-error"
+            >
+
+                <i
+                    class="fa fa-exclamation-circle"
+                ></i>
+
+                <span id="cv-error-text">
+                    Không thể tải CV.
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 SUCCESS
+                 ================================================= -->
+
+            <div
+                id="cv-success"
+                class="cv-detail-alert cv-detail-alert-success"
+            >
+
+                <i
+                    class="fa fa-check-circle"
+                ></i>
+
+                <span id="cv-success-text"></span>
+
+            </div>
+
+
+            <!-- =================================================
+                 DETAIL CONTENT
+                 ================================================= -->
+
+            <div
+                id="cv-detail"
+            >
+
+
+                <!-- =================================================
+                     EMPLOYEE HEADER
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card cv-detail-header-card"
+                >
+
+                    <div
+                        class="cv-detail-header-main"
+                    >
+
+
+                        <div
+                            class="cv-avatar-wrap"
+                        >
+
+                            <img
+                                id="cv-avatar"
+                                class="cv-avatar"
+                                src="../../assets/images/1.png"
+                                alt="Ảnh đại diện"
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="cv-detail-header-info"
+                        >
+
+                            <span
+                                id="cv-detail-record-label"
+                                class="cv-detail-eyebrow"
+                            >
+                                EMPLOYEE CV
+                            </span>
+
+
+                            <h2
+                                id="cv-employee-name"
+                                class="cv-detail-title"
+                            >
+                                ---
+                            </h2>
+
+
+                            <div
+                                class="cv-detail-meta-row"
+                            >
+
+                                <span>
+
+                                    <i
+                                        class="fa fa-id-card-o"
+                                    ></i>
+
+                                    <b id="cv-employee-code">
+                                        ---
+                                    </b>
+
+                                </span>
+
+
+                                <span>
+
+                                    <i
+                                        class="fa fa-envelope-o"
+                                    ></i>
+
+                                    <span
+                                        id="cv-employee-email"
+                                    >
+                                        ---
+                                    </span>
+
+                                </span>
+
+
+                                <span>
+
+                                    <i
+                                        class="fa fa-building-o"
+                                    ></i>
+
+                                    <span
+                                        id="cv-department"
+                                    >
+                                        ---
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- ROLE BASED ACTIONS -->
+
+                        <div
+                            id="cv-actions"
+                            class="cv-detail-actions"
+                        ></div>
+
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     ROLE CONTEXT
+                     ================================================= -->
+
+                <div
+                    id="cv-role-context"
+                    class="cv-role-context"
+                >
+
+                    <div
+                        class="cv-role-context-icon"
+                    >
+
+                        <i
+                            class="fa fa-shield"
+                        ></i>
+
+                    </div>
+
+
+                    <div
+                        class="cv-role-context-content"
+                    >
+
+                        <strong
+                            id="cv-role-context-title"
+                        >
+                            Quyền truy cập
+                        </strong>
+
+
+                        <span
+                            id="cv-role-context-description"
+                        >
+                            Đang xác định phạm vi truy cập...
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     STATUS / VERSION
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-status-grid"
+                >
+
+
+                    <div
+                        class="cv-detail-card cv-status-card"
+                    >
+
+                        <span
+                            class="cv-card-label"
+                        >
+                            Trạng thái CV
+                        </span>
+
+
+                        <div
+                            id="cv-status"
+                            class="cv-status-badge"
+                        >
+                            ---
+                        </div>
+
+
+                        <small
+                            class="cv-card-subtext"
+                        >
+                            Trạng thái tổng thể của CV
+                        </small>
+
+                    </div>
+
+
+                    <div
+                        class="cv-detail-card cv-status-card"
+                    >
+
+                        <span
+                            class="cv-card-label"
+                        >
+                            Version chính thức
+                        </span>
+
+
+                        <div
+                            id="cv-current-version"
+                            class="cv-version-value"
+                        >
+                            ---
+                        </div>
+
+
+                        <div
+                            id="cv-current-version-status"
+                            class="cv-version-status"
+                        >
+                            ---
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="cv-detail-card cv-status-card"
+                    >
+
+                        <span
+                            class="cv-card-label"
+                        >
+                            Version workflow
+                        </span>
+
+
+                        <div
+                            id="cv-workflow-version"
+                            class="cv-version-value"
+                        >
+                            Không có
+                        </div>
+
+
+                        <div
+                            id="cv-workflow-version-status"
+                            class="cv-version-status"
+                        >
+                            ---
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+
+                <!-- =================================================
+                     WORKFLOW
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <div>
+
+                            <h2>
+                                <i
+                                    class="fa fa-random"
+                                ></i>
+
+                                Quy trình kiểm duyệt
+                            </h2>
+
+
+                            <p
+                                id="cv-workflow-description"
+                            >
+                                Đang xác định trạng thái workflow...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="cv-workflow-timeline"
+                        class="cv-workflow-timeline"
+                    ></div>
+
+
+                    <div
+                        id="cv-rejection-alert"
+                        class="cv-rejection-alert"
+                    >
+
+                        <div
+                            class="cv-rejection-icon"
+                        >
+
+                            <i
+                                class="fa fa-warning"
+                            ></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong
+                                class="cv-rejection-title"
+                            >
+                                Lý do từ chối
+                            </strong>
+
+
+                            <div
+                                id="cv-rejection-reason"
+                                class="cv-rejection-reason"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     SOURCE
+                     ================================================= -->
+
+                <div
+                    class="cv-content-source-card"
+                >
+
+                    <i
+                        class="fa fa-info-circle"
+                    ></i>
+
+
+                    <span
+                        id="cv-content-source"
+                    ></span>
+
+                </div>
+
+
+                <!-- =================================================
+                     PROFILE
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <h2>
+
+                            <i
+                                class="fa fa-user"
+                            ></i>
+
+                            Hồ sơ
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cv-profile"
+                        class="cv-profile-grid"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     SKILLS
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <h2>
+
+                            <i
+                                class="fa fa-star"
+                            ></i>
+
+                            Kỹ năng
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cv-skills"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     EDUCATION
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <h2>
+
+                            <i
+                                class="fa fa-graduation-cap"
+                            ></i>
+
+                            Học vấn
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cv-educations"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     EXPERIENCE
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <h2>
+
+                            <i
+                                class="fa fa-briefcase"
+                            ></i>
+
+                            Kinh nghiệm
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cv-experiences"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     PROJECTS
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <h2>
+
+                            <i
+                                class="fa fa-cubes"
+                            ></i>
+
+                            Dự án
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cv-projects"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     CERTIFICATES
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <h2>
+
+                            <i
+                                class="fa fa-certificate"
+                            ></i>
+
+                            Chứng chỉ
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cv-certificates"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     LANGUAGES
+                     ================================================= -->
+
+                <section
+                    class="cv-detail-card"
+                >
+
+                    <div
+                        class="cv-card-header"
+                    >
+
+                        <h2>
+
+                            <i
+                                class="fa fa-language"
+                            ></i>
+
+                            Ngoại ngữ
+
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="cv-languages"
+                    ></div>
+
+                </section>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+
+        <footer
+            id="footer-container"
+        ></footer>
+
+
+    </section>
+
+
+</section>
+
+
+<!-- =========================================================
+     REJECTION MODAL
+     ========================================================= -->
+
+<div
+    id="cv-reject-modal"
+    class="cv-modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="cv-modal-backdrop"
+        data-action="close-reject-modal"
+    ></div>
+
+
+    <div
+        class="cv-modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cv-reject-modal-title"
+    >
+
+
+        <div
+            class="cv-modal-header"
+        >
+
+            <div>
+
+                <span class="cv-modal-kicker">
+                    CV WORKFLOW
+                </span>
+
+
+                <h3
+                    id="cv-reject-modal-title"
+                >
+                    Từ chối CV
+                </h3>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="cv-modal-close"
+                data-action="close-reject-modal"
+                aria-label="Đóng"
+            >
+
+                <i
+                    class="fa fa-times"
+                ></i>
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="cv-modal-body"
+        >
+
+            <label
+                for="cv-rejection-input"
+            >
+                Lý do từ chối
+                <span>*</span>
+            </label>
+
+
+            <textarea
+                id="cv-rejection-input"
+                rows="5"
+                maxlength="1000"
+                placeholder="Nhập lý do từ chối để nhân viên biết nội dung cần chỉnh sửa..."
+            ></textarea>
+
+
+            <small
+                class="cv-modal-help"
+            >
+                Lý do sẽ được lưu vào phiên bản workflow
+                và hiển thị cho Employee.
+            </small>
+
+        </div>
+
+
+        <div
+            class="cv-modal-footer"
+        >
+
+            <button
+                type="button"
+                class="cv-modal-button secondary"
+                data-action="close-reject-modal"
+            >
+                Hủy
+            </button>
+
+
+            <button
+                type="button"
+                id="cv-confirm-reject"
+                class="cv-modal-button danger"
+            >
+
+                <i
+                    class="fa fa-times-circle"
+                ></i>
+
+                Xác nhận từ chối
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
+<script
+    src="../../assets/js/jquery.min.js"
+></script>
+
+<script
+    src="../../assets/js/bootstrap.js"
+></script>
+
+<script
+    src="../../assets/js/jquery.dcjqaccordion.2.7.js"
+></script>
+
+<script
+    src="../../assets/js/jquery.slimscroll.js"
+></script>
+
+<script
+    src="../../assets/js/jquery.nicescroll.js"
+></script>
+
+<script
+    src="../../assets/js/jquery.scrollTo.js"
+></script>
+
+<script
+    src="../../assets/js/scripts.js"
+></script>
+
+
+<!-- =========================================================
+     API
+     ========================================================= -->
+
+<script
+    src="../../services/api/api.js"
+></script>
+
+<script
+    src="../../services/api/cvApi.js"
+></script>
+
+
+<!-- =========================================================
+     AUTH
+     ========================================================= -->
+
+<script
+    src="../../services/auth/authApi.js"
+></script>
+
+<script
+    src="../../services/auth/auth.js"
+></script>
+
+
+<!-- =========================================================
+     PAGE
+     ========================================================= -->
+
+<script
+    src="./detail.js?v=20261006-step4"
+></script>
+
+
+</body>
+
+</html>

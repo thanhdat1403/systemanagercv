@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Quản lý người dùng - SystemanagerCV</title>
+
+
+    <!-- =====================================================
+         COMMON CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+
+    <!-- =====================================================
+         USER PAGE CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/viewcategory.css"
+    >
+
+    <link
+    rel="stylesheet"
+    href="../../assets/css/user-page-layout.css?v=20261002-1"
+    >
+</head>
+
+
+<body class="smcv-app user-index-page">
+
+
+<section id="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <section id="main-content">
+
+        <section class="wrapper category-page">
+
+            <div class="category-container">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                     ================================================= -->
+
+                <div class="category-page-header">
+
+                    <div class="category-page-title">
+
+                        <div class="category-title-icon">
+
+                            <i class="fa fa-users"></i>
+
+                        </div>
+
+
+                        <div class="category-title-content">
+
+                            <h3>
+                                Quản lý người dùng
+                            </h3>
+
+                            <p>
+                                Quản lý tài khoản và quyền người dùng
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     CONTENT
+                     ================================================= -->
+
+                <div class="category-content">
+
+
+                    <!-- =================================================
+                         ERROR
+                         ================================================= -->
+
+                    <div
+                        id="user-error"
+                        class="alert alert-danger"
+                        style="display: none;"
+                    ></div>
+
+
+                    <!-- =================================================
+                         SUCCESS
+                         ================================================= -->
+
+                    <div
+                        id="user-success"
+                        class="alert alert-success"
+                        style="display: none;"
+                    ></div>
+
+
+                    <!-- =================================================
+                         SEARCH
+                         ================================================= -->
+
+                    <div class="category-search">
+
+                        <form
+                            id="user-search-form"
+                            class="category-search-form"
+                        >
+
+                            <div class="category-search-input">
+
+                                <i class="fa fa-search"></i>
+
+                                <input
+                                    type="text"
+                                    id="user-keyword"
+                                    class="form-control"
+                                    placeholder="Username, họ tên hoặc email..."
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+
+                            <div class="category-search-select">
+
+                                <select
+                                    id="user-role"
+                                    class="form-control"
+                                >
+
+                                    <option value="">
+                                        Tất cả quyền
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="category-search-select">
+
+                                <select
+                                    id="user-enabled"
+                                    class="form-control"
+                                >
+
+                                    <option value="">
+                                        Tất cả trạng thái
+                                    </option>
+
+                                    <option value="true">
+                                        Hoạt động
+                                    </option>
+
+                                    <option value="false">
+                                        Không hoạt động
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                                <button
+                                    type="submit"
+                                    class="category-btn category-btn-search"
+                                >
+
+                                <i class="fa fa-search"></i>
+
+                                Tìm kiếm
+
+                            </button>
+
+
+                                <button
+                                    type="button"
+                                    id="user-reset"
+                                    class="category-btn category-btn-refresh"
+                                >
+
+                                <i class="fa fa-refresh"></i>
+
+                                Làm mới
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TABLE
+                         ================================================= -->
+
+                    <div class="category-table-wrapper">
+
+                        <table class="category-table">
+
+                            <thead>
+
+                            <tr>
+
+                                <th class="category-col-stt">
+                                    STT
+                                </th>
+
+                                <th class="category-col-name">
+                                    Username
+                                </th>
+
+                                <th>
+                                    Họ tên
+                                </th>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    Quyền
+                                </th>
+
+                                <th>
+                                    Mô tả quyền
+                                </th>
+
+                                <th class="category-col-status">
+                                    Trạng thái
+                                </th>
+
+                                <th class="category-col-action">
+                                    Thao tác
+                                </th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody id="user-table-body">
+
+                            <tr>
+
+                                <td
+                                    colspan="8"
+                                    class="text-center"
+                                >
+
+                                    Đang tải dữ liệu...
+
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PAGINATION
+                         ================================================= -->
+
+                    <div class="category-pagination">
+
+
+                        <div class="category-pagination-info">
+
+                            Trang
+
+                            <strong id="user-current-page">
+                                1
+                            </strong>
+
+                            /
+
+                            <strong id="user-total-pages">
+                                1
+                            </strong>
+
+                        </div>
+
+
+                        <div class="category-pagination-buttons">
+
+                            <button
+                                type="button"
+                                id="user-prev"
+                                class="pagination-button"
+                            >
+
+                                <i class="fa fa-angle-left"></i>
+
+                            </button>
+
+
+                            <div id="user-page-numbers"></div>
+
+
+                            <button
+                                type="button"
+                                id="user-next"
+                                class="pagination-button"
+                            >
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div id="footer-container"></div>
+
+
+</section>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script src="../../assets/js/jquery.min.js"></script>
+
+<script src="../../assets/js/bootstrap.js"></script>
+
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+
+<script src="../../assets/js/scripts.js"></script>
+
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+<script src="../../services/api/api.js"></script>
+
+<script src="../../services/api/userApi.js"></script>
+
+<script src="../../services/api/roleApi.js"></script>
+
+<script src="../../services/auth/authApi.js"></script>
+
+<script src="../../services/auth/auth.js"></script>
+
+<script src="../../assets/js/user-page-layout.js?v=20261002-1"></script>
+
+<script src="./index.js"></script>
+
+
+</body>
+
+</html>

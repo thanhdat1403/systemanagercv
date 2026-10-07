@@ -1,0 +1,2223 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   EMPLOYEE INDEX PAGE
+
+   File:
+   assets/css/employee-index.css
+
+   Mục tiêu:
+   - Đồng bộ User Index
+   - Giữ Header / Sidebar của hệ thống
+   - Background hệ thống
+   - Content nằm trên background
+   - Footer bám đáy
+   - Không tràn Sidebar
+   - Font size đồng bộ
+   - Button giữ đúng màu SystemanagerCV
+   ============================================================ */
+
+
+/* ============================================================
+   1. PAGE
+   ============================================================ */
+
+body.smcv-app.employee-index-page {
+
+    margin: 0;
+
+    padding: 0;
+
+    min-height: 100vh;
+
+    color: #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+}
+
+
+/* ============================================================
+   2. BOX SIZING
+   ============================================================ */
+
+body.smcv-app.employee-index-page *,
+body.smcv-app.employee-index-page *::before,
+body.smcv-app.employee-index-page *::after {
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   3. SYSTEM BACKGROUND
+   ============================================================ */
+
+body.smcv-app.employee-index-page {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7a28c 0%,
+            #e8a4a5 34%,
+            #bd8eb0 65%,
+            #806fa8 100%
+        );
+
+    background-attachment: fixed;
+
+}
+
+
+/*
+ * #container phải trong suốt
+ * để background hệ thống nhìn thấy
+ * phía dưới content.
+ */
+
+body.smcv-app.employee-index-page #container {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+}
+
+
+/* ============================================================
+   4. MAIN CONTENT
+   ============================================================ */
+
+/*
+ * Không tự tạo một layout Sidebar mới.
+ *
+ * user-page-layout.css đã xử lý:
+ *
+ * margin-left: 240px
+ * width: calc(100% - 240px)
+ *
+ * Employee CSS chỉ đảm bảo
+ * Main không bị che.
+ */
+
+body.smcv-app.employee-index-page #main-content {
+
+    position: relative;
+
+    min-width: 0;
+
+    background: transparent;
+
+}
+
+
+/* ============================================================
+   5. EMPLOYEE WRAPPER
+   ============================================================ */
+
+/* ============================================================
+   5. EMPLOYEE WRAPPER
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-wrapper {
+
+    width: 100%;
+
+    min-width: 0;
+
+    /*
+     * Header hệ thống cao khoảng 80px.
+     *
+     * Không dùng padding-top: 80px nữa.
+     * Dùng margin-top để toàn bộ wrapper
+     * thực sự nằm bên dưới Header.
+     */
+
+    margin-top: 80px;
+
+    margin-right: 0;
+
+    margin-bottom: 0;
+
+    margin-left: 0;
+
+    /*
+     * Khoảng cách nhỏ giữa Header và Card.
+     */
+
+    padding:
+        20px
+        12px
+        28px;
+
+    background: transparent;
+
+}
+
+
+/* ============================================================
+   6. MAIN CARD
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-container {
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: #ffffff;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.8);
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(31, 41, 55, 0.10);
+
+    overflow: hidden;
+
+}
+
+
+/* ============================================================
+   7. PAGE HEADER
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-header {
+
+    width: 100%;
+
+    min-height: 74px;
+
+    margin: 0;
+
+    padding:
+        17px
+        22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid
+        #eeeeee;
+
+}
+
+
+/* ============================================================
+   8. TITLE
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-title {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    flex: 1 1 auto;
+
+}
+
+
+/* ============================================================
+   9. TITLE ICON
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-title-icon {
+
+    width: 38px;
+
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background:
+        #f5edf5;
+
+    color:
+        #95608d;
+
+    font-size: 15px;
+
+}
+
+
+/* ============================================================
+   10. TITLE CONTENT
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-title-content {
+
+    min-width: 0;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-index-title-content h3 {
+
+    margin:
+        0
+        0
+        3px;
+
+    padding: 0;
+
+    color:
+        #333333;
+
+    font-size:
+        17px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.35;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-index-title-content p {
+
+    margin: 0;
+
+    padding: 0;
+
+    color:
+        #999999;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   11. TOTAL BOX
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-total {
+
+    flex:
+        0 0 auto;
+
+    min-height:
+        38px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    padding:
+        7px
+        13px;
+
+    border-radius:
+        18px;
+
+    background:
+        #fbf7fb;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* ============================================================
+   12. TOTAL ICON
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-total-icon {
+
+    width:
+        25px;
+
+    height:
+        25px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        #95608d;
+
+    font-size:
+        13px;
+
+}
+
+
+/* ============================================================
+   13. TOTAL TEXT
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-total-content {
+
+    display:
+        inline-flex;
+
+    align-items:
+        baseline;
+
+    gap:
+        4px;
+
+    color:
+        #999999;
+
+    font-size:
+        11px;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-index-total-content strong {
+
+    color:
+        #95608d;
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-index-total-content small {
+
+    color:
+        #999999;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+}
+
+
+/* ============================================================
+   14. CONTENT
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-content {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    background:
+        #ffffff;
+
+}
+
+
+/* ============================================================
+   15. SEARCH AREA
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-index-search {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        17px
+        22px;
+
+    background:
+        #ffffff;
+
+    border-bottom:
+        1px solid
+        #eeeeee;
+
+}
+
+
+/* ============================================================
+   16. SEARCH FORM
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-search-form {
+
+    width:
+        35%;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(280px, 1fr)
+        92px
+        88px;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+}
+
+
+/* ============================================================
+   17. SEARCH INPUT
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-search-input {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    min-width:
+        0;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-search-input i {
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    left:
+        13px;
+
+    transform:
+        translateY(-50%);
+
+    z-index:
+        2;
+
+    color:
+        #8f8f8f;
+
+    font-size:
+        12px;
+
+    pointer-events:
+        none;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-search-input input {
+
+    width:
+        100%;
+
+    height:
+        34px;
+
+    margin:
+        0;
+
+    padding:
+        0
+        12px
+        0
+        34px;
+
+    border:
+        1px solid
+        #dddddd;
+
+    border-radius:
+        4px;
+
+    background:
+        #ffffff;
+
+    color:
+        #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        12px;
+
+    outline:
+        none;
+
+    box-shadow:
+        none;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-search-input input:focus {
+
+    border-color:
+        #95608d;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(149, 96, 141, 0.08);
+
+}
+
+
+/* ============================================================
+   18. SEARCH BUTTON
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-search-btn {
+
+    height:
+        34px;
+
+    padding:
+        0
+        10px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    border:
+        1px solid
+        #926383;
+
+    border-radius:
+        4px;
+
+    background:
+        #926383;
+
+    color:
+        #ffffff;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+    cursor:
+        pointer;
+
+    transition:
+        all 0.18s ease;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-search-btn:hover {
+
+    background:
+        #7d526e;
+
+    border-color:
+        #7d526e;
+
+    color:
+        #ffffff;
+
+}
+
+
+/* ============================================================
+   19. REFRESH BUTTON
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-refresh-btn {
+
+    height:
+        34px;
+
+    padding:
+        0
+        10px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    border:
+        1px solid
+        #dddddd;
+
+    border-radius:
+        4px;
+
+    background:
+        #ffffff;
+
+    color:
+        #666666;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+    cursor:
+        pointer;
+
+    transition:
+        all 0.18s ease;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-refresh-btn:hover {
+
+    background:
+        #f7f7f7;
+
+    border-color:
+        #cccccc;
+
+    color:
+        #555555;
+
+}
+
+
+/* ============================================================
+   20. TABLE WRAPPER
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-table-wrapper {
+
+    width:
+        100%;
+
+    overflow-x:
+        auto;
+
+    overflow-y:
+        hidden;
+
+}
+
+
+/* ============================================================
+   21. TABLE
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-table {
+
+    width:
+        100%;
+
+    min-width:
+        1050px;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    border-collapse:
+        collapse;
+
+    table-layout:
+        fixed;
+
+    background:
+        #ffffff;
+
+}
+
+
+/* ============================================================
+   22. COLUMN WIDTH
+   ============================================================ */
+
+.employee-col-stt {
+
+    width:
+        5%;
+
+}
+
+
+.employee-col-code {
+
+    width:
+        8%;
+
+}
+
+
+.employee-col-name {
+
+    width:
+        14%;
+
+}
+
+
+.employee-col-email {
+
+    width:
+        13%;
+
+}
+
+
+.employee-col-phone {
+
+    width:
+        8%;
+
+}
+
+
+.employee-col-department {
+
+    width:
+        10%;
+
+}
+
+
+.employee-col-position {
+
+    width:
+        8%;
+
+}
+
+
+.employee-col-job-title {
+
+    width:
+        9%;
+
+}
+
+
+.employee-col-status {
+
+    width:
+        9%;
+
+}
+
+
+.employee-col-action {
+
+    width:
+        16%;
+
+}
+
+
+/* ============================================================
+   23. TABLE HEADER
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-table thead tr {
+
+    background:
+        #f8f8f8;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-table thead th {
+
+    height:
+        43px;
+
+    padding:
+        0
+        8px;
+
+    border-right:
+        1px solid
+        #e5e5e5;
+
+    border-bottom:
+        1px solid
+        #e5e5e5;
+
+    color:
+        #777777;
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+    text-align:
+        left;
+
+    vertical-align:
+        middle;
+
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-table thead th:first-child {
+
+    text-align:
+        center;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-table thead th:last-child {
+
+    border-right:
+        none;
+
+    text-align:
+        center;
+
+}
+
+
+/* ============================================================
+   24. TABLE BODY
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+.employee-table tbody tr {
+
+    height:
+        57px;
+
+    background:
+        #ffffff;
+
+    transition:
+        background 0.18s ease;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-table tbody tr:hover {
+
+    background:
+        #fcf9fc;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-table tbody td {
+
+    height:
+        57px;
+
+    padding:
+        8px;
+
+    border-right:
+        1px solid
+        #eeeeee;
+
+    border-bottom:
+        1px solid
+        #eeeeee;
+
+    color:
+        #666666;
+
+    font-size:
+        11px;
+
+    vertical-align:
+        middle;
+
+    overflow:
+        hidden;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-table tbody td:last-child {
+
+    border-right:
+        none;
+
+}
+
+
+body.smcv-app.employee-index-page
+.employee-table tbody td:first-child {
+
+    text-align:
+        center;
+
+}
+
+
+/* ============================================================
+   25. STT
+   ============================================================ */
+
+.employee-stt {
+
+    width:
+        25px;
+
+    height:
+        25px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        #f5edf5;
+
+    color:
+        #95608d;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+}
+
+
+/* ============================================================
+   26. EMPLOYEE CODE
+   ============================================================ */
+
+.employee-code {
+
+    display:
+        inline-block;
+
+    max-width:
+        100%;
+
+    padding:
+        5px
+        8px;
+
+    border-radius:
+        4px;
+
+    background:
+        #f5edf5;
+
+    color:
+        #95608d;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+}
+
+
+/* ============================================================
+   27. NAME
+   ============================================================ */
+
+.employee-name {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+}
+
+
+.employee-name-icon {
+
+    width:
+        26px;
+
+    height:
+        26px;
+
+    flex:
+        0 0 26px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        5px;
+
+    background:
+        #f5edf5;
+
+    color:
+        #95608d;
+
+    font-size:
+        11px;
+
+}
+
+
+.employee-name-text {
+
+    min-width:
+        0;
+
+    display:
+        block;
+
+    color:
+        #333333;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+}
+
+
+/* ============================================================
+   28. GENERAL TEXT
+   ============================================================ */
+
+.employee-text {
+
+    display:
+        block;
+
+    max-width:
+        100%;
+
+    color:
+        #666666;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.4;
+
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+}
+
+
+/* ============================================================
+   29. STATUS
+   ============================================================ */
+
+.employee-status {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        4px;
+
+    padding:
+        4px
+        7px;
+
+    border-radius:
+        12px;
+
+    font-size:
+        10px;
+
+    line-height:
+        1;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.employee-status-active {
+
+    background:
+        #eaf7ee;
+
+    color:
+        #45a36a;
+
+}
+
+
+.employee-status-inactive {
+
+    background:
+        #f8eeee;
+
+    color:
+        #c96a6a;
+
+}
+
+
+/* ============================================================
+   30. ACTIONS
+   ============================================================ */
+
+.employee-actions {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.employee-action {
+
+    min-width:
+        43px;
+
+    height:
+        27px;
+
+    padding:
+        0
+        7px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
+    border:
+        1px solid;
+
+    border-radius:
+        4px;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        10px;
+
+    font-weight:
+        400;
+
+    text-decoration:
+        none;
+
+    cursor:
+        pointer;
+
+    transition:
+        all 0.18s ease;
+
+}
+
+
+.employee-action:hover {
+
+    text-decoration:
+        none;
+
+}
+
+
+/* ============================================================
+   31. EDIT
+   ============================================================ */
+
+.employee-action-edit {
+
+    background:
+        #f2edf5;
+
+    border-color:
+        #e5d9e4;
+
+    color:
+        #95608d;
+
+}
+
+
+.employee-action-edit:hover {
+
+    background:
+        #95608d;
+
+    border-color:
+        #95608d;
+
+    color:
+        #ffffff;
+
+}
+
+
+/* ============================================================
+   32. DELETE
+   ============================================================ */
+
+.employee-action-delete {
+
+    background:
+        #fff3f3;
+
+    border-color:
+        #f0d2d2;
+
+    color:
+        #d9534f;
+
+}
+
+
+.employee-action-delete:hover {
+
+    background:
+        #d9534f;
+
+    border-color:
+        #d9534f;
+
+    color:
+        #ffffff;
+
+}
+
+
+/* ============================================================
+   33. EMPTY
+   ============================================================ */
+
+.employee-empty {
+
+    min-height:
+        170px;
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
+    background:
+        #ffffff;
+
+}
+
+
+.employee-empty-icon {
+
+    width:
+        50px;
+
+    height:
+        50px;
+
+    margin:
+        0
+        auto
+        10px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        #f7f7f7;
+
+    color:
+        #cccccc;
+
+    font-size:
+        22px;
+
+}
+
+
+.employee-empty h4 {
+
+    margin:
+        0
+        0
+        5px;
+
+    color:
+        #666666;
+
+    font-size:
+        14px;
+
+    font-weight:
+        500;
+
+}
+
+
+.employee-empty p {
+
+    margin:
+        0;
+
+    color:
+        #aaaaaa;
+
+    font-size:
+        11px;
+
+}
+
+
+/* ============================================================
+   34. LOADING
+   ============================================================ */
+
+.employee-loading {
+
+    height:
+        90px;
+
+    padding:
+        20px !important;
+
+    color:
+        #999999 !important;
+
+    font-size:
+        11px !important;
+
+    text-align:
+        center !important;
+
+}
+
+
+/* ============================================================
+   35. MESSAGE
+   ============================================================ */
+
+.employee-message {
+
+    width:
+        calc(100% - 44px);
+
+    margin:
+        15px 22px
+        0;
+
+    padding:
+        10px
+        13px;
+
+    border-radius:
+        4px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.employee-message-error {
+
+    background:
+        #fff5f5;
+
+    border:
+        1px solid
+        #f0cccc;
+
+    color:
+        #a94442;
+
+}
+
+
+.employee-message-success {
+
+    background:
+        #f0f9f3;
+
+    border:
+        1px solid
+        #cfe8d7;
+
+    color:
+        #3c8c5b;
+
+}
+
+
+/* ============================================================
+   36. PAGINATION
+   ============================================================ */
+
+.employee-pagination {
+
+    min-height:
+        65px;
+
+    margin:
+        0;
+
+    padding:
+        18px
+        22px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    background:
+        #ffffff;
+
+    border-top:
+        1px solid
+        #eeeeee;
+
+}
+
+
+.employee-pagination-info {
+
+    color:
+        #999999;
+
+    font-size:
+        11px;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.employee-pagination-info strong {
+
+    color:
+        #666666;
+
+    font-weight:
+        600;
+
+}
+
+
+.employee-pagination-buttons {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+}
+
+
+.employee-page-numbers {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+}
+
+
+/* ============================================================
+   37. PAGINATION BUTTON
+   ============================================================ */
+
+.employee-pagination-button {
+
+    min-width:
+        28px;
+
+    height:
+        28px;
+
+    padding:
+        0
+        8px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        #dddddd;
+
+    border-radius:
+        4px;
+
+    background:
+        #ffffff;
+
+    color:
+        #777777;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+    cursor:
+        pointer;
+
+    transition:
+        all 0.18s ease;
+
+}
+
+
+.employee-pagination-button:hover:not(:disabled) {
+
+    background:
+        #f7f0f7;
+
+    border-color:
+        #d8c8d6;
+
+    color:
+        #95608d;
+
+}
+
+
+.employee-pagination-button:disabled {
+
+    opacity:
+        0.45;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* ============================================================
+   38. ACTIVE PAGE
+   ============================================================ */
+
+.employee-pagination-active {
+
+    background:
+        #95608d !important;
+
+    border-color:
+        #95608d !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+.employee-pagination-active:hover {
+
+    background:
+        #7d526e !important;
+
+    border-color:
+        #7d526e !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+/* ============================================================
+   39. FOOTER
+   ============================================================ */
+
+/*
+ * Footer KHÔNG tự tạo width/margin mới.
+ *
+ * user-page-layout.css chịu trách nhiệm:
+ *
+ * width: calc(100% - 240px)
+ * margin-left: 240px
+ *
+ * để Footer không tràn vào Sidebar.
+ */
+
+body.smcv-app.employee-index-page
+#footer-container {
+
+    position:
+        relative !important;
+
+    z-index:
+        5;
+
+    width:
+        calc(100% - 240px) !important;
+
+    margin-left:
+        240px !important;
+
+    padding:
+        0 !important;
+
+    box-sizing:
+        border-box;
+
+    overflow:
+        hidden;
+
+}
+
+
+/* ============================================================
+   40. FOOTER INNER
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+#footer-container .footer {
+
+    width:
+        100% !important;
+
+    min-height:
+        60px;
+
+    margin:
+        0 !important;
+
+    padding:
+        20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    float:
+        none !important;
+
+    background:
+        #d19a98 !important;
+
+    border:
+        none !important;
+
+    box-sizing:
+        border-box;
+
+}
+
+
+body.smcv-app.employee-index-page
+#footer-container .wthree-footer {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    background:
+        #d19a98 !important;
+
+}
+
+
+body.smcv-app.employee-index-page
+#footer-container .wthree-copyright {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    text-align:
+        center !important;
+
+    background:
+        transparent !important;
+
+}
+
+
+body.smcv-app.employee-index-page
+#footer-container .wthree-copyright p {
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    color:
+        #ffffff !important;
+
+    font-size:
+        11px !important;
+
+    font-weight:
+        400 !important;
+
+    line-height:
+        1.5 !important;
+
+    text-align:
+        center !important;
+
+}
+
+
+/* ============================================================
+   41. SIDEBAR COLLAPSED
+   ============================================================ */
+
+body.smcv-app.employee-index-page
+#main-content.merge-left {
+
+    margin-left:
+        0 !important;
+
+    width:
+        100% !important;
+
+}
+
+
+body.smcv-app.employee-index-page
+#footer-container.merge-left {
+
+    margin-left:
+        0 !important;
+
+    width:
+        100% !important;
+
+}
+
+
+/* ============================================================
+   42. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1199px) {
+
+    body.smcv-app.employee-index-page
+    .employee-index-wrapper {
+
+        padding:
+            80px
+            18px
+            22px;
+
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    body.smcv-app.employee-index-page
+    .employee-index-wrapper {
+
+        padding:
+            70px
+            12px
+            20px;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-index-header {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        padding:
+            16px
+            18px;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-index-total {
+
+        align-self:
+            flex-start;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-search-form {
+
+        grid-template-columns:
+            1fr
+            92px
+            88px;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-search-input {
+
+        grid-column:
+            1 / -1;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    #footer-container {
+
+        width:
+            100% !important;
+
+        margin-left:
+            0 !important;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    body.smcv-app.employee-index-page
+    .employee-index-wrapper {
+
+        padding:
+            65px
+            8px
+            15px;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-index-header {
+
+        padding:
+            15px;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-index-title-content h3 {
+
+        font-size:
+            15px;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-index-search {
+
+        padding:
+            14px
+            15px;
+
+    }
+
+
+    body.smcv-app.employee-index-page
+    .employee-pagination {
+
+        padding:
+            15px;
+
+    }
+
+}

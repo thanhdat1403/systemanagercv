@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Tạo CV - SystemanagerCV</title>
+
+
+    <!-- ============================================================
+         SYSTEM CSS
+         ============================================================ -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+
+    <!-- ============================================================
+         CV CREATE
+         ============================================================ -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/cv-add.css?v=20261006-1"
+    >
+
+</head>
+
+
+<body class="smcv-app cv-add-page">
+
+
+<section id="container">
+
+
+    <!-- ============================================================
+         HEADER
+         ============================================================ -->
+
+    <div id="header-container"></div>
+
+
+    <!-- ============================================================
+         SIDEBAR
+         ============================================================ -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- ============================================================
+         MAIN CONTENT
+         ============================================================ -->
+
+    <section id="main-content">
+
+
+        <section class="cv-add-wrapper">
+
+
+            <!-- =====================================================
+                 PAGE HEADER
+                 ===================================================== -->
+
+            <div class="cv-add-page-header">
+
+                <div class="cv-add-page-title">
+
+                    <div class="cv-add-page-icon">
+                        <i class="fa fa-plus"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="cv-add-kicker">
+                            QUẢN LÝ CV
+                        </div>
+
+                        <h1>
+                            Tạo CV
+                        </h1>
+
+                        <p>
+                            Tạo CV mới cho nhân viên và bắt đầu từ phiên bản Draft.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="./index.html"
+                    class="cv-add-back-button"
+                >
+
+                    <i class="fa fa-arrow-left"></i>
+
+                    <span>
+                        Danh sách CV
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- =====================================================
+                 GLOBAL MESSAGE
+                 ===================================================== -->
+
+            <div
+                id="cv-add-error"
+                class="cv-add-alert cv-add-alert-error"
+                style="display:none;"
+            >
+
+                <i class="fa fa-exclamation-circle"></i>
+
+                <span id="cv-add-error-text"></span>
+
+            </div>
+
+
+            <div
+                id="cv-add-success"
+                class="cv-add-alert cv-add-alert-success"
+                style="display:none;"
+            >
+
+                <i class="fa fa-check-circle"></i>
+
+                <span id="cv-add-success-text"></span>
+
+            </div>
+
+
+            <!-- =====================================================
+                 FORM
+                 ===================================================== -->
+
+            <form
+                id="cv-add-form"
+                autocomplete="off"
+            >
+
+
+                <!-- =================================================
+                     1. EMPLOYEE
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-user"></i>
+
+                            <div>
+
+                                <h2>
+                                    Nhân viên
+                                </h2>
+
+                                <p>
+                                    Chọn nhân viên sở hữu CV.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="cv-add-card-body">
+
+                        <div class="cv-add-field cv-add-field-full">
+
+                            <label for="employeeId">
+
+                                Nhân viên
+
+                                <span class="required">*</span>
+
+                            </label>
+
+
+                            <div class="cv-add-input-wrapper">
+
+                                <i class="fa fa-user cv-add-input-icon"></i>
+
+                                <select
+                                    id="employeeId"
+                                    class="cv-add-control"
+                                >
+
+                                    <option value="">
+                                        -- Đang tải danh sách nhân viên --
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="cv-add-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhân viên chưa có CV mới có thể tạo CV.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     2. PROFILE
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-id-card-o"></i>
+
+                            <div>
+
+                                <h2>
+                                    Hồ sơ
+                                </h2>
+
+                                <p>
+                                    Thông tin tổng quan của CV.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="cv-add-card-body">
+
+
+                        <div class="cv-add-grid-2">
+
+
+                            <div class="cv-add-field">
+
+                                <label for="profile-headline">
+                                    Headline
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="profile-headline"
+                                    class="cv-add-control"
+                                    placeholder="Ví dụ: Backend Developer"
+                                >
+
+                            </div>
+
+
+                            <div class="cv-add-field">
+
+                                <label for="profile-address">
+                                    Địa chỉ
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="profile-address"
+                                    class="cv-add-control"
+                                    placeholder="Ví dụ: Cau Giay, Hanoi, Vietnam"
+                                >
+
+                            </div>
+
+
+                            <div class="cv-add-field">
+
+                                <label for="profile-avatar-url">
+                                    Avatar URL
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="profile-avatar-url"
+                                    class="cv-add-control"
+                                    placeholder="https://..."
+                                >
+
+                            </div>
+
+
+                            <div class="cv-add-field">
+
+                                <label for="profile-career-objective">
+                                    Mục tiêu nghề nghiệp
+                                </label>
+
+                                <textarea
+                                    id="profile-career-objective"
+                                    class="cv-add-control cv-add-textarea"
+                                    rows="4"
+                                    placeholder="Nhập mục tiêu nghề nghiệp..."
+                                ></textarea>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     3. SKILLS
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-star"></i>
+
+                            <div>
+
+                                <h2>
+                                    Kỹ năng
+                                </h2>
+
+                                <p>
+                                    Có thể thêm nhiều kỹ năng.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="cv-add-small-button"
+                            data-add-section="skills"
+                        >
+
+                            <i class="fa fa-plus"></i>
+
+                            Thêm kỹ năng
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="skills-container"
+                        class="cv-repeat-container"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     4. EDUCATION
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-graduation-cap"></i>
+
+                            <div>
+
+                                <h2>
+                                    Học vấn
+                                </h2>
+
+                                <p>
+                                    Có thể thêm nhiều quá trình học tập.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="cv-add-small-button"
+                            data-add-section="educations"
+                        >
+
+                            <i class="fa fa-plus"></i>
+
+                            Thêm học vấn
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="educations-container"
+                        class="cv-repeat-container"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     5. EXPERIENCE
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-briefcase"></i>
+
+                            <div>
+
+                                <h2>
+                                    Kinh nghiệm
+                                </h2>
+
+                                <p>
+                                    Có thể thêm nhiều kinh nghiệm làm việc.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="cv-add-small-button"
+                            data-add-section="experiences"
+                        >
+
+                            <i class="fa fa-plus"></i>
+
+                            Thêm kinh nghiệm
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="experiences-container"
+                        class="cv-repeat-container"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     6. PROJECT
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-cubes"></i>
+
+                            <div>
+
+                                <h2>
+                                    Dự án
+                                </h2>
+
+                                <p>
+                                    Có thể thêm nhiều dự án.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="cv-add-small-button"
+                            data-add-section="projects"
+                        >
+
+                            <i class="fa fa-plus"></i>
+
+                            Thêm dự án
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="projects-container"
+                        class="cv-repeat-container"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     7. CERTIFICATE
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-certificate"></i>
+
+                            <div>
+
+                                <h2>
+                                    Chứng chỉ
+                                </h2>
+
+                                <p>
+                                    Phần này sẽ được nối chính xác sau khi chốt DTO CVCertificateRequest.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="cv-add-card-body">
+
+                        <div class="cv-add-empty-section">
+
+                            <i class="fa fa-info-circle"></i>
+
+                            <span>
+                                Tạm thời chưa nhập chứng chỉ. Request sẽ gửi
+                                <strong>certificates: []</strong>.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     8. LANGUAGE
+                     ================================================= -->
+
+                <section class="cv-add-card">
+
+                    <div class="cv-add-card-header">
+
+                        <div class="cv-add-card-title">
+
+                            <i class="fa fa-language"></i>
+
+                            <div>
+
+                                <h2>
+                                    Ngoại ngữ
+                                </h2>
+
+                                <p>
+                                    Có thể thêm nhiều ngôn ngữ.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="cv-add-small-button"
+                            data-add-section="languages"
+                        >
+
+                            <i class="fa fa-plus"></i>
+
+                            Thêm ngôn ngữ
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="languages-container"
+                        class="cv-repeat-container"
+                    ></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     ACTION
+                     ================================================= -->
+
+                <div class="cv-add-form-actions">
+
+                    <a
+                        href="./index.html"
+                        class="cv-add-button cv-add-button-secondary"
+                    >
+
+                        <i class="fa fa-times"></i>
+
+                        Hủy
+
+                    </a>
+
+
+                    <button
+                        id="cv-create-button"
+                        type="submit"
+                        class="cv-add-button cv-add-button-primary"
+                    >
+
+                        <i class="fa fa-save"></i>
+
+                        <span>
+                            Tạo CV
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+        <!-- =========================================================
+             FOOTER
+             ========================================================= -->
+
+        <div id="footer-container"></div>
+
+
+    </section>
+
+
+</section>
+
+
+<!-- =============================================================
+     JAVASCRIPT
+     ============================================================= -->
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.js"></script>
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="../../assets/js/scripts.js"></script>
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+
+<!-- API -->
+<script src="../../services/api/api.js"></script>
+<script src="../../services/api/employeeApi.js"></script>
+<script src="../../services/api/cvApi.js"></script>
+
+
+<!-- AUTH -->
+<script src="../../services/auth/authApi.js"></script>
+<script src="../../services/auth/auth.js"></script>
+
+
+<!-- PAGE -->
+<script src="./add.js"></script>
+
+</body>
+
+</html>

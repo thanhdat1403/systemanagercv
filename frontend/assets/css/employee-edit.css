@@ -1,0 +1,2131 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   EMPLOYEE EDIT PAGE
+
+   File:
+   assets/css/employee-edit.css
+
+   Phạm vi:
+   /pages/employee/edit.html
+
+   Mục tiêu:
+   - Đồng bộ nền với hệ thống
+   - Header / Sidebar không bị ảnh hưởng
+   - Main Content nằm đúng bên phải Sidebar
+   - Nội dung không dính Header
+   - Form cân đối
+   - Form 2 cột trên Desktop
+   - Card trắng
+   - Khoảng nền gradient phía dưới card
+   - Footer nằm cuối Main Content
+   - Không tràn Sidebar
+   ============================================================ */
+
+
+/* ============================================================
+   1. PAGE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page {
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6a083 0%,
+            #dda0ab 42%,
+            #bf8eb0 68%,
+            #8673ac 100%
+        );
+
+    background-attachment: fixed;
+
+}
+
+
+/* ============================================================
+   2. BOX SIZING
+   ============================================================ */
+
+body.smcv-app.employee-edit-page *,
+body.smcv-app.employee-edit-page *::before,
+body.smcv-app.employee-edit-page *::after {
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   3. APPLICATION CONTAINER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#container {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: transparent !important;
+
+}
+
+
+/* ============================================================
+   4. MAIN CONTENT
+   ============================================================
+
+   Sidebar = 240px
+   Main = phần còn lại
+
+   Footer hiện nằm bên trong #main-content
+   nên Main dùng flex-column.
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#main-content {
+
+    position: relative;
+
+    width:
+        calc(100% - 240px) !important;
+
+    min-width: 0;
+
+    min-height: 100vh !important;
+
+    margin-left:
+        240px !important;
+
+    margin-right: 0;
+
+    padding: 0;
+
+    display: flex !important;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    background:
+        transparent !important;
+
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+
+    overflow-y: visible;
+
+    transition:
+        width 0.25s ease,
+        margin-left 0.25s ease;
+
+}
+
+
+/* ============================================================
+   5. WRAPPER
+   ============================================================
+
+   Không để nội dung dính Header.
+
+   Có khoảng cách:
+   Header
+      ↓
+   20px
+      ↓
+   Card
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#main-content >
+.employee-edit-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin-top:
+        80px !important;
+
+    margin-right: 0;
+
+    margin-bottom: 0;
+
+    margin-left: 0;
+
+    padding:
+        20px
+        24px
+        45px;
+
+    flex: 1 0 auto;
+
+    background:
+        transparent;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   6. CARD
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-card {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: #ffffff;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius:
+        8px;
+
+    box-shadow:
+        0 5px 22px
+        rgba(31, 41, 55, 0.08);
+
+    overflow: hidden;
+
+}
+
+
+/* ============================================================
+   7. CARD HEADER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-header {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 76px;
+
+    margin: 0;
+
+    padding:
+        17px
+        24px;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+        #ffffff;
+
+    border-bottom:
+        1px solid #eeeeee;
+
+}
+
+
+/* ============================================================
+   8. HEADER LEFT
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-header-left {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+/* ============================================================
+   9. HEADER ICON
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-header-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex:
+        0 0 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius:
+        7px;
+
+    background:
+        #f4edf5;
+
+    border:
+        none;
+
+    color:
+        #95608d;
+
+    font-size:
+        16px;
+
+    box-shadow:
+        none;
+
+}
+
+
+/* ============================================================
+   10. HEADER CONTENT
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-header-content {
+
+    min-width: 0;
+
+    flex: 1 1 auto;
+
+}
+
+
+/* ============================================================
+   11. TITLE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-title {
+
+    margin: 0;
+
+    padding: 0;
+
+    color:
+        #333333;
+
+    font-size:
+        18px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.35;
+
+}
+
+
+/* ============================================================
+   12. SUBTITLE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-subtitle {
+
+    margin:
+        3px
+        0
+        0;
+
+    padding: 0;
+
+    color:
+        #999999;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   13. BODY
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-body {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding:
+        24px
+        28px
+        26px;
+
+    background:
+        #ffffff;
+
+}
+
+
+/* ============================================================
+   14. MESSAGE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-message {
+
+    display: none;
+
+    align-items: center;
+
+    width: 100%;
+
+    min-height:
+        44px;
+
+    margin:
+        0
+        0
+        18px;
+
+    padding:
+        10px
+        13px;
+
+    border-radius:
+        5px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ============================================================
+   15. ERROR
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-message.error {
+
+    background:
+        #fff5f5;
+
+    border:
+        1px solid #f0cccc;
+
+    color:
+        #a94442;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-message.error i {
+
+    margin-right:
+        8px;
+
+    font-size:
+        13px;
+
+}
+
+
+/* ============================================================
+   16. SUCCESS
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-message.success {
+
+    background:
+        #f1faf4;
+
+    border:
+        1px solid #cbe8d5;
+
+    color:
+        #39764c;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-message.success i {
+
+    margin-right:
+        8px;
+
+    font-size:
+        13px;
+
+}
+
+
+/* ============================================================
+   17. FORM
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-form {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+/* ============================================================
+   18. FORM SECTION
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-section {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+/* ============================================================
+   19. SECTION HEADING
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-section-heading {
+
+    width: 100%;
+
+    margin:
+        0
+        0
+        18px;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+/* ============================================================
+   20. SECTION ICON
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-section-icon {
+
+    width: 34px;
+
+    height: 34px;
+
+    flex:
+        0 0 34px;
+
+    margin-right:
+        10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius:
+        7px;
+
+    background:
+        #f5edf5;
+
+    border:
+        1px solid #eee0ed;
+
+    color:
+        #95608d;
+
+    font-size:
+        13px;
+
+}
+
+
+/* ============================================================
+   21. SECTION TITLE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-section-heading h4 {
+
+    margin:
+        0
+        0
+        2px;
+
+    padding: 0;
+
+    color:
+        #444444;
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.4;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-section-heading p {
+
+    margin: 0;
+
+    padding: 0;
+
+    color:
+        #a0a0a0;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   22. FORM GRID
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    column-gap:
+        22px;
+
+    row-gap:
+        0;
+
+}
+
+
+/* ============================================================
+   23. FIELD
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-field {
+
+    min-width: 0;
+
+    margin:
+        0
+        0
+        16px;
+
+    padding: 0;
+
+}
+
+
+/* ============================================================
+   24. LABEL
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-field > label {
+
+    display: block;
+
+    margin:
+        0
+        0
+        6px;
+
+    padding: 0;
+
+    color:
+        #444444;
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   25. REQUIRED
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.required-mark {
+
+    margin-left:
+        2px;
+
+    color:
+        #d36f6c;
+
+    font-weight:
+        600;
+
+}
+
+
+/* ============================================================
+   26. INPUT WRAPPER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.form-input-wrapper {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+}
+
+
+/* ============================================================
+   27. INPUT ICON
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.form-input-icon {
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        0;
+
+    z-index:
+        2;
+
+    width:
+        40px;
+
+    height:
+        38px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        #aaaaaa;
+
+    font-size:
+        12px;
+
+    pointer-events:
+        none;
+
+}
+
+
+/* ============================================================
+   28. INPUT / SELECT
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-control {
+
+    width:
+        100%;
+
+    height:
+        38px;
+
+    margin:
+        0;
+
+    padding:
+        8px
+        11px
+        8px
+        40px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius:
+        4px;
+
+    background:
+        #ffffff;
+
+    color:
+        #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+    line-height:
+        20px;
+
+    outline:
+        none;
+
+    box-shadow:
+        none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+
+}
+
+
+/* ============================================================
+   29. PLACEHOLDER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-control::placeholder {
+
+    color:
+        #aaaaaa;
+
+    opacity:
+        1;
+
+}
+
+
+/* ============================================================
+   30. HOVER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-control:hover {
+
+    border-color:
+        #cccccc;
+
+}
+
+
+/* ============================================================
+   31. FOCUS
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-control:focus {
+
+    border-color:
+        #95608d;
+
+    background:
+        #ffffff;
+
+    outline:
+        none;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(149, 96, 141, 0.08);
+
+}
+
+
+/* ============================================================
+   32. SELECT
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+select.employee-edit-control {
+
+    cursor:
+        pointer;
+
+    padding-right:
+        32px;
+
+}
+
+
+/* ============================================================
+   33. DATE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+input[type="date"].employee-edit-control {
+
+    padding-right:
+        11px;
+
+}
+
+
+/* ============================================================
+   34. DISABLED
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-control:disabled {
+
+    background:
+        #f7f7f7;
+
+    color:
+        #999999;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* ============================================================
+   35. HELP
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.form-help {
+
+    margin:
+        5px
+        0
+        0;
+
+    color:
+        #a2a2a2;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   36. DIVIDER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-divider {
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    margin:
+        5px
+        0
+        20px;
+
+    background:
+        #eeeeee;
+
+    border:
+        none;
+
+}
+
+
+/* ============================================================
+   37. AUDIT
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-audit-info {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        17px;
+
+    background:
+        #fafafa;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius:
+        7px;
+
+}
+
+
+/* ============================================================
+   38. AUDIT HEADING
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-audit-heading
+.employee-edit-section-heading {
+
+    margin:
+        0
+        0
+        13px;
+
+}
+
+
+/* ============================================================
+   39. AUDIT GRID
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-audit-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        12px;
+
+}
+
+
+/* ============================================================
+   40. AUDIT ITEM
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-audit-item {
+
+    min-width:
+        0;
+
+    padding:
+        11px
+        13px;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius:
+        5px;
+
+}
+
+
+/* ============================================================
+   41. AUDIT LABEL
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-audit-label {
+
+    display:
+        block;
+
+    margin:
+        0
+        0
+        5px;
+
+    color:
+        #999999;
+
+    font-size:
+        9px;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.3px;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-audit-label i {
+
+    margin-right:
+        4px;
+
+}
+
+
+/* ============================================================
+   42. AUDIT VALUE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-audit-item strong {
+
+    display:
+        block;
+
+    color:
+        #555555;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+    line-height:
+        1.5;
+
+    word-break:
+        break-word;
+
+}
+
+
+/* ============================================================
+   43. FORM FOOTER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-form-footer {
+
+    width:
+        100%;
+
+    min-height:
+        68px;
+
+    margin:
+        22px
+        -28px
+        0;
+
+    padding:
+        14px
+        28px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    background:
+        #fcfcfc;
+
+    border-top:
+        1px solid #eeeeee;
+
+}
+
+
+/* ============================================================
+   44. FOOTER NOTE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-footer-note {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+
+    color:
+        #999999;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-footer-note i {
+
+    color:
+        #95608d;
+
+    font-size:
+        11px;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-footer-note b {
+
+    color:
+        #d36f6c;
+
+}
+
+
+/* ============================================================
+   45. ACTIONS
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-actions {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        flex-end;
+
+    gap:
+        7px;
+
+    flex-shrink:
+        0;
+
+}
+
+
+/* ============================================================
+   46. BUTTON BASE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn {
+
+    min-width:
+        92px;
+
+    height:
+        34px;
+
+    padding:
+        7px
+        13px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    border-radius:
+        4px;
+
+    border:
+        1px solid transparent;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+    line-height:
+        18px;
+
+    text-align:
+        center;
+
+    text-decoration:
+        none;
+
+    cursor:
+        pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn i {
+
+    margin-right:
+        1px;
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn:hover {
+
+    text-decoration:
+        none;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn:active {
+
+    transform:
+        translateY(1px);
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn:disabled {
+
+    opacity:
+        0.65;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+
+}
+
+
+/* ============================================================
+   47. BACK
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-back {
+
+    background:
+        #ffffff;
+
+    border-color:
+        #dddddd;
+
+    color:
+        #666666;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-back:hover {
+
+    background:
+        #f7f7f7;
+
+    border-color:
+        #cccccc;
+
+    color:
+        #555555;
+
+}
+
+
+/* ============================================================
+   48. RESET
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-reset {
+
+    background:
+        #ffffff;
+
+    border-color:
+        #dddddd;
+
+    color:
+        #666666;
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-reset:hover,
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-reset:focus {
+
+    background:
+        #f7f1f7;
+
+    border-color:
+        #95608d;
+
+    color:
+        #95608d;
+
+    outline:
+        none;
+
+}
+
+
+/* ============================================================
+   49. SAVE
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-save {
+
+    background:
+        #95608d;
+
+    border-color:
+        #95608d;
+
+    color:
+        #ffffff;
+
+    box-shadow:
+        0 3px 8px
+        rgba(149, 96, 141, 0.16);
+
+}
+
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-save:hover,
+
+body.smcv-app.employee-edit-page
+.employee-edit-btn-save:focus {
+
+    background:
+        #7d526e;
+
+    border-color:
+        #7d526e;
+
+    color:
+        #ffffff;
+
+    outline:
+        none;
+
+    box-shadow:
+        0 4px 10px
+        rgba(149, 96, 141, 0.22);
+
+}
+
+
+/* ============================================================
+   50. REAL FOOTER CONTAINER
+   ============================================================
+
+   Footer của edit.html nằm trực tiếp trong
+   #main-content, sau wrapper.
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#main-content >
+#footer-container {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    height:
+        auto !important;
+
+    min-height:
+        60px !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    display:
+        block !important;
+
+    flex:
+        0 0 auto !important;
+
+    float:
+        none !important;
+
+    clear:
+        both !important;
+
+    background:
+        transparent !important;
+
+    box-sizing:
+        border-box !important;
+
+    overflow:
+        hidden !important;
+
+}
+
+
+/* ============================================================
+   51. FOOTER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#main-content >
+#footer-container .footer {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    min-height:
+        60px !important;
+
+    height:
+        auto !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    float:
+        none !important;
+
+    clear:
+        both !important;
+
+    background:
+        #d19a98 !important;
+
+    background-color:
+        #d19a98 !important;
+
+    border:
+        none !important;
+
+    box-sizing:
+        border-box !important;
+
+}
+
+
+/* ============================================================
+   52. FOOTER INNER
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#main-content >
+#footer-container .wthree-footer {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    background:
+        transparent !important;
+
+}
+
+
+/* ============================================================
+   53. FOOTER COPYRIGHT
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#main-content >
+#footer-container .wthree-copyright {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    text-align:
+        center !important;
+
+    background:
+        transparent !important;
+
+}
+
+
+body.smcv-app.employee-edit-page
+#main-content >
+#footer-container .wthree-copyright p {
+
+    display:
+        block !important;
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    color:
+        #ffffff !important;
+
+    font-size:
+        11px !important;
+
+    font-weight:
+        400 !important;
+
+    line-height:
+        1.5 !important;
+
+    letter-spacing:
+        0 !important;
+
+    text-align:
+        center !important;
+
+}
+
+
+/* ============================================================
+   54. SIDEBAR COLLAPSED
+   ============================================================ */
+
+body.smcv-app.employee-edit-page
+#main-content.merge-left {
+
+    width:
+        100% !important;
+
+    margin-left:
+        0 !important;
+
+}
+
+
+body.smcv-app.employee-edit-page
+#sidebar-container.hide-left-bar
+~ #main-content {
+
+    width:
+        100% !important;
+
+    margin-left:
+        0 !important;
+
+}
+
+
+/* ============================================================
+   55. TABLET
+   ============================================================ */
+
+@media (max-width: 1199px) {
+
+    body.smcv-app.employee-edit-page
+    #main-content >
+    .employee-edit-wrapper {
+
+        padding:
+            18px
+            20px
+            40px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-body {
+
+        padding:
+            22px
+            24px
+            24px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-form-footer {
+
+        margin-left:
+            -24px;
+
+        margin-right:
+            -24px;
+
+        padding-left:
+            24px;
+
+        padding-right:
+            24px;
+
+    }
+
+}
+
+
+/* ============================================================
+   56. MOBILE
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    body.smcv-app.employee-edit-page
+    #main-content {
+
+        width:
+            100% !important;
+
+        margin-left:
+            0 !important;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    #main-content >
+    .employee-edit-wrapper {
+
+        margin-top:
+            70px !important;
+
+        padding:
+            15px
+            15px
+            35px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-grid {
+
+        grid-template-columns:
+            1fr;
+
+        column-gap:
+            0;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-audit-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-form-footer {
+
+        margin-left:
+            -24px;
+
+        margin-right:
+            -24px;
+
+        padding-left:
+            24px;
+
+        padding-right:
+            24px;
+
+    }
+
+}
+
+
+/* ============================================================
+   57. SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.employee-edit-page
+    #main-content >
+    .employee-edit-wrapper {
+
+        margin-top:
+            65px !important;
+
+        padding:
+            12px
+            10px
+            30px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-card {
+
+        border-radius:
+            7px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-header {
+
+        min-height:
+            auto;
+
+        padding:
+            15px
+            16px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-header-icon {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+        flex-basis:
+            38px;
+
+        font-size:
+            15px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-title {
+
+        font-size:
+            16px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-subtitle {
+
+        font-size:
+            10px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-body {
+
+        padding:
+            18px
+            16px
+            20px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-section-heading {
+
+        margin-bottom:
+            15px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-form-footer {
+
+        min-height:
+            auto;
+
+        margin:
+            18px
+            -16px
+            0;
+
+        padding:
+            14px
+            16px;
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-footer-note {
+
+        justify-content:
+            center;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-actions {
+
+        width:
+            100%;
+
+        justify-content:
+            stretch;
+
+        flex-wrap:
+            wrap;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-btn {
+
+        flex:
+            1 1 0;
+
+        min-width:
+            0;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    #main-content >
+    #footer-container .footer {
+
+        min-height:
+            56px !important;
+
+        padding:
+            17px
+            10px !important;
+
+    }
+
+}
+
+
+/* ============================================================
+   58. VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-header-left {
+
+        gap:
+            10px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-section-heading {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-section-icon {
+
+        width:
+            32px;
+
+        height:
+            32px;
+
+        flex-basis:
+            32px;
+
+        font-size:
+            13px;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-actions {
+
+        flex-direction:
+            column;
+
+        width:
+            100%;
+
+    }
+
+
+    body.smcv-app.employee-edit-page
+    .employee-edit-btn {
+
+        width:
+            100%;
+
+        flex:
+            none;
+
+    }
+
+}
+
+
+/* ============================================================
+   END EMPLOYEE EDIT CSS
+   ============================================================ */

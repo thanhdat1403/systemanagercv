@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CV - SystemanagerCV</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+
+    <!-- =====================================================
+         SYSTEM CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+
+    <!-- =====================================================
+         KHÔNG LOAD DASHBOARD CSS
+         CV LIST CÓ LAYOUT RIÊNG
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/cv-index.css?v=20261006-layout-final"
+    >
+
+
+    <!-- =====================================================
+         FONT
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+
+    <!-- =====================================================
+         JQUERY
+         ===================================================== -->
+
+    <script
+        src="../../assets/js/jquery.min.js"
+    ></script>
+
+</head>
+
+
+<body class="smcv-app cv-index-page">
+
+
+<section id="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <section id="main-content">
+
+
+        <section class="cv-index-wrapper">
+
+
+            <div class="cv-index-container">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                     ================================================= -->
+
+                <header class="cv-index-header">
+
+
+                    <!-- =================================================
+                         HEADER LEFT
+                         ================================================= -->
+
+                    <div class="cv-index-header-left">
+
+
+                        <div class="cv-index-title-icon">
+
+                            <i class="fa fa-file-text-o"></i>
+
+                        </div>
+
+
+                        <div
+                            class="cv-index-title-content"
+                        >
+
+                            <span
+                                class="cv-index-eyebrow"
+                                id="cv-page-eyebrow"
+                            >
+                                QUẢN LÝ HỒ SƠ CV
+                            </span>
+
+
+                            <h1
+                                id="cv-page-title"
+                            >
+                                Danh sách CV
+                            </h1>
+
+
+                            <p
+                                id="cv-page-description"
+                            >
+                                Quản lý, tìm kiếm và xem
+                                hồ sơ CV nhân viên.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         HEADER RIGHT
+                         PHẠM VI / TỔNG SỐ
+                         ================================================= -->
+
+                    <div class="cv-index-header-right">
+
+
+                        <div
+                            class="cv-role-scope"
+                        >
+
+                            <span>
+                                Phạm vi
+                            </span>
+
+
+                            <strong
+                                id="cv-scope-label"
+                            >
+                                Toàn hệ thống
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="cv-index-total"
+                        >
+
+                            <span>
+                                Tổng số
+                            </span>
+
+
+                            <strong
+                                id="cv-total"
+                            >
+                                0
+                            </strong>
+
+
+                            <small>
+                                CV
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+                </header>
+
+
+                <!-- =================================================
+                     ROLE NOTICE
+                     ================================================= -->
+
+                <div
+                    id="cv-role-notice"
+                    class="cv-role-notice"
+                >
+
+
+                    <div
+                        class="cv-role-notice-icon"
+                    >
+
+                        <i class="fa fa-info"></i>
+
+                    </div>
+
+
+                    <div
+                        class="cv-role-notice-content"
+                    >
+
+                        <strong
+                            id="cv-role-notice-title"
+                        >
+                            Quyền xem CV
+                        </strong>
+
+
+                        <p
+                            id="cv-role-notice-description"
+                        >
+                            Danh sách CV được giới hạn
+                            theo quyền truy cập của tài khoản.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     ERROR
+                     ================================================= -->
+
+                <div
+                    id="cv-error"
+                    class="cv-message cv-message-error"
+                    style="display: none;"
+                >
+
+                    <i
+                        class="fa fa-exclamation-circle"
+                    ></i>
+
+
+                    <span
+                        id="cv-error-text"
+                    >
+                        Có lỗi xảy ra.
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     SUCCESS
+                     ================================================= -->
+
+                <div
+                    id="cv-success"
+                    class="cv-message cv-message-success"
+                    style="display: none;"
+                >
+
+                    <i
+                        class="fa fa-check-circle"
+                    ></i>
+
+
+                    <span
+                        id="cv-success-text"
+                    >
+                        Thành công.
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     CONTENT
+                     ================================================= -->
+
+                <div
+                    class="cv-index-content"
+                >
+
+
+                    <!-- =================================================
+                         SEARCH AREA
+                         ================================================= -->
+
+                    <section
+                        class="cv-search-card"
+                    >
+
+
+                        <div
+                            class="cv-search-heading"
+                        >
+
+                            <span
+                                class="cv-search-eyebrow"
+                            >
+                                TÌM KIẾM
+                            </span>
+
+
+                            <h2>
+                                Tra cứu hồ sơ CV
+                            </h2>
+
+
+                            <p
+                                id="cv-search-description"
+                            >
+                                Tìm theo mã nhân viên,
+                                tên nhân viên hoặc trạng thái.
+                            </p>
+
+                        </div>
+
+
+                        <form
+                            id="cv-search-form"
+                            class="cv-search-form"
+                        >
+
+
+                            <div
+                                class="cv-search-input"
+                            >
+
+                                <i
+                                    class="fa fa-search"
+                                ></i>
+
+
+                                <input
+                                    type="text"
+                                    id="cv-keyword"
+                                    name="keyword"
+                                    placeholder="Mã nhân viên hoặc tên nhân viên..."
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="cv-status-filter"
+                            >
+
+                                <select
+                                    id="cv-status"
+                                    name="status"
+                                >
+
+                                    <option value="">
+                                        Tất cả trạng thái
+                                    </option>
+
+                                    <option value="UPDATED">
+                                        Đã cập nhật
+                                    </option>
+
+                                    <option value="NOT_UPDATED">
+                                        Chưa cập nhật
+                                    </option>
+
+                                    <option value="REQUEST_CANCELLED">
+                                        Hủy yêu cầu
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="cv-btn cv-btn-search"
+                            >
+
+                                <i
+                                    class="fa fa-search"
+                                ></i>
+
+                                <span>
+                                    Tìm kiếm
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="cv-refresh"
+                                class="cv-btn cv-btn-refresh"
+                            >
+
+                                <i
+                                    class="fa fa-refresh"
+                                ></i>
+
+                                <span>
+                                    Làm mới
+                                </span>
+
+                            </button>
+
+
+                        </form>
+
+
+                    </section>
+
+
+                    <!-- =================================================
+                         TABLE CARD
+                         ================================================= -->
+
+                    <section
+                        class="cv-table-card"
+                    >
+
+
+                        <div
+                            class="cv-table-header"
+                        >
+
+
+                            <div>
+
+                                <span
+                                    class="cv-table-eyebrow"
+                                >
+                                    HỒ SƠ
+                                </span>
+
+
+                                <h2
+                                    id="cv-table-title"
+                                >
+                                    Danh sách CV
+                                </h2>
+
+                            </div>
+
+
+                            <div
+                                id="cv-action-summary"
+                                class="cv-action-summary"
+                            >
+
+                                <i
+                                    class="fa fa-shield"
+                                ></i>
+
+                                <span>
+                                    Quyền truy cập được kiểm soát bởi hệ thống.
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             TABLE
+                             ================================================= -->
+
+                        <div
+                            class="cv-table-wrapper"
+                        >
+
+
+                            <table
+                                class="cv-table"
+                            >
+
+
+                                <colgroup>
+
+                                    <col
+                                        class="cv-col-stt"
+                                    >
+
+                                    <col
+                                        class="cv-col-code"
+                                    >
+
+                                    <col
+                                        class="cv-col-name"
+                                    >
+
+                                    <col
+                                        class="cv-col-department"
+                                    >
+
+                                    <col
+                                        class="cv-col-status"
+                                    >
+
+                                    <col
+                                        class="cv-col-version"
+                                    >
+
+                                    <col
+                                        class="cv-col-action"
+                                    >
+
+                                </colgroup>
+
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            STT
+                                        </th>
+
+                                        <th>
+                                            Mã NV
+                                        </th>
+
+                                        <th>
+                                            Họ và tên
+                                        </th>
+
+                                        <th>
+                                            Phòng ban
+                                        </th>
+
+                                        <th>
+                                            Trạng thái CV
+                                        </th>
+
+                                        <th>
+                                            Version chính thức
+                                        </th>
+
+                                        <th>
+                                            Thao tác
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody
+                                    id="cv-table-body"
+                                >
+
+                                    <tr>
+
+                                        <td
+                                            colspan="7"
+                                            class="cv-loading"
+                                        >
+
+                                            <i
+                                                class="fa fa-spinner fa-spin"
+                                            ></i>
+
+                                            Đang tải dữ liệu CV...
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+
+                            </table>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             EMPTY STATE
+                             ================================================= -->
+
+                        <div
+                            id="cv-empty"
+                            class="cv-empty"
+                            style="display: none;"
+                        >
+
+
+                            <div
+                                class="cv-empty-icon"
+                            >
+
+                                <i
+                                    class="fa fa-folder-open-o"
+                                ></i>
+
+                            </div>
+
+
+                            <h3
+                                id="cv-empty-title"
+                            >
+                                Không tìm thấy CV
+                            </h3>
+
+
+                            <p
+                                id="cv-empty-description"
+                            >
+                                Không có CV nào phù hợp
+                                với điều kiện tìm kiếm.
+                            </p>
+
+
+                            <a
+                                id="cv-empty-create"
+                                class="cv-btn cv-btn-primary"
+                                href="./add.html"
+                                style="display: none;"
+                            >
+
+                                <i
+                                    class="fa fa-plus"
+                                ></i>
+
+                                <span>
+                                    Tạo CV
+                                </span>
+
+                            </a>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             PAGINATION
+                             ================================================= -->
+
+                        <div
+                            class="cv-pagination"
+                        >
+
+
+                            <div
+                                class="cv-pagination-info"
+                            >
+
+                                Trang
+
+                                <strong
+                                    id="cv-current-page"
+                                >
+                                    1
+                                </strong>
+
+                                /
+
+                                <strong
+                                    id="cv-total-pages"
+                                >
+                                    1
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="cv-pagination-controls"
+                            >
+
+
+                                <button
+                                    type="button"
+                                    id="cv-prev"
+                                    class="cv-pagination-button"
+                                >
+
+                                    <i
+                                        class="fa fa-angle-left"
+                                    ></i>
+
+                                </button>
+
+
+                                <div
+                                    id="cv-page-numbers"
+                                    class="cv-page-numbers"
+                                ></div>
+
+
+                                <button
+                                    type="button"
+                                    id="cv-next"
+                                    class="cv-pagination-button"
+                                >
+
+                                    <i
+                                        class="fa fa-angle-right"
+                                    ></i>
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </section>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+             Quan trọng: Footer nằm bên trong #main-content.
+             ===================================================== -->
+
+        <footer
+            id="footer-container"
+        ></footer>
+
+
+    </section>
+
+
+</section>
+
+
+<!-- =========================================================
+     JAVASCRIPT LIBRARIES
+     ========================================================= -->
+
+<!-- JQUERY -->
+<script
+    src="../../assets/js/jquery.min.js"
+></script>
+
+
+<!-- BOOTSTRAP -->
+<script
+    src="../../assets/js/bootstrap.js"
+></script>
+
+
+<!-- SIDEBAR PLUGINS -->
+
+<script
+    src="../../assets/js/jquery.dcjqaccordion.2.7.js"
+></script>
+
+<script
+    src="../../assets/js/jquery.slimscroll.js"
+></script>
+
+<script
+    src="../../assets/js/jquery.nicescroll.js"
+></script>
+
+<script
+    src="../../assets/js/jquery.scrollTo.js"
+></script>
+
+
+<!-- SYSTEM SCRIPT -->
+<script
+    src="../../assets/js/scripts.js"
+></script>
+
+
+<!-- =========================================================
+     API
+     ========================================================= -->
+
+<script
+    src="../../services/api/api.js"
+></script>
+
+<script
+    src="../../services/api/cvApi.js"
+></script>
+
+
+<!-- =========================================================
+     AUTH
+     ========================================================= -->
+
+<script
+    src="../../services/auth/authApi.js"
+></script>
+
+<script
+    src="../../services/auth/auth.js"
+></script>
+
+
+<!-- =========================================================
+     CV PAGE
+     ========================================================= -->
+
+<script
+    src="./index.js?v=20261006-role-based-02"
+></script>
+</body>
+
+</html>

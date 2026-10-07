@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - SystemanagerCV</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+
+    <!-- =====================================================
+         SYSTEM CSS
+         Dùng cho Header / Sidebar / Common Component
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+
+    <!-- =====================================================
+         DASHBOARD CSS RIÊNG
+         Không dùng systemanagercv-dashboard.css
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/dashboard-page.css?v=20261006-final-01"
+    >
+
+
+    <!-- =====================================================
+         FONT
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+
+    <!-- =====================================================
+         JQUERY
+         ===================================================== -->
+
+    <script
+        src="../../assets/js/jquery.min.js">
+    </script>
+
+</head>
+
+
+<body class="smcv-app dashboard-page-v2">
+
+
+<section id="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <section id="main-content">
+
+
+        <div class="smcv-dashboard-page">
+
+
+            <!-- =================================================
+                 WELCOME HERO
+                 ================================================= -->
+
+            <section class="smcv-dashboard-welcome">
+
+
+                <div class="smcv-dashboard-welcome-left">
+
+
+                    <div class="smcv-dashboard-welcome-icon">
+
+                        <i class="fa fa-dashboard"></i>
+
+                    </div>
+
+
+                    <div class="smcv-dashboard-welcome-copy">
+
+                        <span class="smcv-dashboard-eyebrow">
+                            SYSTEMANAGERCV
+                        </span>
+
+
+                        <h1 class="smcv-dashboard-welcome-title">
+
+                            Xin chào,
+                            <span id="dashboard-username">
+                                User
+                            </span>
+
+                        </h1>
+
+
+                        <p
+                            id="dashboard-welcome-description"
+                            class="smcv-dashboard-welcome-description"
+                        >
+                            Chào mừng bạn quay trở lại hệ thống quản lý CV.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div
+                    id="dashboard-role-container"
+                    class="smcv-dashboard-role"
+                >
+
+                    <span
+                        id="dashboard-role-admin"
+                        class="smcv-dashboard-role-badge role-admin"
+                        style="display:none;"
+                    >
+                        <i class="fa fa-shield"></i>
+                        ADMIN
+                    </span>
+
+
+                    <span
+                        id="dashboard-role-hr"
+                        class="smcv-dashboard-role-badge role-hr"
+                        style="display:none;"
+                    >
+                        <i class="fa fa-users"></i>
+                        HR
+                    </span>
+
+
+                    <span
+                        id="dashboard-role-tech"
+                        class="smcv-dashboard-role-badge role-tech"
+                        style="display:none;"
+                    >
+                        <i class="fa fa-code"></i>
+                        TECH LEAD
+                    </span>
+
+
+                    <span
+                        id="dashboard-role-employee"
+                        class="smcv-dashboard-role-badge role-employee"
+                        style="display:none;"
+                    >
+                        <i class="fa fa-user"></i>
+                        EMPLOYEE
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ROLE SUMMARY
+                 ================================================= -->
+
+            <section class="smcv-dashboard-role-summary">
+
+                <div class="smcv-dashboard-role-summary-icon">
+                    <i class="fa fa-info-circle"></i>
+                </div>
+
+
+                <div>
+
+                    <span class="smcv-dashboard-role-summary-label">
+                        VAI TRÒ HIỆN TẠI
+                    </span>
+
+
+                    <strong id="dashboard-role-summary-title">
+                        Người dùng
+                    </strong>
+
+
+                    <p id="dashboard-role-summary-description">
+                        Các chức năng hiển thị được giới hạn
+                        theo quyền truy cập của tài khoản.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ROLE DASHBOARD
+                 ================================================= -->
+
+            <section
+                id="dashboard-role-content"
+                class="smcv-role-dashboard"
+            >
+
+
+                <!-- =================================================
+                     ADMIN
+                     ================================================= -->
+
+                <div
+                    id="dashboard-role-admin-content"
+                    class="dashboard-role-panel"
+                    data-dashboard-role="ADMIN"
+                    style="display:none;"
+                >
+
+                    <div class="smcv-dashboard-section-header">
+
+                        <div>
+
+                            <span class="smcv-dashboard-section-eyebrow">
+                                ADMIN
+                            </span>
+
+                            <h2>
+                                Quản trị hệ thống
+                            </h2>
+
+                            <p>
+                                Theo dõi User, phòng ban, nhân viên
+                                và tình trạng hồ sơ CV trên toàn hệ thống.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- QUICK NAV -->
+
+                    <div class="smcv-dashboard-quick-nav">
+
+                        <div class="smcv-dashboard-quick-heading">
+
+                            <span class="smcv-dashboard-quick-eyebrow">
+                                TRUY CẬP NHANH
+                            </span>
+
+                            <h3>
+                                Chức năng quản trị
+                            </h3>
+
+                            <p>
+                                Đi thẳng tới khu vực quản trị thường xuyên sử dụng.
+                            </p>
+
+                        </div>
+
+
+                        <div class="smcv-dashboard-quick-grid">
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../user/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-admin">
+                                    <i class="fa fa-users"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Quản lý User</strong>
+                                    <small>Danh sách và tài khoản</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../employee/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-success">
+                                    <i class="fa fa-user"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Nhân viên</strong>
+                                    <small>Danh sách nhân viên</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../department/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-warning">
+                                    <i class="fa fa-building"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Phòng ban</strong>
+                                    <small>Danh mục phòng ban</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../cv/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-primary">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Quản lý CV</strong>
+                                    <small>Danh sách hồ sơ</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATISTICS -->
+
+                    <div class="smcv-role-card-grid admin-grid">
+
+
+                        <a
+                            href="../user/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-admin">
+                                <i class="fa fa-users"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>QUẢN TRỊ</span>
+
+                                <h3>Người dùng</h3>
+
+                                <strong id="dashboard-admin-user-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    Tổng số User trong hệ thống.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../employee/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-success">
+                                <i class="fa fa-user"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>NHÂN SỰ</span>
+
+                                <h3>Nhân viên</h3>
+
+                                <strong id="dashboard-admin-employee-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    Tổng số nhân viên.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../department/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-warning">
+                                <i class="fa fa-building"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>TỔ CHỨC</span>
+
+                                <h3>Phòng ban</h3>
+
+                                <strong id="dashboard-admin-department-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    Tổng số phòng ban.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-primary">
+                                <i class="fa fa-file-text-o"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>HỒ SƠ</span>
+
+                                <h3>CV</h3>
+
+                                <strong id="dashboard-admin-cv-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    Tổng số CV.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ALERT -->
+
+                    <div class="smcv-role-alert">
+
+                        <div class="smcv-role-alert-icon">
+                            <i class="fa fa-bell"></i>
+                        </div>
+
+
+                        <div class="smcv-role-alert-content">
+
+                            <span>CẢNH BÁO</span>
+
+                            <h3>
+                                Nhân viên mới chưa có CV
+                            </h3>
+
+                            <p id="dashboard-admin-no-cv-count">
+                                -- nhân viên cần được HR xử lý.
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="../notification/index.html"
+                            class="smcv-role-alert-action"
+                        >
+                            Xem thông báo
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     HR
+                     ================================================= -->
+
+                <div
+                    id="dashboard-role-hr-content"
+                    class="dashboard-role-panel"
+                    data-dashboard-role="HR"
+                    style="display:none;"
+                >
+
+                    <div class="smcv-dashboard-section-header">
+
+                        <div>
+
+                            <span class="smcv-dashboard-section-eyebrow">
+                                HR
+                            </span>
+
+                            <h2>
+                                Quản lý nhân sự và CV
+                            </h2>
+
+                            <p>
+                                Theo dõi nhân viên, yêu cầu cập nhật
+                                và trạng thái kiểm duyệt.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="smcv-dashboard-quick-nav">
+
+                        <div class="smcv-dashboard-quick-heading">
+
+                            <span class="smcv-dashboard-quick-eyebrow">
+                                TRUY CẬP NHANH
+                            </span>
+
+                            <h3>
+                                Điều hướng nghiệp vụ HR
+                            </h3>
+
+                            <p>
+                                Các khu vực HR thường xuyên thao tác
+                                trong quy trình CV.
+                            </p>
+
+                        </div>
+
+
+                        <div class="smcv-dashboard-quick-grid">
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../employee/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-success">
+                                    <i class="fa fa-user"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Quản lý nhân viên</strong>
+                                    <small>Danh sách nhân sự</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../cv/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-primary">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Quản lý CV</strong>
+                                    <small>Danh sách và trạng thái</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="#"
+                                data-route="cv-update-request-list"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-warning">
+                                    <i class="fa fa-refresh"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Yêu cầu cập nhật CV</strong>
+                                    <small>Theo dõi yêu cầu</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../notification/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-accent">
+                                    <i class="fa fa-bell"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Thông báo</strong>
+                                    <small>Cảnh báo và cập nhật</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="smcv-role-card-grid">
+
+
+                        <a
+                            href="../employee/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-success">
+                                <i class="fa fa-user"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>NHÂN SỰ</span>
+
+                                <h3>Nhân viên</h3>
+
+                                <strong id="dashboard-hr-employee-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    Danh sách nhân viên trong phạm vi nghiệp vụ.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-primary">
+                                <i class="fa fa-file-text-o"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>HỒ SƠ</span>
+
+                                <h3>CV</h3>
+
+                                <strong id="dashboard-hr-cv-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    Danh sách CV và trạng thái kiểm duyệt.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="#"
+                            data-route="cv-update-request-list"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-warning">
+                                <i class="fa fa-refresh"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>YÊU CẦU</span>
+
+                                <h3>Chờ cập nhật</h3>
+
+                                <strong id="dashboard-hr-update-request-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    CV đang ở trạng thái Chưa cập nhật.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-admin">
+                                <i class="fa fa-check-square-o"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>KIỂM DUYỆT</span>
+
+                                <h3>Chờ HR duyệt</h3>
+
+                                <strong id="dashboard-hr-pending-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    CV đang ở bước chờ HR duyệt.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="smcv-role-alert">
+
+                        <div class="smcv-role-alert-icon">
+                            <i class="fa fa-exclamation-triangle"></i>
+                        </div>
+
+
+                        <div class="smcv-role-alert-content">
+
+                            <span>THIẾU CV</span>
+
+                            <h3>
+                                Nhân viên chưa có CV
+                            </h3>
+
+                            <p id="dashboard-hr-no-cv-count">
+                                -- người chưa có hồ sơ CV.
+                            </p>
+
+                        </div>
+
+                        <a
+                            href="../employee/index.html"
+                            class="smcv-role-alert-action"
+                        >
+                            Xem nhân viên
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                    </div>
+
+
+                    <div class="smcv-role-secondary-card">
+
+                        <div>
+
+                            <span>QUY TRÌNH</span>
+
+                            <h3>
+                                Yêu cầu cập nhật CV
+                            </h3>
+
+                            <p>
+                                Theo dõi các CV đang ở trạng thái
+                                chưa cập nhật và chờ HR xử lý.
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="#"
+                            data-route="cv-update-request-list"
+                            class="smcv-role-secondary-action"
+                        >
+                            Quản lý yêu cầu
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TECH LEAD
+                     ================================================= -->
+
+                <div
+                    id="dashboard-role-tech-content"
+                    class="dashboard-role-panel"
+                    data-dashboard-role="TECH_LEAD"
+                    style="display:none;"
+                >
+
+                    <div class="smcv-dashboard-section-header">
+
+                        <div>
+
+                            <span class="smcv-dashboard-section-eyebrow">
+                                TECH LEAD
+                            </span>
+
+                            <h2>
+                                Kiểm duyệt chuyên môn
+                            </h2>
+
+                            <p>
+                                Quản lý CV cá nhân và kiểm duyệt CV
+                                trong phạm vi phòng ban được phân quyền.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="smcv-dashboard-quick-nav">
+
+                        <div class="smcv-dashboard-quick-heading">
+
+                            <span class="smcv-dashboard-quick-eyebrow">
+                                TRUY CẬP NHANH
+                            </span>
+
+                            <h3>
+                                Điều hướng công việc
+                            </h3>
+
+                            <p>
+                                Truy cập nhanh vào CV cá nhân
+                                và danh sách cần review.
+                            </p>
+
+                        </div>
+
+
+                        <div class="smcv-dashboard-quick-grid">
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../cv/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-primary">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>CV của tôi</strong>
+                                    <small>Hồ sơ cá nhân</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../cv/add.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-success">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Tạo / cập nhật CV</strong>
+                                    <small>Chỉnh sửa hồ sơ</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../cv/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-warning">
+                                    <i class="fa fa-check-square-o"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>CV cần kiểm duyệt</strong>
+                                    <small>Hồ sơ chờ review</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../notification/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-accent">
+                                    <i class="fa fa-bell"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Thông báo</strong>
+                                    <small>Thông tin cần chú ý</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="smcv-role-card-grid">
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-primary">
+                                <i class="fa fa-user"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>CÁ NHÂN</span>
+
+                                <h3>CV của tôi</h3>
+
+                                <strong id="dashboard-tech-my-cv-status">
+                                    --
+                                </strong>
+
+                                <p>
+                                    Xem, tạo hoặc sửa CV của chính bạn.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-warning">
+                                <i class="fa fa-clock-o"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>TRẠNG THÁI</span>
+
+                                <h3>Chờ duyệt</h3>
+
+                                <strong id="dashboard-tech-pending-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    CV đang chờ Tech Lead xử lý.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-success">
+                                <i class="fa fa-check"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>KẾT QUẢ</span>
+
+                                <h3>Đã duyệt</h3>
+
+                                <strong id="dashboard-tech-approved-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    CV đã được duyệt trong phạm vi.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-card"
+                        >
+
+                            <div class="smcv-role-card-icon icon-admin">
+                                <i class="fa fa-times"></i>
+                            </div>
+
+                            <div class="smcv-role-card-content">
+
+                                <span>KẾT QUẢ</span>
+
+                                <h3>Đã từ chối</h3>
+
+                                <strong id="dashboard-tech-rejected-count">
+                                    --
+                                </strong>
+
+                                <p>
+                                    CV cần nhân viên sửa lại.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="smcv-role-alert">
+
+                        <div class="smcv-role-alert-icon">
+                            <i class="fa fa-file-text-o"></i>
+                        </div>
+
+
+                        <div class="smcv-role-alert-content">
+
+                            <span>REVIEW</span>
+
+                            <h3>
+                                CV cần tôi kiểm tra
+                            </h3>
+
+                            <p id="dashboard-tech-review-count">
+                                -- CV đang chờ review.
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="../cv/index.html"
+                            class="smcv-role-alert-action"
+                        >
+                            Xem danh sách
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     EMPLOYEE
+                     ================================================= -->
+
+                <div
+                    id="dashboard-role-employee-content"
+                    class="dashboard-role-panel"
+                    data-dashboard-role="EMPLOYEE"
+                    style="display:none;"
+                >
+
+                    <div class="smcv-dashboard-section-header">
+
+                        <div>
+
+                            <span class="smcv-dashboard-section-eyebrow">
+                                EMPLOYEE
+                            </span>
+
+                            <h2>
+                                CV của tôi
+                            </h2>
+
+                            <p>
+                                Quản lý hồ sơ cá nhân và xử lý
+                                các yêu cầu cập nhật CV.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="smcv-dashboard-quick-nav">
+
+                        <div class="smcv-dashboard-quick-heading">
+
+                            <span class="smcv-dashboard-quick-eyebrow">
+                                TRUY CẬP NHANH
+                            </span>
+
+                            <h3>
+                                Thao tác CV cá nhân
+                            </h3>
+
+                            <p>
+                                Các lựa chọn thường dùng cho hồ sơ của bạn.
+                            </p>
+
+                        </div>
+
+
+                        <div class="smcv-dashboard-quick-grid quick-grid-3">
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../cv/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-primary">
+                                    <i class="fa fa-file-text-o"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Xem CV</strong>
+                                    <small>Kiểm tra hồ sơ hiện tại</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../cv/add.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-success">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Tạo / cập nhật CV</strong>
+                                    <small>Nhập hoặc chỉnh sửa thông tin</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+
+                            <a
+                                class="smcv-dashboard-quick-link"
+                                href="../notification/index.html"
+                            >
+
+                                <span class="smcv-dashboard-quick-icon icon-accent">
+                                    <i class="fa fa-bell"></i>
+                                </span>
+
+                                <span class="smcv-dashboard-quick-copy">
+                                    <strong>Thông báo</strong>
+                                    <small>Yêu cầu cập nhật và phản hồi</small>
+                                </span>
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="smcv-role-feature-card">
+
+                        <div class="smcv-role-feature-main">
+
+                            <div class="smcv-role-card-icon icon-primary">
+                                <i class="fa fa-file-text-o"></i>
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    HỒ SƠ CÁ NHÂN
+                                </span>
+
+
+                                <h3 id="dashboard-employee-cv-title">
+                                    CV của tôi
+                                </h3>
+
+
+                                <strong id="dashboard-employee-cv-status">
+                                    --
+                                </strong>
+
+
+                                <p id="dashboard-employee-cv-description">
+                                    Trạng thái hồ sơ sẽ được lấy từ dữ liệu CV của tài khoản.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="smcv-role-feature-actions">
+
+                            <a
+                                href="../cv/index.html"
+                                class="smcv-role-button secondary"
+                            >
+                                Xem CV
+                            </a>
+
+
+                            <a
+                                href="../cv/add.html"
+                                class="smcv-role-button primary"
+                            >
+                                Tạo / cập nhật CV
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="smcv-role-alert">
+
+                        <div class="smcv-role-alert-icon">
+                            <i class="fa fa-bell"></i>
+                        </div>
+
+
+                        <div class="smcv-role-alert-content">
+
+                            <span>
+                                UPDATE REQUEST
+                            </span>
+
+
+                            <h3>
+                                Yêu cầu cập nhật
+                            </h3>
+
+
+                            <p id="dashboard-employee-request-summary">
+                                Chưa có dữ liệu yêu cầu cập nhật.
+                            </p>
+
+                        </div>
+
+
+                        <a
+                            href="#"
+                            data-route="cv-update-request-detail"
+                            class="smcv-role-alert-action"
+                        >
+                            Xem yêu cầu
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ACCOUNT
+                 ================================================= -->
+
+            <section
+                class="smcv-dashboard-card smcv-dashboard-account-card"
+            >
+
+                <div class="smcv-dashboard-account">
+
+                    <div class="account-avatar">
+                        <i class="fa fa-user"></i>
+                    </div>
+
+
+                    <div class="account-info">
+
+                        <span>
+                            TÀI KHOẢN ĐĂNG NHẬP
+                        </span>
+
+
+                        <strong id="dashboard-account-username">
+                            User
+                        </strong>
+
+
+                        <small id="dashboard-account-role">
+                            USER
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER
+             Là con trực tiếp của main-content
+             ===================================================== -->
+
+        <div id="footer-container"></div>
+
+    </section>
+
+</section>
+
+
+<!-- =====================================================
+     VENDOR JS
+     ===================================================== -->
+
+<script
+    src="../../assets/js/bootstrap.js">
+</script>
+
+<script
+    src="../../assets/js/jquery.dcjqaccordion.2.7.js">
+</script>
+
+<script
+    src="../../assets/js/jquery.slimscroll.js">
+</script>
+
+<script
+    src="../../assets/js/jquery.nicescroll.js">
+</script>
+
+<script
+    src="../../assets/js/jquery.scrollTo.js">
+</script>
+
+
+<!-- =====================================================
+     API
+     ===================================================== -->
+
+<script src="../../services/api/api.js"></script>
+<script src="../../services/api/userApi.js"></script>
+<script src="../../services/api/employeeApi.js"></script>
+<script src="../../services/api/departmentApi.js"></script>
+<script src="../../services/api/cvApi.js"></script>
+
+
+<!-- =====================================================
+     AUTH
+     ===================================================== -->
+
+<script src="../../services/auth/authApi.js"></script>
+<script src="../../services/auth/auth.js"></script>
+
+
+<!-- =====================================================
+     DASHBOARD
+     ===================================================== -->
+
+<script
+    src="./dashboard.js?v=20261006-final-01">
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<aside>
+    <div id="sidebar" class="nav-collapse">
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <!-- ===================================================== -->
+                <!-- DASHBOARD - ALL ROLES -->
+                <!-- ===================================================== -->
+                <li id="menu-dashboard" data-roles="ADMIN,HR,TECH_LEAD,EMPLOYEE">
+                    <a href="../dashboard/index.html">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- USER MANAGEMENT - ADMIN -->
+                <!-- ===================================================== -->
+                <li class="sub-menu" id="menu-user-management" data-roles="ADMIN">
+                    <a href="javascript:;">
+                        <i class="fa fa-users"></i>
+                        <span>Quản lý User</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="../user/index.html">Danh sách User</a>
+                        </li>
+                        <li>
+                            <a href="../user/add.html">Thêm User</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- DEPARTMENT MANAGEMENT - ADMIN -->
+                <!-- ===================================================== -->
+                <li class="sub-menu" id="menu-department-management" data-roles="ADMIN">
+                    <a href="javascript:;">
+                        <i class="fa fa-building"></i>
+                        <span>Quản lý phòng ban</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="../department/index.html">Danh sách phòng ban</a>
+                        </li>
+                        <li>
+                            <a href="../department/add.html">Thêm phòng ban</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- EMPLOYEE MANAGEMENT - ADMIN / HR -->
+                <!-- ADMIN + HR là hai role quản lý nhân sự ở UI. -->
+                <!-- ===================================================== -->
+                <li class="sub-menu" id="menu-employee-management" data-roles="ADMIN,HR">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+                        <span>Quản lý nhân viên</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="../employee/index.html">Danh sách nhân viên</a>
+                        </li>
+                        <li id="menu-employee-create" data-roles="ADMIN,HR">
+                            <a href="../employee/add.html">Thêm nhân viên</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- CV MANAGEMENT - ADMIN / HR -->
+                <!-- Chỉ quản lý danh sách CV; không hiển thị Tạo CV cho -->
+                <!-- ADMIN/HR ở Sidebar theo workflow nghiệp vụ đã chốt. -->
+                <!-- ===================================================== -->
+                <li class="sub-menu" id="menu-cv-management" data-roles="ADMIN,HR">
+                    <a href="javascript:;">
+                        <i class="fa fa-file-text"></i>
+                        <span>Quản lý CV</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="../cv/index.html">Danh sách CV</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- MY CV - TECH LEAD / EMPLOYEE -->
+                <!-- ===================================================== -->
+                <li class="sub-menu" id="menu-my-cv" data-roles="TECH_LEAD,EMPLOYEE">
+                    <a href="javascript:;">
+                        <i class="fa fa-file-text"></i>
+                        <span>CV của tôi</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="../cv/index.html">Xem CV</a>
+                        </li>
+                        <li>
+                            <a href="../cv/add.html">Tạo CV</a>
+                        </li>
+                        <li>
+                            <a href="../cv/index.html">Sửa CV</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- CV REVIEW - TECH LEAD -->
+                <!-- ===================================================== -->
+                <li class="sub-menu" id="menu-cv-review" data-roles="TECH_LEAD">
+                    <a href="javascript:;">
+                        <i class="fa fa-check-square-o"></i>
+                        <span>CV cần kiểm duyệt</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="../cv/index.html">Danh sách CV</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- UPDATE REQUEST - HR -->
+                <!-- Backend service đã có, nhưng frontend controller/page -->
+                <!-- hiện chưa có route thật nên giữ data-route để không -->
+                <!-- tự bịa URL. Sẽ nối route khi module UI được tạo. -->
+                <!-- ===================================================== -->
+                <li class="sub-menu" id="menu-cv-update-request" data-roles="HR">
+                    <a href="javascript:;">
+                        <i class="fa fa-refresh"></i>
+                        <span>Yêu cầu cập nhật CV</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="#" data-route="cv-update-request-list">Danh sách yêu cầu</a>
+                        </li>
+                        <li>
+                            <a href="#" data-route="cv-update-request-create">Tạo yêu cầu</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- NOTIFICATION - ALL ROLES -->
+                <!-- ===================================================== -->
+                <li id="menu-notification" data-roles="ADMIN,HR,TECH_LEAD,EMPLOYEE">
+                    <a href="../notification/index.html">
+                        <i class="fa fa-bell"></i>
+                        <span>Thông báo</span>
+                    </a>
+                </li>
+
+                <!-- ===================================================== -->
+                <!-- LOGOUT - ALL ROLES -->
+                <!-- ===================================================== -->
+                <li id="menu-logout" data-roles="ADMIN,HR,TECH_LEAD,EMPLOYEE">
+                    <a href="#" id="sidebar-logout-button">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</aside>

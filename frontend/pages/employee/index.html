@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Danh sách nhân viên - SystemanagerCV</title>
+
+
+    <!-- =========================================================
+         BOOTSTRAP
+         ========================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+
+    <!-- =========================================================
+         SYSTEM BASE
+         ========================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+
+    <!-- =========================================================
+         SYSTEMANAGERCV COMMON
+         ========================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv-dashboard.css"
+    >
+
+
+    <!-- =========================================================
+         COMMON PAGE LAYOUT
+         
+         Dùng cùng layout với trang User:
+         - Header
+         - Sidebar
+         - Main
+         - Footer
+         ========================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/user-page-layout.css?v=20261004-employee"
+    >
+
+
+    <!-- =========================================================
+         EMPLOYEE INDEX CSS
+         
+         KHÔNG load:
+         - viewcategory.css
+         - department-page-layout.css
+         ========================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/employee-index.css?v=20261004-employee-final"
+    >
+
+
+    <!-- =========================================================
+         FONT
+         ========================================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+
+    <!-- =========================================================
+         JQUERY
+         ========================================================= -->
+
+    <script
+        src="../../assets/js/jquery.min.js">
+    </script>
+
+</head>
+
+
+<body class="smcv-app employee-index-page">
+
+
+<section id="container">
+
+
+    <!-- =========================================================
+         HEADER
+         
+         index.js sẽ load:
+         ../../components/header.html
+         ========================================================= -->
+
+    <header id="header-container"></header>
+
+
+    <!-- =========================================================
+         SIDEBAR
+         
+         index.js sẽ load:
+         ../../components/sidebar.html
+         ========================================================= -->
+
+    <aside id="sidebar-container"></aside>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <section id="main-content">
+
+
+        <section class="wrapper employee-index-wrapper">
+
+
+            <div class="employee-index-container">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                     ================================================= -->
+
+                <div class="employee-index-header">
+
+
+                    <!-- TITLE -->
+
+                    <div class="employee-index-title">
+
+
+                        <div class="employee-index-title-icon">
+
+                            <i class="fa fa-users"></i>
+
+                        </div>
+
+
+                        <div class="employee-index-title-content">
+
+                            <h3>
+                                Danh sách nhân viên
+                            </h3>
+
+                            <p>
+                                Quản lý thông tin nhân viên trong hệ thống
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="employee-index-total">
+
+
+                        <div class="employee-index-total-icon">
+
+                            <i class="fa fa-users"></i>
+
+                        </div>
+
+
+                        <div class="employee-index-total-content">
+
+                            <span>
+                                Tổng số:
+                            </span>
+
+                            <strong id="employee-total">
+                                0
+                            </strong>
+
+                            <small>
+                                nhân viên
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     CONTENT
+                     ================================================= -->
+
+                <div class="employee-index-content">
+
+
+                    <!-- =================================================
+                         SEARCH
+                         ================================================= -->
+
+                    <div class="employee-index-search">
+
+
+                        <form
+                            id="employee-search-form"
+                            class="employee-search-form"
+                        >
+
+
+                            <!-- INPUT -->
+
+                            <div class="employee-search-input">
+
+
+                                <i class="fa fa-search"></i>
+
+
+                                <input
+                                    type="text"
+                                    id="employee-keyword"
+                                    name="keyword"
+                                    placeholder="Tìm kiếm nhân viên..."
+                                    autocomplete="off"
+                                >
+
+
+                            </div>
+
+
+                            <!-- SEARCH -->
+
+                            <button
+                                type="submit"
+                                class="employee-search-btn"
+                            >
+
+                                <i class="fa fa-search"></i>
+
+                                <span>
+                                    Tìm kiếm
+                                </span>
+
+                            </button>
+
+
+                            <!-- REFRESH -->
+
+                            <button
+                                type="button"
+                                id="employee-refresh"
+                                class="employee-refresh-btn"
+                            >
+
+                                <i class="fa fa-refresh"></i>
+
+                                <span>
+                                    Làm mới
+                                </span>
+
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TABLE
+                         ================================================= -->
+
+                    <div class="employee-table-wrapper">
+
+
+                        <table class="employee-table">
+
+
+                            <colgroup>
+
+                                <col class="employee-col-stt">
+
+                                <col class="employee-col-code">
+
+                                <col class="employee-col-name">
+
+                                <col class="employee-col-email">
+
+                                <col class="employee-col-phone">
+
+                                <col class="employee-col-department">
+
+                                <col class="employee-col-position">
+
+                                <col class="employee-col-job-title">
+
+                                <col class="employee-col-status">
+
+                                <col class="employee-col-action">
+
+                            </colgroup>
+
+
+                            <thead>
+
+                            <tr>
+
+                                <th>
+                                    STT
+                                </th>
+
+                                <th>
+                                    Mã NV
+                                </th>
+
+                                <th>
+                                    Họ và tên
+                                </th>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th>
+                                    Số điện thoại
+                                </th>
+
+                                <th>
+                                    Phòng ban
+                                </th>
+
+                                <th>
+                                    Vị trí
+                                </th>
+
+                                <th>
+                                    Chức danh
+                                </th>
+
+                                <th>
+                                    Trạng thái
+                                </th>
+
+                                <th>
+                                    Thao tác
+                                </th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody id="employee-table-body">
+
+
+                                <!--
+                                    JavaScript sẽ render dữ liệu
+                                    vào đây.
+                                -->
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    </div>
+
+
+                    <!-- =================================================
+                         EMPTY
+                         ================================================= -->
+
+                    <div
+                        id="employee-empty"
+                        class="employee-empty"
+                        style="display: none;"
+                    >
+
+                        <div class="employee-empty-icon">
+
+                            <i class="fa fa-users"></i>
+
+                        </div>
+
+                        <h4>
+                            Không tìm thấy nhân viên
+                        </h4>
+
+                        <p>
+                            Không có nhân viên nào phù hợp với điều kiện tìm kiếm.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ERROR
+                         ================================================= -->
+
+                    <div
+                        id="employee-error"
+                        class="employee-message employee-message-error"
+                        style="display: none;"
+                    ></div>
+
+
+                    <!-- =================================================
+                         SUCCESS
+                         ================================================= -->
+
+                    <div
+                        id="employee-success"
+                        class="employee-message employee-message-success"
+                        style="display: none;"
+                    ></div>
+
+
+                    <!-- =================================================
+                         PAGINATION
+                         ================================================= -->
+
+                    <div class="employee-pagination">
+
+
+                        <!-- PAGE INFO -->
+
+                        <div class="employee-pagination-info">
+
+                            Trang
+
+                            <strong id="employee-current-page">
+                                1
+                            </strong>
+
+                            /
+
+                            <strong id="employee-total-pages">
+                                1
+                            </strong>
+
+                        </div>
+
+
+                        <!-- BUTTONS -->
+
+                        <div class="employee-pagination-buttons">
+
+
+                            <!-- PREVIOUS -->
+
+                            <button
+                                type="button"
+                                id="employee-prev"
+                                class="employee-pagination-button"
+                            >
+
+                                <i class="fa fa-angle-left"></i>
+
+                            </button>
+
+
+                            <!-- PAGE NUMBERS -->
+
+                            <div
+                                id="employee-page-numbers"
+                                class="employee-page-numbers"
+                            ></div>
+
+
+                            <!-- NEXT -->
+
+                            <button
+                                type="button"
+                                id="employee-next"
+                                class="employee-pagination-button"
+                            >
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </section>
+
+
+    <!-- =========================================================
+         FOOTER
+
+         QUAN TRỌNG:
+         Footer nằm NGOÀI #main-content,
+         giống trang User.
+         ========================================================= -->
+
+    <div id="footer-container"></div>
+
+
+</section>
+
+
+<!-- =========================================================
+     BOOTSTRAP
+     ========================================================= -->
+
+<script src="../../assets/js/bootstrap.js"></script>
+
+
+<!-- =========================================================
+     SIDEBAR PLUGINS
+     ========================================================= -->
+
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+
+<script src="../../assets/js/scripts.js"></script>
+
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+
+<!-- =========================================================
+     COMMON API
+     ========================================================= -->
+
+<script src="../../services/api/api.js"></script>
+
+
+<!-- =========================================================
+     EMPLOYEE API
+     ========================================================= -->
+
+<script src="../../services/api/employeeApi.js"></script>
+
+
+<!-- =========================================================
+     AUTH
+     ========================================================= -->
+
+<script src="../../services/auth/authApi.js"></script>
+
+<script src="../../services/auth/auth.js"></script>
+
+
+<!-- =========================================================
+     EMPLOYEE INDEX JS
+
+     CHỈ DÙNG FILE NÀY.
+
+     KHÔNG load:
+     - employee.js
+     - user-page-layout.js
+     ========================================================= -->
+
+<script src="./index.js?v=20261004-final"></script>
+
+
+</body>
+
+</html>

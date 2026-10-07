@@ -1,0 +1,826 @@
+/* ============================================================
+   SYSTEMANAGERCV - CV CREATE PAGE
+   ============================================================ */
+
+html {
+    min-height: 100%;
+}
+
+
+body.smcv-app.cv-add-page {
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7a28c 0%,
+            #e8a4a5 34%,
+            #bd8eb0 65%,
+            #806fa8 100%
+        ) !important;
+
+    background-color: #f7a28c !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+
+    color: #555555;
+}
+
+
+body.smcv-app.cv-add-page *,
+body.smcv-app.cv-add-page *::before,
+body.smcv-app.cv-add-page *::after {
+    box-sizing: border-box !important;
+}
+
+
+body.smcv-app.cv-add-page #container {
+    width: 100% !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+
+body.smcv-app.cv-add-page #main-content {
+    width: calc(100% - 240px) !important;
+    min-height: 100vh !important;
+    margin-left: 240px !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+
+    background: transparent !important;
+
+    transition:
+        width .25s ease,
+        margin-left .25s ease !important;
+}
+
+
+body.smcv-app.cv-add-page
+.cv-add-wrapper {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: calc(100vh - 80px) !important;
+
+    margin-top: 80px !important;
+    padding: 18px 28px 30px !important;
+
+    flex: 1 0 auto !important;
+
+    background: transparent !important;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+
+.cv-add-page-header {
+    width: 100%;
+
+    margin-bottom: 16px;
+    padding: 15px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    background: rgba(255, 255, 255, .96);
+
+    border:
+        1px solid rgba(255, 255, 255, .9);
+
+    border-radius: 9px;
+
+    box-shadow:
+        0 3px 14px rgba(0,0,0,.06);
+}
+
+
+.cv-add-page-title {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.cv-add-page-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #95608d 0%,
+            #ad789f 100%
+        );
+
+    color: #ffffff;
+
+    font-size: 17px;
+}
+
+
+.cv-add-kicker {
+    margin-bottom: 2px;
+
+    color: #95608d;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+}
+
+
+.cv-add-page-title h1 {
+    margin: 0;
+
+    color: #363636;
+
+    font-size: 19px;
+    font-weight: 600;
+}
+
+
+.cv-add-page-title p {
+    margin: 3px 0 0;
+
+    color: #929292;
+
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+
+.cv-add-back-button {
+    min-height: 34px;
+
+    padding: 0 12px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    border:
+        1px solid #dfd3dd;
+
+    border-radius: 4px;
+
+    background: #fbf7fb;
+
+    color: #95608d;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    text-decoration: none !important;
+}
+
+
+.cv-add-back-button:hover {
+    background: #95608d;
+    border-color: #95608d;
+    color: #ffffff;
+    text-decoration: none !important;
+}
+
+
+/* ============================================================
+   ALERT
+   ============================================================ */
+
+.cv-add-alert {
+    margin-bottom: 15px;
+
+    padding: 11px 14px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+}
+
+
+.cv-add-alert-error {
+    color: #9b423c;
+
+    background: #fff1f0;
+
+    border:
+        1px solid #efcbc7;
+}
+
+
+.cv-add-alert-success {
+    color: #447b4c;
+
+    background: #eff9f0;
+
+    border:
+        1px solid #cde6d0;
+}
+
+
+/* ============================================================
+   CARD
+   ============================================================ */
+
+.cv-add-card {
+    width: 100%;
+
+    margin-bottom: 15px;
+
+    background: #ffffff;
+
+    border:
+        1px solid #e7e2e6;
+
+    border-radius: 9px;
+
+    box-shadow:
+        0 3px 14px rgba(0,0,0,.05);
+
+    overflow: hidden;
+}
+
+
+.cv-add-card-header {
+    padding: 15px 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+
+.cv-add-card-title {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.cv-add-card-title > i {
+    color: #95608d;
+
+    font-size: 16px;
+}
+
+
+.cv-add-card-title h2 {
+    margin: 0;
+
+    color: #3f3f3f;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+.cv-add-card-title p {
+    margin: 3px 0 0;
+
+    color: #929292;
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+
+.cv-add-card-body {
+    padding: 17px 18px;
+}
+
+
+/* ============================================================
+   FORM
+   ============================================================ */
+
+.cv-add-grid-2 {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+}
+
+
+.cv-add-field {
+    min-width: 0;
+}
+
+
+.cv-add-field-full {
+    grid-column:
+        1 / -1;
+}
+
+
+.cv-add-field label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #666666;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.cv-add-control {
+    width: 100%;
+
+    min-height: 38px;
+
+    padding:
+        8px
+        11px;
+
+    border:
+        1px solid #ded9de;
+
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    color: #4d4d4d;
+
+    font-size: 12px;
+
+    outline: none;
+}
+
+
+.cv-add-control:focus {
+    border-color: #95608d;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(149,96,141,.08);
+}
+
+
+.cv-add-textarea {
+    min-height: 92px;
+
+    resize: vertical;
+
+    line-height: 1.55;
+}
+
+
+.cv-add-input-wrapper {
+    position: relative;
+}
+
+
+.cv-add-input-icon {
+    position: absolute;
+
+    left: 11px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #95608d;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+.cv-add-input-wrapper
+.cv-add-control {
+    padding-left: 32px;
+}
+
+
+.cv-add-help {
+    margin-top: 5px;
+
+    color: #999999;
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+
+.cv-add-help i {
+    margin-right: 4px;
+
+    color: #a07a97;
+}
+
+
+.required {
+    color: #bd514b;
+}
+
+
+/* ============================================================
+   REPEATERS
+   ============================================================ */
+
+.cv-repeat-container {
+    padding: 17px 18px;
+}
+
+
+.cv-repeat-item {
+    position: relative;
+
+    margin-bottom: 11px;
+    padding: 14px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #fcfbfc 100%
+        );
+
+    border:
+        1px solid #e7e2e6;
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 2px 8px rgba(72,52,66,.035);
+}
+
+
+.cv-repeat-item:last-child {
+    margin-bottom: 0;
+}
+
+
+.cv-repeat-item-header {
+    margin-bottom: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.cv-repeat-item-header strong {
+    color: #3f3f3f;
+
+    font-size: 12px;
+}
+
+
+.cv-repeat-remove {
+    min-height: 28px;
+
+    padding: 0 9px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    border:
+        1px solid #efc6c3;
+
+    border-radius: 4px;
+
+    background: #fff5f4;
+
+    color: #b34f48;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+
+.cv-repeat-remove:hover {
+    background: #b9534b;
+
+    border-color: #b9534b;
+
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   ADD BUTTON
+   ============================================================ */
+
+.cv-add-small-button {
+    min-height: 32px;
+
+    padding: 0 10px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    border:
+        1px solid #dfd3dd;
+
+    border-radius: 4px;
+
+    background: #fbf7fb;
+
+    color: #95608d;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+
+.cv-add-small-button:hover {
+    color: #ffffff;
+
+    background: #95608d;
+
+    border-color: #95608d;
+}
+
+
+/* ============================================================
+   EMPTY SECTION
+   ============================================================ */
+
+.cv-add-empty-section {
+    min-height: 80px;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    color: #8a8188;
+
+    background: #fafafa;
+
+    border:
+        1px dashed #ddd4db;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+
+.cv-add-empty-section i {
+    color: #95608d;
+}
+
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+.cv-add-form-actions {
+    margin-top: 5px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.cv-add-button {
+    min-height: 37px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+}
+
+
+.cv-add-button-secondary {
+    color: #686168;
+
+    background: #ffffff;
+
+    border:
+        1px solid #ddd7dd;
+}
+
+
+.cv-add-button-secondary:hover {
+    background: #f6f3f6;
+
+    color: #514c51;
+}
+
+
+.cv-add-button-primary {
+    color: #ffffff;
+
+    background: #95608d;
+
+    border:
+        1px solid #95608d;
+}
+
+
+.cv-add-button-primary:hover {
+    background: #86557f;
+
+    border-color: #86557f;
+}
+
+
+.cv-add-button:disabled {
+    cursor: not-allowed;
+
+    opacity: .65;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+body.smcv-app.cv-add-page
+#main-content > #footer-container {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: block !important;
+
+    background: transparent !important;
+
+    flex: 0 0 auto !important;
+
+    overflow: hidden !important;
+}
+
+
+body.smcv-app.cv-add-page
+#main-content > #footer-container .footer,
+body.smcv-app.cv-add-page
+#main-content > #footer-container .wthree-footer {
+    width: 100% !important;
+
+    min-height: 54px !important;
+
+    margin: 0 !important;
+
+    padding:
+        15px
+        20px !important;
+
+    display: block !important;
+
+    float: none !important;
+    clear: both !important;
+
+    background:
+        #d19a98 !important;
+
+    color: #ffffff !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ============================================================
+   SIDEBAR / RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    body.smcv-app.cv-add-page
+    #main-content {
+        width: 100% !important;
+
+        margin-left: 0 !important;
+    }
+
+    body.smcv-app.cv-add-page
+    .cv-add-wrapper {
+        margin-top: 70px !important;
+
+        padding:
+            14px
+            12px
+            24px !important;
+    }
+
+    .cv-add-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .cv-add-field-full {
+        grid-column: auto;
+    }
+
+}
+
+
+@media (max-width: 680px) {
+
+    .cv-add-page-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .cv-add-back-button {
+        width: 100%;
+    }
+
+    .cv-add-card-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .cv-add-small-button {
+        width: 100%;
+    }
+
+    .cv-add-form-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .cv-add-button {
+        width: 100%;
+    }
+
+}

@@ -1,0 +1,1578 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   DEPARTMENT EDIT PAGE
+   ============================================================
+
+   File:
+   assets/css/department-edit.css
+
+   Phạm vi:
+   /pages/department/edit.html
+
+   Mục tiêu:
+   - Đồng bộ giao diện với User / Employee / Department Index
+   - Nền gradient hệ thống
+   - Card form màu trắng
+   - Nội dung nằm đúng dưới Header
+   - Sidebar không bị content đè
+   - Footer không tràn sang Sidebar
+   - Khoảng cách cân đối
+   - Font size đồng bộ
+   - Không phá Department Index
+   ============================================================ */
+
+
+/* ============================================================
+   1. PAGE
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page {
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6a083 0%,
+            #dda0ab 42%,
+            #bf8eb0 68%,
+            #8673ac 100%
+        );
+
+    background-attachment: fixed;
+
+}
+
+
+/* ============================================================
+   2. BOX SIZING
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page *,
+body.smcv-app.department-page.department-edit-page *::before,
+body.smcv-app.department-page.department-edit-page *::after {
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   3. CONTAINER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#container {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: transparent !important;
+
+}
+
+
+/* ============================================================
+   4. SIDEBAR
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#sidebar-container {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 240px;
+
+    min-width: 240px;
+
+    height: 100vh;
+
+    z-index: 1000;
+
+    overflow-x: hidden;
+
+    overflow-y: auto;
+
+}
+
+
+/* ============================================================
+   5. MAIN CONTENT
+   ============================================================
+
+   Header:
+       khoảng 70px
+
+   Sidebar:
+       240px
+
+   Main:
+       phần còn lại
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#main-content {
+
+    position: relative;
+
+    width:
+        calc(100% - 240px) !important;
+
+    min-width: 0;
+
+    min-height:
+        calc(100vh - 60px);
+
+    margin-left:
+        240px !important;
+
+    margin-right: 0;
+
+    margin-top: 0;
+
+    padding:
+        70px
+        0
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        stretch;
+
+    background:
+        transparent !important;
+
+    box-sizing:
+        border-box;
+
+    overflow-x:
+        hidden;
+
+    overflow-y:
+        visible;
+
+    transition:
+        margin-left 0.25s ease,
+        width 0.25s ease;
+
+}
+
+
+/* ============================================================
+   6. WRAPPER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#main-content >
+.category-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 0;
+
+    margin: 0;
+
+    padding:
+        20px
+        24px
+        45px;
+
+    flex:
+        1 0 auto;
+
+    background:
+        transparent !important;
+
+    box-sizing:
+        border-box;
+
+}
+
+
+/* ============================================================
+   7. CARD
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-card {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius:
+        7px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(31, 41, 55, 0.08);
+
+    overflow:
+        hidden;
+
+}
+
+
+/* ============================================================
+   8. CATEGORY HEADER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-header {
+
+    width: 100%;
+
+    min-height:
+        76px;
+
+    margin: 0;
+
+    padding:
+        16px
+        22px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    background:
+        #ffffff;
+
+    border-bottom:
+        1px solid #eeeeee;
+
+}
+
+
+/* ============================================================
+   9. HEADER LEFT
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-header-left {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+/* ============================================================
+   10. HEADER ICON
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-header-icon {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    min-width:
+        40px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        7px;
+
+    background:
+        #f4edf5;
+
+    color:
+        #95608d;
+
+    font-size:
+        16px;
+
+}
+
+
+/* ============================================================
+   11. HEADER CONTENT
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-header-content {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+
+}
+
+
+/* ============================================================
+   12. TITLE
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-title {
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    color:
+        #333333;
+
+    font-size:
+        18px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.35;
+
+}
+
+
+/* ============================================================
+   13. SUBTITLE
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-subtitle {
+
+    margin:
+        3px
+        0
+        0;
+
+    padding:
+        0;
+
+    color:
+        #999999;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   14. CATEGORY BODY
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-body {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        22px
+        24px
+        24px;
+
+    background:
+        #ffffff;
+
+}
+
+
+/* ============================================================
+   15. FORM
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+}
+
+
+/* ============================================================
+   16. FORM GROUP
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form .form-group {
+
+    width:
+        100%;
+
+    margin:
+        0
+        0
+        17px;
+
+    padding:
+        0;
+
+}
+
+
+/* ============================================================
+   17. LABEL
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-group > label {
+
+    display:
+        block;
+
+    margin:
+        0
+        0
+        6px;
+
+    padding:
+        0;
+
+    color:
+        #444444;
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   18. REQUIRED
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.required {
+
+    margin-left:
+        2px;
+
+    color:
+        #d9534f;
+
+    font-weight:
+        600;
+
+}
+
+
+/* ============================================================
+   19. INPUT WRAPPER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.form-input-wrapper {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+}
+
+
+/* ============================================================
+   20. INPUT ICON
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.form-input-icon {
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        0;
+
+    z-index:
+        2;
+
+    width:
+        40px;
+
+    height:
+        38px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        #a0a0a0;
+
+    font-size:
+        12px;
+
+    pointer-events:
+        none;
+
+}
+
+
+/* ============================================================
+   21. INPUT / SELECT
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-control {
+
+    width:
+        100%;
+
+    height:
+        38px;
+
+    margin:
+        0;
+
+    padding:
+        8px
+        11px
+        8px
+        40px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius:
+        4px;
+
+    background:
+        #ffffff;
+
+    color:
+        #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        12px;
+
+    font-weight:
+        400;
+
+    line-height:
+        20px;
+
+    outline:
+        none;
+
+    box-shadow:
+        none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+/* ============================================================
+   22. TEXTAREA
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+textarea.category-textarea {
+
+    width:
+        100%;
+
+    min-height:
+        115px;
+
+    height:
+        115px;
+
+    resize:
+        vertical;
+
+    padding:
+        10px
+        12px
+        10px
+        40px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ============================================================
+   23. INPUT FOCUS
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-control:focus {
+
+    border-color:
+        #95608d;
+
+    outline:
+        none;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(149, 96, 141, 0.08);
+
+}
+
+
+/* ============================================================
+   24. SELECT
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-select {
+
+    padding-right:
+        32px;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* ============================================================
+   25. HELP
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.department-form-help {
+
+    margin:
+        5px
+        0
+        0;
+
+    color:
+        #999999;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* ============================================================
+   26. HELP ICON
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.department-form-help i {
+
+    margin-right:
+        4px;
+
+    color:
+        #95608d;
+
+    font-size:
+        10px;
+
+}
+
+
+/* ============================================================
+   27. MESSAGES
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.department-message {
+
+    width:
+        100%;
+
+    margin:
+        0
+        0
+        16px;
+
+    padding:
+        9px
+        12px;
+
+    border-radius:
+        4px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ============================================================
+   28. DIVIDER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-divider {
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    margin:
+        3px
+        0
+        18px;
+
+    background:
+        #eeeeee;
+
+}
+
+
+/* ============================================================
+   29. FORM FOOTER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form-footer {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        15px
+        0
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        flex-end;
+
+    gap:
+        8px;
+
+    border-top:
+        1px solid #eeeeee;
+
+}
+
+
+/* ============================================================
+   30. BUTTON BASE
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-btn {
+
+    min-width:
+        88px;
+
+    height:
+        34px;
+
+    padding:
+        7px
+        12px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    border:
+        1px solid transparent;
+
+    border-radius:
+        4px;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+    line-height:
+        18px;
+
+    text-decoration:
+        none !important;
+
+    white-space:
+        nowrap;
+
+    cursor:
+        pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+/* ============================================================
+   31. BUTTON ICON
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-btn i {
+
+    font-size:
+        10px;
+
+}
+
+
+/* ============================================================
+   32. BACK BUTTON
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-btn-back {
+
+    background:
+        #ffffff;
+
+    border-color:
+        #dddddd;
+
+    color:
+        #666666;
+
+}
+
+
+body.smcv-app.department-page.department-edit-page
+.category-btn-back:hover {
+
+    background:
+        #f7f7f7;
+
+    border-color:
+        #cccccc;
+
+    color:
+        #555555;
+
+}
+
+
+/* ============================================================
+   33. RESET BUTTON
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-btn-reset {
+
+    background:
+        #ffffff;
+
+    border-color:
+        #dddddd;
+
+    color:
+        #666666;
+
+}
+
+
+body.smcv-app.department-page.department-edit-page
+.category-btn-reset:hover {
+
+    background:
+        #f7f1f7;
+
+    border-color:
+        #95608d;
+
+    color:
+        #95608d;
+
+}
+
+
+/* ============================================================
+   34. SAVE BUTTON
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-btn-save {
+
+    background:
+        #95608d !important;
+
+    border-color:
+        #95608d !important;
+
+    color:
+        #ffffff !important;
+
+    box-shadow:
+        0 3px 8px
+        rgba(149, 96, 141, 0.16);
+
+}
+
+
+body.smcv-app.department-page.department-edit-page
+.category-btn-save:hover {
+
+    background:
+        #7d526e !important;
+
+    border-color:
+        #7d526e !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+/* ============================================================
+   35. FOOTER CONTAINER
+   ============================================================
+
+   QUAN TRỌNG:
+
+   edit.html đặt Footer NGOÀI #main-content.
+
+   Vì vậy KHÔNG dùng:
+
+       #main-content > #footer-container
+
+   mà phải xử lý trực tiếp:
+       #footer-container
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#footer-container {
+
+    position:
+        relative !important;
+
+    width:
+        calc(100% - 240px) !important;
+
+    min-width:
+        0 !important;
+
+    min-height:
+        60px !important;
+
+    height:
+        auto !important;
+
+    margin:
+        0
+        0
+        0
+        240px !important;
+
+    padding:
+        0 !important;
+
+    display:
+        block !important;
+
+    background:
+        transparent !important;
+
+    float:
+        none !important;
+
+    clear:
+        both !important;
+
+    box-sizing:
+        border-box !important;
+
+    overflow:
+        hidden !important;
+
+}
+
+
+/* ============================================================
+   36. FOOTER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#footer-container .footer {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    min-height:
+        60px !important;
+
+    height:
+        auto !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    float:
+        none !important;
+
+    clear:
+        both !important;
+
+    background:
+        #d19a98 !important;
+
+    background-color:
+        #d19a98 !important;
+
+    border:
+        none !important;
+
+    box-sizing:
+        border-box !important;
+
+}
+
+
+/* ============================================================
+   37. FOOTER INNER
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#footer-container .wthree-footer {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    background:
+        transparent !important;
+
+}
+
+
+/* ============================================================
+   38. FOOTER COPYRIGHT
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#footer-container .wthree-copyright {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    text-align:
+        center !important;
+
+    background:
+        transparent !important;
+
+}
+
+
+body.smcv-app.department-page.department-edit-page
+#footer-container .wthree-copyright p {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    color:
+        #ffffff !important;
+
+    font-size:
+        11px !important;
+
+    font-weight:
+        400 !important;
+
+    line-height:
+        1.5 !important;
+
+    letter-spacing:
+        0 !important;
+
+    text-align:
+        center !important;
+
+}
+
+
+/* ============================================================
+   39. SIDEBAR COLLAPSED
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+#main-content.merge-left {
+
+    width:
+        100% !important;
+
+    margin-left:
+        0 !important;
+
+}
+
+
+body.smcv-app.department-page.department-edit-page
+#footer-container {
+
+    transition:
+        width 0.25s ease,
+        margin-left 0.25s ease;
+
+}
+
+
+/* ============================================================
+   40. RESPONSIVE - TABLET
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    body.smcv-app.department-page.department-edit-page
+    #main-content {
+
+        width:
+            100% !important;
+
+        margin-left:
+            0 !important;
+
+        padding-top:
+            70px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    #main-content >
+    .category-wrapper {
+
+        padding:
+            18px
+            18px
+            35px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    #footer-container {
+
+        width:
+            100% !important;
+
+        margin-left:
+            0 !important;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-header {
+
+        min-height:
+            72px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-body {
+
+        padding:
+            20px;
+
+    }
+
+}
+
+
+/* ============================================================
+   41. RESPONSIVE - MOBILE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.department-page.department-edit-page
+    #main-content {
+
+        padding-top:
+            65px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    #main-content >
+    .category-wrapper {
+
+        padding:
+            12px
+            10px
+            30px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-header {
+
+        min-height:
+            auto;
+
+        padding:
+            14px
+            16px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-header-icon {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+        min-width:
+            38px;
+
+        font-size:
+            15px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-title {
+
+        font-size:
+            16px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-subtitle {
+
+        font-size:
+            10px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-body {
+
+        padding:
+            18px
+            16px
+            20px;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-form-footer {
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    .category-btn {
+
+        width:
+            100%;
+
+    }
+
+
+    body.smcv-app.department-page.department-edit-page
+    #footer-container .footer {
+
+        min-height:
+            56px !important;
+
+        padding:
+            17px
+            10px !important;
+
+    }
+
+}
+
+/* ============================================================
+   DESCRIPTION LABEL + ICON
+   Đưa icon "Mô tả phòng ban" lên cùng một dòng
+   ============================================================ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-group
+.form-textarea-wrapper {
+
+    position: relative;
+
+}
+
+
+/*
+ * Label của ô Mô tả phòng ban
+ * chừa khoảng trống cho icon.
+ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-group
+.form-textarea-wrapper
+~ .department-form-help {
+    margin-top: 5px;
+}
+
+
+/*
+ * Đưa icon textarea lên vị trí của label.
+ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-group
+.form-textarea-icon {
+
+    position: absolute;
+
+    top: -29px;
+
+    left: 0;
+
+    width: 30px;
+
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    color: #95608d;
+
+    font-size: 12px;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+}
+
+
+/*
+ * Chừa khoảng cho icon trên label "Mô tả phòng ban".
+ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-group:has(.form-textarea-wrapper)
+> label {
+
+    padding-left: 30px;
+
+    margin-bottom: 12px;
+
+}
+
+
+/*
+ * Giữ textarea không bị ảnh hưởng bởi icon.
+ */
+
+body.smcv-app.department-page.department-edit-page
+.category-form
+.form-textarea-wrapper
+textarea.category-textarea {
+
+    padding-left: 40px;
+
+}
+/* ============================================================
+   END
+   ============================================================ */

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        http-equiv="Content-Type"
+        content="text/html; charset=UTF-8"
+    >
+
+    <title>Thêm nhân viên - SystemanagerCV</title>
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+    <!-- =====================================================
+         CORE SYSTEM CSS
+         ===================================================== -->
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+    <!-- =====================================================
+         DASHBOARD / CATEGORY CSS
+         ===================================================== -->
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv-dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/viewcategory.css"
+    >
+
+    <!-- =====================================================
+         ADD EMPLOYEE / CATEGORY FORM CSS
+         ===================================================== -->
+    <link
+        rel="stylesheet"
+        href="../../assets/css/addcategoryview.css"
+    >
+
+    <!-- =====================================================
+         FONT
+         ===================================================== -->
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+    <!-- =====================================================
+         LEGACY PLUGINS
+         ===================================================== -->
+    <link
+        rel="stylesheet"
+        href="../../assets/css/morris.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/monthly.css"
+    >
+
+    <!-- =====================================================
+         GOOGLE FONT
+         ===================================================== -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,400italic,500,700,900"
+    >
+</head>
+
+<body class="smcv-app employee-add-page">
+
+<div id="container">
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- ===================================================== -->
+    <!-- SIDEBAR -->
+    <!-- ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- ===================================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- ===================================================== -->
+
+    <section id="main-content">
+
+        <section class="wrapper category-wrapper">
+
+            <div class="category-card employee-add-card">
+
+                <!-- ================================================= -->
+                <!-- PAGE HEADER -->
+                <!-- ================================================= -->
+
+                <div class="category-header">
+
+                    <div class="category-header-left">
+
+                        <div class="category-header-icon">
+                            <i class="fa fa-user-plus"></i>
+                        </div>
+
+                        <div class="category-header-content">
+
+                            <h3 class="category-title">
+                                Thêm nhân viên
+                            </h3>
+
+                            <p class="category-subtitle">
+                                Thêm thông tin nhân viên mới vào hệ thống
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================================= -->
+                <!-- BODY -->
+                <!-- ================================================= -->
+
+                <div class="category-body">
+
+                    <!-- ERROR -->
+                    <div
+                            id="errorMessage"
+                            class="alert alert-danger"
+                            style="display: none;">
+
+                        <i class="fa fa-exclamation-circle"></i>
+
+                        <span id="errorMessageText"></span>
+
+                    </div>
+
+
+                    <!-- SUCCESS -->
+                    <div
+                            id="successMessage"
+                            class="alert alert-success"
+                            style="display: none;">
+
+                        <i class="fa fa-check-circle"></i>
+
+                        <span id="successMessageText"></span>
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- FORM -->
+                    <!-- ================================================= -->
+
+                    <form
+                            id="employeeAddForm"
+                            class="category-form"
+                            novalidate>
+
+
+                        <!-- ================================================= -->
+                        <!-- 1. TÀI KHOẢN ĐĂNG NHẬP -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="userId">
+                                Tài khoản đăng nhập
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-user form-input-icon"></i>
+
+                                <select
+                                        id="userId"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="">
+                                        -- Chọn tài khoản đăng nhập --
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="form-help">
+                                <i class="fa fa-info-circle"></i>
+                                Chọn tài khoản đăng nhập được liên kết với nhân viên.
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 2. MÃ NHÂN VIÊN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="employeeCode">
+                                Mã nhân viên
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-id-card form-input-icon"></i>
+
+                                <input
+                                        type="text"
+                                        id="employeeCode"
+                                        class="form-control"
+                                        placeholder="Ví dụ: NV001"
+                                        autocomplete="off"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 3. HỌ VÀ TÊN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="fullName">
+                                Họ và tên
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-user-o form-input-icon"></i>
+
+                                <input
+                                        type="text"
+                                        id="fullName"
+                                        class="form-control"
+                                        placeholder="Nhập họ và tên nhân viên..."
+                                        autocomplete="off"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 4. EMAIL -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-envelope form-input-icon"></i>
+
+                                <input
+                                        type="email"
+                                        id="email"
+                                        class="form-control"
+                                        placeholder="example@company.com"
+                                        autocomplete="off">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 5. SỐ ĐIỆN THOẠI -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Số điện thoại
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-phone form-input-icon"></i>
+
+                                <input
+                                        type="tel"
+                                        id="phone"
+                                        class="form-control"
+                                        placeholder="Nhập số điện thoại..."
+                                        autocomplete="off">
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 6. PHÒNG BAN -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentId">
+                                Phòng ban
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-building form-input-icon"></i>
+
+                                <select
+                                        id="departmentId"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="">
+                                        -- Chọn phòng ban --
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 7. CHỨC VỤ -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="position">
+                                Chức vụ
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-briefcase form-input-icon"></i>
+
+                                <select
+                                        id="position"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="">
+                                        -- Chọn chức vụ --
+                                    </option>
+
+                                    <option value="NHAN_VIEN">
+                                        Nhân viên
+                                    </option>
+
+                                    <option value="TRUONG_NHOM">
+                                        Trưởng nhóm
+                                    </option>
+
+                                    <option value="TRUONG_PHONG">
+                                        Trưởng phòng
+                                    </option>
+
+                                    <option value="QUAN_LY">
+                                        Quản lý
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 8. CHỨC DANH -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="jobTitle">
+                                Chức danh
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-id-badge form-input-icon"></i>
+
+                                <input
+                                        type="text"
+                                        id="jobTitle"
+                                        class="form-control"
+                                        placeholder="Ví dụ: Java Developer"
+                                        autocomplete="off"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 9. NGÀY VÀO LÀM -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="joinDate">
+                                Ngày vào làm
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-calendar form-input-icon"></i>
+
+                                <input
+                                        type="date"
+                                        id="joinDate"
+                                        class="form-control"
+                                        required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- 10. TRẠNG THÁI -->
+                        <!-- ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="status">
+                                Trạng thái
+                                <span class="required">*</span>
+                            </label>
+
+                            <div class="form-input-wrapper">
+
+                                <i class="fa fa-toggle-on form-input-icon"></i>
+
+                                <select
+                                        id="status"
+                                        class="form-control category-select"
+                                        required>
+
+                                    <option value="">
+                                        -- Chọn trạng thái --
+                                    </option>
+
+                                    <option value="ACTIVE">
+                                        Hoạt động
+                                    </option>
+
+                                    <option value="INACTIVE">
+                                        Không hoạt động
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================================= -->
+                        <!-- FORM FOOTER -->
+                        <!-- ================================================= -->
+
+                        <div class="category-form-footer">
+
+                            <!-- QUAY LẠI -->
+
+                            <a
+                                    href="./index.html"
+                                    class="category-btn category-btn-back">
+
+                                <i class="fa fa-arrow-left"></i>
+
+                                <span>Quay lại</span>
+
+                            </a>
+
+
+                            <!-- NHẬP LẠI -->
+
+                            <button
+                                    type="reset"
+                                    id="resetButton"
+                                    class="category-btn category-btn-reset">
+
+                                <i class="fa fa-refresh"></i>
+
+                                <span>Nhập lại</span>
+
+                            </button>
+
+
+                            <!-- LƯU -->
+
+                            <button
+                                    type="submit"
+                                    id="saveButton"
+                                    class="category-btn category-btn-save">
+
+                                <i class="fa fa-save"></i>
+
+                                <span>Lưu nhân viên</span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+            <!-- ===================================================== -->
+            <!-- FOOTER -->
+            <!-- ===================================================== -->
+
+            <div id="footer-container"></div>
+    </section>
+
+
+
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================================== -->
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.js"></script>
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="../../assets/js/scripts.js"></script>
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+<!-- API -->
+<script src="../../services/api/api.js"></script>
+<script src="../../services/api/employeeApi.js"></script>
+
+<!-- AUTH -->
+<script src="../../services/auth/authApi.js"></script>
+<script src="../../services/auth/auth.js"></script>
+
+<!-- PAGE JS -->
+<script src="./add.js"></script>
+
+</body>
+
+</html>

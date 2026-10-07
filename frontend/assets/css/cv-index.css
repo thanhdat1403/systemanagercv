@@ -1,0 +1,2647 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   CV INDEX PAGE - FINAL
+   ============================================================ */
+
+:root {
+    --cv-sidebar-width: 240px;
+    --cv-header-height: 80px;
+
+    --cv-primary: #95608d;
+    --cv-primary-dark: #75486d;
+    --cv-primary-soft: #f5edf5;
+
+    --cv-text: #283246;
+    --cv-text-dark: #1c2535;
+    --cv-text-muted: #777f8c;
+    --cv-text-light: #a0a6b0;
+
+    --cv-border: #e7e9ee;
+    --cv-border-soft: #eef0f4;
+
+    --cv-white: #ffffff;
+
+    --cv-success: #4d8a59;
+    --cv-success-bg: #edf7ef;
+
+    --cv-warning: #a66a16;
+    --cv-warning-bg: #fff5e6;
+
+    --cv-danger: #b14f4f;
+    --cv-danger-bg: #f9eded;
+
+    --cv-page-bg:
+        linear-gradient(
+            135deg,
+            #f7a28c 0%,
+            #e8a4a5 34%,
+            #bd8eb0 65%,
+            #806fa8 100%
+        );
+
+    --cv-footer-bg: #d19a98;
+
+    --cv-transition:
+        420ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+    --cv-radius: 12px;
+
+    --cv-shadow:
+        0 5px 20px rgba(
+            40,
+            48,
+            65,
+            0.06
+        );
+}
+
+
+/* ============================================================
+   BASIC RESET
+   ============================================================ */
+
+html {
+    min-height: 100%;
+}
+
+body.smcv-app.cv-index-page {
+    width: 100%;
+    min-height: 100vh;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+
+    color: var(--cv-text);
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    background:
+        var(--cv-page-bg) !important;
+
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+}
+
+body.smcv-app.cv-index-page *,
+body.smcv-app.cv-index-page *::before,
+body.smcv-app.cv-index-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   APPLICATION CONTAINER
+   ============================================================ */
+
+body.smcv-app.cv-index-page #container {
+    position: relative !important;
+
+    width: 100% !important;
+    min-height: 100vh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+body.smcv-app.cv-index-page #header-container {
+    position: relative !important;
+
+    width: 100% !important;
+    height: var(--cv-header-height) !important;
+    min-height: var(--cv-header-height) !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    z-index: 10000 !important;
+}
+
+body.smcv-app.cv-index-page
+#header-container .header {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100% !important;
+    height: var(--cv-header-height) !important;
+    min-height: var(--cv-header-height) !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    z-index: 10000 !important;
+}
+
+
+/* ============================================================
+   SIDEBAR CONTAINER
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+#sidebar-container {
+    position: fixed !important;
+
+    top: var(--cv-header-height) !important;
+    left: 0 !important;
+
+    width: var(--cv-sidebar-width) !important;
+    min-width: var(--cv-sidebar-width) !important;
+
+    height:
+        calc(
+            100vh -
+            var(--cv-header-height)
+        ) !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    z-index: 9000 !important;
+
+    overflow: hidden !important;
+
+    transform:
+        translate3d(
+            0,
+            0,
+            0
+        ) !important;
+
+    transition:
+        transform
+        var(--cv-transition) !important;
+
+    will-change: transform;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container.cv-sidebar-collapsed {
+    transform:
+        translate3d(
+            -240px,
+            0,
+            0
+        ) !important;
+}
+
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+#sidebar-container #sidebar {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 240px !important;
+    min-width: 240px !important;
+
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    z-index: 9001 !important;
+
+    transform: none !important;
+    transition: none !important;
+
+    overflow: hidden !important;
+}
+
+
+/* ============================================================
+   SIDEBAR NAVIGATION
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+#sidebar-container .leftside-navigation {
+    position: relative !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    scroll-behavior: smooth;
+
+    scrollbar-width: thin;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container ul.sidebar-menu {
+    display: block !important;
+
+    width: 100% !important;
+    height: auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    list-style: none !important;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container ul.sidebar-menu > li {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container ul.sidebar-menu > li:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container ul.sidebar-menu > li > a {
+    min-height: 58px !important;
+
+    margin: 0 !important;
+
+    padding:
+        0 18px 0 18px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    box-sizing: border-box !important;
+
+    transition:
+        background-color 180ms ease,
+        color 180ms ease,
+        padding-left 180ms ease !important;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container ul.sidebar-menu > li > a > i {
+    width: 20px;
+
+    margin-right: 8px;
+
+    flex: 0 0 20px;
+
+    text-align: center;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container ul.sidebar-menu li ul.sub {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* ============================================================
+   CHỐNG CSS LEGACY THÊM 80PX
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+#sidebar-container ul.sidebar-menu {
+    padding-top: 0 !important;
+}
+
+body.smcv-app.cv-index-page
+#sidebar-container
+.leftside-navigation
+ul.sidebar-menu {
+    padding-top: 0 !important;
+}
+
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+#main-content {
+    position: relative !important;
+
+    width:
+        calc(
+            100% -
+            var(--cv-sidebar-width)
+        ) !important;
+
+    min-width: 0 !important;
+
+    min-height:
+        calc(
+            100vh -
+            var(--cv-header-height)
+        ) !important;
+
+    margin:
+        0 0 0
+        var(--cv-sidebar-width) !important;
+
+    padding: 0 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+
+    background: transparent !important;
+
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+
+    transition:
+        width
+        var(--cv-transition),
+        margin-left
+        var(--cv-transition) !important;
+
+    will-change: width, margin-left;
+}
+
+
+/* ============================================================
+   MAIN CONTENT KHI THU SIDEBAR
+   ============================================================ */
+
+body.smcv-app.cv-index-page[data-sidebar-state="collapsed"]
+#main-content {
+    width: 100% !important;
+
+    margin-left: 0 !important;
+}
+
+
+/* ============================================================
+   CV WRAPPER
+   ============================================================
+
+   KHÔNG đặt padding-top 80px ở đây.
+   #header-container đã chiếm 80px trong layout.
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-index-wrapper {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    min-height: 0 !important;
+
+    margin: 0 !important;
+
+    padding:
+        22px 28px 28px !important;
+
+    flex: 1 1 auto !important;
+
+    background: transparent !important;
+}
+
+
+/* ============================================================
+   MAIN CARD
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-index-container {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    background:
+        var(--cv-white) !important;
+
+    border:
+        1px solid
+        var(--cv-border) !important;
+
+    border-radius:
+        14px !important;
+
+    box-shadow:
+        var(--cv-shadow) !important;
+
+    overflow: hidden !important;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-index-header {
+    width: 100% !important;
+
+    min-height: 108px !important;
+
+    padding:
+        20px 24px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    gap: 24px !important;
+
+    background:
+        #ffffff !important;
+
+    border-bottom:
+        1px solid
+        var(--cv-border) !important;
+}
+
+
+/* ============================================================
+   HEADER LEFT
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-index-header-left {
+    min-width: 0 !important;
+
+    flex: 1 1 auto !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 14px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-index-title-icon {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    background:
+        var(--cv-primary-soft) !important;
+
+    border-radius: 12px !important;
+
+    font-size: 19px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-index-title-content {
+    min-width: 0 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-index-eyebrow {
+    display: block !important;
+
+    margin:
+        0 0 4px !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    font-size: 9px !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 1.25px !important;
+
+    line-height: 1.2 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-index-title-content h1 {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color:
+        var(--cv-text-dark) !important;
+
+    font-size: 21px !important;
+
+    font-weight: 600 !important;
+
+    line-height: 1.3 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-index-title-content p {
+    margin:
+        5px 0 0 !important;
+
+    padding: 0 !important;
+
+    color:
+        var(--cv-text-muted) !important;
+
+    font-size: 11px !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* ============================================================
+   HEADER RIGHT
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-index-header-right {
+    flex: 0 0 auto !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        130px
+        72px !important;
+
+    align-items: center !important;
+
+    justify-content: end !important;
+
+    column-gap: 24px !important;
+
+    min-width: 226px !important;
+
+    min-height: 68px !important;
+}
+
+
+/* ============================================================
+   SCOPE
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-role-scope {
+    width: 130px !important;
+    height: 68px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 6px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    text-align: center !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-role-scope span,
+body.smcv-app.cv-index-page
+.cv-index-total span {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    color:
+        #8e8b92 !important;
+
+    font-size: 8px !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: 1px !important;
+
+    line-height: 1.1 !important;
+
+    text-transform: uppercase !important;
+
+    text-align: center !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-role-scope strong {
+    display: inline-flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-width: 0 !important;
+
+    min-height: 28px !important;
+
+    max-width: 130px !important;
+
+    padding:
+        0 12px !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    background:
+        var(--cv-primary-soft) !important;
+
+    border-radius: 999px !important;
+
+    font-size: 9px !important;
+
+    font-weight: 700 !important;
+
+    line-height: 28px !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* ============================================================
+   TOTAL
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-index-total {
+    width: 72px !important;
+    height: 68px !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 4px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    text-align: center !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-index-total strong {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color:
+        var(--cv-primary-dark) !important;
+
+    font-size: 26px !important;
+
+    font-weight: 700 !important;
+
+    line-height: 1 !important;
+
+    text-align: center !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-index-total small {
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color:
+        var(--cv-text-light) !important;
+
+    font-size: 8px !important;
+
+    line-height: 1 !important;
+
+    text-align: center !important;
+}
+
+
+/* ============================================================
+   ROLE NOTICE
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-role-notice {
+    margin:
+        18px 20px 0 !important;
+
+    min-height:
+        66px !important;
+
+    padding:
+        12px 15px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 12px !important;
+
+    background:
+        #faf7fb !important;
+
+    border:
+        1px solid
+        #e8ddea !important;
+
+    border-left:
+        3px solid
+        var(--cv-primary) !important;
+
+    border-radius:
+        8px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-role-notice-icon {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    background:
+        var(--cv-primary-soft) !important;
+
+    border-radius:
+        9px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-role-notice-content {
+    min-width: 0 !important;
+
+    flex: 1 1 auto !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-role-notice-content strong {
+    display: block !important;
+
+    margin:
+        0 0 3px !important;
+
+    color:
+        var(--cv-text-dark) !important;
+
+    font-size:
+        10px !important;
+
+    font-weight:
+        700 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-role-notice-content p {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color:
+        var(--cv-text-muted) !important;
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.45 !important;
+}
+
+
+/* ============================================================
+   MESSAGE
+   Mặc định phải ẨN.
+   JS chỉ hiển thị khi thực sự có lỗi/thành công.
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-message {
+
+    display: none !important;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    margin:
+        16px 20px 0;
+
+    padding:
+        10px 13px;
+
+    border-radius:
+        7px;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+}
+
+
+/* Khi JS chủ động hiển thị */
+
+body.smcv-app.cv-index-page
+.cv-message.is-visible {
+
+    display:
+        flex !important;
+
+}
+
+
+/* ERROR */
+
+body.smcv-app.cv-index-page
+.cv-message-error {
+
+    color:
+        #ae4848;
+
+    background:
+        #fff1f1;
+
+    border:
+        1px solid
+        #efcccc;
+
+}
+
+
+/* SUCCESS */
+
+body.smcv-app.cv-index-page
+.cv-message-success {
+
+    color:
+        #43864f;
+
+    background:
+        #eef9f1;
+
+    border:
+        1px solid
+        #cce7d1;
+
+}
+
+body.smcv-app.cv-index-page
+.cv-message-error {
+    color: #ae4848 !important;
+
+    background:
+        #fff1f1 !important;
+
+    border:
+        1px solid
+        #efcccc !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-message-success {
+    color:
+        var(--cv-success) !important;
+
+    background:
+        #eef9f1 !important;
+
+    border:
+        1px solid
+        #cce7d1 !important;
+}
+
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-index-content {
+    width: 100% !important;
+
+    padding:
+        20px !important;
+}
+
+
+/* ============================================================
+   SEARCH CARD
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-search-card {
+    width: 100% !important;
+
+    padding:
+        17px !important;
+
+    background: #ffffff !important;
+
+    border:
+        1px solid
+        var(--cv-border) !important;
+
+    border-radius:
+        var(--cv-radius) !important;
+
+    box-shadow:
+        0 2px 10px
+        rgba(
+            40,
+            48,
+            65,
+            0.035
+        ) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-heading {
+    margin:
+        0 0 13px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-eyebrow,
+body.smcv-app.cv-index-page
+.cv-table-eyebrow {
+    display: block !important;
+
+    margin:
+        0 0 4px !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    font-size:
+        8px !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        1.1px !important;
+
+    line-height:
+        1.2 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-heading h2,
+body.smcv-app.cv-index-page
+.cv-table-header h2 {
+    margin: 0 !important;
+
+    color:
+        var(--cv-text-dark) !important;
+
+    font-size:
+        14px !important;
+
+    font-weight:
+        600 !important;
+
+    line-height:
+        1.3 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-heading p {
+    margin:
+        4px 0 0 !important;
+
+    color:
+        var(--cv-text-muted) !important;
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.4 !important;
+}
+
+
+/* ============================================================
+   SEARCH FORM
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-search-form {
+    width:
+        100% !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        8px !important;
+
+    flex-wrap:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-input {
+    position:
+        relative !important;
+
+    flex:
+        1 1 auto !important;
+
+    min-width:
+        180px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-input i {
+    position:
+        absolute !important;
+
+    top:
+        50% !important;
+
+    left:
+        12px !important;
+
+    transform:
+        translateY(-50%) !important;
+
+    color:
+        #9aa0a8 !important;
+
+    font-size:
+        12px !important;
+
+    pointer-events:
+        none !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-input input,
+body.smcv-app.cv-index-page
+.cv-status-filter select {
+    width:
+        100% !important;
+
+    height:
+        40px !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 12px !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid
+        #dde1e7 !important;
+
+    border-radius:
+        6px !important;
+
+    color:
+        #555d68 !important;
+
+    font-size:
+        10px !important;
+
+    outline:
+        none !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-input input {
+    padding-left:
+        34px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-search-input input:focus,
+body.smcv-app.cv-index-page
+.cv-status-filter select:focus {
+    border-color:
+        var(--cv-primary) !important;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(
+            149,
+            96,
+            141,
+            0.08
+        ) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-status-filter {
+    flex:
+        0 0 180px !important;
+
+    width:
+        180px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-btn {
+    height:
+        40px !important;
+
+    padding:
+        0 14px !important;
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    gap:
+        7px !important;
+
+    border-radius:
+        6px !important;
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1 !important;
+
+    white-space:
+        nowrap !important;
+
+    cursor:
+        pointer !important;
+
+    transition:
+        background-color
+        160ms ease,
+        border-color
+        160ms ease,
+        color
+        160ms ease !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-btn-search {
+    flex:
+        0 0 auto !important;
+
+    color:
+        #ffffff !important;
+
+    background:
+        var(--cv-primary) !important;
+
+    border:
+        1px solid
+        var(--cv-primary) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-btn-search:hover {
+    color:
+        #ffffff !important;
+
+    background:
+        #81517a !important;
+
+    border-color:
+        #81517a !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-btn-refresh {
+    flex:
+        0 0 auto !important;
+
+    color:
+        #666666 !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid
+        #d9dce1 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-btn-refresh:hover {
+    background:
+        #fafafa !important;
+
+    border-color:
+        #c8ccd2 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-btn-primary {
+    color:
+        #ffffff !important;
+
+    background:
+        var(--cv-primary) !important;
+
+    border:
+        1px solid
+        var(--cv-primary) !important;
+}
+
+
+/* ============================================================
+   TABLE CARD
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-table-card {
+    width:
+        100% !important;
+
+    margin:
+        18px 0 0 !important;
+
+    padding:
+        18px !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid
+        var(--cv-border) !important;
+
+    border-radius:
+        var(--cv-radius) !important;
+
+    box-shadow:
+        0 2px 10px
+        rgba(
+            40,
+            48,
+            65,
+            0.035
+        ) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table-header {
+    margin:
+        0 0 12px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        flex-end !important;
+
+    justify-content:
+        space-between !important;
+
+    gap:
+        20px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action-summary {
+    flex:
+        0 0 auto !important;
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        6px !important;
+
+    color:
+        #a09ba3 !important;
+
+    font-size:
+        9px !important;
+
+    white-space:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action-summary i {
+    color:
+        var(--cv-primary) !important;
+}
+
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-table-wrapper {
+    width:
+        100% !important;
+
+    overflow-x:
+        auto !important;
+
+    border:
+        1px solid
+        #ebe7eb !important;
+
+    border-radius:
+        8px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table {
+    width:
+        100% !important;
+
+    min-width:
+        920px !important;
+
+    table-layout:
+        fixed !important;
+
+    border-collapse:
+        collapse !important;
+
+    background:
+        #ffffff !important;
+
+    color:
+        #56515a !important;
+
+    font-size:
+        10px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table thead th {
+    height:
+        44px !important;
+
+    padding:
+        0 10px !important;
+
+    vertical-align:
+        middle !important;
+
+    background:
+        #fbfafb !important;
+
+    border-right:
+        1px solid
+        #ebe7eb !important;
+
+    border-bottom:
+        1px solid
+        #ebe7eb !important;
+
+    color:
+        #706b72 !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        700 !important;
+
+    white-space:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table thead th:first-child,
+body.smcv-app.cv-index-page
+.cv-table thead th:last-child {
+    text-align:
+        center !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table tbody tr {
+    background:
+        #ffffff !important;
+
+    transition:
+        background-color
+        160ms ease !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table tbody tr:hover {
+    background:
+        #fcf9fc !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table tbody td {
+    height:
+        58px !important;
+
+    padding:
+        0 10px !important;
+
+    border-right:
+        1px solid
+        #ebe7eb !important;
+
+    border-bottom:
+        1px solid
+        #ebe7eb !important;
+
+    font-size:
+        10px !important;
+
+    vertical-align:
+        middle !important;
+
+    overflow:
+        hidden !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-table tbody td:last-child {
+    border-right:
+        0 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-col-stt {
+    width:
+        58px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-col-code {
+    width:
+        110px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-col-name {
+    width:
+        220px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-col-department {
+    width:
+        170px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-col-status {
+    width:
+        145px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-col-version {
+    width:
+        145px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-col-action {
+    width:
+        110px !important;
+}
+
+
+/* ============================================================
+   TABLE CONTENT
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-cell-stt {
+    text-align:
+        center !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-stt {
+    width:
+        28px !important;
+
+    height:
+        28px !important;
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    border-radius:
+        50% !important;
+
+    background:
+        var(--cv-primary-soft) !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    font-size:
+        10px !important;
+
+    font-weight:
+        600 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-code {
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    min-height:
+        24px !important;
+
+    padding:
+        0 8px !important;
+
+    border-radius:
+        5px !important;
+
+    background:
+        var(--cv-primary-soft) !important;
+
+    color:
+        var(--cv-primary) !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        700 !important;
+
+    white-space:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-name {
+    min-width:
+        0 !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        8px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-name-icon {
+    flex:
+        0 0 auto !important;
+
+    color:
+        var(--cv-primary) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-name-text,
+body.smcv-app.cv-index-page
+.cv-text {
+    display:
+        block !important;
+
+    overflow:
+        hidden !important;
+
+    text-overflow:
+        ellipsis !important;
+
+    white-space:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-version {
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    min-height:
+        24px !important;
+
+    padding:
+        0 8px !important;
+
+    border-radius:
+        5px !important;
+
+    background:
+        #edf6ef !important;
+
+    color:
+        #4d8757 !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        700 !important;
+
+    white-space:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-status {
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    min-height:
+        24px !important;
+
+    padding:
+        0 9px !important;
+
+    border-radius:
+        999px !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        600 !important;
+
+    white-space:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-status-updated {
+    color:
+        var(--cv-success) !important;
+
+    background:
+        var(--cv-success-bg) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-status-not-updated {
+    color:
+        var(--cv-warning) !important;
+
+    background:
+        var(--cv-warning-bg) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-status-cancelled {
+    color:
+        var(--cv-danger) !important;
+
+    background:
+        var(--cv-danger-bg) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-status-default {
+    color:
+        #6b7078 !important;
+
+    background:
+        #f2f3f5 !important;
+}
+
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-actions {
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    gap:
+        6px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action {
+    min-width:
+        64px !important;
+
+    height:
+        30px !important;
+
+    padding:
+        0 9px !important;
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    gap:
+        6px !important;
+
+    border-radius:
+        5px !important;
+
+    text-decoration:
+        none !important;
+
+    font-size:
+        9px !important;
+
+    line-height:
+        1 !important;
+
+    transition:
+        background-color
+        160ms ease,
+        border-color
+        160ms ease,
+        color
+        160ms ease !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action-view {
+    color:
+        var(--cv-primary) !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid
+        #d9c7d6 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action-view:hover {
+    color:
+        #ffffff !important;
+
+    background:
+        var(--cv-primary) !important;
+
+    border-color:
+        var(--cv-primary) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action-edit {
+    color:
+        #ffffff !important;
+
+    background:
+        var(--cv-primary) !important;
+
+    border:
+        1px solid
+        var(--cv-primary) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action-edit:hover {
+    color:
+        #ffffff !important;
+
+    background:
+        var(--cv-primary-dark) !important;
+
+    border-color:
+        var(--cv-primary-dark) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-action-disabled {
+    color:
+        #a7a7a7 !important;
+
+    font-size:
+        9px !important;
+}
+
+
+/* ============================================================
+   EMPTY / LOADING
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-loading {
+    height:
+        180px !important;
+
+    color:
+        #9b9ba0 !important;
+
+    text-align:
+        center !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-loading i {
+    margin-right:
+        6px !important;
+
+    color:
+        var(--cv-primary) !important;
+}
+
+/* ============================================================
+   EMPTY STATE
+   Mặc định phải ẨN.
+   JS chỉ bật khi API thực sự trả về 0 CV.
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-empty {
+
+    display:
+        none;
+
+    min-height:
+        260px;
+
+    margin-top:
+        16px;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        20px;
+
+    background:
+        #fcfbfc;
+
+    border:
+        1px dashed
+        #dedfe4;
+
+    border-radius:
+        8px;
+
+    text-align:
+        center;
+
+}
+
+
+/* Chỉ JS được phép bật Empty State */
+
+body.smcv-app.cv-index-page
+.cv-empty.is-visible {
+
+    display:
+        flex !important;
+
+}
+
+
+body.smcv-app.cv-index-page
+.cv-empty-icon {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        54px;
+
+    height:
+        54px;
+
+    margin-bottom:
+        11px;
+
+    color:
+        #b99db4;
+
+    background:
+        #f5edf5;
+
+    border-radius:
+        50%;
+
+    font-size:
+        21px;
+
+}
+
+
+body.smcv-app.cv-index-page
+.cv-empty h3 {
+
+    margin:
+        0;
+
+    color:
+        var(--cv-text-dark);
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.cv-index-page
+.cv-empty p {
+
+    max-width:
+        520px;
+
+    margin:
+        7px 0 0;
+
+    color:
+        var(--cv-text-muted);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+body.smcv-app.cv-index-page
+.cv-empty .cv-btn-primary {
+
+    margin-top:
+        14px;
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-primary);
+
+    border:
+        1px solid
+        var(--cv-primary);
+
+}
+
+body.smcv-app.cv-index-page
+.cv-empty-icon {
+    width:
+        52px !important;
+
+    height:
+        52px !important;
+
+    margin-bottom:
+        10px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    color:
+        #c3afc0 !important;
+
+    background:
+        var(--cv-primary-soft) !important;
+
+    border-radius:
+        50% !important;
+
+    font-size:
+        22px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-empty h3 {
+    margin:
+        0 !important;
+
+    color:
+        #62636a !important;
+
+    font-size:
+        14px !important;
+
+    font-weight:
+        600 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-empty p {
+    margin:
+        6px 0 0 !important;
+
+    color:
+        #999999 !important;
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.45 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-empty .cv-btn {
+    margin-top:
+        14px !important;
+}
+
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+.cv-pagination {
+    min-height:
+        42px !important;
+
+    margin-top:
+        16px !important;
+
+    padding-top:
+        14px !important;
+
+    border-top:
+        1px solid
+        #eeeeee !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        space-between !important;
+
+    gap:
+        15px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-pagination-info {
+    color:
+        #999999 !important;
+
+    font-size:
+        10px !important;
+
+    white-space:
+        nowrap !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-pagination-info strong {
+    color:
+        #666666 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-pagination-controls {
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        flex-end !important;
+
+    gap:
+        5px !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-pagination-button,
+body.smcv-app.cv-index-page
+.cv-pagination-number {
+    min-width:
+        30px !important;
+
+    height:
+        30px !important;
+
+    padding:
+        0 7px !important;
+
+    border:
+        1px solid
+        #dddddd !important;
+
+    border-radius:
+        5px !important;
+
+    color:
+        #666666 !important;
+
+    background:
+        #ffffff !important;
+
+    font-size:
+        9px !important;
+
+    line-height:
+        1 !important;
+
+    cursor:
+        pointer !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-pagination-button:hover:not(:disabled),
+body.smcv-app.cv-index-page
+.cv-pagination-number:hover {
+    color:
+        var(--cv-primary) !important;
+
+    background:
+        var(--cv-primary-soft) !important;
+
+    border-color:
+        #d2bed0 !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-pagination-button:disabled {
+    opacity:
+        .4 !important;
+
+    cursor:
+        not-allowed !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-pagination-active {
+    color:
+        #ffffff !important;
+
+    background:
+        var(--cv-primary) !important;
+
+    border-color:
+        var(--cv-primary) !important;
+}
+
+body.smcv-app.cv-index-page
+.cv-page-numbers {
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        5px !important;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================
+
+   Footer nằm bên trong main-content.
+   Main-content là flex-column.
+   Wrapper flex-grow.
+   Footer bám đáy khi content ngắn.
+   ============================================================ */
+
+body.smcv-app.cv-index-page
+#footer-container {
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    max-width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    min-height:
+        56px !important;
+
+    height:
+        auto !important;
+
+    margin:
+        auto 0 0 !important;
+
+    padding:
+        0 !important;
+
+    flex:
+        0 0 auto !important;
+
+    display:
+        block !important;
+
+    float:
+        none !important;
+
+    clear:
+        both !important;
+
+    overflow:
+        hidden !important;
+
+    background:
+        transparent !important;
+}
+
+body.smcv-app.cv-index-page
+#footer-container .footer,
+body.smcv-app.cv-index-page
+#footer-container .wthree-footer {
+    width:
+        100% !important;
+
+    max-width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    min-height:
+        56px !important;
+
+    height:
+        auto !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        15px 20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    background:
+        var(--cv-footer-bg) !important;
+
+    color:
+        #ffffff !important;
+
+    border:
+        0 !important;
+
+    box-shadow:
+        none !important;
+
+    box-sizing:
+        border-box !important;
+}
+
+body.smcv-app.cv-index-page
+#footer-container .wthree-copyright {
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    text-align:
+        center !important;
+}
+
+body.smcv-app.cv-index-page
+#footer-container .wthree-copyright p {
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    color:
+        #ffffff !important;
+
+    font-size:
+        9px !important;
+
+    line-height:
+        1.5 !important;
+
+    text-align:
+        center !important;
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    body.smcv-app.cv-index-page
+    .cv-index-wrapper {
+        padding:
+            18px 16px 22px !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-header {
+        padding:
+            18px 20px !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-header-right {
+        grid-template-columns:
+            116px 68px !important;
+
+        column-gap:
+            18px !important;
+
+        min-width:
+            202px !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-role-scope {
+        width:
+            116px !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-total {
+        width:
+            68px !important;
+    }
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.cv-index-page
+    #sidebar-container {
+        top:
+            var(--cv-header-height) !important;
+
+        height:
+            calc(
+                100vh -
+                var(--cv-header-height)
+            ) !important;
+    }
+
+    body.smcv-app.cv-index-page
+    #main-content {
+        width:
+            100% !important;
+
+        margin-left:
+            0 !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-wrapper {
+        padding:
+            14px 10px 16px !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-header {
+        flex-direction:
+            column !important;
+
+        align-items:
+            flex-start !important;
+
+        padding:
+            18px !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-header-right {
+        width:
+            100% !important;
+
+        min-width:
+            0 !important;
+
+        grid-template-columns:
+            1fr 1fr !important;
+
+        column-gap:
+            12px !important;
+
+        justify-content:
+            stretch !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-role-scope {
+        width:
+            100% !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-total {
+        width:
+            100% !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-index-content {
+        padding:
+            14px !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-search-form {
+        flex-direction:
+            column !important;
+
+        align-items:
+            stretch !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-search-input,
+    body.smcv-app.cv-index-page
+    .cv-status-filter,
+    body.smcv-app.cv-index-page
+    .cv-btn {
+        width:
+            100% !important;
+
+        flex:
+            none !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-table-header {
+        flex-direction:
+            column !important;
+
+        align-items:
+            flex-start !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-action-summary {
+        white-space:
+            normal !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-pagination {
+        flex-direction:
+            column !important;
+
+        align-items:
+            stretch !important;
+    }
+
+    body.smcv-app.cv-index-page
+    .cv-pagination-controls {
+        justify-content:
+            center !important;
+    }
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    body.smcv-app.cv-index-page
+    #sidebar-container,
+    body.smcv-app.cv-index-page
+    #main-content,
+    body.smcv-app.cv-index-page
+    .cv-btn,
+    body.smcv-app.cv-index-page
+    .cv-action {
+        transition:
+            none !important;
+    }
+}

@@ -1,0 +1,1272 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   EMPLOYEE ADD PAGE
+   ============================================================
+
+   File:
+   assets/css/addcategoryview.css
+
+   Mục tiêu:
+   - Header không che content
+   - Sidebar không bị content đè
+   - Main Content nằm bên phải Sidebar
+   - Content có nền gradient hệ thống
+   - Form nằm trong card trắng
+   - Có khoảng cách rõ giữa Header / Form / Footer
+   - Footer không tràn vào Sidebar
+   - Kích thước chữ đồng bộ hệ thống
+   - Responsive
+
+   HTML tương ứng:
+   body.smcv-app.employee-add-page
+   ============================================================ */
+
+
+/* ============================================================
+   1. PAGE
+   ============================================================ */
+
+body.smcv-app.employee-add-page {
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6a083 0%,
+            #dda0ab 42%,
+            #bf8eb0 68%,
+            #8673ac 100%
+        );
+
+    background-attachment: fixed;
+
+}
+
+
+/* ============================================================
+   2. BOX SIZING
+   ============================================================ */
+
+body.smcv-app.employee-add-page *,
+body.smcv-app.employee-add-page *::before,
+body.smcv-app.employee-add-page *::after {
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   3. APPLICATION CONTAINER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+#container {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+}
+
+
+/* ============================================================
+   4. MAIN CONTENT
+   ============================================================
+
+   Sidebar:
+       240px
+
+   Main:
+       phần còn lại màn hình
+
+   Footer nằm trong #main-content của add.html,
+   vì vậy Main phải là flex column.
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+#main-content {
+
+    position: relative;
+
+    width:
+        calc(100% - 240px);
+
+    min-width: 0;
+
+    min-height: 100vh;
+
+    margin-left: 240px;
+
+    margin-right: 0;
+
+    padding: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    background: transparent !important;
+
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+
+}
+
+
+/* ============================================================
+   5. WRAPPER
+   ============================================================
+
+   Header hệ thống cao khoảng 70-80px.
+
+   Wrapper bắt đầu bên dưới Header bằng margin-top.
+   Không dùng padding-top để tránh form bị chồng lên Header.
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height:
+        calc(100vh - 80px);
+
+    margin-top: 80px;
+
+    margin-right: 0;
+
+    margin-bottom: 0;
+
+    margin-left: 0;
+
+    padding:
+        20px
+        24px
+        45px;
+
+    flex: 1 0 auto;
+
+    background: transparent;
+
+}
+
+
+/* ============================================================
+   6. CARD
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-card {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: #ffffff;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(31, 41, 55, 0.08);
+
+    overflow: hidden;
+
+}
+
+
+/* ============================================================
+   7. HEADER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-header {
+
+    width: 100%;
+
+    min-height: 78px;
+
+    margin: 0;
+
+    padding:
+        16px
+        24px;
+
+    display: flex;
+
+    align-items: center;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid #eeeeee;
+
+}
+
+
+/* ============================================================
+   8. HEADER LEFT
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-header-left {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+
+/* ============================================================
+   9. HEADER ICON
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-header-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    margin-right: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #f4edf5;
+
+    color: #95608d;
+
+    font-size: 17px;
+
+}
+
+
+/* ============================================================
+   10. HEADER CONTENT
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-header-content {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+/* ============================================================
+   11. TITLE
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-title {
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #333333;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    line-height: 1.35;
+
+}
+
+
+/* ============================================================
+   12. SUBTITLE
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-subtitle {
+
+    margin:
+        3px
+        0
+        0;
+
+    padding: 0;
+
+    color: #999999;
+
+    font-size: 11px;
+
+    font-weight: 400;
+
+    line-height: 1.4;
+
+}
+
+
+/* ============================================================
+   13. BODY
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-body {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding:
+        24px
+        24px
+        28px;
+
+    background: #ffffff;
+
+}
+
+
+/* ============================================================
+   14. FORM
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-form {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+/* ============================================================
+   15. FORM GROUP
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-form .form-group {
+
+    width: 100%;
+
+    margin:
+        0
+        0
+        17px;
+
+    padding: 0;
+
+}
+
+
+/* ============================================================
+   16. LABEL
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-form label {
+
+    display: block;
+
+    margin:
+        0
+        0
+        7px;
+
+    padding: 0;
+
+    color: #3f3f3f;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 18px;
+
+}
+
+
+/* ============================================================
+   17. REQUIRED
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-form .required {
+
+    margin-left: 3px;
+
+    color: #e74c3c;
+
+    font-weight: 600;
+
+}
+
+
+/* ============================================================
+   18. INPUT WRAPPER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.form-input-wrapper {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+
+/* ============================================================
+   19. INPUT ICON
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.form-input-icon {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 13px;
+
+    z-index: 2;
+
+    transform:
+        translateY(-50%);
+
+    color: #999999;
+
+    font-size: 12px;
+
+    pointer-events: none;
+
+}
+
+
+/* ============================================================
+   20. INPUT / SELECT
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.form-input-wrapper
+.form-control {
+
+    width: 100%;
+
+    height: 38px;
+
+    margin: 0;
+
+    padding:
+        8px
+        12px
+        8px
+        36px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 4px;
+
+    background: #ffffff;
+
+    color: #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 20px;
+
+    outline: none;
+
+    box-shadow: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+/* ============================================================
+   21. SELECT
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.form-input-wrapper
+select.form-control {
+
+    padding-right: 35px;
+
+    cursor: pointer;
+
+}
+
+
+/* ============================================================
+   22. INPUT FOCUS
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.form-input-wrapper
+.form-control:focus {
+
+    border-color:
+        #95608d;
+
+    background:
+        #ffffff;
+
+    outline:
+        none;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(149, 96, 141, 0.08);
+
+}
+
+
+/* ============================================================
+   23. PLACEHOLDER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-form
+.form-control::placeholder {
+
+    color: #aaaaaa;
+
+    opacity: 1;
+
+}
+
+
+/* ============================================================
+   24. HELP TEXT
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.form-help {
+
+    margin-top:
+        6px;
+
+    color:
+        #999999;
+
+    font-size:
+        10px;
+
+    line-height:
+        15px;
+
+}
+
+
+body.smcv-app.employee-add-page
+.form-help i {
+
+    margin-right:
+        4px;
+
+    color:
+        #aaaaaa;
+
+}
+
+
+/* ============================================================
+   25. ALERT
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-body
+.alert {
+
+    margin:
+        0
+        0
+        17px;
+
+    padding:
+        10px
+        12px;
+
+    border-radius:
+        4px;
+
+    font-size:
+        11px;
+
+    line-height:
+        17px;
+
+}
+
+
+/* ============================================================
+   26. DIVIDER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-divider {
+
+    width: 100%;
+
+    height: 1px;
+
+    margin:
+        4px
+        0
+        20px;
+
+    background:
+        #eeeeee;
+
+}
+
+
+/* ============================================================
+   27. FORM FOOTER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-form-footer {
+
+    width: 100%;
+
+    margin:
+        4px
+        0
+        0;
+
+    padding:
+        16px
+        0
+        0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    border-top:
+        1px solid #eeeeee;
+
+}
+
+
+/* ============================================================
+   28. BUTTON BASE
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-btn {
+
+    height:
+        34px;
+
+    min-width:
+        84px;
+
+    padding:
+        0
+        13px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    border-radius:
+        4px;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size:
+        11px;
+
+    font-weight:
+        500;
+
+    line-height:
+        1;
+
+    text-decoration:
+        none !important;
+
+    white-space:
+        nowrap;
+
+    cursor:
+        pointer;
+
+    outline:
+        none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+/* ============================================================
+   29. BUTTON ICON
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-btn i {
+
+    margin-right:
+        2px;
+
+    font-size:
+        10px;
+
+}
+
+
+/* ============================================================
+   30. BACK BUTTON
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-btn-back {
+
+    color:
+        #666666;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #dddddd;
+
+}
+
+
+body.smcv-app.employee-add-page
+.category-btn-back:hover {
+
+    color:
+        #555555;
+
+    background:
+        #f7f7f7;
+
+    border-color:
+        #cccccc;
+
+}
+
+
+/* ============================================================
+   31. RESET BUTTON
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-btn-reset {
+
+    color:
+        #666666;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid #dddddd;
+
+}
+
+
+body.smcv-app.employee-add-page
+.category-btn-reset:hover {
+
+    color:
+        #95608d;
+
+    background:
+        #f7f1f7;
+
+    border-color:
+        #95608d;
+
+}
+
+
+/* ============================================================
+   32. SAVE BUTTON
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+.category-btn-save {
+
+    color:
+        #ffffff;
+
+    background:
+        #95608d;
+
+    border:
+        1px solid #95608d;
+
+}
+
+
+body.smcv-app.employee-add-page
+.category-btn-save:hover {
+
+    color:
+        #ffffff;
+
+    background:
+        #7d526e;
+
+    border-color:
+        #7d526e;
+
+}
+
+
+/* ============================================================
+   33. FOOTER CONTAINER
+   ============================================================ */
+
+/*
+ * Footer đang nằm trong #main-content.
+ *
+ * Vì #main-content đã có:
+ *
+ * width: calc(100% - 240px)
+ * margin-left: 240px
+ *
+ * nên Footer không cần tự margin-left.
+ */
+
+body.smcv-app.employee-add-page
+#footer-container {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    min-width:
+        0;
+
+    min-height:
+        60px;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    flex:
+        0 0 auto;
+
+    background:
+        transparent;
+
+    box-sizing:
+        border-box;
+
+    overflow:
+        hidden;
+
+}
+
+
+/* ============================================================
+   34. FOOTER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+#footer-container .footer {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    min-height:
+        60px;
+
+    margin:
+        0 !important;
+
+    padding:
+        20px;
+
+    display:
+        flex !important;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    float:
+        none !important;
+
+    clear:
+        both !important;
+
+    background:
+        #d19a98 !important;
+
+    border:
+        none !important;
+
+    box-sizing:
+        border-box;
+
+}
+
+
+/* ============================================================
+   35. FOOTER INNER
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+#footer-container .wthree-footer {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    background:
+        transparent;
+
+}
+
+
+/* ============================================================
+   36. FOOTER COPYRIGHT
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+#footer-container .wthree-copyright {
+
+    width:
+        100%;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    text-align:
+        center;
+
+}
+
+
+body.smcv-app.employee-add-page
+#footer-container .wthree-copyright p {
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        11px;
+
+    font-weight:
+        400;
+
+    line-height:
+        1.5;
+
+    text-align:
+        center;
+
+}
+
+
+/* ============================================================
+   37. SIDEBAR COLLAPSED
+   ============================================================ */
+
+body.smcv-app.employee-add-page
+#main-content.merge-left {
+
+    width:
+        100%;
+
+    margin-left:
+        0;
+
+}
+
+
+/*
+ * Khi Sidebar thu gọn,
+ * Footer nằm đúng trên toàn bộ phần Main.
+ */
+
+body.smcv-app.employee-add-page
+#main-content.merge-left
+#footer-container {
+
+    width:
+        100% !important;
+
+    margin-left:
+        0 !important;
+
+}
+
+
+/* ============================================================
+   38. TABLET
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    body.smcv-app.employee-add-page
+    #main-content {
+
+        width:
+            100%;
+
+        margin-left:
+            0;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-wrapper {
+
+        margin-top:
+            70px;
+
+        padding:
+            18px
+            18px
+            40px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-header {
+
+        min-height:
+            72px;
+
+        padding:
+            16px
+            20px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-body {
+
+        padding:
+            22px
+            20px
+            26px;
+
+    }
+
+}
+
+
+/* ============================================================
+   39. MOBILE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.employee-add-page
+    .category-wrapper {
+
+        margin-top:
+            65px;
+
+        padding:
+            14px
+            10px
+            35px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-header {
+
+        min-height:
+            auto;
+
+        padding:
+            16px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-header-icon {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        min-width:
+            40px;
+
+        margin-right:
+            11px;
+
+        font-size:
+            16px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-title {
+
+        font-size:
+            16px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-subtitle {
+
+        font-size:
+            10px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-body {
+
+        padding:
+            20px
+            16px
+            22px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-form-footer {
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap:
+            8px;
+
+    }
+
+
+    body.smcv-app.employee-add-page
+    .category-btn {
+
+        width:
+            100%;
+
+    }
+
+}

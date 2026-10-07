@@ -1,0 +1,1702 @@
+css
+/* =========================================================
+   SYSTEMANAGERCV
+   CATEGORY / EMPLOYEE PAGE
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.category-page {
+    width: 100%;
+
+    padding: 25px 22px 0 22px;
+
+    background: #f5f5f5;
+
+    min-height: calc(100vh - 70px);
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.category-container {
+    width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 5px;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.category-page-header {
+    min-height: 95px;
+
+    padding: 22px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    background: #ffffff;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.category-page-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+    flex: 1 1 auto;
+}
+
+
+.category-title-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f4edf4;
+
+    color: #95608d;
+
+    border-radius: 8px;
+
+    font-size: 20px;
+}
+
+
+.category-title-content {
+    min-width: 0;
+}
+
+
+.category-title-content h3 {
+    margin: 0;
+    padding: 0;
+
+    font-size: 21px;
+
+    font-weight: 600;
+
+    color: #333333;
+
+    line-height: 1.4;
+}
+
+
+.category-title-content p {
+    margin: 5px 0 0 0;
+
+    color: #999999;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   TOTAL BOX
+   ========================================================= */
+
+.category-total-box {
+    min-width: 145px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 15px;
+
+    background: #f8f3f8;
+
+    border-radius: 20px;
+
+    box-sizing: border-box;
+}
+
+
+.category-total-icon {
+    width: 32px;
+    height: 32px;
+
+    flex: 0 0 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #95608d;
+
+    font-size: 15px;
+}
+
+
+.category-total-content {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 12px;
+
+    color: #999999;
+
+    white-space: nowrap;
+}
+
+
+.category-total-content strong {
+    color: #95608d;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+.category-total-content small {
+    font-size: 12px;
+
+    color: #999999;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.category-content {
+    width: 100%;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.category-search {
+    width: 100%;
+
+    margin-bottom: 25px;
+
+    box-sizing: border-box;
+}
+
+
+.category-search-form {
+    width: 48%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SEARCH INPUT WRAPPER
+   ========================================================= */
+
+.category-search-input {
+    position: relative;
+
+    flex: 1 1 auto;
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SEARCH ICON
+   ========================================================= */
+
+.category-search-input i {
+    position: absolute;
+
+    left: 14px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #999999;
+
+    font-size: 14px;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SEARCH INPUT
+   ========================================================= */
+
+.category-search-input input {
+    display: block;
+
+    width: 100%;
+
+    height: 40px;
+
+    box-sizing: border-box;
+
+    padding-left: 38px;
+
+    padding-right: 15px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 4px;
+
+    background: #ffffff;
+
+    color: #555555;
+
+    box-shadow: none;
+
+    font-size: 13px;
+
+    outline: none;
+}
+
+
+.category-search-input input:focus {
+    border-color: #95608d;
+
+    box-shadow: 0 0 0 2px rgba(149, 96, 141, 0.08);
+
+    outline: none;
+}
+
+
+.category-search-input input::placeholder {
+    color: #aaaaaa;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   SEARCH / REFRESH BUTTON
+   ========================================================= */
+
+.category-btn {
+    height: 40px;
+
+    flex: 0 0 auto;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0 18px;
+
+    box-sizing: border-box;
+
+    border-radius: 4px;
+
+    font-size: 13px;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition: all 0.2s ease;
+
+    cursor: pointer;
+}
+
+
+.category-btn i {
+    margin-right: 6px;
+
+    flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   SEARCH BUTTON
+   ========================================================= */
+
+.category-btn-search {
+    background: #95608d;
+
+    color: #ffffff;
+
+    border: 1px solid #95608d;
+}
+
+
+.category-btn-search:hover,
+.category-btn-search:focus {
+    background: #814f79;
+
+    color: #ffffff;
+
+    border-color: #814f79;
+
+    text-decoration: none;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   REFRESH BUTTON
+   ========================================================= */
+
+.category-btn-refresh {
+    background: #ffffff;
+
+    color: #666666;
+
+    border: 1px solid #dddddd;
+}
+
+
+.category-btn-refresh:hover,
+.category-btn-refresh:focus {
+    background: #f7f7f7;
+
+    color: #95608d;
+
+    border-color: #95608d;
+
+    text-decoration: none;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+   ========================================================= */
+
+.category-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 4px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   EMPLOYEE TABLE
+   ========================================================= */
+
+.category-table {
+    width: 100%;
+
+    table-layout: fixed;
+
+    border-collapse: collapse;
+
+    border-spacing: 0;
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   COLUMN WIDTH
+   =========================================================
+
+   Tổng = 100%
+
+   STT              5%
+   Mã NV            8%
+   Họ và tên       14%
+   Email            13%
+   Số điện thoại     8%
+   Phòng ban        10%
+   Vị trí            8%
+   Chức danh         9%
+   Trạng thái        9%
+   Thao tác         16%
+
+   Tổng             100%
+
+   Cột Thao tác được tăng lên 16%
+   để đủ chỗ cho Sửa + Xóa.
+   ========================================================= */
+
+
+/* =========================================================
+   COLGROUP
+   ========================================================= */
+
+.category-table col.category-col-stt {
+    width: 5%;
+}
+
+
+.category-table col.category-col-code {
+    width: 8%;
+}
+
+
+.category-table col.category-col-name {
+    width: 14%;
+}
+
+
+.category-table col.employee-col-email {
+    width: 13%;
+}
+
+
+.category-table col.employee-col-phone {
+    width: 8%;
+}
+
+
+.category-table col.employee-col-department {
+    width: 10%;
+}
+
+
+.category-table col.employee-col-position {
+    width: 8%;
+}
+
+
+.category-table col.employee-col-job-title {
+    width: 9%;
+}
+
+
+.category-table col.category-col-status {
+    width: 9%;
+}
+
+
+.category-table col.category-col-action {
+    width: 16%;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+   ========================================================= */
+
+.category-table thead {
+    width: 100%;
+}
+
+
+.category-table thead tr {
+    background: #f8f8f8;
+}
+
+
+.category-table thead th {
+    height: 48px;
+
+    padding: 0 8px;
+
+    box-sizing: border-box;
+
+    border-right: 1px solid #e5e5e5;
+
+    border-bottom: 1px solid #e5e5e5;
+
+    color: #777777;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    vertical-align: middle;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+
+.category-table thead th:last-child {
+    border-right: none;
+}
+
+
+/* =========================================================
+   TABLE BODY
+   ========================================================= */
+
+.category-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+
+.category-table tbody tr:hover {
+    background: #fcf9fc;
+}
+
+
+.category-table tbody td {
+    height: 62px;
+
+    padding: 10px 8px;
+
+    box-sizing: border-box;
+
+    border-right: 1px solid #eeeeee;
+
+    border-bottom: 1px solid #eeeeee;
+
+    color: #666666;
+
+    font-size: 13px;
+
+    vertical-align: middle;
+
+    overflow: hidden;
+}
+
+
+.category-table tbody td:last-child {
+    border-right: none;
+}
+
+
+/* =========================================================
+   GENERAL TEXT PROTECTION
+   ========================================================= */
+
+.category-table th,
+.category-table td {
+    box-sizing: border-box;
+
+    min-width: 0;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   STT
+   ========================================================= */
+
+.category-table .category-col-stt {
+    text-align: center !important;
+
+    white-space: nowrap;
+}
+
+
+.category-stt {
+    width: 27px;
+    height: 27px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f3edf3;
+
+    color: #95608d;
+
+    border-radius: 50%;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   MÃ NHÂN VIÊN
+   ========================================================= */
+
+.category-table .category-col-code {
+    text-align: center !important;
+
+    white-space: nowrap;
+}
+
+
+.category-id {
+    display: inline-block;
+
+    max-width: 100%;
+
+    color: #777777;
+
+    font-weight: 600;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   HỌ VÀ TÊN
+   ========================================================= */
+
+.category-table .category-col-name {
+    overflow: hidden;
+}
+
+
+.category-name {
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    box-sizing: border-box;
+}
+
+
+.category-name-icon {
+    width: 30px;
+    height: 30px;
+
+    flex: 0 0 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f5eef5;
+
+    color: #95608d;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+}
+
+
+.category-name-text {
+    flex: 1 1 auto;
+
+    min-width: 0;
+
+    display: block;
+
+    color: #444444;
+
+    font-weight: 500;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   EMPLOYEE TEXT COLUMNS
+   ========================================================= */
+
+.category-table td.employee-col-email,
+.category-table td.employee-col-phone,
+.category-table td.employee-col-department,
+.category-table td.employee-col-position,
+.category-table td.employee-col-job-title {
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   TEXT INSIDE EMPLOYEE COLUMNS
+   ========================================================= */
+
+.category-table td.employee-col-email > *,
+.category-table td.employee-col-phone > *,
+.category-table td.employee-col-department > *,
+.category-table td.employee-col-position > *,
+.category-table td.employee-col-job-title > * {
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    max-width: 100%;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   EMAIL
+   ========================================================= */
+
+.category-table td.employee-col-email {
+    text-align: left;
+}
+
+
+/* =========================================================
+   PHONE
+   ========================================================= */
+
+.category-table td.employee-col-phone {
+    text-align: left;
+}
+
+
+/* =========================================================
+   DEPARTMENT
+   ========================================================= */
+
+.category-table td.employee-col-department {
+    text-align: left;
+}
+
+
+/* =========================================================
+   POSITION
+   ========================================================= */
+
+.category-table td.employee-col-position {
+    text-align: left;
+}
+
+
+/* =========================================================
+   JOB TITLE
+   ========================================================= */
+
+.category-table td.employee-col-job-title {
+    text-align: left;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.category-table .category-col-status {
+    text-align: center !important;
+
+    white-space: nowrap;
+}
+
+
+.category-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    max-width: 100%;
+
+    padding: 5px 7px;
+
+    box-sizing: border-box;
+
+    border-radius: 15px;
+
+    font-size: 10px;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.category-status-active {
+    background: #edf8f0;
+
+    color: #55a36a;
+}
+
+
+.category-status-active i {
+    flex: 0 0 auto;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ACTION COLUMN
+   ========================================================= */
+
+.category-table .category-col-action {
+    text-align: center !important;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ACTION BUTTON CONTAINER
+   ========================================================= */
+
+.category-table .category-action-buttons {
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: row;
+
+    flex-wrap: nowrap;
+
+    gap: 5px;
+
+    box-sizing: border-box;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+   ========================================================= */
+
+.category-table .category-action {
+    height: 29px;
+
+    flex: 0 0 auto;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: row;
+
+    flex-wrap: nowrap;
+
+    width: auto;
+
+    min-width: 0;
+
+    padding: 0 7px;
+
+    margin: 0;
+
+    box-sizing: border-box;
+
+    border-radius: 4px;
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    word-break: keep-all;
+
+    overflow-wrap: normal;
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+
+/* =========================================================
+   ACTION ICON
+   ========================================================= */
+
+.category-table .category-action i {
+    display: inline-block;
+
+    flex: 0 0 auto;
+
+    width: auto;
+
+    margin: 0 4px 0 0;
+
+    padding: 0;
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTION TEXT
+   ========================================================= */
+
+.category-table .category-action span {
+    display: inline-block;
+
+    flex: 0 0 auto;
+
+    width: auto;
+
+    min-width: 0;
+
+    margin: 0;
+
+    padding: 0;
+
+    white-space: nowrap;
+
+    word-break: keep-all;
+
+    overflow-wrap: normal;
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+   ========================================================= */
+
+.category-table .category-action-edit {
+    background: #f2edf5;
+
+    color: #95608d;
+
+    border: 1px solid #e5d9e4;
+}
+
+
+.category-table .category-action-edit:hover {
+    background: #95608d;
+
+    color: #ffffff;
+
+    border-color: #95608d;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+   ========================================================= */
+
+.category-table .category-action-delete {
+    background: #fff3f3;
+
+    color: #d9534f;
+
+    border: 1px solid #f0d2d2;
+}
+
+
+.category-table .category-action-delete:hover {
+    background: #d9534f;
+
+    color: #ffffff;
+
+    border-color: #d9534f;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.category-description {
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    color: #888888;
+
+    line-height: 1.5;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.category-table #employee-empty td {
+    padding: 0;
+
+    border-right: none;
+}
+
+
+.category-table #employee-empty:hover {
+    background: #ffffff;
+}
+
+
+.category-empty {
+    min-height: 180px;
+
+    height: 180px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center !important;
+
+    vertical-align: middle !important;
+
+    border-right: none !important;
+
+    box-sizing: border-box;
+}
+
+
+.category-empty-icon {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f7f7f7;
+
+    color: #d3d3d3;
+
+    font-size: 26px;
+}
+
+
+.category-empty h4 {
+    margin: 0 0 7px;
+
+    color: #666666;
+
+    font-size: 15px;
+
+    font-weight: 500;
+}
+
+
+.category-empty p {
+    margin: 0;
+
+    color: #aaaaaa;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.category-pagination {
+    min-height: 65px;
+
+    margin-top: 20px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #eeeeee;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PAGINATION INFO
+   ========================================================= */
+
+.category-pagination-info {
+    color: #999999;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+}
+
+
+.category-pagination-info strong {
+    color: #666666;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PAGINATION BUTTONS
+   ========================================================= */
+
+.category-pagination-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    flex-wrap: nowrap;
+}
+
+
+.pagination-button {
+    width: 32px;
+    height: 32px;
+
+    flex: 0 0 32px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dddddd;
+
+    background: #ffffff;
+
+    color: #777777;
+
+    border-radius: 4px;
+
+    font-size: 12px;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+
+    cursor: pointer;
+}
+
+
+.pagination-button:hover {
+    border-color: #95608d;
+
+    background: #f7f1f7;
+
+    color: #95608d;
+
+    text-decoration: none;
+}
+
+
+.pagination-active {
+    background: #95608d;
+
+    border-color: #95608d;
+
+    color: #ffffff;
+}
+
+
+.pagination-active:hover {
+    background: #814f79;
+
+    border-color: #814f79;
+
+    color: #ffffff;
+}
+
+
+.pagination-disabled,
+.pagination-button:disabled {
+    background: #fafafa;
+
+    color: #cccccc;
+
+    border-color: #eeeeee;
+
+    cursor: not-allowed;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+#employee-error {
+    box-sizing: border-box;
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    margin-bottom: 0;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TOOLTIP SUPPORT
+   ========================================================= */
+
+/*
+ * Nội dung đầy đủ được hiển thị khi hover
+ * thông qua thuộc tính HTML:
+ *
+ * title="email@example.com"
+ *
+ * CSS chỉ đảm nhiệm việc hiển thị "..."
+ * khi nội dung quá dài.
+ */
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .category-page {
+        padding: 20px 15px 0 15px;
+    }
+
+
+    .category-page-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .category-total-box {
+        align-self: flex-start;
+    }
+
+
+    .category-search-form {
+        flex-wrap: wrap;
+    }
+
+
+    .category-search-input {
+        flex: 1 1 100%;
+
+        width: 100%;
+
+        min-width: 100%;
+
+        max-width: none;
+
+        order: 1;
+    }
+
+
+    .category-btn-search {
+        order: 2;
+    }
+
+
+    .category-btn-refresh {
+        order: 3;
+    }
+
+
+    /*
+     * Ở màn hình tablet:
+     * cho phép bảng cuộn ngang thay vì phá layout.
+     */
+
+    .category-table-wrapper {
+        overflow-x: auto;
+
+        overflow-y: hidden;
+    }
+
+
+    .category-table {
+        min-width: 1050px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .category-page {
+        padding: 15px 10px 0 10px;
+    }
+
+
+    .category-content {
+        padding: 15px;
+    }
+
+
+    .category-page-header {
+        padding: 18px;
+    }
+
+
+    .category-title-content h3 {
+        font-size: 18px;
+    }
+
+
+    .category-title-content p {
+        font-size: 12px;
+    }
+
+
+    .category-search-form {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+    }
+
+
+    .category-search-input {
+        width: 100%;
+
+        min-width: 100%;
+
+        flex: none;
+
+        order: 1;
+    }
+
+
+    .category-btn {
+        width: 100%;
+
+        flex: none;
+    }
+
+
+    .category-btn-search {
+        order: 2;
+    }
+
+
+    .category-btn-refresh {
+        order: 3;
+    }
+
+
+    /*
+     * Mobile vẫn giữ bảng đủ rộng.
+     * Người dùng có thể cuộn ngang.
+     */
+
+    .category-table-wrapper {
+        width: 100%;
+
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .category-table {
+        min-width: 1050px;
+    }
+
+
+    .category-pagination {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+
+    .category-pagination-buttons {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   EMPLOYEE PAGE - MAIN CONTENT + FOOTER
+   ========================================================= */
+.smcv-app #main-content {
+    position: relative;
+
+    margin-left: 240px;
+    width: calc(100% - 240px);
+
+    min-height: calc(100vh - 70px);
+    padding-top: 80px;
+
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+
+/* ============================================================
+   EMPLOYEE CONTENT
+   ============================================================ */
+
+.smcv-app #main-content > .wrapper.category-page {
+    width: 100%;
+
+    flex: 1 0 auto;
+
+    min-width: 0;
+    min-height: 0;
+
+    margin-top: 0 !important;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   FOOTER CONTAINER
+   ============================================================ */
+
+.smcv-app #main-content > #footer-container {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    flex: 0 0 auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.smcv-app #main-content > #footer-container .footer {
+    width: 100% !important;
+
+    min-height: 60px !important;
+
+    margin: 0 !important;
+    padding: 20px !important;
+
+    background: #d19a98 !important;
+    border: none !important;
+}
+
+
+/* ============================================================
+   FOOTER CONTENT
+   ============================================================ */
+
+.smcv-app #main-content > #footer-container .wthree-copyright {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   FOOTER TEXT
+   ============================================================ */
+
+.smcv-app #main-content > #footer-container .wthree-copyright p {
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #ffffff !important;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    letter-spacing: 1px;
+}
+
+/*
+ * FOOTER CONTENT
+ */
+.smcv-app #main-content > #footer-container .wthree-copyright {
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+
+/*
+ * FOOTER TEXT
+ */
+.smcv-app #main-content > #footer-container .wthree-copyright p {
+    color: #ffffff !important;
+}
+
+
+
+

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sửa người dùng - SystemanagerCV</title>
+
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/editUser.css"
+    >
+
+    <link
+    rel="stylesheet"
+    href="../../assets/css/user-page-layout.css?v=20261002-1"
+    >
+
+</head>
+
+
+<body class="smcv-app user-edit-page">
+
+
+<section id="container">
+
+
+    <div id="header-container"></div>
+
+    <div id="sidebar-container"></div>
+
+
+    <section id="main-content">
+
+        <section class="wrapper category-wrapper">
+
+            <div class="user-edit-card">
+
+
+                <div class="user-edit-header">
+
+                    <div class="user-edit-header-left">
+
+                        <div class="user-edit-icon">
+
+                            <i class="fa fa-user"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h3 class="user-edit-title">
+                                Sửa người dùng
+                            </h3>
+
+                            <p class="user-edit-subtitle">
+                                Cập nhật thông tin tài khoản người dùng
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="user-edit-id">
+
+                        ID:
+                        <strong id="user-id-display">
+                            -
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="user-error"
+                    class="user-alert user-alert-danger"
+                    style="display: none;"
+                ></div>
+
+
+                <div
+                    id="user-success"
+                    class="alert alert-success"
+                    style="display: none;"
+                ></div>
+
+
+                <form
+                    id="user-edit-form"
+                    class="user-edit-form"
+                    novalidate
+                >
+
+
+                    <div class="user-form-section">
+
+                        <div class="user-form-section-title">
+
+                            <div class="user-section-icon">
+
+                                <i class="fa fa-user"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <h4>
+                                    Thông tin tài khoản
+                                </h4>
+
+                                <p>
+                                    Thông tin người dùng
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="user-form-grid">
+
+
+                            <!-- USERNAME -->
+
+                            <div class="user-form-group">
+
+                                <label for="username">
+
+                                    Tên đăng nhập
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <div class="user-input-wrapper">
+
+                                    <i class="fa fa-user user-input-icon"></i>
+
+                                    <input
+                                        id="username"
+                                        type="text"
+                                        class="user-form-control"
+                                        placeholder="Nhập tên đăng nhập"
+                                        autocomplete="username"
+                                        maxlength="100"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- FULL NAME -->
+
+                            <div class="user-form-group">
+
+                                <label for="fullName">
+
+                                    Họ và tên
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <div class="user-input-wrapper">
+
+                                    <i class="fa fa-id-card user-input-icon"></i>
+
+                                    <input
+                                        id="fullName"
+                                        type="text"
+                                        class="user-form-control"
+                                        placeholder="Ví dụ: Đỗ Thành Đạt"
+                                        autocomplete="name"
+                                        maxlength="255"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="user-form-group">
+
+                                <label for="email">
+                                    Email
+                                </label>
+
+                                <div class="user-input-wrapper">
+
+                                    <i class="fa fa-envelope-o user-input-icon"></i>
+
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        class="user-form-control"
+                                        placeholder="example@email.com"
+                                        autocomplete="email"
+                                        maxlength="255"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PASSWORD -->
+
+                            <div class="user-form-group user-form-group-full">
+
+                                <label for="password">
+                                    Mật khẩu
+                                </label>
+
+                                <div class="user-input-wrapper">
+
+                                    <i class="fa fa-lock user-input-icon"></i>
+
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        class="user-form-control"
+                                        placeholder="Nhập mật khẩu mới nếu muốn thay đổi"
+                                        autocomplete="new-password"
+                                        maxlength="255"
+                                    >
+
+                                </div>
+
+                                <small class="user-form-hint">
+
+                                    <i class="fa fa-info-circle"></i>
+
+                                    Để trống nếu không muốn thay đổi mật khẩu.
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="user-form-section">
+
+                        <div class="user-form-section-title">
+
+                            <div class="user-section-icon">
+
+                                <i class="fa fa-shield"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <h4>
+                                    Phân quyền & trạng thái
+                                </h4>
+
+                                <p>
+                                    Cấu hình quyền truy cập tài khoản
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="user-form-grid">
+
+
+                            <!-- ROLE -->
+
+                            <div class="user-form-group">
+
+                                <label for="roleId">
+
+                                    Vai trò
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <div class="user-input-wrapper">
+
+                                    <i class="fa fa-shield user-input-icon"></i>
+
+                                    <select
+                                        id="roleId"
+                                        class="user-form-control user-form-select"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            -- Chọn vai trò --
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ENABLED -->
+
+                            <div class="user-form-group">
+
+                                <label for="enabled">
+
+                                    Trạng thái
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <div class="user-input-wrapper">
+
+                                    <i class="fa fa-toggle-on user-input-icon"></i>
+
+                                    <select
+                                        id="enabled"
+                                        class="user-form-control user-form-select"
+                                        required
+                                    >
+
+                                        <option value="true">
+                                            Hoạt động
+                                        </option>
+
+                                        <option value="false">
+                                            Khóa
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="user-form-actions">
+
+                        <a
+                            href="./index.html"
+                            class="user-btn user-btn-cancel"
+                        >
+
+                            <i class="fa fa-arrow-left"></i>
+
+                            Hủy
+
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="category-btn category-btn-save"
+                        >
+
+                            <i class="fa fa-save"></i>
+
+                            <span>
+                                Lưu thay đổi
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </section>
+
+
+    <div id="footer-container"></div>
+
+
+</section>
+
+
+<script src="../../assets/js/jquery.min.js"></script>
+
+<script src="../../assets/js/bootstrap.js"></script>
+
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+
+<script src="../../assets/js/scripts.js"></script>
+
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+<script src="../../services/api/api.js"></script>
+
+<script src="../../services/api/userApi.js"></script>
+
+<script src="../../services/api/roleApi.js"></script>
+
+<script src="../../services/auth/authApi.js"></script>
+
+<script src="../../services/auth/auth.js"></script>
+
+<script src="../../assets/js/user-page-layout.js?v=20261002-1"></script>
+
+<script src="./edit.js"></script>
+
+
+</body>
+
+</html>

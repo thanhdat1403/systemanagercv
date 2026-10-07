@@ -1,0 +1,1964 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   NOTIFICATION PAGE
+   STEP 5
+   ============================================================ */
+
+:root {
+
+    --notification-primary: #95608d;
+
+    --notification-primary-dark: #75486d;
+
+    --notification-primary-soft: #f5edf5;
+
+    --notification-text: #283246;
+
+    --notification-text-dark: #1c2535;
+
+    --notification-muted: #777f8c;
+
+    --notification-light: #a0a6b0;
+
+    --notification-border: #e7e9ee;
+
+    --notification-white: #ffffff;
+
+    --notification-success: #4d8a59;
+
+    --notification-success-bg: #edf7ef;
+
+    --notification-danger: #b14f4f;
+
+    --notification-danger-bg: #f9eded;
+
+    --notification-page-bg:
+        linear-gradient(
+            135deg,
+            #f7a28c 0%,
+            #e8a4a5 34%,
+            #bd8eb0 65%,
+            #806fa8 100%
+        );
+}
+
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+body.smcv-app.notification-page {
+
+    min-height: 100vh !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    overflow-x: hidden !important;
+
+    color: var(--notification-text);
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    background:
+        var(--notification-page-bg)
+        fixed !important;
+
+    background-size:
+        cover !important;
+
+}
+
+
+body.smcv-app.notification-page *,
+body.smcv-app.notification-page *::before,
+body.smcv-app.notification-page *::after {
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+body.smcv-app.notification-page
+#header-container {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    height:
+        80px !important;
+
+    min-height:
+        80px !important;
+
+    z-index:
+        10000 !important;
+
+}
+
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+body.smcv-app.notification-page
+#sidebar-container {
+
+    position:
+        fixed !important;
+
+    top:
+        80px !important;
+
+    left:
+        0 !important;
+
+    width:
+        240px !important;
+
+    min-width:
+        240px !important;
+
+    height:
+        calc(
+            100vh - 80px
+        ) !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    overflow:
+        hidden !important;
+
+    z-index:
+        9000 !important;
+
+    transform:
+        translate3d(
+            0,
+            0,
+            0
+        );
+
+}
+
+
+body.smcv-app.notification-page
+#sidebar-container
+#sidebar {
+
+    width:
+        240px !important;
+
+    height:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+}
+
+
+body.smcv-app.notification-page
+#sidebar-container
+.leftside-navigation {
+
+    width:
+        100% !important;
+
+    height:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    overflow-x:
+        hidden !important;
+
+    overflow-y:
+        auto !important;
+
+}
+
+
+body.smcv-app.notification-page
+#sidebar-container
+ul.sidebar-menu {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    padding-top:
+        0 !important;
+
+}
+
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+
+body.smcv-app.notification-page
+#main-content {
+
+    position:
+        relative !important;
+
+    width:
+        calc(
+            100% - 240px
+        ) !important;
+
+    min-height:
+        calc(
+            100vh - 80px
+        ) !important;
+
+    margin:
+        0 0 0 240px !important;
+
+    padding:
+        0 !important;
+
+    display:
+        flex !important;
+
+    flex-direction:
+        column !important;
+
+    background:
+        transparent !important;
+
+    overflow-x:
+        hidden !important;
+
+    transition:
+        width
+        420ms cubic-bezier(
+            .22,
+            1,
+            .36,
+            1
+        ),
+        margin-left
+        420ms cubic-bezier(
+            .22,
+            1,
+            .36,
+            1
+        ) !important;
+
+}
+
+
+/* ============================================================
+   WRAPPER
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-wrapper {
+
+    flex:
+        1 1 auto !important;
+
+    width:
+        100% !important;
+
+    padding:
+        22px 28px 28px !important;
+
+}
+
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-container {
+
+    width:
+        100% !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid
+        var(--notification-border) !important;
+
+    border-radius:
+        14px !important;
+
+    box-shadow:
+        0 5px 20px
+        rgba(
+            40,
+            48,
+            65,
+            .06
+        ) !important;
+
+    overflow:
+        hidden !important;
+
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-page-header {
+
+    min-height:
+        108px !important;
+
+    padding:
+        20px 24px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        space-between !important;
+
+    gap:
+        24px !important;
+
+    border-bottom:
+        1px solid
+        var(--notification-border) !important;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-header-left {
+
+    min-width:
+        0 !important;
+
+    flex:
+        1 1 auto !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        14px !important;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-icon {
+
+    width:
+        48px !important;
+
+    height:
+        48px !important;
+
+    min-width:
+        48px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    color:
+        var(--notification-primary) !important;
+
+    background:
+        var(--notification-primary-soft) !important;
+
+    border-radius:
+        12px !important;
+
+    font-size:
+        20px !important;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-heading {
+
+    min-width:
+        0 !important;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--notification-primary);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.2px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-heading h1 {
+
+    margin:
+        0;
+
+    color:
+        var(--notification-text-dark);
+
+    font-size:
+        23px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-heading p {
+
+    margin:
+        5px 0 0;
+
+    color:
+        var(--notification-muted);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-summary {
+
+    width:
+        95px;
+
+    min-width:
+        95px;
+
+    text-align:
+        center;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-summary span {
+
+    display:
+        block;
+
+    margin-bottom:
+        5px;
+
+    color:
+        var(--notification-light);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-summary strong {
+
+    display:
+        block;
+
+    color:
+        var(--notification-primary-dark);
+
+    font-size:
+        27px;
+
+    line-height:
+        1;
+
+}
+
+
+/* ============================================================
+   ROLE CONTEXT
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-role-context {
+
+    margin:
+        18px 20px 0;
+
+    min-height:
+        62px;
+
+    padding:
+        11px 14px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    background:
+        #faf7fb;
+
+    border:
+        1px solid
+        #e7dce6;
+
+    border-left:
+        3px solid
+        var(--notification-primary);
+
+    border-radius:
+        8px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-role-icon {
+
+    width:
+        35px;
+
+    height:
+        35px;
+
+    min-width:
+        35px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--notification-primary);
+
+    background:
+        var(--notification-primary-soft);
+
+    border-radius:
+        9px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-role-content {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        3px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-role-content strong {
+
+    color:
+        var(--notification-text-dark);
+
+    font-size:
+        11px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-role-content span {
+
+    color:
+        var(--notification-muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ============================================================
+   ALERT
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-alert {
+
+    display:
+        none !important;
+
+    margin:
+        16px 20px 0;
+
+    padding:
+        10px 13px;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        #aa4646;
+
+    background:
+        #fff1f1;
+
+    border:
+        1px solid
+        #efcccc;
+
+    border-radius:
+        7px;
+
+    font-size:
+        11px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-alert.is-visible {
+
+    display:
+        flex !important;
+
+}
+
+
+/* ============================================================
+   TOOLBAR
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-toolbar {
+
+    margin:
+        18px 20px 0;
+
+    padding:
+        0 0 12px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    border-bottom:
+        1px solid
+        #eeeeee;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-tabs {
+
+    display:
+        flex;
+
+    gap:
+        6px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-tab {
+
+    min-height:
+        35px;
+
+    padding:
+        0 12px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        6px;
+
+    color:
+        #70737a;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #dde0e5;
+
+    border-radius:
+        6px;
+
+    font-size:
+        10px;
+
+    cursor:
+        pointer;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-tab.active {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--notification-primary);
+
+    border-color:
+        var(--notification-primary);
+
+}
+
+
+body.smcv-app.notification-page
+.notification-refresh {
+
+    min-height:
+        35px;
+
+    padding:
+        0 12px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+
+    color:
+        #666b73;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #dfe1e5;
+
+    border-radius:
+        6px;
+
+    font-size:
+        10px;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* ============================================================
+   LIST CARD
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-list-card {
+
+    margin:
+        18px 20px 20px;
+
+    border:
+        1px solid
+        var(--notification-border);
+
+    border-radius:
+        10px;
+
+    overflow:
+        hidden;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-list-header {
+
+    min-height:
+        72px;
+
+    padding:
+        14px 16px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    border-bottom:
+        1px solid
+        var(--notification-border);
+
+}
+
+
+body.smcv-app.notification-page
+.notification-list-eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--notification-primary);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.1px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-list-header h2 {
+
+    margin:
+        0;
+
+    color:
+        var(--notification-text-dark);
+
+    font-size:
+        16px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-result-summary {
+
+    color:
+        var(--notification-muted);
+
+    font-size:
+        10px;
+
+}
+
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-state {
+
+    min-height:
+        180px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-direction:
+        column;
+
+    gap:
+        8px;
+
+    color:
+        #96959a;
+
+    font-size:
+        11px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-state i {
+
+    color:
+        var(--notification-primary);
+
+    font-size:
+        20px;
+
+}
+
+
+/* ============================================================
+   EMPTY
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-empty {
+
+    display:
+        none;
+
+    min-height:
+        230px;
+
+    padding:
+        30px;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-direction:
+        column;
+
+    text-align:
+        center;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-empty-icon {
+
+    width:
+        54px;
+
+    height:
+        54px;
+
+    margin-bottom:
+        10px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        #b99eb5;
+
+    background:
+        var(--notification-primary-soft);
+
+    border-radius:
+        50%;
+
+    font-size:
+        21px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-empty h3 {
+
+    margin:
+        0;
+
+    color:
+        var(--notification-text-dark);
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-empty p {
+
+    max-width:
+        500px;
+
+    margin:
+        6px 0 0;
+
+    color:
+        var(--notification-muted);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.55;
+
+}
+
+
+/* ============================================================
+   NOTIFICATION LIST
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-list {
+
+    width:
+        100%;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    padding:
+        16px;
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        13px;
+
+    background:
+        #ffffff;
+
+    border-bottom:
+        1px solid
+        #eeeeee;
+
+    transition:
+        background-color
+        160ms ease;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item:last-child {
+
+    border-bottom:
+        0;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item:hover {
+
+    background:
+        #fcfafc;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-unread {
+
+    background:
+        #fcf7fc;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-unread::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        3px;
+
+    background:
+        var(--notification-primary);
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-icon {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    min-width:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        11px;
+
+    font-size:
+        15px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-type-blue {
+
+    color:
+        #5c7ea4;
+
+    background:
+        #eef4fb;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-type-green {
+
+    color:
+        #4d8a59;
+
+    background:
+        #edf7ef;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-type-red {
+
+    color:
+        #b14f4f;
+
+    background:
+        #faeeee;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-type-purple {
+
+    color:
+        #82628e;
+
+    background:
+        #f3edf6;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-type-orange {
+
+    color:
+        #a96d20;
+
+    background:
+        #fff4e5;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-type-yellow {
+
+    color:
+        #8f791d;
+
+    background:
+        #fff9df;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-type-default {
+
+    color:
+        var(--notification-primary);
+
+    background:
+        var(--notification-primary-soft);
+
+}
+
+
+/* ============================================================
+   ITEM BODY
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-item-body {
+
+    flex:
+        1 1 auto;
+
+    min-width:
+        0;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-top {
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-type {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--notification-primary);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .7px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-top h3 {
+
+    margin:
+        0;
+
+    color:
+        var(--notification-text-dark);
+
+    font-size:
+        14px;
+
+    font-weight:
+        650;
+
+    line-height:
+        1.4;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-time {
+
+    flex:
+        0 0 auto;
+
+    color:
+        var(--notification-light);
+
+    font-size:
+        10px;
+
+    white-space:
+        nowrap;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-message {
+
+    margin:
+        7px 0 0;
+
+    color:
+        #626973;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.6;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-footer {
+
+    margin-top:
+        11px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-read-state {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+
+    color:
+        #999ca3;
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-item-unread
+.notification-read-state {
+
+    color:
+        var(--notification-primary);
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-read-button {
+
+    min-height:
+        31px;
+
+    padding:
+        0 10px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    color:
+        var(--notification-primary);
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #d9c7d6;
+
+    border-radius:
+        5px;
+
+    font-size:
+        9px;
+
+    cursor:
+        pointer;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-read-button:not(:disabled):hover {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--notification-primary);
+
+    border-color:
+        var(--notification-primary);
+
+}
+
+
+body.smcv-app.notification-page
+.notification-read-button:disabled {
+
+    color:
+        #8c9299;
+
+    background:
+        #f4f5f6;
+
+    border-color:
+        #e0e2e5;
+
+    cursor:
+        default;
+
+}
+
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+
+body.smcv-app.notification-page
+.notification-pagination {
+
+    min-height:
+        58px;
+
+    padding:
+        12px 16px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    border-top:
+        1px solid
+        var(--notification-border);
+
+}
+
+
+body.smcv-app.notification-page
+.notification-pagination-info {
+
+    color:
+        #999ba1;
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-pagination-info strong {
+
+    color:
+        #666a71;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-pagination-controls {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-button,
+body.smcv-app.notification-page
+.notification-page-number {
+
+    min-width:
+        30px;
+
+    height:
+        30px;
+
+    padding:
+        0 7px;
+
+    color:
+        #666a72;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #dedfe3;
+
+    border-radius:
+        5px;
+
+    font-size:
+        9px;
+
+    cursor:
+        pointer;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-number.active {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--notification-primary);
+
+    border-color:
+        var(--notification-primary);
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-button:hover:not(:disabled),
+body.smcv-app.notification-page
+.notification-page-number:hover {
+
+    color:
+        var(--notification-primary);
+
+    background:
+        var(--notification-primary-soft);
+
+    border-color:
+        #d6c4d4;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-button:disabled {
+
+    opacity:
+        .4;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+body.smcv-app.notification-page
+.notification-page-numbers {
+
+    display:
+        flex;
+
+    gap:
+        5px;
+
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+body.smcv-app.notification-page
+#footer-container {
+
+    width:
+        100% !important;
+
+    min-height:
+        56px !important;
+
+    margin:
+        auto 0 0 !important;
+
+    padding:
+        0 !important;
+
+}
+
+
+body.smcv-app.notification-page
+#footer-container .footer {
+
+    width:
+        100% !important;
+
+    min-height:
+        56px !important;
+
+    padding:
+        15px 20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    background:
+        #d19a98 !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+body.smcv-app.notification-page
+#footer-container .wthree-copyright p {
+
+    margin:
+        0 !important;
+
+    color:
+        #ffffff !important;
+
+    font-size:
+        10px !important;
+
+}
+
+
+/* ============================================================
+   COLLAPSED SIDEBAR
+   ============================================================ */
+
+body.smcv-app.notification-page[data-sidebar-state="collapsed"]
+#sidebar-container {
+
+    transform:
+        translate3d(
+            -240px,
+            0,
+            0
+        ) !important;
+
+}
+
+
+body.smcv-app.notification-page[data-sidebar-state="collapsed"]
+#main-content {
+
+    width:
+        100% !important;
+
+    margin-left:
+        0 !important;
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.notification-page
+    .notification-wrapper {
+
+        padding:
+            14px 10px 16px;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-page-header {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-page-summary {
+
+        width:
+            100%;
+
+        text-align:
+            left;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-toolbar {
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap:
+            10px;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-refresh {
+
+        width:
+            100%;
+
+        justify-content:
+            center;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-item-top {
+
+        flex-direction:
+            column;
+
+        gap:
+            6px;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-item-time {
+
+        white-space:
+            normal;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-item-footer {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-read-button {
+
+        width:
+            100%;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-pagination {
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+    }
+
+
+    body.smcv-app.notification-page
+    .notification-pagination-controls {
+
+        justify-content:
+            center;
+
+    }
+
+}

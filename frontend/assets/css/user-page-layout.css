@@ -1,0 +1,929 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   USER PAGE COMMON LAYOUT
+   File: assets/css/user-page-layout.css
+   ============================================================ */
+
+
+/* ============================================================
+   1. PAGE ROOT
+   ============================================================ */
+
+body.smcv-app {
+
+    margin: 0;
+    padding: 0;
+
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   2. CONTAINER
+   ============================================================ */
+
+body.smcv-app #container {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   3. HEADER
+   ============================================================ */
+
+body.smcv-app #header-container {
+
+    position: relative;
+
+    z-index: 9999;
+
+    flex: 0 0 auto;
+
+}
+
+
+/* ============================================================
+   4. SIDEBAR
+   ============================================================ */
+
+/*
+ * Sidebar được đưa ra khỏi normal flow.
+ *
+ * Như vậy:
+ * - Sidebar không chiếm chiều cao của #container.
+ * - Main Content + Footer có thể dùng flex để đẩy Footer
+ *   xuống đáy màn hình.
+ */
+
+body.smcv-app #sidebar-container {
+
+    position: fixed !important;
+
+    top: 0;
+
+    left: 0;
+
+    width: 240px;
+
+    height: 100vh;
+
+    z-index: 1000;
+
+    display: block;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   5. MAIN CONTENT
+   ============================================================ */
+
+body.smcv-app #main-content {
+
+    position: relative;
+
+    margin-left: 240px;
+
+    flex: 1 0 auto;
+
+    width: calc(100% - 240px);
+
+    min-height: 0;
+
+    box-sizing: border-box;
+
+    transition:
+        margin-left 0.25s ease,
+        width 0.25s ease;
+
+}
+
+
+/* ============================================================
+   6. SIDEBAR COLLAPSED
+   ============================================================ */
+
+body.smcv-app #main-content.merge-left {
+
+    margin-left: 0 !important;
+
+    width: 100% !important;
+
+}
+
+
+/* ============================================================
+   7. HAMBURGER
+   ============================================================ */
+
+body.smcv-app #header-container
+.sidebar-toggle-box {
+
+    position: relative;
+
+    z-index: 10001;
+
+    pointer-events: auto !important;
+
+}
+
+
+body.smcv-app #header-container
+.sidebar-toggle-box .fa-bars {
+
+    cursor: pointer;
+
+    pointer-events: auto !important;
+
+}
+
+
+/* ============================================================
+   8. FOOTER
+   ============================================================ */
+
+body.smcv-app #footer-container {
+
+    position: relative !important;
+
+    display: block !important;
+
+    flex: 0 0 auto;
+
+    width: calc(100% - 240px) !important;
+
+    margin-left: 240px !important;
+
+    margin-right: 0 !important;
+
+    padding: 0 !important;
+
+    float: none !important;
+
+    clear: both !important;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    transition:
+        margin-left 0.25s ease,
+        width 0.25s ease;
+
+}
+
+
+/* ============================================================
+   9. FOOTER WHEN SIDEBAR COLLAPSED
+   ============================================================ */
+
+body.smcv-app #footer-container.merge-left {
+
+    margin-left: 0 !important;
+
+    width: 100% !important;
+
+}
+
+
+/* ============================================================
+   10. FOOTER CONTENT
+   ============================================================ */
+
+body.smcv-app #footer-container .footer {
+
+    position: relative !important;
+
+    top: auto !important;
+
+    right: auto !important;
+
+    bottom: auto !important;
+
+    left: auto !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    min-height: 70px;
+
+    height: auto !important;
+
+    margin: 0 !important;
+
+    padding: 20px 25px !important;
+
+    float: none !important;
+
+    clear: both !important;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   11. COPYRIGHT
+   ============================================================ */
+
+body.smcv-app #footer-container .wthree-copyright {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+body.smcv-app
+#footer-container
+.wthree-copyright p {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   12. INDEX PAGE - SEARCH AREA
+   ============================================================ */
+
+/*
+ * Kéo dài toàn bộ khu vực search.
+ *
+ * Các thành phần:
+ *
+ * Input
+ * Select Role
+ * Select Status
+ * Tìm kiếm
+ * Làm mới
+ *
+ * được phân bố đều trên toàn chiều ngang.
+ */
+
+body.smcv-app.user-index-page
+.category-search {
+
+    width: 100%;
+
+    margin-bottom: 25px;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+body.smcv-app.user-index-page
+.category-search-form {
+
+    width: 60%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(360px, 1fr)
+        170px
+        180px
+        130px
+        120px;
+
+    align-items: center;
+
+    gap: 14px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   13. SEARCH INPUT
+   ============================================================ */
+
+body.smcv-app.user-index-page
+.category-search-input {
+
+    width: 100%;
+
+    max-width: none;
+
+    min-width: 0;
+
+}
+
+
+body.smcv-app.user-index-page
+.category-search-input input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   14. SEARCH SELECT
+   ============================================================ */
+
+body.smcv-app.user-index-page
+.category-search-select {
+
+    width: 100%;
+
+}
+
+
+body.smcv-app.user-index-page
+.category-search-select select {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ============================================================
+   15. INDEX BUTTONS
+   ============================================================ */
+
+/*
+ * Search button
+ */
+
+body.smcv-app.user-index-page
+.category-search .category-btn-search {
+
+    width: 100%;
+
+    color: #ffffff !important;
+
+    background: #926383 !important;
+
+    border: 1px solid #926383 !important;
+
+    box-sizing: border-box;
+
+}
+
+
+body.smcv-app.user-index-page
+.category-search .category-btn-search:hover,
+
+body.smcv-app.user-index-page
+.category-search .category-btn-search:focus {
+
+    color: #ffffff !important;
+
+    background: #7d526e !important;
+
+    border-color: #7d526e !important;
+
+}
+
+
+/*
+ * Refresh button
+ */
+
+body.smcv-app.user-index-page
+.category-search .category-btn-refresh {
+
+    width: 100%;
+
+    color: #666666 !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dddddd !important;
+
+    box-sizing: border-box;
+
+}
+
+
+body.smcv-app.user-index-page
+.category-search .category-btn-refresh:hover,
+
+body.smcv-app.user-index-page
+.category-search .category-btn-refresh:focus {
+
+    color: #555555 !important;
+
+    background: #f7f7f7 !important;
+
+    border-color: #cccccc !important;
+
+}
+
+
+/* ============================================================
+   16. INDEX - ADD USER BUTTON
+   ============================================================ */
+
+body.smcv-app.user-index-page
+.category-page-header .category-btn-save {
+
+    color: #ffffff !important;
+
+    background: #926383 !important;
+
+    border: 1px solid #926383 !important;
+
+}
+
+
+body.smcv-app.user-index-page
+.category-page-header .category-btn-save:hover,
+
+body.smcv-app.user-index-page
+.category-page-header .category-btn-save:focus {
+
+    color: #ffffff !important;
+
+    background: #7d526e !important;
+
+    border-color: #7d526e !important;
+
+}
+
+
+/* ============================================================
+   17. EDIT PAGE BUTTONS
+   ============================================================ */
+
+/*
+ * Nút Hủy
+ *
+ * Có thể đang dùng:
+ *     user-btn-cancel
+ * hoặc
+ *     category-btn-back
+ */
+
+body.smcv-app.user-edit-page
+.user-btn-cancel,
+
+body.smcv-app.user-edit-page
+.category-btn-back {
+
+    display: inline-flex !important;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 40px;
+
+    padding: 8px 18px;
+
+    color: #666666 !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dddddd !important;
+
+    border-radius: 5px;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+}
+
+
+body.smcv-app.user-edit-page
+.user-btn-cancel:hover,
+
+body.smcv-app.user-edit-page
+.user-btn-cancel:focus,
+
+body.smcv-app.user-edit-page
+.category-btn-back:hover,
+
+body.smcv-app.user-edit-page
+.category-btn-back:focus {
+
+    color: #555555 !important;
+
+    background: #f7f7f7 !important;
+
+    border-color: #cccccc !important;
+
+    text-decoration: none !important;
+
+}
+
+
+/*
+ * Nút Lưu thay đổi
+ */
+
+body.smcv-app.user-edit-page
+.category-btn-save,
+
+body.smcv-app.user-edit-page
+.user-btn-save {
+
+    display: inline-flex !important;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 40px;
+
+    padding: 8px 18px;
+
+    color: #ffffff !important;
+
+    background: #926383 !important;
+
+    border: 1px solid #926383 !important;
+
+    border-radius: 5px;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    line-height: 22px;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    box-shadow: none !important;
+
+    appearance: none;
+
+}
+
+
+body.smcv-app.user-edit-page
+.category-btn-save:hover,
+
+body.smcv-app.user-edit-page
+.category-btn-save:focus,
+
+body.smcv-app.user-edit-page
+.user-btn-save:hover,
+
+body.smcv-app.user-edit-page
+.user-btn-save:focus {
+
+    color: #ffffff !important;
+
+    background: #7d526e !important;
+
+    border-color: #7d526e !important;
+
+    outline: none;
+
+}
+
+
+/* ============================================================
+   18. EDIT BUTTON AREA
+   ============================================================ */
+
+body.smcv-app.user-edit-page
+.user-form-actions,
+
+body.smcv-app.user-edit-page
+.category-form-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+}
+
+
+/* ============================================================
+   19. GENERIC CURSOR
+   ============================================================ */
+
+body.smcv-app
+.category-btn,
+
+body.smcv-app
+.user-btn,
+
+body.smcv-app
+button,
+
+body.smcv-app
+a.btn {
+
+    cursor: pointer;
+
+}
+
+
+/* ============================================================
+   20. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1199px) {
+
+    body.smcv-app.user-index-page
+    .category-search-form {
+
+        grid-template-columns:
+            minmax(280px, 1fr)
+            150px
+            160px
+            120px
+            110px;
+
+        gap: 10px;
+
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    body.smcv-app #sidebar-container {
+
+        position: fixed !important;
+
+        width: 240px;
+
+    }
+
+
+    body.smcv-app #main-content {
+
+        margin-left: 0 !important;
+
+        width: 100% !important;
+
+    }
+
+
+    body.smcv-app #footer-container {
+
+        margin-left: 0 !important;
+
+        width: 100% !important;
+
+    }
+
+
+    body.smcv-app.user-index-page
+    .category-search-form {
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 12px;
+
+    }
+
+
+    body.smcv-app.user-index-page
+    .category-search-input {
+
+        grid-column: 1 / -1;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    body.smcv-app.user-index-page
+    .category-search-form {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    body.smcv-app.user-index-page
+    .category-search-input {
+
+        grid-column: auto;
+
+    }
+
+
+    body.smcv-app.user-index-page
+    .category-search .category-btn-search,
+
+    body.smcv-app.user-index-page
+    .category-search .category-btn-refresh {
+
+        width: 100%;
+
+    }
+
+
+    body.smcv-app.user-edit-page
+    .user-form-actions,
+
+    body.smcv-app.user-edit-page
+    .category-form-footer {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    body.smcv-app.user-edit-page
+    .user-btn-cancel,
+
+    body.smcv-app.user-edit-page
+    .category-btn-back,
+
+    body.smcv-app.user-edit-page
+    .category-btn-save,
+
+    body.smcv-app.user-edit-page
+    .user-btn-save {
+
+        width: 100%;
+
+    }
+
+}
+
+/* ============================================================
+   HEADER / BRAND / HAMBURGER
+   GIỮ ĐÚNG VỊ TRÍ GIỐNG GIAO DIỆN CŨ
+   ============================================================ */
+
+
+/*
+ * Brand có cùng chiều rộng với Sidebar.
+ */
+body.smcv-app #header-container .header .brand {
+
+    position: relative !important;
+
+    width: 240px !important;
+
+    height: 80px !important;
+
+    min-width: 240px !important;
+
+    box-sizing: border-box !important;
+
+}
+
+
+/*
+ * Logo ADMIN
+ */
+body.smcv-app #header-container .header .brand .logo {
+
+    display: block !important;
+
+    width: auto !important;
+
+    height: 80px !important;
+
+    line-height: 80px !important;
+
+    padding-left: 25px !important;
+
+    margin: 0 !important;
+
+    box-sizing: border-box !important;
+
+}
+
+
+/*
+ * HAMBURGER
+ *
+ * Đây là đúng vị trí của CSS gốc:
+ *
+ * right: -15px
+ * margin-top: 23px
+ * width: 32px
+ * height: 32px
+ */
+body.smcv-app #header-container .header .brand .sidebar-toggle-box {
+
+    position: absolute !important;
+
+    top: 0 !important;
+
+    right: -15px !important;
+
+    left: auto !important;
+
+    width: 32px !important;
+
+    height: 32px !important;
+
+    min-width: 32px !important;
+
+    margin-top: 23px !important;
+
+    margin-left: -15px !important;
+
+    padding: 0 !important;
+
+    float: none !important;
+
+    background: #8b5c7e !important;
+
+    border-radius: 50% !important;
+
+    z-index: 10002 !important;
+
+    box-sizing: border-box !important;
+
+}
+
+
+/*
+ * Icon hamburger
+ */
+body.smcv-app
+#header-container
+.header
+.brand
+.sidebar-toggle-box
+.fa-bars {
+
+    display: inline-block !important;
+
+    width: 32px !important;
+
+    height: 32px !important;
+
+    padding: 8px 8px 8px 9px !important;
+
+    margin: 0 !important;
+
+    color: #ffffff !important;
+
+    font-size: 15px !important;
+
+    line-height: 16px !important;
+
+    text-align: left !important;
+
+    box-sizing: border-box !important;
+
+    cursor: pointer !important;
+
+}
+
+
+/*
+ * Hover giống giao diện cũ
+ */
+body.smcv-app
+#header-container
+.header
+.brand
+.sidebar-toggle-box:hover {
+
+    background: #fa9fa4 !important;
+
+}

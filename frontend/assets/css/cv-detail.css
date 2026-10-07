@@ -1,0 +1,3788 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   CV DETAIL - STEP 4
+   ============================================================ */
+
+:root {
+
+    --cv-detail-sidebar-width: 240px;
+
+    --cv-detail-header-height: 80px;
+
+    --cv-detail-primary: #95608d;
+
+    --cv-detail-primary-dark: #75486d;
+
+    --cv-detail-primary-soft: #f5edf5;
+
+    --cv-detail-text: #283246;
+
+    --cv-detail-text-dark: #1c2535;
+
+    --cv-detail-muted: #777f8c;
+
+    --cv-detail-light: #a0a6b0;
+
+    --cv-detail-border: #e7e9ee;
+
+    --cv-detail-white: #ffffff;
+
+    --cv-detail-success: #4d8a59;
+
+    --cv-detail-success-bg: #edf7ef;
+
+    --cv-detail-warning: #a66a16;
+
+    --cv-detail-warning-bg: #fff5e6;
+
+    --cv-detail-danger: #b14f4f;
+
+    --cv-detail-danger-bg: #f9eded;
+
+    --cv-detail-page-bg:
+        linear-gradient(
+            135deg,
+            #f7a28c 0%,
+            #e8a4a5 34%,
+            #bd8eb0 65%,
+            #806fa8 100%
+        );
+
+    --cv-detail-transition:
+        420ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+html {
+
+    min-height:
+        100%;
+
+}
+
+
+body.smcv-app.cv-detail-page {
+
+    min-height:
+        100vh !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    overflow-x:
+        hidden !important;
+
+    color:
+        var(--cv-detail-text);
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    background:
+        var(--cv-detail-page-bg)
+        fixed !important;
+
+    background-size:
+        cover !important;
+
+}
+
+
+body.smcv-app.cv-detail-page *,
+body.smcv-app.cv-detail-page *::before,
+body.smcv-app.cv-detail-page *::after {
+
+    box-sizing:
+        border-box;
+
+}
+
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+#container {
+
+    width:
+        100% !important;
+
+    min-height:
+        100vh !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    background:
+        transparent !important;
+
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+#header-container {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    height:
+        80px !important;
+
+    min-height:
+        80px !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    z-index:
+        10000 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#header-container .header {
+
+    position:
+        fixed !important;
+
+    top:
+        0 !important;
+
+    left:
+        0 !important;
+
+    right:
+        0 !important;
+
+    width:
+        100% !important;
+
+    height:
+        80px !important;
+
+    min-height:
+        80px !important;
+
+    z-index:
+        10000 !important;
+
+}
+
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+#sidebar-container {
+
+    position:
+        fixed !important;
+
+    top:
+        80px !important;
+
+    left:
+        0 !important;
+
+    width:
+        240px !important;
+
+    min-width:
+        240px !important;
+
+    height:
+        calc(
+            100vh - 80px
+        ) !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    overflow:
+        hidden !important;
+
+    z-index:
+        9000 !important;
+
+    transform:
+        translate3d(
+            0,
+            0,
+            0
+        ) !important;
+
+    transition:
+        transform
+        var(--cv-detail-transition) !important;
+
+    will-change:
+        transform;
+
+    backface-visibility:
+        hidden;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#sidebar-container
+#sidebar {
+
+    position:
+        absolute !important;
+
+    top:
+        0 !important;
+
+    left:
+        0 !important;
+
+    width:
+        240px !important;
+
+    min-width:
+        240px !important;
+
+    height:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    transform:
+        none !important;
+
+    transition:
+        none !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#sidebar-container
+.leftside-navigation {
+
+    width:
+        100% !important;
+
+    height:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    overflow-x:
+        hidden !important;
+
+    overflow-y:
+        auto !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#sidebar-container
+ul.sidebar-menu {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    padding-top:
+        0 !important;
+
+    list-style:
+        none !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#sidebar-container
+ul.sidebar-menu > li {
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#sidebar-container
+ul.sidebar-menu > li:first-child {
+
+    margin-top:
+        0 !important;
+
+    padding-top:
+        0 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#sidebar-container
+ul.sidebar-menu > li > a {
+
+    min-height:
+        58px !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 18px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+}
+
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+#main-content {
+
+    position:
+        relative !important;
+
+    width:
+        calc(
+            100% - 240px
+        ) !important;
+
+    min-width:
+        0 !important;
+
+    min-height:
+        calc(
+            100vh - 80px
+        ) !important;
+
+    margin:
+        0 0 0 240px !important;
+
+    padding:
+        0 !important;
+
+    display:
+        flex !important;
+
+    flex-direction:
+        column !important;
+
+    overflow-x:
+        hidden !important;
+
+    background:
+        transparent !important;
+
+    transition:
+        width
+        var(--cv-detail-transition),
+        margin-left
+        var(--cv-detail-transition) !important;
+
+}
+
+
+/* ============================================================
+   COLLAPSED
+   ============================================================ */
+
+body.smcv-app.cv-detail-page[data-sidebar-state="collapsed"]
+#sidebar-container {
+
+    transform:
+        translate3d(
+            -240px,
+            0,
+            0
+        ) !important;
+
+}
+
+
+body.smcv-app.cv-detail-page[data-sidebar-state="collapsed"]
+#main-content {
+
+    width:
+        100% !important;
+
+    margin-left:
+        0 !important;
+
+}
+
+
+/* ============================================================
+   WRAPPER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-detail-wrapper {
+
+    width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    padding:
+        22px 28px 28px !important;
+
+    flex:
+        1 1 auto !important;
+
+}
+
+
+/* ============================================================
+   PAGE TOOLBAR
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-page-toolbar {
+
+    min-height:
+        82px !important;
+
+    margin:
+        0 0 18px !important;
+
+    padding:
+        16px 20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        space-between !important;
+
+    gap:
+        20px !important;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .98
+        ) !important;
+
+    border:
+        1px solid
+        var(--cv-detail-border) !important;
+
+    border-radius:
+        12px !important;
+
+    box-shadow:
+        0 4px 16px
+        rgba(
+            40,
+            48,
+            65,
+            .045
+        ) !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading {
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    min-width:
+        0 !important;
+
+    gap:
+        13px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading-icon {
+
+    width:
+        44px !important;
+
+    height:
+        44px !important;
+
+    min-width:
+        44px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    color:
+        var(--cv-detail-primary) !important;
+
+    background:
+        var(--cv-detail-primary-soft) !important;
+
+    border-radius:
+        10px !important;
+
+    font-size:
+        18px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading-content {
+
+    min-width:
+        0 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading-kicker {
+
+    display:
+        block !important;
+
+    margin:
+        0 0 3px !important;
+
+    color:
+        var(--cv-detail-primary) !important;
+
+    font-size:
+        8px !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        1.1px !important;
+
+    text-transform:
+        uppercase !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading h1 {
+
+    margin:
+        0 !important;
+
+    color:
+        var(--cv-detail-text-dark) !important;
+
+    font-size:
+        20px !important;
+
+    font-weight:
+        600 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading p {
+
+    margin:
+        4px 0 0 !important;
+
+    color:
+        var(--cv-detail-muted) !important;
+
+    font-size:
+        10px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-top-back-button {
+
+    min-width:
+        120px !important;
+
+    height:
+        36px !important;
+
+    padding:
+        0 12px !important;
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    gap:
+        7px !important;
+
+    color:
+        var(--cv-detail-primary) !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid
+        #d9c7d6 !important;
+
+    border-radius:
+        6px !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        600 !important;
+
+    text-decoration:
+        none !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-top-back-button:hover {
+
+    color:
+        #ffffff !important;
+
+    background:
+        var(--cv-detail-primary) !important;
+
+    border-color:
+        var(--cv-detail-primary) !important;
+
+}
+
+
+/* ============================================================
+   STATE / ALERT
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-detail-state {
+
+    min-height:
+        180px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-direction:
+        column;
+
+    gap:
+        9px;
+
+    color:
+        #98959a;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        var(--cv-detail-border);
+
+    border-radius:
+        12px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-state i {
+
+    color:
+        var(--cv-detail-primary);
+
+    font-size:
+        22px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-alert {
+
+    display:
+        none !important;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    margin:
+        0 0 16px;
+
+    padding:
+        11px 14px;
+
+    border-radius:
+        7px;
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-alert.is-visible {
+
+    display:
+        flex !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-alert-error {
+
+    color:
+        #ae4848;
+
+    background:
+        #fff1f1;
+
+    border:
+        1px solid
+        #efcccc;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-alert-success {
+
+    color:
+        #43864f;
+
+    background:
+        #eef9f1;
+
+    border:
+        1px solid
+        #cce7d1;
+
+}
+
+
+/* ============================================================
+   DETAIL
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+#cv-detail {
+
+    display:
+        none;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-card {
+
+    width:
+        100% !important;
+
+    margin:
+        0 0 16px !important;
+
+    background:
+        #ffffff !important;
+
+    border:
+        1px solid
+        var(--cv-detail-border) !important;
+
+    border-radius:
+        10px !important;
+
+    box-shadow:
+        0 2px 9px
+        rgba(
+            40,
+            48,
+            65,
+            .035
+        ) !important;
+
+    overflow:
+        hidden !important;
+
+}
+
+
+/* ============================================================
+   EMPLOYEE HEADER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-detail-header-card {
+
+    margin-bottom:
+        14px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-header-main {
+
+    min-height:
+        120px !important;
+
+    padding:
+        20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        15px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-avatar-wrap {
+
+    width:
+        74px !important;
+
+    height:
+        74px !important;
+
+    min-width:
+        74px !important;
+
+    padding:
+        3px !important;
+
+    border:
+        1px solid
+        #e4d7e2 !important;
+
+    border-radius:
+        50% !important;
+
+    background:
+        #ffffff !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-avatar {
+
+    width:
+        100% !important;
+
+    height:
+        100% !important;
+
+    display:
+        block !important;
+
+    object-fit:
+        cover !important;
+
+    border-radius:
+        50% !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-header-info {
+
+    min-width:
+        0 !important;
+
+    flex:
+        1 1 auto !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-eyebrow {
+
+    display:
+        block !important;
+
+    margin:
+        0 0 4px !important;
+
+    color:
+        var(--cv-detail-primary) !important;
+
+    font-size:
+        8px !important;
+
+    font-weight:
+        800 !important;
+
+    letter-spacing:
+        1px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-title {
+
+    margin:
+        0 !important;
+
+    color:
+        var(--cv-detail-text-dark) !important;
+
+    font-size:
+        21px !important;
+
+    font-weight:
+        600 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-meta-row {
+
+    margin-top:
+        8px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    flex-wrap:
+        wrap !important;
+
+    gap:
+        8px 18px !important;
+
+    color:
+        var(--cv-detail-muted) !important;
+
+    font-size:
+        10px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-meta-row span {
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        5px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-meta-row i {
+
+    color:
+        var(--cv-detail-primary) !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-actions {
+
+    flex:
+        0 0 auto !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        flex-end !important;
+
+    flex-wrap:
+        wrap !important;
+
+    gap:
+        7px !important;
+
+}
+
+
+/* ============================================================
+   ROLE CONTEXT
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-role-context {
+
+    min-height:
+        58px !important;
+
+    margin:
+        0 0 16px !important;
+
+    padding:
+        10px 14px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    gap:
+        10px !important;
+
+    background:
+        #faf7fb !important;
+
+    border:
+        1px solid
+        #eadfe8 !important;
+
+    border-left:
+        3px solid
+        var(--cv-detail-primary) !important;
+
+    border-radius:
+        8px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-role-context-icon {
+
+    width:
+        34px;
+
+    height:
+        34px;
+
+    min-width:
+        34px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--cv-detail-primary);
+
+    background:
+        var(--cv-detail-primary-soft);
+
+    border-radius:
+        9px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-role-context-content {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        3px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-role-context-content strong {
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-role-context-content span {
+
+    color:
+        var(--cv-detail-muted);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.45;
+
+}
+
+
+/* ============================================================
+   STATUS GRID
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-detail-status-grid {
+
+    width:
+        100%;
+
+    margin:
+        0 0 16px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        12px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-status-card {
+
+    min-height:
+        110px;
+
+    margin:
+        0 !important;
+
+    padding:
+        17px !important;
+
+    display:
+        flex !important;
+
+    flex-direction:
+        column !important;
+
+    justify-content:
+        center !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-card-label {
+
+    margin:
+        0 0 7px;
+
+    color:
+        var(--cv-detail-light);
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-card-subtext {
+
+    margin-top:
+        7px;
+
+    color:
+        var(--cv-detail-muted);
+
+    font-size:
+        9px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-version-value {
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        20px;
+
+    font-weight:
+        700;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-version-status {
+
+    display:
+        inline-flex;
+
+    width:
+        fit-content;
+
+    margin-top:
+        5px;
+
+}
+
+
+/* ============================================================
+   STATUS BADGES
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-status-badge,
+body.smcv-app.cv-detail-page
+.cv-version-status {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    min-height:
+        25px;
+
+    padding:
+        0 9px;
+
+    border-radius:
+        999px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-status-updated {
+
+    color:
+        var(--cv-detail-success) !important;
+
+    background:
+        var(--cv-detail-success-bg) !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-status-pending {
+
+    color:
+        var(--cv-detail-warning) !important;
+
+    background:
+        var(--cv-detail-warning-bg) !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-status-rejected {
+
+    color:
+        var(--cv-detail-danger) !important;
+
+    background:
+        var(--cv-detail-danger-bg) !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-status-default {
+
+    color:
+        #6d7279 !important;
+
+    background:
+        #f2f3f5 !important;
+
+}
+
+
+/* ============================================================
+   CARD HEADER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-card-header {
+
+    padding:
+        15px 18px !important;
+
+    border-bottom:
+        1px solid
+        var(--cv-detail-border);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-card-header h2 {
+
+    margin:
+        0;
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        15px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-card-header h2 i {
+
+    margin-right:
+        7px;
+
+    color:
+        var(--cv-detail-primary);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-card-header p {
+
+    margin:
+        5px 0 0;
+
+    color:
+        var(--cv-detail-muted);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ============================================================
+   WORKFLOW
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-workflow-timeline {
+
+    padding:
+        25px 22px 20px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    position:
+        relative;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-step {
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    text-align:
+        center;
+
+    z-index:
+        2;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-step::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        16px;
+
+    left:
+        -50%;
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    background:
+        #e0e2e6;
+
+    z-index:
+        -1;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-step:first-child::before {
+
+    display:
+        none;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-dot {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        #a9aab0;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #dfe1e5;
+
+    border-radius:
+        50%;
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-step.is-complete
+.cv-workflow-dot {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-success);
+
+    border-color:
+        var(--cv-detail-success);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-step.is-current
+.cv-workflow-dot {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-primary);
+
+    border-color:
+        var(--cv-detail-primary);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(
+            149,
+            96,
+            141,
+            .10
+        );
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-step.is-rejected
+.cv-workflow-dot {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-danger);
+
+    border-color:
+        var(--cv-detail-danger);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-title {
+
+    margin-top:
+        8px;
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-state {
+
+    margin-top:
+        3px;
+
+    color:
+        var(--cv-detail-light);
+
+    font-size:
+        8px;
+
+}
+
+
+/* ============================================================
+   REJECTION
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-rejection-alert {
+
+    display:
+        none;
+
+    align-items:
+        flex-start;
+
+    gap:
+        10px;
+
+    margin:
+        0 18px 18px;
+
+    padding:
+        12px;
+
+    background:
+        #fff7f7;
+
+    border:
+        1px solid
+        #efd5d5;
+
+    border-left:
+        3px solid
+        var(--cv-detail-danger);
+
+    border-radius:
+        7px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-rejection-alert.is-visible {
+
+    display:
+        flex !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-rejection-icon {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    min-width:
+        32px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--cv-detail-danger);
+
+    background:
+        #fbeaea;
+
+    border-radius:
+        8px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-rejection-title {
+
+    display:
+        block;
+
+    margin:
+        0 0 4px;
+
+    color:
+        #8c4444;
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-rejection-reason {
+
+    color:
+        #765e5e;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ============================================================
+   SOURCE
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-content-source-card {
+
+    min-height:
+        46px;
+
+    margin:
+        0 0 16px;
+
+    padding:
+        10px 13px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        #77757b;
+
+    background:
+        #faf8fb;
+
+    border:
+        1px solid
+        #e9e0e8;
+
+    border-radius:
+        7px;
+
+    font-size:
+        9px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-content-source-card i {
+
+    color:
+        var(--cv-detail-primary);
+
+}
+
+
+/* ============================================================
+   PROFILE
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-profile-grid {
+
+    padding:
+        17px 18px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        12px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-profile-item {
+
+    padding:
+        12px 13px;
+
+    background:
+        #fafafa;
+
+    border:
+        1px solid
+        #eef0f2;
+
+    border-radius:
+        7px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-profile-item.full-width {
+
+    grid-column:
+        1 / -1;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-field-label {
+
+    margin-bottom:
+        5px;
+
+    color:
+        var(--cv-detail-light);
+
+    font-size:
+        8px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-field-value {
+
+    color:
+        #4e5560;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* ============================================================
+   TAGS
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-tags {
+
+    padding:
+        16px 18px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                200px,
+                1fr
+            )
+        );
+
+    gap:
+        10px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-skill-tag {
+
+    padding:
+        11px 12px;
+
+    background:
+        #fbfafb;
+
+    border:
+        1px solid
+        #ebe8eb;
+
+    border-radius:
+        7px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-skill-name {
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        11px;
+
+    font-weight:
+        650;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-skill-level {
+
+    margin-top:
+        4px;
+
+    color:
+        var(--cv-detail-primary);
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-skill-description {
+
+    margin-top:
+        6px;
+
+    color:
+        var(--cv-detail-muted);
+
+    font-size:
+        9px;
+
+    line-height:
+        1.45;
+
+}
+
+
+/* ============================================================
+   CV CONTENT LIST
+   Mỗi nội dung chiếm toàn bộ chiều ngang của khung
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-list {
+
+    width:
+        100% !important;
+
+    padding:
+        16px 18px !important;
+
+    display:
+        grid !important;
+
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        ) !important;
+
+    gap:
+        11px !important;
+
+}
+
+
+/* ============================================================
+   ITEM
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-list-item {
+
+    width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        14px 15px !important;
+
+    background:
+        #fbfafb !important;
+
+    border:
+        1px solid
+        #ebe8eb !important;
+
+    border-radius:
+        7px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-list-item {
+
+    padding:
+        13px;
+
+    background:
+        #fbfafb;
+
+    border:
+        1px solid
+        #ebe8eb;
+
+    border-radius:
+        7px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-list-item-title {
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        12px;
+
+    font-weight:
+        650;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-list-item-subtitle {
+
+    margin-top:
+        4px;
+
+    color:
+        var(--cv-detail-primary);
+
+    font-size:
+        10px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-item-meta,
+body.smcv-app.cv-detail-page
+.cv-project-meta {
+
+    margin-top:
+        7px;
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        10px;
+
+    color:
+        var(--cv-detail-light);
+
+    font-size:
+        9px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-item-meta i,
+body.smcv-app.cv-detail-page
+.cv-project-meta i {
+
+    margin-right:
+        4px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-list-item-description {
+
+    margin-top:
+        8px;
+
+    color:
+        #666e79;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.55;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-list-item-description div +
+.cv-list-item-description div {
+
+    margin-top:
+        6px;
+
+}
+
+
+/* ============================================================
+   INLINE EMPTY
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-inline-empty {
+
+    min-height:
+        85px;
+
+    padding:
+        18px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        #9b989e;
+
+    font-size:
+        10px;
+
+    text-align:
+        center;
+
+}
+
+
+/* ============================================================
+   ACTION BUTTONS
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-action-button {
+
+    min-height:
+        34px;
+
+    padding:
+        0 11px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        6px;
+
+    border:
+        1px solid
+        transparent;
+
+    border-radius:
+        5px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    text-decoration:
+        none;
+
+    white-space:
+        nowrap;
+
+    transition:
+        background-color
+        160ms ease,
+        color
+        160ms ease,
+        border-color
+        160ms ease;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-button:disabled {
+
+    opacity:
+        .65;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-edit {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-primary);
+
+    border-color:
+        var(--cv-detail-primary);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-edit:hover {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-primary-dark);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-submit {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-success);
+
+    border-color:
+        var(--cv-detail-success);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-submit:hover {
+
+    color:
+        #ffffff;
+
+    background:
+        #3f7549;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-cancel {
+
+    color:
+        #7b5d28;
+
+    background:
+        #fff8eb;
+
+    border-color:
+        #ead5ad;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-cancel:hover {
+
+    background:
+        #fff0d4;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-tech-approve,
+body.smcv-app.cv-detail-page
+.cv-action-hr-approve {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-primary);
+
+    border-color:
+        var(--cv-detail-primary);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-tech-reject,
+body.smcv-app.cv-detail-page
+.cv-action-hr-reject {
+
+    color:
+        #9a4747;
+
+    background:
+        #fff2f2;
+
+    border-color:
+        #e6caca;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-action-tech-reject:hover,
+body.smcv-app.cv-detail-page
+.cv-action-hr-reject:hover {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-danger);
+
+    border-color:
+        var(--cv-detail-danger);
+
+}
+
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+
+body.smcv-app.cv-detail-page.cv-modal-open {
+
+    overflow:
+        hidden !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    display:
+        none;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        20px;
+
+    z-index:
+        12000;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal.is-visible {
+
+    display:
+        flex !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-backdrop {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+        rgba(
+            20,
+            20,
+            25,
+            .48
+        );
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-dialog {
+
+    position:
+        relative;
+
+    width:
+        min(
+            100%,
+            500px
+        );
+
+    background:
+        #ffffff;
+
+    border-radius:
+        10px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(
+            0,
+            0,
+            0,
+            .18
+        );
+
+    overflow:
+        hidden;
+
+    z-index:
+        1;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-header {
+
+    min-height:
+        68px;
+
+    padding:
+        14px 17px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    border-bottom:
+        1px solid
+        var(--cv-detail-border);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-kicker {
+
+    display:
+        block;
+
+    margin-bottom:
+        4px;
+
+    color:
+        var(--cv-detail-primary);
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-header h3 {
+
+    margin:
+        0;
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        15px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-close {
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    border:
+        0;
+
+    background:
+        transparent;
+
+    color:
+        #85868a;
+
+    cursor:
+        pointer;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-body {
+
+    padding:
+        17px;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-body label {
+
+    display:
+        block;
+
+    margin-bottom:
+        7px;
+
+    color:
+        var(--cv-detail-text-dark);
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-body label span {
+
+    color:
+        var(--cv-detail-danger);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-body textarea {
+
+    width:
+        100%;
+
+    min-height:
+        120px;
+
+    padding:
+        10px;
+
+    resize:
+        vertical;
+
+    color:
+        #4e555f;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #dfe1e5;
+
+    border-radius:
+        6px;
+
+    outline:
+        none;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-body textarea:focus {
+
+    border-color:
+        var(--cv-detail-primary);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(
+            149,
+            96,
+            141,
+            .08
+        );
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-help {
+
+    display:
+        block;
+
+    margin-top:
+        6px;
+
+    color:
+        var(--cv-detail-light);
+
+    font-size:
+        9px;
+
+    line-height:
+        1.45;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-footer {
+
+    min-height:
+        64px;
+
+    padding:
+        11px 17px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        flex-end;
+
+    gap:
+        7px;
+
+    background:
+        #fafafa;
+
+    border-top:
+        1px solid
+        var(--cv-detail-border);
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-button {
+
+    min-height:
+        34px;
+
+    padding:
+        0 12px;
+
+    border-radius:
+        5px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-button.secondary {
+
+    color:
+        #666666;
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #d9dce1;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-button.danger {
+
+    color:
+        #ffffff;
+
+    background:
+        var(--cv-detail-danger);
+
+    border:
+        1px solid
+        var(--cv-detail-danger);
+
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+#footer-container {
+
+    width:
+        100% !important;
+
+    min-height:
+        56px !important;
+
+    margin:
+        auto 0 0 !important;
+
+    padding:
+        0 !important;
+
+    flex:
+        0 0 auto !important;
+
+    display:
+        block !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#footer-container .footer {
+
+    width:
+        100% !important;
+
+    min-height:
+        56px !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        15px 20px !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    background:
+        #d19a98 !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#footer-container .wthree-copyright {
+
+    width:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    text-align:
+        center !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+#footer-container .wthree-copyright p {
+
+    margin:
+        0 !important;
+
+    color:
+        #ffffff !important;
+
+    font-size:
+        9px !important;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    body.smcv-app.cv-detail-page
+    #main-content {
+
+        width:
+            100% !important;
+
+        margin-left:
+            0 !important;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-detail-wrapper {
+
+        padding:
+            18px 15px 22px !important;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-detail-status-grid {
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.cv-detail-page
+    .cv-page-toolbar {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-top-back-button {
+
+        width:
+            100%;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-detail-header-main {
+
+        flex-wrap:
+            wrap;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-detail-actions {
+
+        width:
+            100%;
+
+        justify-content:
+            flex-start;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-detail-status-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-workflow-timeline {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            16px;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-workflow-step {
+
+        flex-direction:
+            row;
+
+        align-items:
+            center;
+
+        gap:
+            9px;
+
+        text-align:
+            left;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-workflow-step::before {
+
+        display:
+            none;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-workflow-title {
+
+        margin:
+            0;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-workflow-state {
+
+        margin:
+            0;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-profile-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-profile-item.full-width {
+
+        grid-column:
+            auto;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-list {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-tags {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    body.smcv-app.cv-detail-page
+    #sidebar-container,
+    body.smcv-app.cv-detail-page
+    #main-content {
+
+        transition:
+            none !important;
+
+    }
+
+}
+
+/* ============================================================
+   SYSTEMANAGERCV
+   CV DETAIL - TYPOGRAPHY FINAL
+   Tăng cỡ chữ để giao diện rõ ràng, cân đối và dễ đọc.
+   Chỉ thay đổi typography, không thay đổi layout.
+   ============================================================ */
+
+
+/* ============================================================
+   01. PAGE TOOLBAR
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-page-heading-kicker {
+
+    font-size:
+        10px !important;
+
+    letter-spacing:
+        1.2px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading h1 {
+
+    font-size:
+        23px !important;
+
+    line-height:
+        1.3 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-page-heading p {
+
+    font-size:
+        12px !important;
+
+    line-height:
+        1.5 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-top-back-button {
+
+    font-size:
+        11px !important;
+
+}
+
+
+/* ============================================================
+   02. EMPLOYEE HEADER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-detail-eyebrow {
+
+    font-size:
+        10px !important;
+
+    letter-spacing:
+        1.1px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-title {
+
+    font-size:
+        23px !important;
+
+    line-height:
+        1.3 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-detail-meta-row {
+
+    font-size:
+        12px !important;
+
+    line-height:
+        1.5 !important;
+
+}
+
+
+/* ============================================================
+   03. ROLE CONTEXT
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-role-context-content strong {
+
+    font-size:
+        11px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-role-context-content span {
+
+    font-size:
+        11px !important;
+
+    line-height:
+        1.5 !important;
+
+}
+
+
+/* ============================================================
+   04. STATUS / VERSION
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-card-label {
+
+    font-size:
+        10px !important;
+
+    letter-spacing:
+        1.1px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-card-subtext {
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.45 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-version-value {
+
+    font-size:
+        22px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-status-badge,
+body.smcv-app.cv-detail-page
+.cv-version-status {
+
+    min-height:
+        27px !important;
+
+    padding:
+        0 11px !important;
+
+    font-size:
+        10px !important;
+
+}
+
+
+/* ============================================================
+   05. CARD HEADER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-card-header h2 {
+
+    font-size:
+        16px !important;
+
+    line-height:
+        1.35 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-card-header p {
+
+    font-size:
+        11px !important;
+
+    line-height:
+        1.5 !important;
+
+}
+
+
+/* ============================================================
+   06. WORKFLOW
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-workflow-title {
+
+    font-size:
+        11px !important;
+
+    font-weight:
+        700 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-state {
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.4 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-workflow-dot {
+
+    font-size:
+        11px !important;
+
+}
+
+
+/* ============================================================
+   07. REJECTION
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-rejection-title {
+
+    font-size:
+        11px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-rejection-reason {
+
+    font-size:
+        11px !important;
+
+    line-height:
+        1.55 !important;
+
+}
+
+
+/* ============================================================
+   08. CONTENT SOURCE
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-content-source-card {
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.5 !important;
+
+}
+
+
+/* ============================================================
+   09. PROFILE
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-field-label {
+
+    font-size:
+        9px !important;
+
+    letter-spacing:
+        .6px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-field-value {
+
+    font-size:
+        12px !important;
+
+    line-height:
+        1.7 !important;
+
+}
+
+
+/* ============================================================
+   10. SKILLS
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-skill-name {
+
+    font-size:
+        12px !important;
+
+    line-height:
+        1.4 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-skill-level {
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.4 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-skill-description {
+
+    font-size:
+        11px !important;
+
+    line-height:
+        1.55 !important;
+
+}
+
+
+/* ============================================================
+   11. EDUCATION / EXPERIENCE / PROJECT / CERTIFICATE
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-list-item-title {
+
+    font-size:
+        14px !important;
+
+    line-height:
+        1.4 !important;
+
+    font-weight:
+        650 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-list-item-subtitle {
+
+    font-size:
+        11px !important;
+
+    line-height:
+        1.5 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-item-meta,
+body.smcv-app.cv-detail-page
+.cv-project-meta {
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.45 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-list-item-description {
+
+    font-size:
+        11px !important;
+
+    line-height:
+        1.65 !important;
+
+}
+
+
+/* ============================================================
+   12. INLINE EMPTY
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-inline-empty {
+
+    font-size:
+        11px !important;
+
+}
+
+
+/* ============================================================
+   13. ACTION BUTTONS
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-action-button {
+
+    min-height:
+        36px !important;
+
+    padding:
+        0 13px !important;
+
+    font-size:
+        10px !important;
+
+}
+
+
+/* ============================================================
+   14. REJECTION MODAL
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-modal-kicker {
+
+    font-size:
+        9px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-header h3 {
+
+    font-size:
+        17px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-body label {
+
+    font-size:
+        11px !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-body textarea {
+
+    font-size:
+        11px !important;
+
+    line-height:
+        1.6 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-help {
+
+    font-size:
+        10px !important;
+
+    line-height:
+        1.5 !important;
+
+}
+
+
+body.smcv-app.cv-detail-page
+.cv-modal-button {
+
+    min-height:
+        36px !important;
+
+    padding:
+        0 14px !important;
+
+    font-size:
+        10px !important;
+
+}
+
+
+/* ============================================================
+   15. ERROR / SUCCESS
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+.cv-detail-alert {
+
+    font-size:
+        11px !important;
+
+}
+
+
+/* ============================================================
+   16. FOOTER
+   ============================================================ */
+
+body.smcv-app.cv-detail-page
+#footer-container
+.wthree-copyright p {
+
+    font-size:
+        10px !important;
+
+}
+
+
+/* ============================================================
+   17. MOBILE
+   Giữ chữ dễ đọc trên màn hình nhỏ.
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.cv-detail-page
+    .cv-page-heading h1 {
+
+        font-size:
+            21px !important;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-detail-title {
+
+        font-size:
+            21px !important;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-detail-meta-row {
+
+        font-size:
+            11px !important;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-list-item-title {
+
+        font-size:
+            13px !important;
+
+    }
+
+
+    body.smcv-app.cv-detail-page
+    .cv-list-item-description {
+
+        font-size:
+            11px !important;
+
+    }
+
+}

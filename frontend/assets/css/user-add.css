@@ -1,0 +1,996 @@
+/* ============================================================
+   SYSTEMANAGERCV
+   USER ADD PAGE
+   ============================================================ */
+
+body.smcv-app.user-add-page {
+
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    color: #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6a083 0%,
+            #dda0ab 42%,
+            #bf8eb0 68%,
+            #8673ac 100%
+        );
+
+    background-attachment: fixed;
+}
+
+
+/* ============================================================
+   BOX SIZING
+   ============================================================ */
+
+body.smcv-app.user-add-page *,
+body.smcv-app.user-add-page *::before,
+body.smcv-app.user-add-page *::after {
+
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+
+body.smcv-app.user-add-page #container {
+
+    width: 100%;
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent !important;
+}
+
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+
+body.smcv-app.user-add-page #main-content {
+
+    position: relative;
+
+    width:
+        calc(100% - 240px);
+
+    min-width: 0;
+
+    min-height: 100vh;
+
+    margin-left: 240px;
+    margin-right: 0;
+
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    background: transparent !important;
+
+    box-sizing: border-box;
+
+    transition:
+        margin-left 0.25s ease,
+        width 0.25s ease;
+}
+
+
+/* ============================================================
+   USER ADD WRAPPER
+   ============================================================
+
+   Header hệ thống chiếm khoảng 70px.
+   Wrapper phải nằm bên dưới Header.
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-wrapper {
+
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+
+    /*
+     * ĐÂY LÀ PHẦN SỬA LỖI CHÍNH
+     */
+    margin-top: 80px;
+
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+
+    padding:
+        20px
+        24px
+        45px;
+
+    flex: 1 0 auto;
+
+    background: transparent;
+}
+
+
+/* ============================================================
+   CARD
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-card {
+
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    background: #ffffff;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(31, 41, 55, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* ============================================================
+   CARD HEADER
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-header {
+
+    width: 100%;
+
+    min-height: 76px;
+
+    margin: 0;
+
+    padding:
+        17px
+        24px;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    min-width: 0;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-header-icon {
+
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #f4edf5;
+
+    color: #95608d;
+
+    font-size: 16px;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-header-content {
+
+    min-width: 0;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-title {
+
+    margin:
+        0
+        0
+        3px;
+
+    padding: 0;
+
+    color: #333333;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    line-height: 1.35;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-subtitle {
+
+    margin: 0;
+    padding: 0;
+
+    color: #999999;
+
+    font-size: 11px;
+
+    font-weight: 400;
+
+    line-height: 1.4;
+}
+
+
+/* ============================================================
+   BODY
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-body {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding:
+        22px
+        24px
+        24px;
+
+    background: #ffffff;
+}
+
+
+/* ============================================================
+   MESSAGE
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-message {
+
+    width: 100%;
+
+    margin:
+        0
+        0
+        16px;
+
+    padding:
+        9px
+        12px;
+
+    border-radius: 4px;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   FORM - XẾP TOÀN BỘ FIELD THEO CHIỀU DỌC
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-form {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0;
+
+}
+
+
+/* ============================================================
+   FIELD
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-field {
+
+    width: 100%;
+
+    min-width: 0;
+
+    margin:
+        0
+        0
+        17px;
+
+    padding: 0;
+
+}
+
+
+/* ============================================================
+   ACTION FOOTER
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-form-footer {
+
+    width: 100%;
+
+    margin:
+        4px
+        0
+        0;
+
+    padding:
+        16px
+        0
+        0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    border-top:
+        1px solid #eeeeee;
+
+}
+
+
+/* ============================================================
+   FIELD
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-field {
+
+    min-width: 0;
+
+    margin:
+        0
+        0
+        17px;
+
+    padding: 0;
+}
+
+
+/* ============================================================
+   LABEL
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-field > label {
+
+    display: block;
+
+    margin:
+        0
+        0
+        6px;
+
+    padding: 0;
+
+    color: #444444;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+body.smcv-app.user-add-page
+.required {
+
+    margin-left: 2px;
+
+    color: #d9534f;
+
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   INPUT
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.form-input-wrapper {
+
+    position: relative;
+
+    width: 100%;
+}
+
+
+body.smcv-app.user-add-page
+.form-input-icon {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    z-index: 2;
+
+    width: 40px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #999999;
+
+    font-size: 12px;
+
+    pointer-events: none;
+}
+
+
+body.smcv-app.user-add-page
+.form-input-wrapper
+.form-control {
+
+    width: 100%;
+
+    height: 38px;
+
+    margin: 0;
+
+    padding:
+        8px
+        12px
+        8px
+        40px;
+
+    border:
+        1px solid #dddddd;
+
+    border-radius: 4px;
+
+    background: #ffffff;
+
+    color: #555555;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 20px;
+
+    outline: none;
+
+    box-shadow: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+body.smcv-app.user-add-page
+.form-input-wrapper
+.form-control::placeholder {
+
+    color: #aaaaaa;
+
+    opacity: 1;
+}
+
+
+body.smcv-app.user-add-page
+.form-input-wrapper
+.form-control:hover {
+
+    border-color: #cccccc;
+}
+
+
+body.smcv-app.user-add-page
+.form-input-wrapper
+.form-control:focus {
+
+    border-color: #95608d;
+
+    background: #ffffff;
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(149, 96, 141, 0.08);
+}
+
+
+body.smcv-app.user-add-page
+.category-select {
+
+    cursor: pointer;
+
+    padding-right: 32px;
+}
+
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-form-footer {
+
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    margin:
+        4px
+        0
+        0;
+
+    padding:
+        16px
+        0
+        0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    border-top:
+        1px solid #eeeeee;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-btn {
+
+    min-width: 88px;
+
+    height: 34px;
+
+    padding:
+        7px
+        12px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    border:
+        1px solid transparent;
+
+    border-radius: 4px;
+
+    font-family:
+        "Roboto",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    line-height: 18px;
+
+    text-decoration: none !important;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-btn i {
+
+    font-size: 10px;
+}
+
+
+/* ============================================================
+   BACK
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-btn-back {
+
+    background: #ffffff;
+
+    border-color: #dddddd;
+
+    color: #666666;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-btn-back:hover {
+
+    background: #f7f7f7;
+
+    border-color: #cccccc;
+
+    color: #555555;
+}
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-btn-reset {
+
+    background: #ffffff;
+
+    border-color: #dddddd;
+
+    color: #666666;
+}
+
+
+body.smcv-app.user-add-page
+.user-add-btn-reset:hover {
+
+    background: #f7f1f7;
+
+    border-color: #95608d;
+
+    color: #95608d;
+}
+
+
+/* ============================================================
+   SAVE
+   ============================================================ */
+
+body.smcv-app.user-add-page
+.user-add-btn-save {
+
+    background: #95608d;
+
+    border-color: #95608d;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 3px 8px
+        rgba(149, 96, 141, 0.16);
+}
+
+
+body.smcv-app.user-add-page
+.user-add-btn-save:hover {
+
+    background: #7d526e;
+
+    border-color: #7d526e;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 10px
+        rgba(149, 96, 141, 0.22);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+body.smcv-app.user-add-page
+#footer-container {
+
+    position: relative !important;
+
+    width:
+        calc(100% - 240px) !important;
+
+    margin-left:
+        240px !important;
+
+    margin-right: 0 !important;
+
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+}
+
+
+body.smcv-app.user-add-page
+#footer-container .footer {
+
+    width: 100% !important;
+
+    min-height: 60px;
+
+    margin: 0 !important;
+
+    padding: 20px;
+
+    display: flex !important;
+
+    align-items: center;
+
+    justify-content: center;
+
+    float: none !important;
+
+    clear: both !important;
+
+    background: #d19a98 !important;
+
+    border: none !important;
+}
+
+
+body.smcv-app.user-add-page
+#footer-container .wthree-copyright {
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    text-align: center;
+}
+
+
+body.smcv-app.user-add-page
+#footer-container .wthree-copyright p {
+
+    margin: 0;
+
+    padding: 0;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 400;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* ============================================================
+   SIDEBAR COLLAPSED
+   ============================================================ */
+
+body.smcv-app.user-add-page
+#main-content.merge-left {
+
+    width: 100% !important;
+
+    margin-left: 0 !important;
+}
+
+
+body.smcv-app.user-add-page
+#main-content.merge-left
+~ #footer-container {
+
+    width: 100% !important;
+
+    margin-left: 0 !important;
+}
+
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    body.smcv-app.user-add-page
+    #main-content {
+
+        width: 100% !important;
+
+        margin-left: 0 !important;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-wrapper {
+
+        margin-top: 70px;
+
+        padding:
+            18px
+            18px
+            35px;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-form {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-form-footer {
+
+        grid-column: 1;
+    }
+
+
+    body.smcv-app.user-add-page
+    #footer-container {
+
+        width: 100% !important;
+
+        margin-left: 0 !important;
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    body.smcv-app.user-add-page
+    .user-add-wrapper {
+
+        margin-top: 65px;
+
+        padding:
+            12px
+            10px
+            30px;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-header {
+
+        min-height: auto;
+
+        padding:
+            15px
+            16px;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-header-icon {
+
+        width: 38px;
+        height: 38px;
+
+        flex-basis: 38px;
+
+        font-size: 15px;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-title {
+
+        font-size: 16px;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-subtitle {
+
+        font-size: 10px;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-body {
+
+        padding:
+            18px
+            16px
+            20px;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-form-footer {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    body.smcv-app.user-add-page
+    .user-add-btn {
+
+        width: 100%;
+    }
+
+
+    body.smcv-app.user-add-page
+    #footer-container .footer {
+
+        min-height: 56px !important;
+
+        padding:
+            17px
+            10px !important;
+    }
+
+}

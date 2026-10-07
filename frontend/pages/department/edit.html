@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/bootstrap.min.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/style.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/style-responsive.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/systemanagercv.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/addcategoryview.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/viewcategory.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/department-page-layout.css?v=20261003-1"
+>
+
+<!-- CSS RIÊNG CHO EDIT DEPARTMENT -->
+<link
+    rel="stylesheet"
+    href="../../assets/css/department-edit.css?v=20261004-1"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/font.css"
+>
+
+<link
+    rel="stylesheet"
+    href="../../assets/css/font-awesome.css"
+>
+
+<body class="smcv-app department-page department-edit-page">
+
+
+<section id="container">
+
+
+    <div id="header-container"></div>
+
+    <div id="sidebar-container"></div>
+
+
+    <section id="main-content">
+
+        <section class="wrapper category-wrapper">
+
+
+            <div class="category-card">
+
+
+                <!-- =================================================
+                     HEADER
+                     ================================================= -->
+
+                <div class="category-header">
+
+                    <div class="category-header-left">
+
+
+                        <div class="category-header-icon">
+
+                            <i class="fa fa-building"></i>
+
+                        </div>
+
+
+                        <div class="category-header-content">
+
+                            <h3 class="category-title">
+
+                                Sửa phòng ban
+
+                            </h3>
+
+
+                            <p class="category-subtitle">
+
+                                Cập nhật thông tin phòng ban trong hệ thống
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     BODY
+                     ================================================= -->
+
+                <div class="category-body">
+
+
+                    <div
+                        id="department-error"
+                        class="alert alert-danger department-message"
+                        style="display:none;"
+                    >
+                    </div>
+
+
+                    <div
+                        id="department-success"
+                        class="alert alert-success department-message"
+                        style="display:none;"
+                    >
+                    </div>
+
+
+                    <!-- =================================================
+                         FORM
+                         ================================================= -->
+
+                    <form
+                        id="department-edit-form"
+                        class="category-form"
+                    >
+
+
+                        <!-- =================================================
+                             ID
+                             ================================================= -->
+
+                        <input
+                            type="hidden"
+                            id="department-id"
+                        >
+
+
+                        <!-- =================================================
+                             CODE
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentCode">
+
+                                Mã phòng ban
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <div class="form-input-wrapper">
+
+                                <i
+                                    class="fa fa-barcode form-input-icon"
+                                ></i>
+
+
+                                <input
+                                    type="text"
+                                    id="departmentCode"
+                                    class="form-control"
+                                    placeholder="Nhập mã phòng ban..."
+                                    autocomplete="off"
+                                    maxlength="100"
+                                >
+
+                            </div>
+
+
+                            <div class="department-form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhập mã phòng ban, ví dụ: PB001, PB002...
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             NAME
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentName">
+
+                                Tên phòng ban
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+
+                            <div class="form-input-wrapper">
+
+                                <i
+                                    class="fa fa-building-o form-input-icon"
+                                ></i>
+
+
+                                <input
+                                    type="text"
+                                    id="departmentName"
+                                    class="form-control"
+                                    placeholder="Nhập tên phòng ban..."
+                                    autocomplete="off"
+                                    maxlength="255"
+                                >
+
+                            </div>
+
+
+                            <div class="department-form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhập tên phòng ban, ví dụ: Phòng Nhân sự, Phòng IT...
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             DESCRIPTION
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentDescription">
+
+                                Mô tả phòng ban
+
+                            </label>
+
+
+                            <div class="form-textarea-wrapper">
+
+                                <i
+                                    class="fa fa-align-left form-textarea-icon"
+                                ></i>
+
+
+                                <textarea
+                                    id="departmentDescription"
+                                    class="form-control category-textarea"
+                                    rows="6"
+                                    placeholder="Nhập mô tả chi tiết cho phòng ban..."
+                                    maxlength="1000"
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="department-form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Nhập thông tin mô tả về chức năng, nhiệm vụ của phòng ban.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             STATUS
+                             ================================================= -->
+
+                        <div class="form-group">
+
+                            <label for="departmentStatus">
+
+                                Trạng thái
+
+                            </label>
+
+
+                            <div class="form-input-wrapper">
+
+                                <i
+                                    class="fa fa-toggle-on form-input-icon"
+                                ></i>
+
+
+                                <select
+                                    id="departmentStatus"
+                                    class="form-control category-select"
+                                >
+
+                                    <option value="ACTIVE">
+                                        Hoạt động
+                                    </option>
+
+                                    <option value="INACTIVE">
+                                        Không hoạt động
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="department-form-help">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                Phòng ban ở trạng thái hoạt động sẽ được sử dụng trong hệ thống.
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="category-divider"></div>
+
+
+                        <!-- =================================================
+                             FOOTER
+                             ================================================= -->
+
+                        <div class="category-form-footer">
+
+
+                            <a
+                                href="./index.html"
+                                class="category-btn category-btn-back"
+                            >
+
+                                <i class="fa fa-arrow-left"></i>
+
+                                <span>
+                                    Quay lại
+                                </span>
+
+                            </a>
+
+
+                            <button
+                                type="reset"
+                                id="department-reset"
+                                class="category-btn category-btn-reset"
+                            >
+
+                                <i class="fa fa-refresh"></i>
+
+                                <span>
+                                    Nhập lại
+                                </span>
+
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                id="department-save-button"
+                                class="category-btn category-btn-save"
+                            >
+
+                                <i class="fa fa-save"></i>
+
+                                <span>
+                                    Lưu thay đổi
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </section>
+
+     <!-- =====================================================
+    FOOTER
+    ===================================================== -->
+
+    <footer id="footer-container"></footer>
+
+</section>
+
+
+<!-- ============================================================
+     JS
+     ============================================================ -->
+
+<script src="../../assets/js/jquery.min.js"></script>
+
+<script src="../../assets/js/bootstrap.js"></script>
+
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+
+<script src="../../services/api/api.js"></script>
+
+<script src="../../services/api/departmentApi.js"></script>
+
+
+<script src="../../services/auth/authApi.js"></script>
+
+<script src="../../services/auth/auth.js"></script>
+
+
+<script src="./edit.js?v=20261003-1"></script>
+
+</body>
+
+</html>

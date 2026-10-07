@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Quản lý phòng ban - SystemanagerCV</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css"
+    >
+
+
+    <!-- =====================================================
+         CORE
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css"
+    >
+
+
+    <!-- =====================================================
+         CATEGORY CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/viewcategory.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/addcategoryview.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/department-page-layout.css?v=20261003-1"
+    >
+
+
+    <!-- =====================================================
+         FONT
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css"
+    >
+
+</head>
+
+
+<body class="smcv-app department-page department-index-page">
+
+
+<section id="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <section id="main-content">
+
+        <section class="wrapper category-wrapper">
+
+
+            <!-- =================================================
+                 DEPARTMENT CARD
+                 ================================================= -->
+
+            <div class="category-card">
+
+
+                <!-- =================================================
+                     PAGE HEADER
+                     ================================================= -->
+
+                <div class="category-header">
+
+                    <div class="category-header-left">
+
+
+                        <div class="category-header-icon">
+
+                            <i class="fa fa-building"></i>
+
+                        </div>
+
+
+                        <div class="category-header-content">
+
+                            <h3 class="category-title">
+
+                                Danh sách phòng ban
+
+                            </h3>
+
+
+                            <p class="category-subtitle">
+
+                                Quản lý các phòng ban
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TOTAL
+                         ================================================= -->
+
+                    <div class="category-total-box">
+
+                        <div class="category-total-icon">
+
+                            <i class="fa fa-building"></i>
+
+                        </div>
+
+
+                        <div class="category-total-content">
+
+                            <span>
+                                Tổng số:
+                            </span>
+
+
+                            <strong id="department-total-items">
+                                0
+                            </strong>
+
+
+                            <small>
+                                phòng ban
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     CONTENT
+                     ================================================= -->
+
+                <div class="category-content">
+
+
+                    <!-- =================================================
+                         SEARCH
+                         ================================================= -->
+
+                    <div class="category-search">
+
+                        <form
+                            id="department-search-form"
+                            class="category-search-form"
+                        >
+
+
+                            <!-- KEYWORD -->
+
+                            <div class="category-search-input">
+
+                                <i class="fa fa-search"></i>
+
+                                <input
+                                    type="text"
+                                    id="department-keyword"
+                                    class="form-control"
+                                    placeholder="Nhập mã hoặc tên phòng ban cần tìm..."
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+
+                            <!-- STATUS -->
+
+                            <select
+                                id="department-status"
+                                class="form-control category-select department-search-status"
+                            >
+
+                                <option value="">
+                                    -- Tất cả trạng thái --
+                                </option>
+
+
+                                <option value="ACTIVE">
+                                    Hoạt động
+                                </option>
+
+
+                                <option value="INACTIVE">
+                                    Không hoạt động
+                                </option>
+
+                            </select>
+
+
+                            <!-- SEARCH -->
+
+                            <button
+                                type="submit"
+                                class="category-btn category-btn-search"
+                            >
+
+                                <i class="fa fa-search"></i>
+
+                                Tìm kiếm
+
+                            </button>
+
+
+                            <!-- RESET -->
+
+                            <button
+                                type="button"
+                                id="department-reset"
+                                class="category-btn category-btn-refresh"
+                            >
+
+                                <i class="fa fa-refresh"></i>
+
+                                Làm mới
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         TABLE
+                         ================================================= -->
+
+                    <div class="category-table-wrapper">
+
+                        <table class="category-table">
+
+                            <thead>
+
+                            <tr>
+
+                                <th class="category-col-stt">
+                                    STT
+                                </th>
+
+
+                                <th class="category-col-code">
+                                    Mã phòng ban
+                                </th>
+
+
+                                <th class="category-col-name">
+                                    Tên phòng ban
+                                </th>
+
+
+                                <th class="category-col-description">
+                                    Mô tả
+                                </th>
+
+
+                                <th class="category-col-status">
+                                    Trạng thái
+                                </th>
+
+
+                                <th class="category-col-created">
+                                    Ngày tạo
+                                </th>
+
+                                <th class="category-col-updated">
+                                    Cập nhật lần cuối
+                                </th>
+
+                                <th class="category-col-action">
+                                    Thao tác
+                                </th>
+
+                            </tr>
+
+                            </thead>
+
+
+                            <tbody id="department-table-body">
+
+                            <!-- JS render -->
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ERROR
+                         ================================================= -->
+
+                    <div
+                        id="department-error"
+                        class="alert alert-danger department-message"
+                        style="display:none;"
+                    >
+                    </div>
+
+
+                    <!-- =================================================
+                         SUCCESS
+                         ================================================= -->
+
+                    <div
+                        id="department-success"
+                        class="alert alert-success department-message"
+                        style="display:none;"
+                    >
+                    </div>
+
+
+                    <!-- =================================================
+                         PAGINATION
+                         ================================================= -->
+
+                    <div class="category-pagination">
+
+
+                        <div class="category-pagination-info">
+
+                            Trang
+
+                            <strong id="department-current-page">
+                                1
+                            </strong>
+
+                            /
+
+                            <strong id="department-total-pages">
+                                1
+                            </strong>
+
+                        </div>
+
+
+                        <div class="category-pagination-buttons">
+
+
+                            <button
+                                type="button"
+                                id="department-prev"
+                                class="pagination-button"
+                            >
+
+                                <i class="fa fa-angle-left"></i>
+
+                            </button>
+
+
+                            <div id="department-page-numbers"></div>
+
+
+                            <button
+                                type="button"
+                                id="department-next"
+                                class="pagination-button"
+                            >
+
+                                <i class="fa fa-angle-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+              
+
+        </section>
+
+         <!-- =====================================================
+                FOOTER
+                ===================================================== -->
+
+            <footer id="footer-container"></footer>
+    </section>
+
+
+</section>
+
+
+<!-- ============================================================
+     JAVASCRIPT LIBRARIES
+     ============================================================ -->
+
+<script src="../../assets/js/jquery.min.js"></script>
+
+<script src="../../assets/js/bootstrap.js"></script>
+
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+
+<!-- ============================================================
+     API
+     ============================================================ -->
+
+<script src="../../services/api/api.js"></script>
+
+<script src="../../services/api/departmentApi.js"></script>
+
+
+<!-- ============================================================
+     AUTH
+     ============================================================ -->
+
+<script src="../../services/auth/authApi.js"></script>
+
+<script src="../../services/auth/auth.js"></script>
+
+
+<!-- ============================================================
+     PAGE
+     ============================================================ -->
+
+<script src="./index.js?v=20261003-1"></script>
+
+</body>
+
+</html>

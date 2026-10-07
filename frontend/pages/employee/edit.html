@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Sửa nhân viên - System Manager CV</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/bootstrap.min.css">
+
+
+    <!-- =====================================================
+         SYSTEM CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style-responsive.css">
+
+
+    <!-- =====================================================
+         SYSTEMANAGERCV CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv.css">
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/systemanagercv-dashboard.css">
+
+
+    <!-- =====================================================
+         CATEGORY CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/viewcategory.css">
+
+
+    <!-- =====================================================
+         EMPLOYEE EDIT CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/employee-edit.css?v=20261001-3">
+
+
+    <!-- =====================================================
+         FONT
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font.css">
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/font-awesome.css">
+
+</head>
+
+
+<body class="smcv-app employee-edit-page">
+
+
+<section id="container">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div id="header-container"></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <div id="sidebar-container"></div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <section id="main-content">
+
+
+        <!-- =================================================
+             QUAN TRỌNG:
+             Dùng class "wrapper" giống các trang hệ thống.
+
+             style.css của project đã định nghĩa:
+             .wrapper {
+                 margin-top: 80px;
+             }
+
+             Nhờ đó nội dung không nằm dưới Header.
+             ================================================= -->
+
+        <section class="wrapper employee-edit-wrapper">
+
+
+            <!-- =================================================
+                 EMPLOYEE EDIT CARD
+                 ================================================= -->
+
+            <div class="employee-edit-card">
+
+
+                <!-- =================================================
+                     HEADER
+                     ================================================= -->
+
+                <div class="employee-edit-header">
+
+
+                    <div class="employee-edit-header-left">
+
+
+                        <div class="employee-edit-header-icon">
+
+                            <i class="fa fa-user"></i>
+
+                        </div>
+
+
+                        <div class="employee-edit-header-content">
+
+                            <h3 class="employee-edit-title">
+
+                                Sửa nhân viên
+
+                            </h3>
+
+
+                            <p class="employee-edit-subtitle">
+
+                                Cập nhật thông tin nhân viên trong hệ thống
+
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     BODY
+                     ================================================= -->
+
+                <div class="employee-edit-body">
+
+
+                    <!-- =================================================
+                         ERROR
+                         ================================================= -->
+
+                    <div
+                        id="errorMessage"
+                        class="employee-edit-message error">
+
+                        <i class="fa fa-exclamation-circle"></i>
+
+                        <span id="errorMessageText">
+
+                            Có lỗi xảy ra.
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SUCCESS
+                         ================================================= -->
+
+                    <div
+                        id="successMessage"
+                        class="employee-edit-message success">
+
+                        <i class="fa fa-check-circle"></i>
+
+                        <span id="successMessageText">
+
+                            Cập nhật thành công.
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         FORM
+                         ================================================= -->
+
+                    <form
+                        id="employeeEditForm"
+                        class="employee-edit-form">
+
+
+                        <!-- =================================================
+                             EMPLOYEE INFORMATION
+                             ================================================= -->
+
+                        <div class="employee-edit-section">
+
+
+                            <div class="employee-edit-section-heading">
+
+
+                                <div class="employee-edit-section-icon">
+
+                                    <i class="fa fa-user"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+
+                                        Thông tin nhân viên
+
+                                    </h4>
+
+                                    <p>
+
+                                        Cập nhật thông tin cơ bản của nhân viên.
+
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 FORM GRID
+                                 ================================================= -->
+
+                            <div class="employee-edit-grid">
+
+
+                                <!-- =================================================
+                                     USER
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="userId">
+
+                                        Tài khoản đăng nhập
+
+                                        <span class="required-mark">
+
+                                            *
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-user form-input-icon">
+                                        </i>
+
+
+                                        <select
+                                            id="userId"
+                                            class="employee-edit-control"
+                                            required>
+
+                                            <option value="">
+
+                                                -- Chọn tài khoản --
+
+                                            </option>
+
+                                        </select>
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Chọn tài khoản đăng nhập của nhân viên.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     EMPLOYEE CODE
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="employeeCode">
+
+                                        Mã nhân viên
+
+                                        <span class="required-mark">
+
+                                            *
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-id-card form-input-icon">
+                                        </i>
+
+
+                                        <input
+                                            type="text"
+                                            id="employeeCode"
+                                            class="employee-edit-control"
+                                            placeholder="Ví dụ: NV001"
+                                            autocomplete="off"
+                                            required>
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Mã nhân viên phải là duy nhất.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     FULL NAME
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="fullName">
+
+                                        Họ và tên
+
+                                        <span class="required-mark">
+
+                                            *
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-user-o form-input-icon">
+                                        </i>
+
+
+                                        <input
+                                            type="text"
+                                            id="fullName"
+                                            class="employee-edit-control"
+                                            placeholder="Nhập họ và tên nhân viên..."
+                                            autocomplete="off"
+                                            required>
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Nhập đầy đủ họ và tên nhân viên.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     EMAIL
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="email">
+
+                                        Email
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-envelope form-input-icon">
+                                        </i>
+
+
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            class="employee-edit-control"
+                                            placeholder="example@company.com"
+                                            autocomplete="off">
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Email liên hệ của nhân viên.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     PHONE
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="phone">
+
+                                        Số điện thoại
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-phone form-input-icon">
+                                        </i>
+
+
+                                        <input
+                                            type="tel"
+                                            id="phone"
+                                            class="employee-edit-control"
+                                            placeholder="Nhập số điện thoại..."
+                                            autocomplete="off">
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Số điện thoại liên hệ của nhân viên.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     DEPARTMENT
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="departmentId">
+
+                                        Phòng ban
+
+                                        <span class="required-mark">
+
+                                            *
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-building form-input-icon">
+                                        </i>
+
+
+                                        <select
+                                            id="departmentId"
+                                            class="employee-edit-control"
+                                            required>
+
+
+                                            <option value="">
+
+                                                -- Chọn phòng ban --
+
+                                            </option>
+
+
+                                        </select>
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Chọn phòng ban mà nhân viên đang làm việc.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     POSITION
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="position">
+
+                                        Chức vụ
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-user form-input-icon">
+                                        </i>
+
+
+                                        <select
+                                            id="position"
+                                            class="employee-edit-control">
+
+
+                                            <option value="">
+
+                                                -- Chọn chức vụ --
+
+                                            </option>
+
+
+                                            <option value="NHAN_VIEN">
+
+                                                Nhân viên
+
+                                            </option>
+
+
+                                            <option value="TRUONG_NHOM">
+
+                                                Trưởng nhóm
+
+                                            </option>
+
+
+                                            <option value="TRUONG_PHONG">
+
+                                                Trưởng phòng
+
+                                            </option>
+
+
+                                            <option value="QUAN_LY">
+
+                                                Quản lý
+
+                                            </option>
+
+
+                                        </select>
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Chọn chức vụ hiện tại của nhân viên.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     JOB TITLE
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="jobTitle">
+
+                                        Chức danh
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-briefcase form-input-icon">
+                                        </i>
+
+
+                                        <input
+                                            type="text"
+                                            id="jobTitle"
+                                            class="employee-edit-control"
+                                            placeholder="Ví dụ: Java Backend Developer"
+                                            autocomplete="off">
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Ví dụ: Java Developer, HR Specialist,
+                                        Project Manager...
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     JOIN DATE
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="joinDate">
+
+                                        Ngày vào làm
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-calendar form-input-icon">
+                                        </i>
+
+
+                                        <input
+                                            type="date"
+                                            id="joinDate"
+                                            class="employee-edit-control">
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Ngày nhân viên bắt đầu làm việc.
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     STATUS
+                                     ================================================= -->
+
+                                <div class="employee-edit-field">
+
+
+                                    <label for="status">
+
+                                        Trạng thái
+
+                                        <span class="required-mark">
+
+                                            *
+
+                                        </span>
+
+                                    </label>
+
+
+                                    <div class="form-input-wrapper">
+
+
+                                        <i
+                                            class="fa fa-toggle-on form-input-icon">
+                                        </i>
+
+
+                                        <select
+                                            id="status"
+                                            class="employee-edit-control"
+                                            required>
+
+
+                                            <option value="ACTIVE">
+
+                                                Hoạt động
+
+                                            </option>
+
+
+                                            <option value="INACTIVE">
+
+                                                Không hoạt động
+
+                                            </option>
+
+
+                                        </select>
+
+
+                                    </div>
+
+
+                                    <div class="form-help">
+
+                                        Nhân viên không hoạt động sẽ không được
+                                        sử dụng trong các chức năng liên quan.
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             DIVIDER
+                             ================================================= -->
+
+                        <div class="employee-edit-divider"></div>
+
+
+                        <!-- =================================================
+                             AUDIT INFORMATION
+                             ================================================= -->
+
+                        <div class="employee-edit-audit-info">
+
+
+                            <div class="employee-edit-audit-heading">
+
+
+                                <div class="employee-edit-section-heading">
+
+
+                                    <div class="employee-edit-section-icon">
+
+                                        <i class="fa fa-history"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h4>
+
+                                            Thông tin hệ thống
+
+                                        </h4>
+
+                                        <p>
+
+                                            Thông tin do hệ thống tự động ghi nhận.
+
+                                        </p>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="employee-edit-audit-grid">
+
+
+                                <!-- CREATED -->
+
+                                <div class="employee-edit-audit-item">
+
+
+                                    <span class="employee-edit-audit-label">
+
+                                        <i class="fa fa-calendar"></i>
+
+                                        Ngày tạo
+
+                                    </span>
+
+
+                                    <strong id="createdDate">
+
+                                        ---
+
+                                    </strong>
+
+
+                                </div>
+
+
+                                <!-- UPDATED -->
+
+                                <div class="employee-edit-audit-item">
+
+
+                                    <span class="employee-edit-audit-label">
+
+                                        <i class="fa fa-clock-o"></i>
+
+                                        Cập nhật lần cuối
+
+                                    </span>
+
+
+                                    <strong id="updatedDate">
+
+                                        Chưa cập nhật
+
+                                    </strong>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             FORM FOOTER
+                             ================================================= -->
+
+                        <div class="employee-edit-form-footer">
+
+
+                            <div class="employee-edit-footer-note">
+
+                                <i class="fa fa-info-circle"></i>
+
+                                <span>
+
+                                    Các trường có dấu
+                                    <b>*</b>
+                                    là bắt buộc.
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="employee-edit-actions">
+
+
+                                <!-- BACK -->
+
+                                <a
+                                    href="./index.html"
+                                    class="employee-edit-btn employee-edit-btn-back">
+
+                                    <i class="fa fa-arrow-left"></i>
+
+                                    Quay lại
+
+                                </a>
+
+
+                                <!-- RESET -->
+
+                                <button
+                                    type="button"
+                                    id="resetButton"
+                                    class="employee-edit-btn employee-edit-btn-reset">
+
+                                    <i class="fa fa-refresh"></i>
+
+                                    Khôi phục
+
+                                </button>
+
+
+                                <!-- SAVE -->
+
+                                <button
+                                    type="submit"
+                                    id="saveButton"
+                                    class="employee-edit-btn employee-edit-btn-save">
+
+                                    <i class="fa fa-save"></i>
+
+                                    Lưu thay đổi
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+
+        <div id="footer-container"></div>
+
+
+    </section>
+
+
+</section>
+
+
+<!-- =========================================================
+     JQUERY
+     ========================================================= -->
+
+<script src="../../assets/js/jquery.min.js"></script>
+
+
+<!-- =========================================================
+     BOOTSTRAP
+     ========================================================= -->
+
+<script src="../../assets/js/bootstrap.js"></script>
+
+
+<!-- =========================================================
+     SIDEBAR LIBRARIES
+     ========================================================= -->
+
+<script src="../../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+
+<script src="../../assets/js/scripts.js"></script>
+
+<script src="../../assets/js/jquery.slimscroll.js"></script>
+
+<script src="../../assets/js/jquery.nicescroll.js"></script>
+
+<script src="../../assets/js/jquery.scrollTo.js"></script>
+
+
+<!-- =========================================================
+     API
+     ========================================================= -->
+
+<script src="../../services/api/api.js"></script>
+
+<script src="../../services/api/employeeApi.js"></script>
+
+
+<!-- =========================================================
+     AUTH
+     ========================================================= -->
+
+<script src="../../services/auth/authApi.js"></script>
+
+<script src="../../services/auth/auth.js"></script>
+
+
+<!-- =========================================================
+     EMPLOYEE EDIT
+     ========================================================= -->
+
+<script src="./edit.js"></script>
+
+
+</body>
+
+</html>

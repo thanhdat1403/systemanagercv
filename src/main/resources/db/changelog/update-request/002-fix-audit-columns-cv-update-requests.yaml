@@ -1,0 +1,29 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 002-fix-audit-columns-cv-update-requests
+      author: systemanagercv
+
+      changes:
+
+        - modifyDataType:
+            tableName: cv_update_requests
+            columnName: created_by
+            newDataType: VARCHAR(255)
+
+        - modifyDataType:
+            tableName: cv_update_requests
+            columnName: updated_by
+            newDataType: VARCHAR(255)
+
+        - addNotNullConstraint:
+            tableName: cv_update_requests
+            columnName: created_date
+            columnDataType: DATETIME
+
+      rollback:
+
+        - dropNotNullConstraint:
+            tableName: cv_update_requests
+            columnName: created_date
+            columnDataType: DATETIME

@@ -57,7 +57,8 @@ public class SecurityConfig {
         // 2. Chỉ định danh sách các Domain (Frontend) được phép gửi yêu cầu tới Server này
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5500", // Thường là cổng chạy Live Server của VS Code
-                "http://127.0.0.1:5500"
+                "http://127.0.0.1:5500",
+                "http://localhost:5501"
         ));
 
         // 3. Khai báo các phương thức HTTP (HTTP Methods) mà Frontend được phép sử dụng

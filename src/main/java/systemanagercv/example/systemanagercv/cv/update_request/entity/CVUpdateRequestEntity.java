@@ -5,9 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -20,21 +17,12 @@ import systemanagercv.example.systemanagercv.cv.update_request.enums.CVUpdateReq
 import systemanagercv.example.systemanagercv.user.entity.User;
 
 import java.time.LocalDate;
-
 @Entity
 @Table(name = "cv_update_requests")
 @Getter
 @Setter
 @NoArgsConstructor
 public class CVUpdateRequestEntity extends BaseEntity {
-
-    // =====================================================
-    // ID
-    // =====================================================
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     // =====================================================
     // CV ĐƯỢC YÊU CẦU CẬP NHẬT
@@ -91,21 +79,20 @@ public class CVUpdateRequestEntity extends BaseEntity {
     // NỘI DUNG YÊU CẦU
     // =====================================================
 
-        @Column(
-                name = "content",
-                nullable = false,
-                columnDefinition = "TEXT"
-        )
-        private String content;
-
+    @Column(
+            name = "content",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
+    private String content;
 
     // =====================================================
     // DEADLINE
     // =====================================================
 
-        @Column(
-                name = "deadline",
-                nullable = false
-        )
-        private LocalDate deadline;
+    @Column(
+            name = "deadline",
+            nullable = false
+    )
+    private LocalDate deadline;
 }
